@@ -16,19 +16,12 @@ document.getElementById('sendNotification').addEventListener('click', function()
   document.getElementById('jobPostForm').addEventListener('submit', function(e) {
     e.preventDefault();
   
-    // Collect form input values
     const jobTitle = document.getElementById('jobTitle').value.trim();
     const jobDescription = document.getElementById('jobDescription').value.trim();
     const jobDuration = document.getElementById('jobDuration').value.trim();
     const salary = document.getElementById('salary').value.trim();
     const paidUnpaid = document.getElementById('paidUnpaid').value;
     const skillsRequired = document.getElementById('skillsRequired').value.trim();
-  
-    // Validate inputs (basic)
-    if (!jobTitle || !jobDescription || !jobDuration || !salary || !paidUnpaid || !skillsRequired) {
-      alert('All fields are required.');
-      return;
-    }
   
     // Create a job post object
     const jobPost = {
@@ -49,3 +42,4 @@ document.getElementById('sendNotification').addEventListener('click', function()
     // Clear the form after submission
     document.getElementById('jobPostForm').reset();
   });
+  

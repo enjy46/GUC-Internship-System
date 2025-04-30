@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Internships</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h1>Available Internships</h1>
+
+  <section class="filters">
+    <input type="text" id="searchTitle" placeholder="Search by Job Title or Company">
+    <select id="industryFilter">
+      <option value="">All Industries</option>
+      <option value="Tech">Tech</option>
+      <option value="Finance">Finance</option>
+      <option value="Healthcare">Healthcare</option>
+      <option value="Education">Education</option>
+    </select>
+    <select id="durationFilter">
+      <option value="">All Durations</option>
+      <option value="1 month">1 month</option>
+      <option value="2 months">2 months</option>
+      <option value="3+ months">3+ months</option>
+    </select>
+    <select id="paidFilter">
+      <option value="">All</option>
+      <option value="paid">Paid</option>
+      <option value="unpaid">Unpaid</option>
+    </select>
+  </section>
+
+  <section id="internshipList" class="internship-list"></section>
+
+  <script src="js/internships.js"></script>
+</body>
+</html>
