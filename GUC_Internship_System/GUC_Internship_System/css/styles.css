@@ -1,28 +1,74 @@
-.login-container {
-    width: 300px;
-    margin: 100px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-    background-color: #f9f9f9;
-  }
-  
-  .login-container input,
-  .login-container select {
-    display: block;
-    width: 100%;
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 14px;
-  }
-  
-  .login-container button {
-    padding: 10px;
-    width: 100%;
-    background-color: maroon;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
+/* General styles for the dashboard and forms */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+}
+
+.dashboard-container {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2, h3, h4 {
+  color: #333;
+}
+
+/* Button and form styles */
+button {
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: maroon;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #a30000;
+}
+
+form {
+  margin-top: 20px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  height: 150px;
+}
+
+#jobPosts {
+  margin-top: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+#notificationMessage, #errorNotification {
+  margin-top: 20px;
+  font-size: 18px;
+}

@@ -1,1 +1,44 @@
-<!DOCTYPE html><html><head><title>Company Dashboard</title></head><body><h1>Company Dashboard</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="dashboard-container">
+    <h2>Welcome, Company</h2>
+    
+    <!-- Simulate email notification -->
+    <button id="sendNotification">Simulate Application Notification</button>
+    <p id="notificationMessage" style="display: none; color: green;">Your application has been accepted!</p>
+    <p id="errorNotification" style="display: none; color: red;">Your application has been rejected.</p>
+
+    <!-- Job Post Management -->
+    <div class="job-post-container">
+      <h3>Manage Job Posts</h3>
+      
+      <form id="jobPostForm">
+        <input type="text" id="jobTitle" placeholder="Job Title" required>
+        <textarea id="jobDescription" placeholder="Job Description" required></textarea>
+        <input type="text" id="jobDuration" placeholder="Job Duration (e.g., 3 months)" required>
+        <input type="text" id="salary" placeholder="Expected Salary (if paid)" required>
+        <select id="paidUnpaid" required>
+          <option value="">Paid or Unpaid</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
+        <input type="text" id="skillsRequired" placeholder="Skills Required" required>
+        <button type="submit">Create Job Post</button>
+      </form>
+
+      <div id="jobPosts">
+        <h4>Job Posts</h4>
+        <ul id="jobPostList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/company.js"></script>
+</body>
+</html>
