@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company Register</title>
+    <link rel="stylesheet" href="css/company.css">
+</head>
+<body>
+    <h1>Company Registration</h1>
+    <form id="companyRegisterForm" enctype="multipart/form-data">
+        <label for="companyName">Company Name:</label><br>
+        <input type="text" id="companyName" name="companyName" required><br><br>
+
+        <label for="industry">Industry:</label><br>
+        <input type="text" id="industry" name="industry" required><br><br>
+
+        <label for="companySize">Company Size:</label><br>
+        <select id="companySize" name="companySize" required>
+            <option value="">--Select--</option>
+            <option value="small">Small (≤ 50 employees)</option>
+            <option value="medium">Medium (51–100 employees)</option>
+            <option value="large">Large (101–500 employees)</option>
+            <option value="corporate">Corporate (> 500 employees)</option>
+        </select><br><br>
+
+        <label for="companyLogo">Company Logo:</label><br>
+        <input type="file" id="companyLogo" name="companyLogo" accept="image/*" required><br><br>
+
+        <label for="officialEmail">Official Company Email:</label><br>
+        <input type="email" id="officialEmail" name="officialEmail" required><br><br>
+
+        <label for="documents">Upload Proof Documents (e.g. Tax Documents):</label><br>
+        <input type="file" id="documents" name="documents" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" multiple required><br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <script src="js/formValidation.js"></script>
+</body>
+</html>
