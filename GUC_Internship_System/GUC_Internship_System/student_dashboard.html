@@ -1,1 +1,47 @@
-<!DOCTYPE html><html><head><title>Student Dashboard</title></head><body><h1>Student Dashboard</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="css/student.css">
+</head>
+<body>
+  <h1>Welcome, Student</h1>
+
+  <section class="profile-section">
+    <h2>Your Profile</h2>
+    <form id="profileForm">
+      <label>Job Interests: <input type="text" id="interests" /></label>
+      <label>Previous Internships:
+        <textarea id="internships" placeholder="Company - Duration - Responsibilities"></textarea>
+      </label>
+      <label>College Activities: <textarea id="activities"></textarea></label>
+      <label>Major:
+        <select id="majorSelect">
+          <option value="CS">Computer Science</option>
+          <option value="Eng">Engineering</option>
+          <option value="Business">Business</option>
+        </select>
+      </label>
+      <label>Semester:
+        <select id="semesterSelect">
+          <option value="1">Semester 1</option>
+          <option value="2">Semester 2</option>
+          <option value="3">Semester 3</option>
+          <option value="4">Semester 4</option>
+        </select>
+      </label>
+      <button type="submit">Update Profile</button>
+    </form>
+  </section>
+
+  <section class="suggestions">
+    <h2>Suggested Companies</h2>
+    <ul id="suggestedList">
+      <!-- Populated by JS -->
+    </ul>
+  </section>
+
+  <script src="js/student_dashboard.js"></script>
+</body>
+</html>
