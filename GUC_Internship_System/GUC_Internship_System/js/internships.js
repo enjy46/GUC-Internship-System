@@ -52,6 +52,7 @@ function renderInternships(data) {
       <p><strong>Company:</strong> ${item.company}</p>
       <p><strong>Duration:</strong> ${item.duration}</p>
       <button onclick="viewInternship(${index})">View Details</button>
+      <button onclick="applyToInternship(${index})">Apply</button>
     `;
     listContainer.appendChild(div);
   });
@@ -60,6 +61,29 @@ function renderInternships(data) {
 function viewInternship(index) {
   const i = internships[index];
   alert(`Internship Details:\n\nTitle: ${i.title}\nCompany: ${i.company}\nDuration: ${i.duration}\nPaid: ${i.paid ? "Yes" : "No"}\nSalary: ${i.paid ? i.salary + " EGP" : "Unpaid"}\nSkills: ${i.skills.join(", ")}\n\nDescription:\n${i.description}`);
+}
+
+function applyToInternship(index) {
+  const internship = internships[index];
+  const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+
+  // Prevent duplicate applications
+  const alreadyApplied = applications.some(app => app.internship.title === internship.title && app.internship.company === internship.company);
+  if (alreadyApplied) {
+    alert("You have already applied to this internship.");
+    return;
+  }
+
+  const newApplication = {
+    internship,
+    status: "pending",
+    documents: []
+  };
+
+  applications.push(newApplication);
+  localStorage.setItem("applications", JSON.stringify(applications));
+
+  alert("Application submitted! You can view it in your dashboard.");
 }
 
 function applyFilters() {

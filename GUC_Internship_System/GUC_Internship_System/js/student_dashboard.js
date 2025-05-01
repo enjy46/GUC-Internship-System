@@ -2,14 +2,12 @@
 document.getElementById('profileForm').addEventListener('submit', function (e) {
     e.preventDefault();
   
-    // Fetch input values
     const interests = document.getElementById('interests').value.trim();
     const internships = document.getElementById('internships').value.trim();
     const activities = document.getElementById('activities').value.trim();
     const major = document.getElementById('majorSelect').value;
     const semester = document.getElementById('semesterSelect').value;
   
-    // Save profile data in localStorage (for demo purposes)
     const profile = {
       interests,
       internships,
@@ -23,8 +21,8 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
     populateSuggestions(interests);
   });
   
-  // Load profile from localStorage if exists
-  window.onload = function () {
+  // Load profile data
+  function loadProfile() {
     const profile = JSON.parse(localStorage.getItem('studentProfile'));
     if (profile) {
       document.getElementById('interests').value = profile.interests;
@@ -32,43 +30,21 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
       document.getElementById('activities').value = profile.activities;
       document.getElementById('majorSelect').value = profile.major;
       document.getElementById('semesterSelect').value = profile.semester;
-  
       populateSuggestions(profile.interests);
     }
-  };
+  }
   
-  // Dummy suggested companies
+  // Suggestions based on interest
   const allSuggestions = [
-    {
-      name: "TechSpark",
-      interest: "AI",
-      industry: "Technology",
-      recommendedBy: "Intern 2023"
-    },
-    {
-      name: "MediSoft",
-      interest: "Healthcare",
-      industry: "Software",
-      recommendedBy: "Intern 2024"
-    },
-    {
-      name: "FinScope",
-      interest: "Finance",
-      industry: "Banking",
-      recommendedBy: "Intern 2024"
-    },
-    {
-      name: "EduWare",
-      interest: "Education",
-      industry: "EdTech",
-      recommendedBy: "Intern 2023"
-    }
+    { name: "TechSpark", interest: "AI", industry: "Technology", recommendedBy: "Intern 2023" },
+    { name: "MediSoft", interest: "Healthcare", industry: "Software", recommendedBy: "Intern 2024" },
+    { name: "FinScope", interest: "Finance", industry: "Banking", recommendedBy: "Intern 2024" },
+    { name: "EduWare", interest: "Education", industry: "EdTech", recommendedBy: "Intern 2023" }
   ];
   
-  // Display filtered company suggestions based on interest
   function populateSuggestions(interest) {
     const list = document.getElementById('suggestedList');
-    list.innerHTML = ""; // Clear previous suggestions
+    list.innerHTML = "";
   
     const filtered = allSuggestions.filter(c => interest && c.interest.toLowerCase().includes(interest.toLowerCase()));
   
@@ -81,5 +57,45 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
         list.appendChild(li);
       });
     }
+  }
+  
+  // Upload documents for last application
+  function uploadExtraDocuments() {
+    const files = document.getElementById("extraDocs").files;
+    const fileNames = Array.from(files).map(file => file.name);
+    const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+  
+    if (applications.length === 0) {
+      alert("Apply to at least one internship first.");
+      return;
+    }
+  
+    applications[applications.length - 1].documents = fileNames;
+    localStorage.setItem("applications", JSON.stringify(applications));
+    alert("Documents uploaded successfully.");
+    displayApplications();
+  }
+  
+  // Display applications with status
+  function displayApplications() {
+    const container = document.getElementById("applicationList");
+    const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+  
+    if (applications.length === 0) {
+      container.innerHTML = "<p>You have not applied to any internships yet.</p>";
+      return;
+    }
+  
+    container.innerHTML = "";
+    applications.forEach(app => {
+      const div = document.createElement("div");
+      div.className = "application";
+      div.innerHTML = `
+        <h3>${app.internship.title} at ${app.internship.company}</h3>
+        <p>Status: <strong>${app.status}</strong></p>
+        <p>Documents: ${app.documents?.join(", ") || "None"}</p>
+      `;
+      container.appendChild(div);
+    });
   }
   

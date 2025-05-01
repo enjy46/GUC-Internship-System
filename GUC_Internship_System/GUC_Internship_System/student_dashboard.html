@@ -37,11 +37,26 @@
 
   <section class="suggestions">
     <h2>Suggested Companies</h2>
-    <ul id="suggestedList">
-      <!-- Populated by JS -->
-    </ul>
+    <ul id="suggestedList"></ul>
+  </section>
+
+  <section class="documents-section">
+    <h2>Upload Extra Documents</h2>
+    <input type="file" id="extraDocs" multiple>
+    <button onclick="uploadExtraDocuments()">Upload Documents</button>
+  </section>
+
+  <section class="applications-section">
+    <h2>My Internship Applications</h2>
+    <div id="applicationList"></div>
   </section>
 
   <script src="js/student_dashboard.js"></script>
+  <script>
+    window.onload = function () {
+      loadProfile();
+      displayApplications();
+    };
+  </script>
 </body>
 </html>
