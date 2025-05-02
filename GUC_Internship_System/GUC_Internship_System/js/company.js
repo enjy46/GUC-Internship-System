@@ -97,6 +97,111 @@ function simulateApplication(internshipId, applicantName) {
   }
 }
 
+// Function to load job posts from localStorage
+function loadJobPosts() {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  renderJobPosts(jobPosts);
+}
+
+// Function to save job posts to localStorage
+function saveJobPost(jobPost) {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  jobPosts.push(jobPost);
+  localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+}
+
+// Function to render job posts
+function renderJobPosts(jobPosts) {
+  const jobPostList = document.getElementById("jobPostList");
+  jobPostList.innerHTML = "";
+
+  if (jobPosts.length === 0) {
+    jobPostList.innerHTML = "<li>No job posts available.</li>";
+    return;
+  }
+
+  jobPosts.forEach((post, index) => {
+    const li = document.createElement("li");
+    li.textContent = `${post.title} | ${post.duration} | ${post.paidUnpaid} | ${post.skills} | Applications: ${post.applications.length}`;
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.onclick = () => deleteJobPost(index);
+    li.appendChild(deleteButton);
+    jobPostList.appendChild(li);
+  });
+}
+
+// Function to delete a job post
+function deleteJobPost(index) {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  jobPosts.splice(index, 1);
+  localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+  renderJobPosts(jobPosts);
+}
+
+// Handle job post form submission
+document.getElementById("jobPostForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const jobPost = {
+    title: document.getElementById("jobTitle").value,
+    description: document.getElementById("jobDescription").value,
+    duration: document.getElementById("jobDuration").value,
+    salary: document.getElementById("salary").value,
+    paidUnpaid: document.getElementById("paidUnpaid").value,
+    skills: document.getElementById("skillsRequired").value,
+    applications: [] // Initialize with no applications
+  };
+
+  saveJobPost(jobPost);
+  loadJobPosts();
+  e.target.reset();
+});
+
+// Function to search job posts
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  const filteredPosts = jobPosts.filter(post => post.title.toLowerCase().includes(searchTerm));
+  renderJobPosts(filteredPosts);
+});
+
+// Function to filter job posts by Paid/Unpaid
+document.getElementById("filterPaidUnpaid").addEventListener("change", (e) => {
+  const filterValue = e.target.value;
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  const filteredPosts = filterValue ? jobPosts.filter(post => post.paidUnpaid === filterValue) : jobPosts;
+  renderJobPosts(filteredPosts);
+});
+
+// Function to load applications
+function loadApplications() {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  const applicationsList = document.getElementById("applicationsList");
+  applicationsList.innerHTML = "";
+
+  jobPosts.forEach(post => {
+    post.applications.forEach(application => {
+      const li = document.createElement("li");
+      li.textContent = `Job: ${post.title} | Applicant: ${application}`;
+      applicationsList.appendChild(li);
+    });
+  });
+}
+
+// Simulate adding an application to a job post
+function simulateApplication(jobIndex, applicantName) {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  jobPosts[jobIndex].applications.push(applicantName);
+  localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+  loadJobPosts();
+  loadApplications();
+}
+
 // Initial rendering
 renderCompanyInternshipPosts();
 renderNotifications();
+
+// Load job posts and applications on page load
+loadJobPosts();
+loadApplications();

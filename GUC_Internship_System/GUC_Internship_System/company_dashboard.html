@@ -32,10 +32,26 @@
         <button type="submit">Create Job Post</button>
       </form>
 
+      <!-- Search and Filter -->
+      <div class="search-filter-container">
+        <input type="text" id="searchInput" placeholder="Search job posts...">
+        <select id="filterPaidUnpaid">
+          <option value="">Filter by Paid/Unpaid</option>
+          <option value="paid">Paid</option>
+          <option value="unpaid">Unpaid</option>
+        </select>
+      </div>
+
       <div id="jobPosts">
         <h4>Job Posts</h4>
         <ul id="jobPostList"></ul>
       </div>
+    </div>
+
+    <!-- Applications Section -->
+    <div class="applications-container">
+      <h3>Applications</h3>
+      <ul id="applicationsList"></ul>
     </div>
   </div>
 
