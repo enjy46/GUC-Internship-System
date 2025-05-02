@@ -95,3 +95,21 @@ li {
   padding: 8px;
   font-size: 14px;
 }
+
+#notificationsSection, #internshipPostsSection {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+#notificationsList, #companyInternshipList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#notificationsList li, #companyInternshipList li {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}

@@ -83,6 +83,9 @@ function applyToInternship(index) {
   applications.push(newApplication);
   localStorage.setItem("applications", JSON.stringify(applications));
 
+  // Simulate sending a notification to the company
+  simulateApplication(index + 1, "John Doe"); // Replace "John Doe" with dynamic applicant name
+
   alert("Application submitted! You can view it in your dashboard.");
 }
 

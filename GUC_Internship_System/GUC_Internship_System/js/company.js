@@ -42,4 +42,61 @@ document.getElementById('sendNotification').addEventListener('click', function()
     // Clear the form after submission
     document.getElementById('jobPostForm').reset();
   });
-  
+
+// Simulated database for internship posts and applications
+const internshipPosts = [
+  { id: 1, title: "Frontend Developer Intern", company: "Innovatech", applicants: [] },
+  { id: 2, title: "Backend Developer Intern", company: "Innovatech", applicants: [] }
+];
+
+const notifications = [];
+
+// Function to render internship posts for the logged-in company
+function renderCompanyInternshipPosts() {
+  const companyInternshipList = document.getElementById("companyInternshipList");
+  companyInternshipList.innerHTML = "";
+
+  const companyPosts = internshipPosts.filter(post => post.company === "Innovatech"); // Replace with dynamic company name
+  if (companyPosts.length === 0) {
+    companyInternshipList.innerHTML = "<li>No internship posts found.</li>";
+    return;
+  }
+
+  companyPosts.forEach(post => {
+    const li = document.createElement("li");
+    li.textContent = `${post.title} - Applicants: ${post.applicants.length}`;
+    companyInternshipList.appendChild(li);
+  });
+}
+
+// Function to render notifications
+function renderNotifications() {
+  const notificationsList = document.getElementById("notificationsList");
+  notificationsList.innerHTML = "";
+
+  if (notifications.length === 0) {
+    notificationsList.innerHTML = "<li>No notifications.</li>";
+    return;
+  }
+
+  notifications.forEach(notification => {
+    const li = document.createElement("li");
+    li.textContent = notification;
+    notificationsList.appendChild(li);
+  });
+}
+
+// Simulate receiving a notification when someone applies
+function simulateApplication(internshipId, applicantName) {
+  const internship = internshipPosts.find(post => post.id === internshipId);
+  if (internship) {
+    internship.applicants.push(applicantName);
+    notifications.push(`New application for ${internship.title} from ${applicantName}`);
+    renderNotifications();
+    renderCompanyInternshipPosts();
+  }
+}
+
+// Initial rendering
+renderCompanyInternshipPosts();
+renderNotifications();
