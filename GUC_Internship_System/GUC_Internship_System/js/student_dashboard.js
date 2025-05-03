@@ -98,4 +98,35 @@ document.getElementById('profileForm').addEventListener('submit', function (e) {
       container.appendChild(div);
     });
   }
-  
+
+// Load and display past and present internships
+function loadInternshipHistory() {
+  const internshipHistoryContainer = document.getElementById("internshipHistory");
+  const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+
+  if (applications.length === 0) {
+    internshipHistoryContainer.innerHTML = "<p>You have no past or present internships.</p>";
+    return;
+  }
+
+  internshipHistoryContainer.innerHTML = "";
+  applications.forEach(app => {
+    const div = document.createElement("div");
+    div.className = "internship-history-item";
+    div.innerHTML = `
+      <h3>${app.internship.title} at ${app.internship.company}</h3>
+      <p>Status: <strong>${app.status}</strong></p>
+      <p>Duration: ${app.internship.duration}</p>
+      <p>Paid: ${app.internship.paid ? "Yes" : "No"}</p>
+      <p>Salary: ${app.internship.paid ? app.internship.salary + " EGP" : "Unpaid"}</p>
+    `;
+    internshipHistoryContainer.appendChild(div);
+  });
+}
+
+// Call loadInternshipHistory on page load
+window.onload = function () {
+  loadProfile();
+  displayApplications();
+  loadInternshipHistory();
+};
