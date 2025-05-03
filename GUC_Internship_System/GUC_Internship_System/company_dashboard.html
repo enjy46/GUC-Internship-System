@@ -51,10 +51,282 @@
     <!-- Applications Section -->
     <div class="applications-container">
       <h3>Applications</h3>
+      
+      <!-- Filter Applications by Internship Post -->
+      <select id="filterApplicationsByPost">
+        <option value="">All Internship Posts</option>
+        <!-- Options will be dynamically populated -->
+      </select>
+
       <ul id="applicationsList"></ul>
     </div>
   </div>
 
+  <div id="applicantDetails" style="display: none; border: 1px solid #ccc; padding: 10px; margin-top: 20px;">
+    <h4>Applicant Details</h4>
+    <p id="applicantName"></p>
+    <p id="applicantEmail"></p>
+    <p id="applicantResume"></p>
+    <div>
+      <button id="finalizeApplicant">Finalize</button>
+      <button id="acceptApplicant">Accept</button>
+      <button id="rejectApplicant">Reject</button>
+      <button id="setCurrentIntern">Set as Current Intern</button>
+      <button id="setInternshipComplete">Set as Internship Complete</button>
+    </div>
+  </div>
+
+  <div id="currentInternsSection" style="margin-top: 20px;">
+    <h3>Current Interns</h3>
+    <!-- Dropdown to filter interns by status -->
+    <select id="filterInternStatus" onchange="filterInternsByStatus()">
+      <option value="">All Interns</option>
+      <option value="current intern">Current Interns</option>
+      <option value="internship complete">Internship Complete</option>
+    </select>
+    <input type="text" id="searchInternInput" placeholder="Search by name or job title..." oninput="searchInterns()">
+    <ul id="currentInternsList"></ul>
+  </div>
+
+  <div id="evaluationSection" style="margin-top: 20px; display: none;">
+    <h3>Evaluation for Completed Internship</h3>
+    <textarea id="evaluationText" placeholder="Write your evaluation here..." rows="5" style="width: 100%;"></textarea>
+    <div style="margin-top: 10px;">
+      <button id="saveEvaluation">Save Evaluation</button>
+      <button id="updateEvaluation" style="display: none;">Update Evaluation</button>
+      <button id="deleteEvaluation" style="display: none;">Delete Evaluation</button>
+    </div>
+    <p id="evaluationMessage" style="color: green; margin-top: 10px; display: none;">Evaluation saved successfully!</p>
+  </div>
+
   <script src="js/company.js"></script>
+  <script>
+    // Populate mock data in localStorage for testing
+    function populateMockData() {
+      const mockJobPosts = [
+        {
+          title: "Frontend Developer",
+          applications: [
+            { name: "Alice", email: "alice@example.com", resume: "Alice's Resume", status: "current intern" },
+            { name: "Bob", email: "bob@example.com", resume: "Bob's Resume", status: "" }
+          ]
+        },
+        {
+          title: "Backend Developer",
+          applications: [
+            { name: "Charlie", email: "charlie@example.com", resume: "Charlie's Resume", status: "current intern" }
+          ]
+        }
+      ];
+      localStorage.setItem("jobPosts", JSON.stringify(mockJobPosts));
+    }
+
+    // Call populateMockData on page load
+    populateMockData();
+
+    // Populate the filter dropdown with internship posts
+    function populateFilterDropdown() {
+      const filterDropdown = document.getElementById("filterApplicationsByPost");
+      const internshipPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      
+      internshipPosts.forEach(post => {
+        const option = document.createElement("option");
+        option.value = post.title;
+        option.textContent = post.title;
+        filterDropdown.appendChild(option);
+      });
+    }
+
+    // Filter applications based on the selected internship post
+    document.getElementById("filterApplicationsByPost").addEventListener("change", function () {
+      const selectedPost = this.value;
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      const applicationsList = document.getElementById("applicationsList");
+      applicationsList.innerHTML = "";
+
+      jobPosts.forEach(post => {
+        if (selectedPost === "" || post.title === selectedPost) {
+          post.applications.forEach(application => {
+            const li = document.createElement("li");
+            li.textContent = `Job: ${post.title} | Applicant: ${application.name}`;
+            li.dataset.applicant = JSON.stringify(application);
+            li.addEventListener("click", viewApplicantDetails);
+            applicationsList.appendChild(li);
+          });
+        }
+      });
+    });
+
+    // View applicant details
+    function viewApplicantDetails(event) {
+      const applicant = JSON.parse(event.target.dataset.applicant);
+      document.getElementById("applicantName").textContent = `Name: ${applicant.name}`;
+      document.getElementById("applicantEmail").textContent = `Email: ${applicant.email}`;
+      document.getElementById("applicantResume").textContent = `Resume: ${applicant.resume}`;
+      document.getElementById("applicantDetails").style.display = "block";
+
+      // Attach actions to buttons
+      document.getElementById("finalizeApplicant").onclick = () => updateApplicantStatus(applicant, "finalized");
+      document.getElementById("acceptApplicant").onclick = () => updateApplicantStatus(applicant, "accepted");
+      document.getElementById("rejectApplicant").onclick = () => updateApplicantStatus(applicant, "rejected");
+      document.getElementById("setCurrentIntern").onclick = () => updateApplicantStatus(applicant, "current intern");
+      document.getElementById("setInternshipComplete").onclick = () => updateApplicantStatus(applicant, "internship complete");
+    }
+
+    // Update applicant status
+    function updateApplicantStatus(applicant, status) {
+      applicant.status = status;
+      alert(`Applicant ${applicant.name} has been marked as ${status}.`);
+      document.getElementById("applicantDetails").style.display = "none";
+
+      // Update the application in localStorage (if needed)
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      jobPosts.forEach(post => {
+        post.applications.forEach(app => {
+          if (app.name === applicant.name && app.email === applicant.email) {
+            app.status = status;
+          }
+        });
+      });
+      localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+    }
+
+    // Display current interns
+    function displayCurrentInterns() {
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      const currentInternsList = document.getElementById("currentInternsList");
+      currentInternsList.innerHTML = "";
+
+      jobPosts.forEach(post => {
+        post.applications.forEach(application => {
+          if (application.status === "current intern") {
+            const li = document.createElement("li");
+            li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
+            currentInternsList.appendChild(li);
+          }
+        });
+      });
+    }
+
+    // Filter interns by status
+    function filterInternsByStatus() {
+      const filterValue = document.getElementById("filterInternStatus").value;
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      const currentInternsList = document.getElementById("currentInternsList");
+      currentInternsList.innerHTML = "";
+
+      jobPosts.forEach(post => {
+        post.applications.forEach(application => {
+          if (filterValue === "" || application.status === filterValue) {
+            const li = document.createElement("li");
+            li.textContent = `Name: ${application.name}, Job Title: ${post.title}, Status: ${application.status}`;
+            li.dataset.applicant = JSON.stringify(application);
+            li.addEventListener("click", viewInternDetails);
+            currentInternsList.appendChild(li);
+          }
+        });
+      });
+    }
+
+    // View intern details and show evaluation section
+    function viewInternDetails(event) {
+      const intern = JSON.parse(event.target.dataset.applicant);
+      alert(`Intern Details:\nName: ${intern.name}\nEmail: ${intern.email}\nResume: ${intern.resume}\nStatus: ${intern.status}`);
+      if (intern.status === "internship complete") {
+        showEvaluationSection(intern);
+      }
+    }
+
+    // Search for interns by name or job title
+    function searchInterns() {
+      const searchInput = document.getElementById("searchInternInput").value.toLowerCase();
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      const currentInternsList = document.getElementById("currentInternsList");
+      currentInternsList.innerHTML = "";
+
+      jobPosts.forEach(post => {
+        post.applications.forEach(application => {
+          if (
+            application.status === "current intern" &&
+            (application.name.toLowerCase().includes(searchInput) || post.title.toLowerCase().includes(searchInput))
+          ) {
+            const li = document.createElement("li");
+            li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
+            currentInternsList.appendChild(li);
+          }
+        });
+      });
+    }
+
+    // Store evaluations in localStorage
+    function saveEvaluationToStorage(internName, evaluation) {
+      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
+      evaluations[internName] = evaluation;
+      localStorage.setItem("evaluations", JSON.stringify(evaluations));
+    }
+
+    function getEvaluationFromStorage(internName) {
+      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
+      return evaluations[internName] || null;
+    }
+
+    function deleteEvaluationFromStorage(internName) {
+      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
+      delete evaluations[internName];
+      localStorage.setItem("evaluations", JSON.stringify(evaluations));
+    }
+
+    // Show evaluation section for a selected intern
+    function showEvaluationSection(intern) {
+      const evaluationSection = document.getElementById("evaluationSection");
+      const evaluationText = document.getElementById("evaluationText");
+      const saveButton = document.getElementById("saveEvaluation");
+      const updateButton = document.getElementById("updateEvaluation");
+      const deleteButton = document.getElementById("deleteEvaluation");
+      const evaluationMessage = document.getElementById("evaluationMessage");
+
+      evaluationSection.style.display = "block";
+      evaluationText.value = "";
+
+      const existingEvaluation = getEvaluationFromStorage(intern.name);
+      if (existingEvaluation) {
+        evaluationText.value = existingEvaluation;
+        saveButton.style.display = "none";
+        updateButton.style.display = "inline-block";
+        deleteButton.style.display = "inline-block";
+      } else {
+        saveButton.style.display = "inline-block";
+        updateButton.style.display = "none";
+        deleteButton.style.display = "none";
+      }
+
+      saveButton.onclick = () => {
+        saveEvaluationToStorage(intern.name, evaluationText.value);
+        evaluationMessage.textContent = "Evaluation saved successfully!";
+        evaluationMessage.style.display = "block";
+        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+        showEvaluationSection(intern); // Refresh buttons
+      };
+
+      updateButton.onclick = () => {
+        saveEvaluationToStorage(intern.name, evaluationText.value);
+        evaluationMessage.textContent = "Evaluation updated successfully!";
+        evaluationMessage.style.display = "block";
+        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+      };
+
+      deleteButton.onclick = () => {
+        deleteEvaluationFromStorage(intern.name);
+        evaluationMessage.textContent = "Evaluation deleted successfully!";
+        evaluationMessage.style.display = "block";
+        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+        evaluationSection.style.display = "none";
+      };
+    }
+
+    // Call functions on page load
+    populateFilterDropdown();
+    displayCurrentInterns();
+  </script>
 </body>
 </html>
