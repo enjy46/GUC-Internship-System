@@ -70,8 +70,14 @@ const companies = [
     );
   }
   
+  function downloadCompanyApplications() {
+    const applications = companies.map(company => 
+      `Company: ${company.name}\nIndustry: ${company.industry}\nStatus: ${company.status}\n\n`
+    ).join("");
+    generatePDF("Company Applications", applications);
+  }
+  
   searchInput.addEventListener("input", () => renderCompanies(filterAndSearch()));
   industryFilter.addEventListener("change", () => renderCompanies(filterAndSearch()));
   
   renderCompanies(companies);
-  

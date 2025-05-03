@@ -198,6 +198,15 @@ function simulateApplication(jobIndex, applicantName) {
   loadApplications();
 }
 
+// Function to download job posts as PDF
+function downloadJobPosts() {
+  const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+  const content = jobPosts.map(post => 
+    `Title: ${post.title}\nDuration: ${post.duration}\nPaid/Unpaid: ${post.paidUnpaid}\nSkills: ${post.skills}\n\n`
+  ).join("");
+  generatePDF("Job Posts", content);
+}
+
 // Initial rendering
 renderCompanyInternshipPosts();
 renderNotifications();

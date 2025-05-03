@@ -20,6 +20,7 @@
       <option value="Education">Education</option>
       <!-- Add more industries as needed -->
     </select>
+    <button type="button" onclick="downloadCompanyApplications()">Download Applications as PDF</button>
   </section>
 
   <section class="company-list" id="companyList">
@@ -27,5 +28,7 @@
   </section>
 
   <script src="js/dashboardLogic.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="js/modules/pdfGenerator.js"></script>
 </body>
 </html>

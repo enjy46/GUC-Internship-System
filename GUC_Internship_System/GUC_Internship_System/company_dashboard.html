@@ -46,6 +46,7 @@
         <h4>Job Posts</h4>
         <ul id="jobPostList"></ul>
       </div>
+      <button type="button" onclick="downloadJobPosts()">Download Job Posts as PDF</button>
     </div>
 
     <!-- Applications Section -->
@@ -100,6 +101,8 @@
   </div>
 
   <script src="js/company.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="js/modules/pdfGenerator.js"></script>
   <script>
     // Populate mock data in localStorage for testing
     function populateMockData() {

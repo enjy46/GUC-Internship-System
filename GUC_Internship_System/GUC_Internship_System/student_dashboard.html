@@ -91,11 +91,7 @@
       <div class="report-buttons">
         <button type="button" onclick="saveReport()">Save Report</button>
         <button type="button" onclick="deleteReport()">Delete Report</button>
-      </div>
-
-      <div class="submit-final">
-        <button type="button" onclick="submitFinalReport()">Submit Final Report</button>
-        <pre id="finalReportDisplay" style="background:#eee;padding:10px;margin-top:10px;"></pre>
+        <button type="button" onclick="downloadReportAsPDF()">Download as PDF</button>
       </div>
     </form>
   </section>
@@ -145,6 +141,16 @@
       loadReport();
       loadCourses();
     };
+    
+    function downloadReportAsPDF() {
+      const title = document.getElementById("reportTitle").value || "Internship Report";
+      const intro = document.getElementById("reportIntro").value || "[No Introduction]";
+      const body = document.getElementById("reportBody").value || "[No Body]";
+      const content = `Introduction:\n${intro}\n\nBody:\n${body}`;
+      generatePDF(title, content);
+    }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="js/modules/pdfGenerator.js"></script>
 </body>
 </html>

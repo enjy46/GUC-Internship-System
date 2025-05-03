@@ -276,6 +276,14 @@ function loadReport() {
   document.getElementById("reportBody").value = localStorage.getItem(LS_KEYS.REPORT_BODY) || "";
 }
 
+function downloadInternshipReport() {
+  const title = document.getElementById("reportTitle").value || "Internship Report";
+  const intro = document.getElementById("reportIntro").value || "[No Introduction]";
+  const body = document.getElementById("reportBody").value || "[No Body]";
+  const content = `Introduction:\n${intro}\n\nBody:\n${body}`;
+  generatePDF(title, content);
+}
+
 // Courses
 const courses = {
   CS: ["Data Structures", "Web Development", "Algorithms"],

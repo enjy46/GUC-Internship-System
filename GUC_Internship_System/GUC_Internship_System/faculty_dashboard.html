@@ -1,1 +1,22 @@
-<!DOCTYPE html><html><head><title>Faculty Dashboard</title></head><body><h1>Faculty Dashboard</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Dashboard</title>
+</head>
+<body>
+  <h1>Faculty Dashboard</h1>
+  <button type="button" onclick="downloadEvaluations()">Download Evaluations as PDF</button>
+
+  <!-- Include jsPDF and the reusable PDF generator -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="js/modules/pdfGenerator.js"></script>
+  <script src="js/faculty_dashboard.js"></script>
+  <script>
+    localStorage.setItem("evaluations", JSON.stringify({
+      "John Doe": "Excellent performance in the internship.",
+      "Jane Smith": "Good understanding of the subject matter."
+    }));
+  </script>
+</body>
+</html>
