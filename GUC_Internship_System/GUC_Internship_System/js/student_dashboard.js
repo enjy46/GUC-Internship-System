@@ -124,9 +124,67 @@ function loadInternshipHistory() {
   });
 }
 
-// Call loadInternshipHistory on page load
+// Search and filter internships
+function searchAndFilterInternships() {
+  const searchInput = document.getElementById("searchInternshipsInput").value.toLowerCase();
+  const filterStatus = document.getElementById("filterInternshipsStatus").value;
+  const internshipHistoryContainer = document.getElementById("internshipHistory");
+  const applications = JSON.parse(localStorage.getItem("applications") || "[]");
+
+  const filteredApplications = applications.filter(app => {
+    const matchesSearch =
+      app.internship.title.toLowerCase().includes(searchInput) ||
+      app.internship.company.toLowerCase().includes(searchInput);
+    const matchesFilter = filterStatus === "" || app.status === filterStatus;
+    return matchesSearch && matchesFilter;
+  });
+
+  internshipHistoryContainer.innerHTML = "";
+
+  if (filteredApplications.length === 0) {
+    internshipHistoryContainer.innerHTML = "<p>No internships match your search or filter criteria.</p>";
+    return;
+  }
+
+  filteredApplications.forEach(app => {
+    const div = document.createElement("div");
+    div.className = "internship-history-item";
+    div.innerHTML = `
+      <h3>${app.internship.title} at ${app.internship.company}</h3>
+      <p>Status: <strong>${app.status}</strong></p>
+      <p>Duration: ${app.internship.duration}</p>
+      <p>Paid: ${app.internship.paid ? "Yes" : "No"}</p>
+      <p>Salary: ${app.internship.paid ? app.internship.salary + " EGP" : "Unpaid"}</p>
+    `;
+    if (app.status === "internship complete") {
+      div.style.cursor = "pointer";
+      div.addEventListener("click", () => viewCompletedInternshipDetails(app.internship));
+    }
+    internshipHistoryContainer.appendChild(div);
+  });
+}
+
+// Display details of a selected completed internship
+function viewCompletedInternshipDetails(internship) {
+  document.getElementById("completedInternshipTitle").textContent = `Title: ${internship.title}`;
+  document.getElementById("completedInternshipCompany").textContent = `Company: ${internship.company}`;
+  document.getElementById("completedInternshipDuration").textContent = `Duration: ${internship.duration}`;
+  document.getElementById("completedInternshipSalary").textContent = `Salary: ${internship.paid ? internship.salary + " EGP" : "Unpaid"}`;
+  document.getElementById("completedInternshipDetails").style.display = "block";
+}
+
+// Close the completed internship details section
+function closeCompletedInternshipDetails() {
+  document.getElementById("completedInternshipDetails").style.display = "none";
+}
+
+// Call searchAndFilterInternships on page load
 window.onload = function () {
   loadProfile();
   displayApplications();
-  loadInternshipHistory();
+  searchAndFilterInternships();
+};
+
+};  displayApplications();  loadInternshipHistory();  searchAndFilterInternships();  displayApplications();
+  searchAndFilterInternships();
 };

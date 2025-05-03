@@ -37,9 +37,30 @@
 
   <section class="internships-section">
     <h2>Your Internships</h2>
+    
+    <!-- Search and Filter -->
+    <div class="search-filter-container">
+      <input type="text" id="searchInternshipsInput" placeholder="Search by job title or company name..." oninput="searchAndFilterInternships()">
+      <select id="filterInternshipsStatus" onchange="searchAndFilterInternships()">
+        <option value="">All Internships</option>
+        <option value="current intern">Current Intern</option>
+        <option value="internship complete">Internship Complete</option>
+      </select>
+    </div>
+
     <div id="internshipHistory">
       <p>Loading your internships...</p>
     </div>
+
+    <div id="completedInternshipDetails" style="display: none;">
+      <h3>Completed Internship Details</h3>
+      <p id="completedInternshipTitle"></p>
+      <p id="completedInternshipCompany"></p>
+      <p id="completedInternshipDuration"></p>
+      <p id="completedInternshipSalary"></p>
+      <button onclick="closeCompletedInternshipDetails()">Close</button>
+    </div>
+
   </section>
 
   <section class="suggestions">
