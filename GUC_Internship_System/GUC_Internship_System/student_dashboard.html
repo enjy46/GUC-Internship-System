@@ -8,6 +8,7 @@
 <body>
   <h1>Welcome, Student</h1>
 
+  <!-- PROFILE -->
   <section class="profile-section">
     <h2>Your Profile</h2>
     <form id="profileForm">
@@ -35,10 +36,9 @@
     </form>
   </section>
 
+  <!-- INTERNSHIPS -->
   <section class="internships-section">
     <h2>Your Internships</h2>
-    
-    <!-- Search and Filter -->
     <div class="search-filter-container">
       <input type="text" id="searchInternshipsInput" placeholder="Search by job title or company name..." oninput="searchAndFilterInternships()">
       <select id="filterInternshipsStatus" onchange="searchAndFilterInternships()">
@@ -47,11 +47,7 @@
         <option value="internship complete">Internship Complete</option>
       </select>
     </div>
-
-    <div id="internshipHistory">
-      <p>Loading your internships...</p>
-    </div>
-
+    <div id="internshipHistory"><p>Loading your internships...</p></div>
     <div id="completedInternshipDetails" style="display: none;">
       <h3>Completed Internship Details</h3>
       <p id="completedInternshipTitle"></p>
@@ -60,20 +56,81 @@
       <p id="completedInternshipSalary"></p>
       <button onclick="closeCompletedInternshipDetails()">Close</button>
     </div>
-
   </section>
 
+  <!-- COMPANY EVALUATION -->
+  <section>
+    <h2>Company Evaluation</h2>
+    <label for="companySelect">Select Company:</label>
+    <select id="companySelect">
+      <option value="Company A">Company A</option>
+      <option value="Company B">Company B</option>
+      <option value="Company C">Company C</option>
+      <!-- Add more companies as needed -->
+    </select><br>
+    <textarea id="companyEvaluation" placeholder="Write your evaluation..." required></textarea><br>
+    <label><input type="checkbox" id="recommendCompany"> I recommend this company</label><br>
+    <button onclick="saveEvaluation()">Submit Evaluation</button>
+    <button onclick="editEvaluation()">Edit Evaluation</button>
+    <button onclick="deleteEvaluation()">Delete Evaluation</button>
+  </section>
+
+  <!-- INTERNSHIP REPORT -->
+  <section class="report-section">
+    <h2>Internship Report</h2>
+    <form id="internshipReportForm">
+      <label for="reportTitle">Report Title</label>
+      <input type="text" id="reportTitle" placeholder="Enter report title" required>
+
+      <label for="reportIntro">Introduction:</label>
+      <textarea id="reportIntro" placeholder="Write the introduction..." required></textarea>
+
+      <label for="reportBody">Report Body:</label>
+      <textarea id="reportBody" placeholder="Write the main content..." required></textarea>
+
+      <div class="report-buttons">
+        <button type="button" onclick="saveReport()">Save Report</button>
+        <button type="button" onclick="deleteReport()">Delete Report</button>
+      </div>
+
+      <div class="submit-final">
+        <button type="button" onclick="submitFinalReport()">Submit Final Report</button>
+        <pre id="finalReportDisplay" style="background:#eee;padding:10px;margin-top:10px;"></pre>
+      </div>
+    </form>
+  </section>
+
+ <!-- MAJOR COURSES LIST -->
+<section>
+  <h2>Courses in Your Major</h2>
+  <select id="majorCoursesDropdown" multiple style="width: 100%; height: 200px;">
+    <!-- Options will be dynamically populated -->
+  </select>
+</section>
+
+  <!-- SELECT HELPFUL COURSES -->
+  <section>
+    <h2>Courses That Helped in Internship</h2>
+    <ul id="selectableCourses"></ul>
+    <input type="text" id="manualCourseInput" placeholder="Add another course...">
+    <button onclick="addManualCourse()">Add Course</button>
+    <button onclick="saveSelectedCourses()">Save Helpful Courses</button>
+  </section>
+
+  <!-- SUGGESTIONS -->
   <section class="suggestions">
     <h2>Suggested Companies</h2>
     <ul id="suggestedList"></ul>
   </section>
 
+  <!-- DOCUMENT UPLOAD -->
   <section class="documents-section">
     <h2>Upload Extra Documents</h2>
     <input type="file" id="extraDocs" multiple>
     <button onclick="uploadExtraDocuments()">Upload Documents</button>
   </section>
 
+  <!-- APPLICATIONS -->
   <section class="applications-section">
     <h2>My Internship Applications</h2>
     <div id="applicationList"></div>
@@ -84,6 +141,9 @@
     window.onload = function () {
       loadProfile();
       displayApplications();
+      loadEvaluation();
+      loadReport();
+      loadCourses();
     };
   </script>
 </body>
