@@ -31,4 +31,26 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>
 </body>
+<div class="dashboard-container">
+  <h2>Welcome, SCAD Office</h2>
+
+  <!-- Internship Cycle Date Form -->
+  <div class="cycle-date-container">
+    <h3>Set Internship Cycle Dates</h3>
+    <form id="cycleDateForm">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" required>
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" required>
+
+      <button type="submit">Save Dates</button>
+    </form>
+
+    <div id="dateDisplay" style="margin-top: 15px; font-weight: bold;"></div>
+  </div>
+</div>
+
+<script src="js/scad.js"></script>
+
 </html>

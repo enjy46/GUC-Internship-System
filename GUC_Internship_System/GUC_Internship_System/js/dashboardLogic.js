@@ -81,3 +81,25 @@ const companies = [
   industryFilter.addEventListener("change", () => renderCompanies(filterAndSearch()));
   
   renderCompanies(companies);
+
+  // Handle internship cycle date form
+document.getElementById('cycleDateForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const startDate = document.getElementById('startDate').value;
+  const endDate = document.getElementById('endDate').value;
+  const displayDiv = document.getElementById('dateDisplay');
+
+  if (new Date(startDate) > new Date(endDate)) {
+    displayDiv.style.color = 'red';
+    displayDiv.textContent = 'Error: Start date cannot be after end date.';
+    return;
+  }
+
+  displayDiv.style.color = 'green';
+  displayDiv.textContent = `Internship cycle set from ${startDate} to ${endDate}.`;
+
+  // (Optional) Clear form after setting
+  document.getElementById('cycleDateForm').reset();
+});
+
