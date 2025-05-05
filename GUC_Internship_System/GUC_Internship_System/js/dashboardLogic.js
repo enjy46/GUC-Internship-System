@@ -117,4 +117,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
   renderCompanies(companies);
 
+  // Mock data for internship reports
+  const internshipReports = [
+    { title: "AI Research", major: "Computer Science", status: "pending", student: "Alice" },
+    { title: "Bridge Design", major: "Engineering", status: "accepted", student: "Bob" },
+    { title: "Market Analysis", major: "Business", status: "flagged", student: "Charlie" },
+    { title: "Web Development", major: "Computer Science", status: "rejected", student: "Dave" },
+  ];
+
+  const filterByMajor = document.getElementById("filterByMajor");
+  const filterByStatus = document.getElementById("filterByStatus");
+  const reportsList = document.getElementById("reportsList");
+
+  // Function to render internship reports
+  function renderReports(data) {
+    reportsList.innerHTML = "";
+    if (data.length === 0) {
+      reportsList.innerHTML = "<li>No reports found.</li>";
+      return;
+    }
+
+    data.forEach(report => {
+      const li = document.createElement("li");
+      li.textContent = `Title: ${report.title}, Major: ${report.major}, Status: ${report.status}, Student: ${report.student}`;
+      reportsList.appendChild(li);
+    });
+  }
+
+  // Function to filter internship reports
+  function filterReports() {
+    const selectedMajor = filterByMajor.value;
+    const selectedStatus = filterByStatus.value;
+
+    const filteredReports = internshipReports.filter(report => {
+      const matchesMajor = selectedMajor === "" || report.major === selectedMajor;
+      const matchesStatus = selectedStatus === "" || report.status === selectedStatus;
+      return matchesMajor && matchesStatus;
+    });
+
+    
+    renderReports(filteredReports);
+  }
+
+  // Add event listeners for filtering
+  filterByMajor.addEventListener("change", filterReports);
+  filterByStatus.addEventListener("change", filterReports);
+
+  // Function to fetch and display all reports
+  function fetchAllReports() {
+    renderReports(internshipReports);
+  }
+
 });

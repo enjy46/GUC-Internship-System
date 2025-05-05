@@ -67,6 +67,24 @@
   <!-- View All Submitted Reports Section -->
   <div class="reports-container">
     <h3>All Submitted Reports</h3>
+
+    <!-- Filters for Major and Status -->
+    <div class="search-filter-container">
+      <select id="filterByMajor">
+        <option value="">All Majors</option>
+        <option value="Computer Science">Computer Science</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Business">Business</option>
+      </select>
+      <select id="filterByStatus">
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="flagged">Flagged</option>
+        <option value="rejected">Rejected</option>
+        <option value="accepted">Accepted</option>
+      </select>
+    </div>
+
     <button onclick="fetchAllReports()">Load Reports</button>
     <ul id="reportsList"></ul>
   </div>
