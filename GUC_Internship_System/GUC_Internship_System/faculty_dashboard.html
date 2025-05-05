@@ -55,6 +55,22 @@
     <button onclick="closeStudentProfile()">Close</button>
   </div>
 
+  <!-- Report Status Update Modal -->
+  <div id="reportStatusModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+    <h3>Update Report Status</h3>
+    <p><strong>Title:</strong> <span id="reportTitle"></span></p>
+    <p><strong>Student:</strong> <span id="reportStudent"></span></p>
+    <label for="updateStatus">Set Status:</label>
+    <select id="updateStatus">
+      <option value="pending">Pending</option>
+      <option value="flagged">Flagged</option>
+      <option value="rejected">Rejected</option>
+      <option value="accepted">Accepted</option>
+    </select>
+    <button onclick="updateReportStatus()">Update Status</button>
+    <button onclick="closeReportStatusModal()">Close</button>
+  </div>
+
   <!-- Include jsPDF and the reusable PDF generator -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>

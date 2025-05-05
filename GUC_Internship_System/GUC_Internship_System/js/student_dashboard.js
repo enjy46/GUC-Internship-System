@@ -11,6 +11,9 @@ const LS_KEYS = {
   HELPFUL_COURSES: "helpfulCourses"
 };
 
+const currentDate = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
+console.log(`Current Date: ${currentDate}`);
+
 // Handle profile update
 document.getElementById('profileForm').addEventListener('submit', function (e) {
   e.preventDefault();
@@ -292,27 +295,18 @@ const courses = {
 };
 
 function loadCourses() {
-  const major = document.getElementById("majorSelect").value;
-  const courseList = document.getElementById("courseList");
-  const selectable = document.getElementById("selectableCourses");
+  const coursesDropdown = document.getElementById("majorCoursesDropdown");
+  if (coursesDropdown) {
+    coursesDropdown.innerHTML = ""; // Clear existing options
 
-  courseList.innerHTML = "";
-  selectable.innerHTML = "";
-
-  courses[major].forEach(course => {
-    const li = document.createElement("li");
-    li.textContent = course;
-    courseList.appendChild(li);
-
-    const checkLi = document.createElement("li");
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.value = course;
-    checkbox.name = "helpfulCourses";
-    checkLi.appendChild(checkbox);
-    checkLi.appendChild(document.createTextNode(" " + course));
-    selectable.appendChild(checkLi);
-  });
+    allCourses.forEach(course => {
+      const option = document.createElement("option");
+      option.textContent = course;
+      coursesDropdown.appendChild(option);
+    });
+  } else {
+    console.error("Element with id 'majorCoursesDropdown' not found.");
+  }
 }
 
 function addManualCourse() {
@@ -352,31 +346,29 @@ function submitFinalReport() {
 
 // List of all courses in the student's major
 const allCourses = [
-  ,
   "Management",
   "Economics",
-  "Financial Accounting ",
+  "Financial Accounting",
   "Mathematics",
   "Computer Programming",
-  "Financial Accounting ",
   "Principles of Law",
   "Data Structures and Algorithms",
-  "Management Accounting ",
+  "Management Accounting",
   "Micro-economics",
   "Enterprise Systems",
-  "Information and Communication Architecture ",
+  "Information and Communication Architecture",
   "Computer Programming Lab",
   "German Language IV",
   "Human Resource Management",
   "Electronic Business and Government",
   "Introduction to Networks",
   "Data Bases",
-  "Operations ",
+  "Operations",
   "Auditing",
-  "Research Methodology ",
-  "Corporate Finance ",
+  "Research Methodology",
+  "Corporate Finance",
   "Theory of Computation",
-  "Software Engineering",,
+  "Software Engineering",
   "Taxation",
   "IT Project Management",
   "Enterprise Systems Applications",
@@ -385,35 +377,67 @@ const allCourses = [
   "Organizational Behavior",
   "Information Security",
   "E-Business Development",
-  "Data Mining",,
+  "Data Mining",
   "Academic English"
 ];
 
 // Function to load courses into the dropdown
 function loadMajorCourses() {
-  const dropdown = document.getElementById("majorCoursesDropdown");
-  dropdown.innerHTML = ""; // Clear existing options
-
-  allCourses.forEach(course => {
-    const option = document.createElement("option");
-    option.value = course;
-    option.textContent = course;
-    dropdown.appendChild(option);
-  });
+  const coursesDropdown = document.getElementById("majorCoursesDropdown");
+  if (coursesDropdown) {
+    coursesDropdown.innerHTML = ""; // Clear existing options
+    // Populate courses
+  } else {
+    console.error("Element with id 'majorCoursesDropdown' not found.");
+  }
 }
 
-// Call this function on page load
-loadMajorCourses();
+// Mock data for companies that viewed the profile
+const companiesThatViewedProfile = [
+  "TechCorp",
+  "Innovate Inc.",
+  "Future Solutions",
+  "Global Enterprises"
+];
 
-// Load everything on page start
+// Function to load and display companies that viewed the profile
+function loadProfileViews() {
+  const profileViewsList = document.getElementById("profileViewsList");
+  profileViewsList.innerHTML = ""; // Clear existing list
+
+  if (companiesThatViewedProfile.length === 0) {
+    profileViewsList.innerHTML = "<li>No companies have viewed your profile yet.</li>";
+  } else {
+    companiesThatViewedProfile.forEach(company => {
+      const listItem = document.createElement("li");
+      listItem.textContent = company;
+      profileViewsList.appendChild(listItem);
+    });
+  }
+}
+
+// Combine all window.onload logic
 window.onload = function () {
   loadProfile();
   loadEvaluation();
   loadReport();
-  loadCourses();
+  loadCourses(); // Ensure this function is called
   displayApplications();
   loadInternshipHistory();
   searchAndFilterInternships();
-
+  loadProfileViews();
   document.getElementById("majorSelect").addEventListener("change", loadCourses);
 };
+
+// Call this function on page load
+loadMajorCourses();
+
+function downloadReportAsPDF() {
+  const title = document.getElementById("reportTitle").value || "Internship Report";
+  const intro = document.getElementById("reportIntro").value || "[No Introduction]";
+  const body = document.getElementById("reportBody").value || "[No Body]";
+  const content = `Introduction:\n${intro}\n\nBody:\n${body}`;
+  generatePDF(title, content);
+}
+
+

@@ -96,8 +96,8 @@
     </form>
   </section>
 
- <!-- MAJOR COURSES LIST -->
-<section>
+ <!-- Courses in Your Major -->
+<section class="courses-section">
   <h2>Courses in Your Major</h2>
   <select id="majorCoursesDropdown" multiple style="width: 100%; height: 200px;">
     <!-- Options will be dynamically populated -->
@@ -132,8 +132,19 @@
     <div id="applicationList"></div>
   </section>
 
+  <!-- COMPANIES THAT VIEWED PROFILE -->
+  <section class="profile-views-section">
+    <h2>Companies That Viewed Your Profile</h2>
+    <ul id="profileViewsList">
+      <!-- List of companies will be dynamically populated -->
+    </ul>
+  </section>
+
   <script src="js/student_dashboard.js"></script>
   <script>
+    const myUniqueCurrentDate = new Date().toISOString().split('T')[0];
+    console.log(`Current Date: ${myUniqueCurrentDate}`);
+
     window.onload = function () {
       loadProfile();
       displayApplications();
@@ -141,7 +152,7 @@
       loadReport();
       loadCourses();
     };
-    
+
     function downloadReportAsPDF() {
       const title = document.getElementById("reportTitle").value || "Internship Report";
       const intro = document.getElementById("reportIntro").value || "[No Introduction]";
@@ -149,10 +160,6 @@
       const content = `Introduction:\n${intro}\n\nBody:\n${body}`;
       generatePDF(title, content);
     }
-
-    console.log(`Current Date: ${currentDate}`);
-    console.log(`Internship Start Date: ${internshipStartDate}`);
-    console.log(`Days Difference: ${daysDifference}`);
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>

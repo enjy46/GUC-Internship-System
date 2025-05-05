@@ -72,7 +72,21 @@ function closeStudentProfile() {
 
 // Function to fetch and display all reports
 function fetchAllReports() {
-  displayReports(allReports);
+  const reportsList = document.getElementById("reportsList");
+  reportsList.innerHTML = ""; // Clear existing list
+
+  allReports.forEach(report => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `Title: ${report.title}, Major: ${report.major}, Status: ${report.status}, Student: ${report.student}`;
+    
+    // Add a button to open the status update modal
+    const updateButton = document.createElement("button");
+    updateButton.textContent = "Update Status";
+    updateButton.onclick = () => openReportStatusModal(report);
+    listItem.appendChild(updateButton);
+
+    reportsList.appendChild(listItem);
+  });
 }
 
 // Function to display reports in the list
@@ -92,20 +106,73 @@ function displayReports(reports) {
   });
 }
 
-// Function to filter reports by major and status
+// Function to filter and display reports dynamically
 function filterReports() {
   const majorFilter = document.getElementById("filterByMajor").value;
   const statusFilter = document.getElementById("filterByStatus").value;
 
-  const filteredReports = allReports.filter(report => {
-    const matchesMajor = !majorFilter || report.major === majorFilter;
-    const matchesStatus = !statusFilter || report.status === statusFilter;
+  const reportsList = document.getElementById("reportsList");
+  reportsList.innerHTML = ""; // Clear existing list
+
+  // Filter evaluations based on selected filters
+  const filteredReports = evaluations.filter(evaluation => {
+    const matchesMajor = majorFilter === "" || evaluation.major === majorFilter;
+    const matchesStatus = statusFilter === "" || evaluation.status === statusFilter;
     return matchesMajor && matchesStatus;
   });
 
-  displayReports(filteredReports);
+  // Populate the filtered reports
+  filteredReports.forEach(evaluation => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `Student: ${evaluation.studentName}, Company: ${evaluation.companyName}`;
+    
+    // Add a button to view the evaluation report
+    const viewButton = document.createElement("button");
+    viewButton.textContent = "View Details";
+    viewButton.onclick = () => openEvaluationReportModal(evaluation);
+    listItem.appendChild(viewButton);
+
+    reportsList.appendChild(listItem);
+  });
 }
 
-// Add event listeners for filtering
+// Function to open the report status modal
+function openReportStatusModal(report) {
+  document.getElementById("reportTitle").textContent = report.title;
+  document.getElementById("reportStudent").textContent = report.student;
+  document.getElementById("updateStatus").value = report.status;
+  document.getElementById("reportStatusModal").style.display = "block";
+
+  // Store the current report in a global variable for updating
+  window.currentReport = report;
+}
+
+// Function to close the report status modal
+function closeReportStatusModal() {
+  document.getElementById("reportStatusModal").style.display = "none";
+  window.currentReport = null;
+}
+
+// Function to update the report status
+function updateReportStatus() {
+  const newStatus = document.getElementById("updateStatus").value;
+
+  if (window.currentReport) {
+    // Update the status in the allReports array
+    window.currentReport.status = newStatus;
+
+    // Refresh the reports list
+    fetchAllReports();
+
+    // Close the modal
+    closeReportStatusModal();
+
+    alert("Report status updated successfully!");
+  } else {
+    alert("No report selected for updating.");
+  }
+}
+
+// Attach the filterReports function to the filter dropdowns
 document.getElementById("filterByMajor").addEventListener("change", filterReports);
 document.getElementById("filterByStatus").addEventListener("change", filterReports);
