@@ -327,6 +327,35 @@
       };
     }
 
+    // Notify students and PRO students when a new internship cycle begins or is about to begin
+    function notifyInternshipCycle() {
+      const currentDate = new Date();
+      const internshipStartDate = new Date("2025-06-01"); // Example start date
+      const notificationDaysBefore = 7; // Notify 7 days before the start date
+
+      const timeDifference = internshipStartDate - currentDate;
+      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+      if (daysDifference === notificationDaysBefore) {
+        notifyUsers("The new internship cycle is about to begin in 7 days!");
+      } else if (daysDifference === 0) {
+        notifyUsers("The new internship cycle has begun!");
+      }
+    }
+
+    // Function to notify users (students and PRO students)
+    function notifyUsers(message) {
+      const userTypes = ["student", "pro student"]; // Example user types
+      userTypes.forEach(userType => {
+        console.log(`Notification for ${userType}: ${message}`);
+        // Replace the console.log with actual notification logic (e.g., email, UI alert, etc.)
+        alert(`Notification for ${userType}: ${message}`);
+      });
+    }
+
+    // Call notifyInternshipCycle on page load
+    notifyInternshipCycle();
+
     // Call functions on page load
     populateFilterDropdown();
     displayCurrentInterns();
