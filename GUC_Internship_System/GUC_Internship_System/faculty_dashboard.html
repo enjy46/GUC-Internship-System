@@ -3,83 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Faculty Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/faculty_dashboard.css">
 </head>
 <body>
-  <h1>Faculty Dashboard</h1>
-  <button type="button" onclick="downloadEvaluations()">Download Evaluations as PDF</button>
+  <div class="wrapper">
+    <header class="dashboard-header">
+      <h1>Faculty Dashboard</h1>
+      <button class="primary-button" onclick="downloadEvaluations()">Download Evaluations as PDF</button>
+    </header>
 
-  <!-- View All Students Section -->
-  <div class="students-container">
-    <h3>All Students</h3>
-    <label for="statusFilter">Filter by Internship Status:</label>
-    <select id="statusFilter" onchange="filterStudentsByStatus()">
-      <option value="">All Statuses</option>
-      <option value="current intern">Current Intern</option>
-      <option value="internship complete">Internship Complete</option>
-      <option value="not started">Not Started</option>
-    </select>
-    <button onclick="fetchAllStudents()">Load Students</button>
-    <ul id="studentsList"></ul>
-  </div>
+    <!-- View All Students Section -->
+    <section class="card">
+      <h3>All Students</h3>
+      <div class="form-group">
+        <label for="statusFilter">Filter by Internship Status:</label>
+        <select id="statusFilter" onchange="filterStudentsByStatus()">
+          <option value="">All Statuses</option>
+          <option value="current intern">Current Intern</option>
+          <option value="internship complete">Internship Complete</option>
+          <option value="not started">Not Started</option>
+        </select>
+        <button class="primary-button" onclick="fetchAllStudents()">Load Students</button>
+      </div>
+      <ul id="studentsList"></ul>
+    </section>
 
-  <!-- View All Submitted Reports Section -->
-  <div class="reports-container">
-    <h3>All Submitted Reports</h3>
-    <div class="search-filter-container">
-      <select id="filterByMajor">
-        <option value="">All Majors</option>
-        <option value="Computer Science">Computer Science</option>
-        <option value="Engineering">Engineering</option>
-        <option value="Business">Business</option>
-      </select>
-      <select id="filterByStatus">
-        <option value="">All Statuses</option>
-        <option value="pending">Pending</option>
-        <option value="flagged">Flagged</option>
-        <option value="rejected">Rejected</option>
-        <option value="accepted">Accepted</option>
-      </select>
+    <!-- View All Submitted Reports Section -->
+    <section class="card">
+      <h3>All Submitted Reports</h3>
+      <div class="form-group">
+        <select id="filterByMajor">
+          <option value="">All Majors</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Business">Business</option>
+        </select>
+        <select id="filterByStatus">
+          <option value="">All Statuses</option>
+          <option value="pending">Pending</option>
+          <option value="flagged">Flagged</option>
+          <option value="rejected">Rejected</option>
+          <option value="accepted">Accepted</option>
+        </select>
+        <button class="primary-button" onclick="fetchAllReports()">Load Reports</button>
+      </div>
+      <ul id="reportsList"></ul>
+    </section>
+
+    <!-- Evaluation Reports Section -->
+    <section class="card">
+      <h3>Evaluation Reports</h3>
+      <p class="instruction-text">Click on an evaluation report below to view its details.</p>
+      <button class="primary-button" onclick="fetchEvaluationReports()">Load Evaluation Reports</button>
+      <ul id="evaluationReportsList"></ul>
+    </section>
+
+    <!-- Modal for viewing detailed evaluation report -->
+    <div id="evaluationReportModal" class="modal">
+      <div class="modal-content">
+        <h3>Evaluation Report Details</h3>
+        <div class="details-grid">
+          <p><strong>Student Name:</strong> <span id="evalStudentName"></span></p>
+          <p><strong>Company Name:</strong> <span id="evalCompanyName"></span></p>
+          <p><strong>Main Supervisor:</strong> <span id="evalSupervisor"></span></p>
+          <p><strong>Start Date:</strong> <span id="evalStartDate"></span></p>
+          <p><strong>End Date:</strong> <span id="evalEndDate"></span></p>
+        </div>
+        <button class="secondary-button" onclick="closeEvaluationReportModal()">Close</button>
+      </div>
     </div>
-    <button onclick="fetchAllReports()">Load Reports</button>
-    <ul id="reportsList"></ul>
-  </div>
-
-  <!-- Student Profile Modal -->
-  <div id="studentProfileModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-    <h3>Student Profile</h3>
-    <p><strong>Name:</strong> <span id="profileName"></span></p>
-    <p><strong>Email:</strong> <span id="profileEmail"></span></p>
-    <p><strong>Major:</strong> <span id="profileMajor"></span></p>
-    <p><strong>Internship Status:</strong> <span id="profileStatus"></span></p>
-    <p><strong>Additional Details:</strong> <span id="profileDetails"></span></p>
-    <button onclick="closeStudentProfile()">Close</button>
-  </div>
-
-  <!-- Report Status Update Modal -->
-  <div id="reportStatusModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-    <h3>Update Report Status</h3>
-    <p><strong>Title:</strong> <span id="reportTitle"></span></p>
-    <p><strong>Student:</strong> <span id="reportStudent"></span></p>
-    <label for="updateStatus">Set Status:</label>
-    <select id="updateStatus">
-      <option value="pending">Pending</option>
-      <option value="flagged">Flagged</option>
-      <option value="rejected">Rejected</option>
-      <option value="accepted">Accepted</option>
-    </select>
-    <button onclick="updateReportStatus()">Update Status</button>
-    <button onclick="closeReportStatusModal()">Close</button>
   </div>
 
   <!-- Include jsPDF and the reusable PDF generator -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>
   <script src="js/faculty_dashboard.js"></script>
-  <script>
-    localStorage.setItem("evaluations", JSON.stringify({
-      "John Doe": "Excellent performance in the internship.",
-      "Jane Smith": "Good understanding of the subject matter."
-    }));
-  </script>
 </body>
 </html>

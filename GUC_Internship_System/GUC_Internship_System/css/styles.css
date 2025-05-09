@@ -214,3 +214,37 @@ li button:hover {
 .cycle-date-container button:hover {
   background-color: #a30000;
 }
+
+/* Styles for the evaluation reports modal */
+.modal {
+  display: none;
+  position: fixed;
+  top: 20%;
+  left: 30%;
+  width: 40%;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.modal-content {
+  padding: 15px;
+}
+
+.evaluation-reports-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.evaluation-reports-container li {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.evaluation-reports-container li:hover {
+  background-color: #f9f9f9;
+}
