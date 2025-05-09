@@ -48,41 +48,106 @@
       <p id="profileMessage" class="success-message" style="display: none;">Profile updated successfully!</p>
     </section>
 
-    <!-- MAJOR AND SEMESTER SECTION -->
-    <section class="major-semester-section card">
-      <h2>Select Your Major and Semester</h2>
-      <form id="majorSemesterForm">
+    <!-- COMPANY EVALUATION SECTION -->
+    <section class="evaluation-section card">
+      <h2>Company Evaluation</h2>
+      <form id="evaluationForm">
         <div class="form-group">
-          <label for="major">Major:</label>
-          <select id="major" required>
-            <option value="" disabled selected>Select your major</option>
-            <option value="Applied Arts">Applied Arts</option>
-            <option value="Management">Management</option>
-            <option value="Business Informatics">Business Informatics</option>
-            <option value="Engineering">Engineering</option> 
-            <option value="Law">Law</option> 
-            <option value="Pharmacy">Pharmacy</option>
-          </select>
+          <label for="evaluationText">Your Evaluation:</label>
+          <textarea id="evaluationText" placeholder="Write your evaluation about the company..." required></textarea>
         </div>
         <div class="form-group">
-          <label for="semester">Semester:</label>
-          <select id="semester" required>
-            <option value="" disabled selected>Select your semester</option>
-            <option value="1">Semester 1</option>
-            <option value="2">Semester 2</option>
-            <option value="3">Semester 3</option>
-            <option value="4">Semester 4</option>
-            <option value="5">Semester 5</option>
-            <option value="6">Semester 6</option>
-            <option value="7">Semester 7</option>
-            <option value="8">Semester 8</option>
-            <option value="9">Semester 9</option>
-            <option value="10">Semester 10</option>
+          <label for="recommendation">Do you recommend this company?</label>
+          <select id="recommendation" required>
+            <option value="" disabled selected>Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
         </div>
-        <button type="submit" class="btn">Save</button>
+        <button type="submit" class="btn">Save Evaluation</button>
+        <button type="button" class="btn" onclick="deleteEvaluation()">Delete Evaluation</button>
       </form>
-      <p id="majorSemesterMessage" class="success-message" style="display: none;">Major and semester saved successfully!</p>
+      <p id="evaluationMessage" class="success-message" style="display: none;">Evaluation saved successfully!</p>
+      <div id="evaluationDisplay" style="display: none;">
+        <h3>Your Evaluation:</h3>
+        <p id="evaluationContent"></p>
+        <p><strong>Recommendation:</strong> <span id="recommendationContent"></span></p>
+      </div>
+    </section>
+
+    <!-- INTERNSHIP REPORT SECTION -->
+    <section class="report-section card">
+      <h2>Internship Report</h2>
+      <form id="reportForm">
+        <div class="form-group">
+          <label for="reportTitle">Title:</label>
+          <input type="text" id="reportTitle" placeholder="Enter the title of your report" required>
+        </div>
+        <div class="form-group">
+          <label for="reportIntroduction">Introduction:</label>
+          <textarea id="reportIntroduction" placeholder="Write the introduction..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="reportBody">Body:</label>
+          <textarea id="reportBody" placeholder="Write the body of your report..." required></textarea>
+        </div>
+        <button type="submit" class="btn">Save Report</button>
+        <button type="button" class="btn" onclick="deleteReport()">Delete Report</button>
+      </form>
+      <p id="reportMessage" class="success-message" style="display: none;">Report saved successfully!</p>
+      <div id="reportDisplay" style="display: none;">
+        <h3 id="reportTitleDisplay"></h3>
+        <p><strong>Introduction:</strong> <span id="reportIntroductionDisplay"></span></p>
+        <p><strong>Body:</strong> <span id="reportBodyDisplay"></span></p>
+      </div>
+    </section>
+
+    <!-- PAST AND PRESENT INTERNSHIPS SECTION -->
+    <section class="internships-section card">
+      <h2>My Past and Present Internships</h2>
+      <div class="form-group">
+        <label for="searchInternships">Search Internships:</label>
+        <input type="text" id="searchInternships" placeholder="Search by job title or company name" oninput="searchInternships()">
+      </div>
+      <div class="form-group">
+        <label for="filterInternships">Filter by Status:</label>
+        <select id="filterInternships" onchange="filterInternshipsByStatus()">
+          <option value="">All</option>
+          <option value="current">Current Intern</option>
+          <option value="completed">Internship Complete</option>
+        </select>
+      </div>
+      <ul id="internshipsList">
+        <li>Loading internships...</li>
+      </ul>
+    </section>
+
+    <!-- DOCUMENT UPLOAD SECTION -->
+    <section class="documents-section card">
+      <h2>Upload Extra Documents</h2>
+      <p>Upload any documents that showcase your fit for the internship (e.g., certificates, cover letters, CVs).</p>
+      <input type="file" id="extraDocs" multiple>
+      <button onclick="uploadExtraDocuments()">Upload Documents</button>
+      <div id="uploadedDocsList">
+        <h3>Uploaded Documents:</h3>
+        <ul id="documentsList"></ul>
+      </div>
+    </section>
+
+    <!-- APPLIED INTERNSHIPS SECTION -->
+    <section class="applied-internships-section card">
+      <h2>Internships You Have Applied To</h2>
+      <ul id="appliedInternshipsList">
+        <li>Loading applied internships...</li>
+      </ul>
+    </section>
+
+    <!-- APPLICATION STATUS SECTION -->
+    <section class="application-status-section card">
+      <h2>Application Status</h2>
+      <ul id="applicationStatusList">
+        <!-- Application statuses will be dynamically populated -->
+      </ul>
     </section>
   </main>
 
@@ -91,6 +156,181 @@
     <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
-  <script src="js/student_pro.js"></script>
+  <script>
+    // Function to handle document uploads
+    function uploadExtraDocuments() {
+      const fileInput = document.getElementById("extraDocs");
+      const documentsList = document.getElementById("documentsList");
+
+      if (fileInput.files.length === 0) {
+        alert("Please select at least one document to upload.");
+        return;
+      }
+
+      for (const file of fileInput.files) {
+        const listItem = document.createElement("li");
+        listItem.textContent = file.name;
+        documentsList.appendChild(listItem);
+      }
+
+      alert("Documents uploaded successfully!");
+      fileInput.value = ""; // Clear the file input
+    }
+
+    // Example data for applied internships
+    const appliedInternships = [
+      { company: "TechCorp", title: "Software Engineer Intern" },
+      { company: "HealthPlus", title: "Data Analyst Intern" },
+      { company: "EduSoft", title: "Web Developer Intern" }
+    ];
+
+    // Populate applied internships list
+    function populateAppliedInternships() {
+      const list = document.getElementById("appliedInternshipsList");
+      list.innerHTML = "";
+
+      if (appliedInternships.length === 0) {
+        list.innerHTML = "<li>No internships applied to yet.</li>";
+      } else {
+        appliedInternships.forEach(internship => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `<strong>${internship.title}</strong> at <em>${internship.company}</em>`;
+          list.appendChild(listItem);
+        });
+      }
+    }
+
+    // Example data for application statuses
+    const applicationStatuses = [
+      { company: "TechCorp", title: "Software Engineer Intern", status: "pending" },
+      { company: "HealthPlus", title: "Data Analyst Intern", status: "finalized" },
+      { company: "EduSoft", title: "Web Developer Intern", status: "accepted" },
+      { company: "FinBank", title: "Finance Intern", status: "rejected" }
+    ];
+
+    // Populate application statuses
+    function populateApplicationStatuses() {
+      const list = document.getElementById("applicationStatusList");
+      list.innerHTML = "";
+
+      if (applicationStatuses.length === 0) {
+        list.innerHTML = "<li>No applications found.</li>";
+      } else {
+        applicationStatuses.forEach(application => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+            <strong>${application.title}</strong> at <em>${application.company}</em>
+            <p>Status: <span class="status ${application.status}">${capitalizeStatus(application.status)}</span></p>
+          `;
+          list.appendChild(listItem);
+        });
+      }
+    }
+
+    // Helper function to capitalize the status
+    function capitalizeStatus(status) {
+      return status.charAt(0).toUpperCase() + status.slice(1);
+    }
+
+    // Example data for past and present internships
+    const internships = [
+      { company: "TechCorp", title: "Software Engineer Intern", duration: "3 months", status: "completed" },
+      { company: "HealthPlus", title: "Data Analyst Intern", duration: "6 months", status: "current" },
+      { company: "EduSoft", title: "Web Developer Intern", duration: "4 months", status: "completed" },
+      { company: "FinBank", title: "Finance Intern", duration: "2 months", status: "current" }
+    ];
+
+    // Populate internships list
+    function populateInternshipsList(filter = "", statusFilter = "") {
+      const list = document.getElementById("internshipsList");
+      list.innerHTML = "";
+
+      const filteredInternships = internships.filter(internship => {
+        const matchesSearch = internship.company.toLowerCase().includes(filter.toLowerCase()) ||
+                              internship.title.toLowerCase().includes(filter.toLowerCase());
+        const matchesStatus = !statusFilter || internship.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      });
+
+      if (filteredInternships.length === 0) {
+        list.innerHTML = "<li>No internships found.</li>";
+      } else {
+        filteredInternships.forEach(internship => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+            <strong>${internship.title}</strong> at <em>${internship.company}</em> - Duration: ${internship.duration}
+            <button onclick="selectInternship('${internship.title}', '${internship.company}')">Select</button>
+          `;
+          list.appendChild(listItem);
+        });
+      }
+    }
+
+    // Search internships
+    function searchInternships() {
+      const searchInput = document.getElementById("searchInternships").value;
+      const statusFilter = document.getElementById("filterInternships").value;
+      populateInternshipsList(searchInput, statusFilter);
+    }
+
+    // Filter internships by status
+    function filterInternshipsByStatus() {
+      const statusFilter = document.getElementById("filterInternships").value;
+      const searchInput = document.getElementById("searchInternships").value;
+      populateInternshipsList(searchInput, statusFilter);
+    }
+
+    // Select a completed internship
+    function selectInternship(title, company) {
+      alert(`You selected the internship: ${title} at ${company}`);
+    }
+
+    // Initialize the page
+    window.onload = function () {
+      populateAppliedInternships();
+      populateApplicationStatuses();
+      populateInternshipsList();
+
+      const savedEvaluationText = localStorage.getItem("evaluationText");
+      const savedRecommendation = localStorage.getItem("recommendation");
+      if (savedEvaluationText && savedRecommendation) {
+        document.getElementById("evaluationContent").textContent = savedEvaluationText;
+        document.getElementById("recommendationContent").textContent = savedRecommendation === "yes" ? "Yes" : "No";
+        document.getElementById("evaluationDisplay").style.display = "block";
+      }
+
+      const savedReportTitle = localStorage.getItem("reportTitle");
+      const savedReportIntroduction = localStorage.getItem("reportIntroduction");
+      const savedReportBody = localStorage.getItem("reportBody");
+      if (savedReportTitle && savedReportIntroduction && savedReportBody) {
+        document.getElementById("reportTitleDisplay").textContent = savedReportTitle;
+        document.getElementById("reportIntroductionDisplay").textContent = savedReportIntroduction;
+        document.getElementById("reportBodyDisplay").textContent = savedReportBody;
+        document.getElementById("reportDisplay").style.display = "block";
+      }
+    };
+  </script>
+
+  <style>
+    .status {
+      font-weight: bold;
+    }
+
+    .status.pending {
+      color: orange;
+    }
+
+    .status.finalized {
+      color: blue;
+    }
+
+    .status.accepted {
+      color: green;
+    }
+
+    .status.rejected {
+      color: red;
+    }
+  </style>
 </body>
 </html>
