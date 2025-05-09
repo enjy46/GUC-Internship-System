@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student/PRO Student Dashboard</title>
+  <link rel="stylesheet" href="css/student_pro.css">
+  <link rel="stylesheet" href="css/common_styles.css"> <!-- Assuming shared styles -->
+</head>
+<body>
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="logo">GUC Internship System</div>
+    <nav>
+      <ul>
+        <li><a href="student_dashboard.html">Dashboard</a></li>
+        <li><a href="student_pro.html" class="active">Profile</a></li>
+        <li><a href="logout.html">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <section class="welcome-section">
+      <h1>Welcome, PRO Student</h1>
+      <p>Manage your profile and explore suggested companies tailored to your interests.</p>
+    </section>
+
+    <!-- PROFILE SECTION -->
+    <section class="profile-section card">
+      <h2>Your Profile</h2>
+      <form id="profileForm">
+        <div class="form-group">
+          <label for="jobInterests">Job Interests:</label>
+          <input type="text" id="jobInterests" placeholder="e.g., AI, Finance, Healthcare" required>
+        </div>
+        <div class="form-group">
+          <label for="previousInternships">Previous Internships/Part-Time Jobs:</label>
+          <textarea id="previousInternships" placeholder="Company - Duration - Responsibilities"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="collegeActivities">College Activities:</label>
+          <textarea id="collegeActivities" placeholder="List any activities you participated in"></textarea>
+        </div>
+        <button type="submit" class="btn">Update Profile</button>
+      </form>
+      <p id="profileMessage" class="success-message" style="display: none;">Profile updated successfully!</p>
+    </section>
+
+    <!-- MAJOR AND SEMESTER SECTION -->
+    <section class="major-semester-section card">
+      <h2>Select Your Major and Semester</h2>
+      <form id="majorSemesterForm">
+        <div class="form-group">
+          <label for="major">Major:</label>
+          <select id="major" required>
+            <option value="" disabled selected>Select your major</option>
+            <option value="Applied Arts">Applied Arts</option>
+            <option value="Management">Management</option>
+            <option value="Business Informatics">Business Informatics</option>
+            <option value="Engineering">Engineering</option> 
+            <option value=" Law ">Law</option> 
+            <option value="Pharmacy">Pharmacy</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="semester">Semester:</label>
+          <select id="semester" required>
+            <option value="" disabled selected>Select your semester</option>
+            <option value="1">Semester 1</option>
+            <option value="2">Semester 2</option>
+            <option value="3">Semester 3</option>
+            <option value="4">Semester 4</option>
+            <option value="5">Semester 5</option>
+            <option value="6">Semester 6</option>
+            <option value="7">Semester 7</option>
+            <option value="8">Semester 8</option>
+            <option value="9">Semester 9</option>
+            <option value="10">Semester 10</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Save</button>
+      </form>
+      <p id="majorSemesterMessage" class="success-message" style="display: none;">Major and semester saved successfully!</p>
+    </section>
+
+    <!-- SUGGESTED COMPANIES SECTION -->
+    <section class="suggested-companies-section card">
+      <h2>Suggested Companies</h2>
+      <ul id="suggestedCompaniesList">
+        <li>Loading suggestions...</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <script src="js/student_pro.js"></script>
+</body>
+</html>
