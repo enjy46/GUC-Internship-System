@@ -100,6 +100,30 @@
     <button onclick="closeStudentProfile()">Close</button>
   </div>
 </div>
+<!-- Evaluation Reports Section -->
+    <section class="card">
+      <h3>Evaluation Reports</h3>
+      <p class="instruction-text">Click on an evaluation report below to view its details.</p>
+      <button class="primary-button" onclick="fetchEvaluationReports()">Load Evaluation Reports</button>
+      <ul id="evaluationReportsList"></ul>
+    </section>
+
+    <!-- Modal for viewing detailed evaluation report -->
+    <div id="evaluationReportModal" class="modal">
+      <div class="modal-content">
+        <h3>Evaluation Report Details</h3>
+        <div class="details-grid">
+          <p><strong>Student Name:</strong> <span id="evalStudentName"></span></p>
+          <p><strong>Company Name:</strong> <span id="evalCompanyName"></span></p>
+          <p><strong>Main Supervisor:</strong> <span id="evalSupervisor"></span></p>
+          <p><strong>Start Date:</strong> <span id="evalStartDate"></span></p>
+          <p><strong>End Date:</strong> <span id="evalEndDate"></span></p>
+        </div>
+        <button class="secondary-button" onclick="closeEvaluationReportModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
 
 <script src="js/scad.js"></script>
 <script>

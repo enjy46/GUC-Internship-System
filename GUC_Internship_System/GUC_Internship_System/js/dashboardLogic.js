@@ -1,3 +1,47 @@
+// Mock data for evaluation reports
+const evaluationReports = [
+  {
+    studentName: "Alice",
+    companyName: "TechCorp",
+    supervisor: "John Doe",
+    startDate: "2025-01-15",
+    endDate: "2025-04-15",
+  },
+  {
+    studentName: "Bob",
+    companyName: "BuildIt",
+    supervisor: "Jane Smith",
+    startDate: "2025-02-01",
+    endDate: "2025-05-01",
+  },
+  {
+    studentName: "Charlie",
+    companyName: "BizWorld",
+    supervisor: "Michael Brown",
+    startDate: "2025-03-01",
+    endDate: "2025-06-01",
+  },
+];
+
+// Global functions for modal handling
+function closeEvaluationReportModal() {
+  const modal = document.getElementById("evaluationReportModal");
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+
+function viewEvaluationReportDetails(index) {
+  const report = evaluationReports[index];
+  document.getElementById("evalStudentName").textContent = report.studentName;
+  document.getElementById("evalCompanyName").textContent = report.companyName;
+  document.getElementById("evalSupervisor").textContent = report.supervisor;
+  document.getElementById("evalStartDate").textContent = report.startDate;
+  document.getElementById("evalEndDate").textContent = report.endDate;
+
+  document.getElementById("evaluationReportModal").style.display = "block";
+}
+
 // Wait for the DOM to be fully loaded before running the script
 document.addEventListener('DOMContentLoaded', function () {
   
@@ -155,7 +199,6 @@ document.addEventListener('DOMContentLoaded', function () {
       return matchesMajor && matchesStatus;
     });
 
-    
     renderReports(filteredReports);
   }
 
@@ -168,4 +211,33 @@ document.addEventListener('DOMContentLoaded', function () {
     renderReports(internshipReports);
   }
 
+  // Function to fetch and display evaluation reports
+  function fetchEvaluationReports() {
+    const evaluationReportsList = document.getElementById("evaluationReportsList");
+    const instructionText = document.querySelector('.instruction-text');
+    
+    if (!evaluationReportsList) return; // Guard clause in case element doesn't exist
+    
+    // Clear the list before populating
+    evaluationReportsList.innerHTML = "";
+    
+    // Hide the instruction text
+    if (instructionText) {
+      instructionText.style.display = 'none';
+    }
+
+    evaluationReports.forEach((report, index) => {
+      const li = document.createElement("li");
+      li.textContent = `Student: ${report.studentName}, Company: ${report.companyName}`;
+      li.style.cursor = "pointer";
+      li.onclick = () => viewEvaluationReportDetails(index); // Attach click event to view details
+      evaluationReportsList.appendChild(li);
+    });
+  }
+
+  // Add event listener for the evaluation reports button
+  const loadEvaluationReportsBtn = document.querySelector('button[onclick="fetchEvaluationReports()"]');
+  if (loadEvaluationReportsBtn) {
+    loadEvaluationReportsBtn.addEventListener('click', fetchEvaluationReports);
+  }
 });
