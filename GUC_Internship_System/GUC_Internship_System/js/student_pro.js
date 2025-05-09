@@ -6,6 +6,14 @@ const allSuggestions = [
   { name: "EduWare", interest: "Education", industry: "EdTech", recommendedBy: "Intern 2023" }
 ];
 
+// Example data for internships
+const internships = [
+  { company: "TechCorp", title: "Software Engineer Intern", duration: "3 months" },
+  { company: "HealthPlus", title: "Data Analyst Intern", duration: "6 months" },
+  { company: "EduSoft", title: "Web Developer Intern", duration: "4 months" },
+  { company: "FinBank", title: "Finance Intern", duration: "2 months" }
+];
+
 // Load profile from localStorage
 function loadProfile() {
   const profile = JSON.parse(localStorage.getItem("studentProProfile")) || {};
@@ -53,6 +61,42 @@ function populateSuggestedCompanies() {
   }
 }
 
+// Populate internships list
+function populateInternshipsList(filter = "") {
+  const list = document.getElementById("internshipsList");
+  list.innerHTML = "";
+
+  const filteredInternships = internships.filter(internship =>
+    internship.company.toLowerCase().includes(filter.toLowerCase()) ||
+    internship.title.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  if (filteredInternships.length === 0) {
+    list.innerHTML = "<li>No internships found.</li>";
+  } else {
+    filteredInternships.forEach(internship => {
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${internship.title}</strong> at <em>${internship.company}</em> - Duration: ${internship.duration}`;
+      list.appendChild(li);
+    });
+  }
+}
+
+// Select an internship
+function selectInternship(internship) {
+  alert(`You selected: ${internship.title} at ${internship.company}`);
+}
+
+// Search internships
+document.getElementById("searchInternships").addEventListener("input", function (e) {
+  populateInternshipsList(e.target.value);
+});
+
+// Filter internships
+document.getElementById("filterIndustry").addEventListener("change", () => populateInternshipsList());
+document.getElementById("filterDuration").addEventListener("change", () => populateInternshipsList());
+document.getElementById("filterPaid").addEventListener("change", () => populateInternshipsList());
+
 // Load major and semester from localStorage
 function loadMajorAndSemester() {
   const data = JSON.parse(localStorage.getItem("studentMajorSemester")) || {};
@@ -78,4 +122,5 @@ window.onload = function () {
   loadProfile();
   populateSuggestedCompanies();
   loadMajorAndSemester();
+  populateInternshipsList();
 };
