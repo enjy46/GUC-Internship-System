@@ -30,6 +30,7 @@
     <!-- PROFILE SECTION -->
     <section class="profile-section card">
       <h2>Your Profile</h2>
+      <div id="profileScoreDisplay" class="profile-score" style="display: none;"></div>
       <form id="profileForm">
         <div class="form-group">
           <label for="jobInterests">Job Interests:</label>
@@ -42,6 +43,14 @@
         <div class="form-group">
           <label for="collegeActivities">College Activities:</label>
           <textarea id="collegeActivities" placeholder="List any activities you participated in"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="assessmentScore">Online Assessment Score:</label>
+          <input type="number" id="assessmentScore" min="0" max="100" placeholder="Enter your score (0-100)">
+          <div class="checkbox-group">
+            <input type="checkbox" id="showScoreOnProfile" name="showScoreOnProfile">
+            <label for="showScoreOnProfile">Show score on my profile</label>
+          </div>
         </div>
         <button type="submit" class="btn">Update Profile</button>
       </form>
@@ -156,12 +165,10 @@
       <h2>Available Online Assessments</h2>
       <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
       <ul id="assessmentsList" style="display: none;">
-    <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
-    <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
-    <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
+        <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
+        <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
+        <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
       </ul>
-      <button id="viewScoreBtn" class="btn" style="display: none;" onclick="showDummyScore()">View My Score</button>
-      <p id="scoreDisplay" style="display: none; font-weight: bold;">Your Score: 85%</p>
     </section>
 
   </main>
@@ -306,6 +313,19 @@
       populateApplicationStatuses();
       populateInternshipsList();
 
+      // Load saved profile data
+      const savedJobInterests = localStorage.getItem("jobInterests");
+      const savedPreviousInternships = localStorage.getItem("previousInternships");
+      const savedCollegeActivities = localStorage.getItem("collegeActivities");
+      const savedAssessmentScore = localStorage.getItem("assessmentScore");
+      const savedShowScoreOnProfile = localStorage.getItem("showScoreOnProfile");
+
+      if (savedJobInterests) document.getElementById("jobInterests").value = savedJobInterests;
+      if (savedPreviousInternships) document.getElementById("previousInternships").value = savedPreviousInternships;
+      if (savedCollegeActivities) document.getElementById("collegeActivities").value = savedCollegeActivities;
+      if (savedAssessmentScore) document.getElementById("assessmentScore").value = savedAssessmentScore;
+      if (savedShowScoreOnProfile) document.getElementById("showScoreOnProfile").checked = savedShowScoreOnProfile === "true";
+
       const savedEvaluationText = localStorage.getItem("evaluationText");
       const savedRecommendation = localStorage.getItem("recommendation");
       if (savedEvaluationText && savedRecommendation) {
@@ -324,6 +344,31 @@
         document.getElementById("reportDisplay").style.display = "block";
       }
     };
+
+    // Add event listener for profile form submission
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Save profile data
+      const jobInterests = document.getElementById("jobInterests").value;
+      const previousInternships = document.getElementById("previousInternships").value;
+      const collegeActivities = document.getElementById("collegeActivities").value;
+      const assessmentScore = document.getElementById("assessmentScore").value;
+      const showScoreOnProfile = document.getElementById("showScoreOnProfile").checked;
+
+      localStorage.setItem("jobInterests", jobInterests);
+      localStorage.setItem("previousInternships", previousInternships);
+      localStorage.setItem("collegeActivities", collegeActivities);
+      localStorage.setItem("assessmentScore", assessmentScore);
+      localStorage.setItem("showScoreOnProfile", showScoreOnProfile);
+
+      // Show success message
+      const profileMessage = document.getElementById("profileMessage");
+      profileMessage.style.display = "block";
+      setTimeout(() => {
+        profileMessage.style.display = "none";
+      }, 3000);
+    });
 
     // Mark assessment as started
     function markAssessmentStarted() {
@@ -358,7 +403,41 @@
     .status.rejected {
       color: red;
     }
-    
+
+    .checkbox-group {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin: 0;
+    }
+
+    .checkbox-group label {
+      margin: 0;
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .profile-score {
+      background-color: #f8f9fa;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      border-left: 4px solid #28a745;
+      font-weight: bold;
+      color: #28a745;
+    }
   </style>
   <!-- ALL YOUR HTML CONTENT ABOVE -->
 <script>

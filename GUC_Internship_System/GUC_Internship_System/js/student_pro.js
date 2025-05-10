@@ -20,6 +20,22 @@ function loadProfile() {
   document.getElementById("jobInterests").value = profile.jobInterests || "";
   document.getElementById("previousInternships").value = profile.previousInternships || "";
   document.getElementById("collegeActivities").value = profile.collegeActivities || "";
+  document.getElementById("assessmentScore").value = profile.assessmentScore || "";
+  document.getElementById("showScoreOnProfile").checked = profile.showScoreOnProfile || false;
+  
+  // Update profile display with assessment score if it should be shown
+  updateProfileScoreDisplay(profile);
+}
+
+// Update the profile score display
+function updateProfileScoreDisplay(profile) {
+  const profileScoreDisplay = document.getElementById("profileScoreDisplay");
+  if (profile.showScoreOnProfile && profile.assessmentScore) {
+    profileScoreDisplay.textContent = `Online Assessment Score: ${profile.assessmentScore}%`;
+    profileScoreDisplay.style.display = "block";
+  } else {
+    profileScoreDisplay.style.display = "none";
+  }
 }
 
 // Save profile to localStorage
@@ -29,11 +45,16 @@ document.getElementById("profileForm").addEventListener("submit", function (e) {
   const profile = {
     jobInterests: document.getElementById("jobInterests").value.trim(),
     previousInternships: document.getElementById("previousInternships").value.trim(),
-    collegeActivities: document.getElementById("collegeActivities").value.trim()
+    collegeActivities: document.getElementById("collegeActivities").value.trim(),
+    assessmentScore: document.getElementById("assessmentScore").value.trim(),
+    showScoreOnProfile: document.getElementById("showScoreOnProfile").checked
   };
 
   localStorage.setItem("studentProProfile", JSON.stringify(profile));
   document.getElementById("profileMessage").style.display = "block";
+  
+  // Update the profile score display
+  updateProfileScoreDisplay(profile);
 
   // Refresh suggested companies
   populateSuggestedCompanies();
@@ -116,6 +137,7 @@ document.getElementById("majorSemesterForm").addEventListener("submit", function
 
   document.getElementById("majorSemesterMessage").style.display = "block";
 });
+
 // Toggle Online Assessments list
 document.addEventListener('DOMContentLoaded', function() {
   const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
@@ -132,28 +154,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// Mark assessment as started
-function markAssessmentStarted() {
-  localStorage.setItem("assessmentStarted", "true");
-  const viewScoreBtn = document.getElementById("viewScoreBtn");
-  viewScoreBtn.style.display = "block";
-}
-
-// Show dummy score
-function showDummyScore() {
-  const scoreDisplay = document.getElementById("scoreDisplay");
-  scoreDisplay.style.display = "block";
-}
-
 // Initialize the page
 window.onload = function () {
   loadProfile();
   populateSuggestedCompanies();
   loadMajorAndSemester();
   populateInternshipsList();
-
-  const viewScoreBtn = document.getElementById("viewScoreBtn");
-  if (localStorage.getItem("assessmentStarted") !== "true") {
-    viewScoreBtn.style.display = "none";
-  }
 };
