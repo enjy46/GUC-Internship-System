@@ -170,6 +170,55 @@
   </div>
 </div>
 
+<!-- Video Call Appointment Section -->
+<section class="card">
+  <h3>Career Guidance Video Call</h3>
+  <div id="appointmentStatus" class="appointment-status"></div>
+  <form id="appointmentForm" class="appointment-form">
+    <div class="form-group">
+      <label for="appointmentDate">Preferred Date:</label>
+      <input type="date" id="appointmentDate" required min="">
+    </div>
+    <div class="form-group">
+      <label for="appointmentTime">Preferred Time:</label>
+      <select id="appointmentTime" required>
+        <option value="">Select a time slot</option>
+        <option value="09:00">9:00 AM</option>
+        <option value="10:00">10:00 AM</option>
+        <option value="11:00">11:00 AM</option>
+        <option value="14:00">2:00 PM</option>
+        <option value="15:00">3:00 PM</option>
+        <option value="16:00">4:00 PM</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="appointmentReason">Reason for Call:</label>
+      <select id="appointmentReason" required>
+        <option value="">Select a reason</option>
+        <option value="career_guidance">Career Guidance</option>
+        <option value="report_clarification">Report Clarification</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="appointmentNotes">Additional Notes:</label>
+      <textarea id="appointmentNotes" placeholder="Please provide any additional details about your request"></textarea>
+    </div>
+    <button type="submit" class="btn" id="requestAppointmentBtn">Request Appointment</button>
+  </form>
+
+  <!-- Appointment Details Section -->
+  <div id="videoCallSection" class="video-call-container" style="display: none;">
+    <h3>Your Video Call</h3>
+    <div class="video-call-info">
+      <p><strong>Date:</strong> <span id="callDate"></span></p>
+      <p><strong>Time:</strong> <span id="callTime"></span></p>
+      <p><strong>Reason:</strong> <span id="callReason"></span></p>
+    </div>
+    <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+  </div>
+</section>
+
 <!-- Button to Generate PDF Report -->
 <div class="generate-report-container">
   <button class="primary-button" onclick="generateStatisticsReport()">Generate Statistics Report (PDF)</button>

@@ -257,4 +257,173 @@ document.addEventListener('DOMContentLoaded', function () {
   if (loadEvaluationReportsBtn) {
     loadEvaluationReportsBtn.addEventListener('click', fetchEvaluationReports);
   }
+
+  // Video Call Appointment Management
+  const appointmentForm = document.getElementById('appointmentForm');
+  const appointmentDate = document.getElementById('appointmentDate');
+  const appointmentStatus = document.getElementById('appointmentStatus');
+  const videoCallSection = document.getElementById('videoCallSection');
+  const startVideoCallBtn = document.getElementById('startVideoCallBtn');
+
+  // Set minimum date to today
+  const today = new Date().toISOString().split('T')[0];
+  appointmentDate.min = today;
+
+  // Check for existing appointment
+  function checkExistingAppointment() {
+    const appointments = JSON.parse(localStorage.getItem('scadAppointments')) || [];
+    const currentAppointment = appointments.find(app => 
+      app.status === 'confirmed' && new Date(app.date) >= new Date()
+    );
+
+    if (currentAppointment) {
+      showAppointmentDetails(currentAppointment);
+    }
+  }
+
+  // Show appointment details
+  function showAppointmentDetails(appointment) {
+    document.getElementById('callDate').textContent = formatDate(appointment.date);
+    document.getElementById('callTime').textContent = formatTime(appointment.time);
+    document.getElementById('callReason').textContent = formatReason(appointment.reason);
+    document.getElementById('callStatus').textContent = capitalizeFirst(appointment.status);
+    document.getElementById('callStatus').className = `status-badge ${appointment.status}`;
+    document.getElementById('requestDate').textContent = formatDate(appointment.requestDate);
+    document.getElementById('callNotes').textContent = appointment.notes || 'No additional notes';
+    
+    videoCallSection.style.display = 'block';
+    appointmentForm.style.display = 'none';
+
+    // Show/hide buttons based on appointment status
+    const startVideoCallBtn = document.getElementById('startVideoCallBtn');
+    const cancelAppointmentBtn = document.getElementById('cancelAppointmentBtn');
+    
+    if (appointment.status === 'confirmed') {
+      startVideoCallBtn.style.display = 'block';
+      cancelAppointmentBtn.style.display = 'block';
+      updateStartButtonState(appointment);
+    } else if (appointment.status === 'pending') {
+      startVideoCallBtn.style.display = 'none';
+      cancelAppointmentBtn.style.display = 'block';
+    } else {
+      startVideoCallBtn.style.display = 'none';
+      cancelAppointmentBtn.style.display = 'none';
+    }
+  }
+
+  // Capitalize first letter
+  function capitalizeFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  // Handle cancel appointment
+  document.getElementById('cancelAppointmentBtn').addEventListener('click', function() {
+    if (confirm('Are you sure you want to cancel this appointment?')) {
+      const appointments = JSON.parse(localStorage.getItem('scadAppointments')) || [];
+      const currentAppointment = appointments.find(app => 
+        app.status === 'confirmed' && new Date(app.date) >= new Date()
+      );
+      
+      if (currentAppointment) {
+        currentAppointment.status = 'cancelled';
+        localStorage.setItem('scadAppointments', JSON.stringify(appointments));
+        
+        // Show success message
+        appointmentStatus.textContent = 'Appointment cancelled successfully.';
+        appointmentStatus.className = 'appointment-status success';
+        
+        // Update display
+        showAppointmentDetails(currentAppointment);
+        
+        // Hide success message after 3 seconds
+        setTimeout(() => {
+          appointmentStatus.style.display = 'none';
+        }, 3000);
+      }
+    }
+  });
+
+  // Update start button state
+  function updateStartButtonState(appointment) {
+    const now = new Date();
+    const appointmentDateTime = new Date(`${appointment.date}T${appointment.time}`);
+    const timeDiff = appointmentDateTime - now;
+    const fiveMinutes = 5 * 60 * 1000;
+
+    startVideoCallBtn.disabled = timeDiff > fiveMinutes || timeDiff < -fiveMinutes;
+  }
+
+  // Format date for display
+  function formatDate(dateString) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
+
+  // Format time for display
+  function formatTime(timeString) {
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  }
+
+  // Format reason for display
+  function formatReason(reason) {
+    const reasons = {
+      'career_guidance': 'Career Guidance',
+      'report_clarification': 'Report Clarification',
+      'other': 'Other'
+    };
+    return reasons[reason] || reason;
+  }
+
+  // Handle form submission
+  appointmentForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const appointment = {
+      date: appointmentDate.value,
+      time: document.getElementById('appointmentTime').value,
+      reason: document.getElementById('appointmentReason').value,
+      notes: document.getElementById('appointmentNotes').value,
+      status: 'pending',
+      requestDate: new Date().toISOString()
+    };
+
+    // Save appointment
+    const appointments = JSON.parse(localStorage.getItem('scadAppointments')) || [];
+    appointments.push(appointment);
+    localStorage.setItem('scadAppointments', JSON.stringify(appointments));
+
+    // Show success message
+    appointmentStatus.textContent = 'Appointment request submitted successfully!';
+    appointmentStatus.className = 'appointment-status success';
+    appointmentForm.reset();
+
+    // Hide success message after 3 seconds
+    setTimeout(() => {
+      appointmentStatus.style.display = 'none';
+    }, 3000);
+  });
+
+  // Handle start video call button
+  startVideoCallBtn.addEventListener('click', function() {
+    alert('Starting video call...');
+    // Here you would integrate with your video call service
+  });
+
+  // Check for existing appointment on page load
+  checkExistingAppointment();
+
+  // Update start button state every minute
+  setInterval(() => {
+    const appointments = JSON.parse(localStorage.getItem('scadAppointments')) || [];
+    const currentAppointment = appointments.find(app => 
+      app.status === 'confirmed' && new Date(app.date) >= new Date()
+    );
+    if (currentAppointment) {
+      updateStartButtonState(currentAppointment);
+    }
+  }, 60000);
 });
