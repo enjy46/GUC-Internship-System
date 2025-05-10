@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student/PRO Student Dashboard</title>
   <link rel="stylesheet" href="css/student_pro.css">
-  <link rel="stylesheet" href="css/common_styles.css"> <!-- Assuming shared styles -->
+  <link rel="stylesheet" href="css/common_styles.css">
 </head>
 <body>
   <!-- NAVIGATION BAR -->
@@ -14,7 +14,7 @@
     <nav>
       <ul>
         <li><a href="student_pro.html" class="active">Profile</a></li>
-        <li><a href="internships.html">Internships</a></li> <!-- Link to internships page -->
+        <li><a href="internships.html">Internships</a></li>
         <li><a href="logout.html">Logout</a></li>
       </ul>
     </nav>
@@ -36,7 +36,7 @@
     <!-- PROFILE SECTION -->
     <section class="profile-section card">
       <h2>Your Profile</h2>
-      <div id="profileScoreDisplay" class="profile-score" style="display: none;"></div>
+      <div id="profileScoreDisplay" class="profile-score"></div>
       <form id="profileForm">
         <div class="form-group">
           <label for="jobInterests">Job Interests:</label>
@@ -60,7 +60,7 @@
         </div>
         <button type="submit" class="btn">Update Profile</button>
       </form>
-      <p id="profileMessage" class="success-message" style="display: none;">Profile updated successfully!</p>
+      <p id="profileMessage" class="success-message"></p>
     </section>
 
     <!-- COMPANY EVALUATION SECTION -->
@@ -82,8 +82,8 @@
         <button type="submit" class="btn">Save Evaluation</button>
         <button type="button" class="btn" onclick="deleteEvaluation()">Delete Evaluation</button>
       </form>
-      <p id="evaluationMessage" class="success-message" style="display: none;">Evaluation saved successfully!</p>
-      <div id="evaluationDisplay" style="display: none;">
+      <p id="evaluationMessage" class="success-message"></p>
+      <div id="evaluationDisplay">
         <h3>Your Evaluation:</h3>
         <p id="evaluationContent"></p>
         <p><strong>Recommendation:</strong> <span id="recommendationContent"></span></p>
@@ -109,8 +109,8 @@
         <button type="submit" class="btn">Save Report</button>
         <button type="button" class="btn" onclick="deleteReport()">Delete Report</button>
       </form>
-      <p id="reportMessage" class="success-message" style="display: none;">Report saved successfully!</p>
-      <div id="reportDisplay" style="display: none;">
+      <p id="reportMessage" class="success-message"></p>
+      <div id="reportDisplay">
         <h3 id="reportTitleDisplay"></h3>
         <p><strong>Introduction:</strong> <span id="reportIntroductionDisplay"></span></p>
         <p><strong>Body:</strong> <span id="reportBodyDisplay"></span></p>
@@ -122,11 +122,11 @@
       <h2>My Past and Present Internships</h2>
       <div class="form-group">
         <label for="searchInternships">Search Internships:</label>
-        <input type="text" id="searchInternships" placeholder="Search by job title or company name" oninput="searchInternships()">
+        <input type="text" id="searchInternships" placeholder="Search by job title or company name">
       </div>
       <div class="form-group">
         <label for="filterInternships">Filter by Status:</label>
-        <select id="filterInternships" onchange="filterInternshipsByStatus()">
+        <select id="filterInternships">
           <option value="">All</option>
           <option value="current">Current Intern</option>
           <option value="completed">Internship Complete</option>
@@ -142,7 +142,7 @@
       <h2>Upload Extra Documents</h2>
       <p>Upload any documents that showcase your fit for the internship (e.g., certificates, cover letters, CVs).</p>
       <input type="file" id="extraDocs" multiple>
-      <button onclick="uploadExtraDocuments()">Upload Documents</button>
+      <button onclick="uploadExtraDocuments()" class="btn">Upload Documents</button>
       <div id="uploadedDocsList">
         <h3>Uploaded Documents:</h3>
         <ul id="documentsList"></ul>
@@ -160,23 +160,19 @@
     <!-- APPLICATION STATUS SECTION -->
     <section class="application-status-section card">
       <h2>Application Status</h2>
-      <ul id="applicationStatusList">
-        <!-- Application statuses will be dynamically populated -->
-      </ul>
+      <ul id="applicationStatusList"></ul>
     </section>
 
-  
     <!-- ONLINE ASSESSMENTS SECTION -->
     <section class="assessments-section card">
       <h2>Available Online Assessments</h2>
       <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
-      <ul id="assessmentsList" style="display: none;">
+      <ul id="assessmentsList">
         <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
         <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
         <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
       </ul>
     </section>
-
   </main>
 
   <!-- FOOTER -->
@@ -184,394 +180,11 @@
     <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
-  <script>
-    // Function to handle document uploads
-    function uploadExtraDocuments() {
-      const fileInput = document.getElementById("extraDocs");
-      const documentsList = document.getElementById("documentsList");
+  <!-- Debug element -->
+  <div id="debugInfo" class="debug-info"></div>
 
-      if (fileInput.files.length === 0) {
-        alert("Please select at least one document to upload.");
-        return;
-      }
-
-      for (const file of fileInput.files) {
-        const listItem = document.createElement("li");
-        listItem.textContent = file.name;
-        documentsList.appendChild(listItem);
-      }
-
-      alert("Documents uploaded successfully!");
-      fileInput.value = ""; // Clear the file input
-    }
-
-    // Example data for applied internships
-    const appliedInternships = [
-      { company: "TechCorp", title: "Software Engineer Intern" },
-      { company: "HealthPlus", title: "Data Analyst Intern" },
-      { company: "EduSoft", title: "Web Developer Intern" }
-    ];
-
-    // Populate applied internships list
-    function populateAppliedInternships() {
-      const list = document.getElementById("appliedInternshipsList");
-      list.innerHTML = "";
-
-      if (appliedInternships.length === 0) {
-        list.innerHTML = "<li>No internships applied to yet.</li>";
-      } else {
-        appliedInternships.forEach(internship => {
-          const listItem = document.createElement("li");
-          listItem.innerHTML = `<strong>${internship.title}</strong> at <em>${internship.company}</em>`;
-          list.appendChild(listItem);
-        });
-      }
-    }
-
-    // Example data for application statuses
-    const applicationStatuses = [
-      { company: "TechCorp", title: "Software Engineer Intern", status: "pending" },
-      { company: "HealthPlus", title: "Data Analyst Intern", status: "finalized" },
-      { company: "EduSoft", title: "Web Developer Intern", status: "accepted" },
-      { company: "FinBank", title: "Finance Intern", status: "rejected" }
-    ];
-
-    // Populate application statuses
-    function populateApplicationStatuses() {
-      const list = document.getElementById("applicationStatusList");
-      list.innerHTML = "";
-
-      if (applicationStatuses.length === 0) {
-        list.innerHTML = "<li>No applications found.</li>";
-      } else {
-        applicationStatuses.forEach(application => {
-          const listItem = document.createElement("li");
-          listItem.innerHTML = `
-            <strong>${application.title}</strong> at <em>${application.company}</em>
-            <p>Status: <span class="status ${application.status}">${capitalizeStatus(application.status)}</span></p>
-          `;
-          list.appendChild(listItem);
-        });
-      }
-    }
-
-    // Helper function to capitalize the status
-    function capitalizeStatus(status) {
-      return status.charAt(0).toUpperCase() + status.slice(1);
-    }
-
-    // Example data for past and present internships
-    const internships = [
-      { company: "TechCorp", title: "Software Engineer Intern", duration: "3 months", status: "completed" },
-      { company: "HealthPlus", title: "Data Analyst Intern", duration: "6 months", status: "current" },
-      { company: "EduSoft", title: "Web Developer Intern", duration: "4 months", status: "completed" },
-      { company: "FinBank", title: "Finance Intern", duration: "2 months", status: "current" }
-    ];
-
-    // Populate internships list
-    function populateInternshipsList(filter = "", statusFilter = "") {
-      const list = document.getElementById("internshipsList");
-      list.innerHTML = "";
-
-      const filteredInternships = internships.filter(internship => {
-        const matchesSearch = internship.company.toLowerCase().includes(filter.toLowerCase()) ||
-                              internship.title.toLowerCase().includes(filter.toLowerCase());
-        const matchesStatus = !statusFilter || internship.status === statusFilter;
-        return matchesSearch && matchesStatus;
-      });
-
-      if (filteredInternships.length === 0) {
-        list.innerHTML = "<li>No internships found.</li>";
-      } else {
-        filteredInternships.forEach(internship => {
-          const listItem = document.createElement("li");
-          listItem.innerHTML = `
-            <strong>${internship.title}</strong> at <em>${internship.company}</em> - Duration: ${internship.duration}
-            <button onclick="selectInternship('${internship.title}', '${internship.company}')">Select</button>
-          `;
-          list.appendChild(listItem);
-        });
-      }
-    }
-
-    // Search internships
-    function searchInternships() {
-      const searchInput = document.getElementById("searchInternships").value;
-      const statusFilter = document.getElementById("filterInternships").value;
-      populateInternshipsList(searchInput, statusFilter);
-    }
-
-    // Filter internships by status
-    function filterInternshipsByStatus() {
-      const statusFilter = document.getElementById("filterInternships").value;
-      const searchInput = document.getElementById("searchInternships").value;
-      populateInternshipsList(searchInput, statusFilter);
-    }
-
-    // Select a completed internship
-    function selectInternship(title, company) {
-      alert(`You selected the internship: ${title} at ${company}`);
-    }
-
-    // Initialize the page
-    window.onload = function () {
-      populateAppliedInternships();
-      populateApplicationStatuses();
-      populateInternshipsList();
-
-      // Load saved profile data
-      const savedJobInterests = localStorage.getItem("jobInterests");
-      const savedPreviousInternships = localStorage.getItem("previousInternships");
-      const savedCollegeActivities = localStorage.getItem("collegeActivities");
-      const savedAssessmentScore = localStorage.getItem("assessmentScore");
-      const savedShowScoreOnProfile = localStorage.getItem("showScoreOnProfile");
-
-      if (savedJobInterests) document.getElementById("jobInterests").value = savedJobInterests;
-      if (savedPreviousInternships) document.getElementById("previousInternships").value = savedPreviousInternships;
-      if (savedCollegeActivities) document.getElementById("collegeActivities").value = savedCollegeActivities;
-      if (savedAssessmentScore) document.getElementById("assessmentScore").value = savedAssessmentScore;
-      if (savedShowScoreOnProfile) document.getElementById("showScoreOnProfile").checked = savedShowScoreOnProfile === "true";
-
-      const savedEvaluationText = localStorage.getItem("evaluationText");
-      const savedRecommendation = localStorage.getItem("recommendation");
-      if (savedEvaluationText && savedRecommendation) {
-        document.getElementById("evaluationContent").textContent = savedEvaluationText;
-        document.getElementById("recommendationContent").textContent = savedRecommendation === "yes" ? "Yes" : "No";
-        document.getElementById("evaluationDisplay").style.display = "block";
-      }
-
-      const savedReportTitle = localStorage.getItem("reportTitle");
-      const savedReportIntroduction = localStorage.getItem("reportIntroduction");
-      const savedReportBody = localStorage.getItem("reportBody");
-      if (savedReportTitle && savedReportIntroduction && savedReportBody) {
-        document.getElementById("reportTitleDisplay").textContent = savedReportTitle;
-        document.getElementById("reportIntroductionDisplay").textContent = savedReportIntroduction;
-        document.getElementById("reportBodyDisplay").textContent = savedReportBody;
-        document.getElementById("reportDisplay").style.display = "block";
-      }
-    };
-
-    // Add debug function
-    function updateDebugInfo() {
-        const debugInfo = document.getElementById('debugInfo');
-        const badge = document.getElementById('proBadge');
-        const isPro = localStorage.getItem("proStudentStatus") === "true";
-        
-        debugInfo.innerHTML = `
-            Badge Display: ${badge.style.display}<br>
-            Badge Visibility: ${badge.style.visibility}<br>
-            Badge Opacity: ${badge.style.opacity}<br>
-            PRO Status: ${isPro}<br>
-            Has Visible Class: ${badge.classList.contains('visible')}
-        `;
-    }
-
-    // Update debug info periodically
-    setInterval(updateDebugInfo, 1000);
-
-    // Show debug info (press Ctrl+D to toggle)
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 'd') {
-            const debugInfo = document.getElementById('debugInfo');
-            debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
-        }
-    });
-
-    // Restore online assessment toggle functionality
-    const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
-    const assessmentsList = document.getElementById('assessmentsList');
-
-    showAssessmentsBtn.addEventListener('click', function() {
-        if (assessmentsList.style.display === 'none') {
-            assessmentsList.style.display = 'block';
-            showAssessmentsBtn.textContent = 'Hide Online Assessments';
-        } else {
-            assessmentsList.style.display = 'none';
-            showAssessmentsBtn.textContent = 'Show Online Assessments';
-        }
-    });
-
-    // Modify form submission to preserve badge
-    document.getElementById("profileForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        
-        // Store current badge state
-        const badge = document.getElementById("proBadge");
-        const wasVisible = badge.classList.contains('visible');
-        
-        // Save profile data
-        const jobInterests = document.getElementById("jobInterests").value;
-        const previousInternships = document.getElementById("previousInternships").value;
-        const collegeActivities = document.getElementById("collegeActivities").value;
-        const assessmentScore = document.getElementById("assessmentScore").value;
-        const showScoreOnProfile = document.getElementById("showScoreOnProfile").checked;
-
-        localStorage.setItem("jobInterests", jobInterests);
-        localStorage.setItem("previousInternships", previousInternships);
-        localStorage.setItem("collegeActivities", collegeActivities);
-        localStorage.setItem("assessmentScore", assessmentScore);
-        localStorage.setItem("showScoreOnProfile", showScoreOnProfile);
-
-        // Restore badge state
-        if (wasVisible) {
-            badge.classList.add('visible');
-        }
-
-        // Show success message
-        const profileMessage = document.getElementById("profileMessage");
-        profileMessage.style.display = "block";
-        setTimeout(() => {
-            profileMessage.style.display = "none";
-        }, 3000);
-
-        // Update debug info
-        updateDebugInfo();
-    });
-  </script>
-  
-
-  <style>
-    .status {
-      font-weight: bold;
-    }
-
-    .status.pending {
-      color: orange;
-    }
-
-    .status.finalized {
-      color: blue;
-    }
-
-    .status.accepted {
-      color: green;
-    }
-
-    .status.rejected {
-      color: red;
-    }
-
-    .checkbox-group {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      margin: 0;
-    }
-
-    .checkbox-group label {
-      margin: 0;
-      font-size: 0.9em;
-      color: #666;
-    }
-
-    input[type="number"] {
-      width: 100%;
-      padding: 8px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      margin-bottom: 8px;
-    }
-
-    .profile-score {
-      background-color: #f8f9fa;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 4px;
-      border-left: 4px solid #28a745;
-      font-weight: bold;
-      color: #28a745;
-    }
-
-    .pro-badge {
-      background: linear-gradient(135deg, #ffd700, #ffa500);
-      padding: 20px 30px;
-      margin: 20px auto;
-      border-radius: 12px;
-      display: flex !important; /* Force display */
-      align-items: center;
-      gap: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      border: 2px solid #fff;
-      max-width: 400px;
-      animation: badgeGlow 2s infinite;
-      transition: all 0.3s ease-in-out;
-      opacity: 1 !important; /* Force opacity */
-      visibility: visible !important; /* Force visibility */
-      position: relative;
-      z-index: 1000; /* Ensure it's above other elements */
-    }
-
-    .pro-badge.visible {
-      opacity: 1 !important;
-      visibility: visible !important;
-      display: flex !important;
-    }
-
-    @keyframes badgeGlow {
-      0% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-      50% { box-shadow: 0 4px 15px rgba(255,215,0,0.4); }
-      100% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
-    }
-
-    .badge-content {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
-    .badge-icon {
-      font-size: 40px;
-      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
-    }
-
-    .badge-text {
-      font-weight: bold;
-      font-size: 28px;
-      color: #fff;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .badge-description {
-      font-size: 16px;
-      color: #fff;
-      opacity: 0.9;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
-
-    .welcome-section {
-      text-align: center;
-      padding: 20px;
-      background-color: #f8f9fa;
-      border-radius: 8px;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .welcome-section h1 {
-      margin-bottom: 15px;
-      color: #333;
-    }
-
-    /* Add debug styles */
-    .debug-info {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(0,0,0,0.8);
-      color: white;
-      padding: 10px;
-      border-radius: 5px;
-      font-family: monospace;
-      z-index: 9999;
-    }
-  </style>
-
-  <!-- Add debug element -->
-  <div id="debugInfo" class="debug-info" style="display: none;"></div>
+  <!-- Scripts -->
+  <script src="js/student_pro.js"></script>
 </body>
 </html>
 

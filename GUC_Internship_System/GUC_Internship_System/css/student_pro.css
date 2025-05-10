@@ -50,6 +50,15 @@ main {
 .welcome-section {
   text-align: center;
   margin-bottom: 2rem;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  position: relative;
+}
+
+.welcome-section h1 {
+  margin-bottom: 15px;
+  color: #333;
 }
 
 .card {
@@ -94,6 +103,7 @@ main {
 .success-message {
   color: green;
   margin-top: 1rem;
+  display: none;
 }
 
 footer {
@@ -105,10 +115,130 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* Status styles */
+.status {
+  font-weight: bold;
+}
+
+.status.pending {
+  color: orange;
+}
+
+.status.finalized {
+  color: blue;
+}
+
+.status.accepted {
+  color: green;
+}
+
+.status.rejected {
+  color: red;
+}
+
+/* Checkbox group styles */
+.checkbox-group {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin: 0;
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Input styles */
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+/* Profile score styles */
+.profile-score {
+  background-color: #f8f9fa;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border-left: 4px solid #28a745;
+  font-weight: bold;
+  color: #28a745;
+  display: none;
+}
+
+/* PRO Badge styles */
+.pro-badge {
+  background: linear-gradient(135deg, #ffd700, #ffa500);
+  padding: 20px 30px;
+  margin: 20px auto;
+  border-radius: 12px;
+  display: flex !important;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border: 2px solid #fff;
+  max-width: 400px;
+  animation: badgeGlow 2s infinite;
+  transition: all 0.3s ease-in-out;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 1000;
+}
+
+.pro-badge.visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+}
+
+@keyframes badgeGlow {
+  0% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+  50% { box-shadow: 0 4px 15px rgba(255,215,0,0.4); }
+  100% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.badge-icon {
+  font-size: 40px;
+  filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+}
+
+.badge-text {
+  font-weight: bold;
+  font-size: 28px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.badge-description {
+  font-size: 16px;
+  color: #fff;
+  opacity: 0.9;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Assessments section styles */
 .assessments-section ul {
   list-style-type: none;
   padding-left: 0;
   margin-top: 1rem;
+  display: none;
 }
 
 .assessments-section ul li {
@@ -117,9 +247,23 @@ footer {
 
 .assessments-section ul li a {
   text-decoration: none;
-  color: #0073e6; /* Matches blue tones in corporate palettes */
+  color: #0073e6;
 }
 
 .assessments-section ul li a:hover {
   text-decoration: underline;
+}
+
+/* Debug info styles */
+.debug-info {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  z-index: 9999;
+  display: none;
 }
