@@ -135,6 +135,11 @@
   </div>
 </div>
 
+<!-- Notification Container -->
+<div id="notificationContainer" class="notification-container" style="display: none; position: fixed; top: 10px; right: 10px; background: #f0f0f0; border: 1px solid #ccc; padding: 10px; border-radius: 5px; z-index: 1000;">
+  <p id="notificationMessage" style="margin: 0;"></p>
+</div>
+
 <!-- Statistics Section -->
 <div class="statistics-container">
   <h3>Real-Time Statistics</h3>
@@ -209,13 +214,17 @@
 
   <!-- Appointment Details Section -->
   <div id="videoCallSection" class="video-call-container" style="display: none;">
-    <h3>Your Video Call</h3>
+    <h3>Appointment Details</h3>
     <div class="video-call-info">
       <p><strong>Date:</strong> <span id="callDate"></span></p>
       <p><strong>Time:</strong> <span id="callTime"></span></p>
       <p><strong>Reason:</strong> <span id="callReason"></span></p>
+      <p><strong>User Status:</strong> <span id="userStatus" style="color: red;">Offline</span></p>
     </div>
-    <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+    <div class="appointment-actions">
+      <button id="acceptAppointmentBtn" class="btn accept-btn">Accept Appointment</button>
+      <button id="rejectAppointmentBtn" class="btn reject-btn">Reject Appointment</button>
+    </div>
   </div>
 </section>
 

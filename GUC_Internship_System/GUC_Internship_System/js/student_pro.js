@@ -209,6 +209,39 @@ function updateDebugInfo() {
   `;
 }
 
+// Function to show a notification
+function showNotification(message) {
+  const notificationContainer = document.getElementById('notificationContainer');
+  const notificationMessage = document.getElementById('notificationMessage');
+
+  notificationMessage.textContent = message;
+  notificationContainer.style.display = 'block';
+
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notificationContainer.style.display = 'none';
+  }, 3000);
+}
+
+// Function to simulate user online/offline status
+function checkUserStatus() {
+  const userStatusElement = document.getElementById('userStatus');
+
+  // Simulate online/offline status (replace this with real-time status logic if available)
+  const isOnline = Math.random() > 0.5; // Randomly set online/offline for demonstration
+
+  if (isOnline) {
+    userStatusElement.textContent = 'Online';
+    userStatusElement.style.color = 'green';
+  } else {
+    userStatusElement.textContent = 'Offline';
+    userStatusElement.style.color = 'red';
+  }
+}
+
+// Call checkUserStatus every 5 seconds to update the status
+setInterval(checkUserStatus, 5000);
+
 // Initialize the page
 window.onload = function () {
   // Clear any existing profile data for testing
@@ -409,6 +442,36 @@ window.onload = function () {
     }
   });
 
+  // Handle Accept Appointment
+  document.getElementById('acceptAppointmentBtn').addEventListener('click', function () {
+    const appointmentStatus = document.getElementById('appointmentStatus');
+    appointmentStatus.textContent = 'Appointment Accepted';
+    appointmentStatus.style.color = 'green';
+
+    // Update appointment status in localStorage
+    const appointment = JSON.parse(localStorage.getItem('studentAppointment')) || {};
+    appointment.status = 'accepted';
+    localStorage.setItem('studentAppointment', JSON.stringify(appointment));
+
+    // Show notification
+    showNotification('You have accepted the appointment.');
+  });
+
+  // Handle Reject Appointment
+  document.getElementById('rejectAppointmentBtn').addEventListener('click', function () {
+    const appointmentStatus = document.getElementById('appointmentStatus');
+    appointmentStatus.textContent = 'Appointment Rejected';
+    appointmentStatus.style.color = 'red';
+
+    // Update appointment status in localStorage
+    const appointment = JSON.parse(localStorage.getItem('studentAppointment')) || {};
+    appointment.status = 'rejected';
+    localStorage.setItem('studentAppointment', JSON.stringify(appointment));
+
+    // Show notification
+    showNotification('You have rejected the appointment.');
+  });
+
   // Check appointment status periodically
   setInterval(updateVideoCallSection, 60000); // Check every minute
 
@@ -416,4 +479,7 @@ window.onload = function () {
   window.addEventListener('load', function() {
     updateVideoCallSection();
   });
+
+  // Call checkUserStatus immediately when the page loads
+  checkUserStatus();
 };
