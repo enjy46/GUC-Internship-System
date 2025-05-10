@@ -150,10 +150,27 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function downloadCompanyApplications() {
-    const applications = companies.map(company => 
-      `Company: ${company.name}\nIndustry: ${company.industry}\nStatus: ${company.status}\n\n`
-    ).join("");
-    generatePDF("Company Applications", applications);
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(18);
+    doc.text("Company Applications", 10, 10);
+
+    // Example data (replace with actual data from your backend or database)
+    const applications = [
+      { company: "TechCorp", industry: "Tech", status: "Approved" },
+      { company: "BuildIt", industry: "Engineering", status: "Pending" },
+      { company: "BizWorld", industry: "Business", status: "Rejected" },
+    ];
+
+    // Add data to the PDF
+    applications.forEach((app, index) => {
+      doc.text(`${index + 1}. ${app.company} - ${app.industry} - ${app.status}`, 10, 20 + index * 10);
+    });
+
+    // Save the PDF
+    doc.save("Company-Applications.pdf");
   }
 
   searchInput.addEventListener("input", () => renderCompanies(filterAndSearch()));

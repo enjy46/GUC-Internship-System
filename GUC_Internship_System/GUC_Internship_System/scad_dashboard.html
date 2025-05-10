@@ -395,6 +395,72 @@
     doc.save("Real-Time-Statistics-Report.pdf");
   }
 
+  // Function to download company applications as PDF
+  async function downloadCompanyApplications() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const applications = [
+      { company: "TechCorp", industry: "Tech", status: "Pending" },
+      { company: "BuildIt", industry: "Engineering", status: "Pending" },
+      { company: "BizWorld", industry: "Business", status: "Pending" },
+    ];
+
+    // Add title
+    doc.setFontSize(18);
+    doc.text("Company Applications", 10, 10);
+
+    // Add data to the PDF
+    applications.forEach((app, index) => {
+      doc.text(`${index + 1}. ${app.company} - ${app.industry} - ${app.status}`, 10, 20 + index * 10);
+    });
+
+    // Save the PDF
+    doc.save("Company-Applications.pdf");
+  }
+
+  // Function to view company details
+  function viewCompanyDetails(companyName, industry, status) {
+    console.log("Viewing details for:", companyName);
+    alert(`Details for company:\nName: ${companyName}\nIndustry: ${industry}\nStatus: ${status}`);
+  }
+
+  // Function to accept a company
+  function acceptCompany(companyName) {
+    console.log("Accepting company:", companyName);
+    alert(`Company "${companyName}" has been accepted.`);
+    updateCompanyStatus(companyName, "Accepted");
+  }
+
+  // Function to reject a company
+  function rejectCompany(companyName) {
+    console.log("Rejecting company:", companyName);
+    alert(`Company "${companyName}" has been rejected.`);
+    updateCompanyStatus(companyName, "Rejected");
+  }
+
+  // Function to display company applications
+  function displayCompanyApplications(applications) {
+    const companyList = document.getElementById("companyList");
+    companyList.innerHTML = ""; // Clear the list before populating
+
+    applications.forEach(application => {
+      const div = document.createElement("div");
+      div.classList.add("company-card");
+
+      div.innerHTML = `
+        <p><strong>Company:</strong> ${application.company}</p>
+        <p><strong>Industry:</strong> ${application.industry}</p>
+        <p><strong>Status:</strong> ${application.status}</p>
+        <button onclick="viewCompanyDetails('${application.company}', '${application.industry}', '${application.status}')">View Details</button>
+        <button onclick="acceptCompany('${application.company}')">Accept</button>
+        <button onclick="rejectCompany('${application.company}')">Reject</button>
+      `;
+
+      companyList.appendChild(div);
+    });
+  }
+
   // Call fetchStatistics on page load
   window.onload = function () {
     fetchStatistics();
