@@ -25,6 +25,9 @@ function loadProfile() {
   
   // Update profile display with assessment score if it should be shown
   updateProfileScoreDisplay(profile);
+  
+  // Check PRO badge eligibility
+  checkProBadgeEligibility();
 }
 
 // Update the profile score display
@@ -35,6 +38,39 @@ function updateProfileScoreDisplay(profile) {
     profileScoreDisplay.style.display = "block";
   } else {
     profileScoreDisplay.style.display = "none";
+  }
+}
+
+// Function to check if student qualifies for PRO badge
+function checkProBadgeEligibility() {
+  const proBadge = document.getElementById("proBadge");
+  
+  // First check if PRO status is already saved
+  const isPro = localStorage.getItem("proStudentStatus") === "true";
+  if (isPro) {
+    proBadge.classList.add('visible');
+    return; // If already PRO, keep the badge visible
+  }
+  
+  // Get internships from the list
+  const internshipsList = document.getElementById("internshipsList");
+  const internshipItems = internshipsList.getElementsByTagName("li");
+  
+  let totalMonths = 0;
+  
+  // Calculate total months from the internships list
+  for (let item of internshipItems) {
+    const text = item.textContent;
+    const durationMatch = text.match(/(\d+)\s*(?:month|months)/i);
+    if (durationMatch) {
+      totalMonths += parseInt(durationMatch[1]);
+    }
+  }
+  
+  // Show badge if total duration is 3 or more months
+  if (totalMonths >= 3) {
+    proBadge.classList.add('visible');
+    localStorage.setItem("proStudentStatus", "true");
   }
 }
 
@@ -55,6 +91,9 @@ document.getElementById("profileForm").addEventListener("submit", function (e) {
   
   // Update the profile score display
   updateProfileScoreDisplay(profile);
+  
+  // Check PRO badge eligibility after profile update
+  checkProBadgeEligibility();
 
   // Refresh suggested companies
   populateSuggestedCompanies();
@@ -100,6 +139,11 @@ function populateInternshipsList(filter = "") {
       li.innerHTML = `<strong>${internship.title}</strong> at <em>${internship.company}</em> - Duration: ${internship.duration}`;
       list.appendChild(li);
     });
+  }
+  
+  // Only check badge eligibility if not already PRO
+  if (localStorage.getItem("proStudentStatus") !== "true") {
+    checkProBadgeEligibility();
   }
 }
 
@@ -156,8 +200,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Initialize the page
 window.onload = function () {
+  // Clear any existing profile data for testing
+  localStorage.removeItem("studentProProfile");
+  
+  // Load profile
   loadProfile();
+  
+  // Initialize other components
   populateSuggestedCompanies();
   loadMajorAndSemester();
   populateInternshipsList();
+  
+  // Check PRO badge eligibility once on page load
+  checkProBadgeEligibility();
 };

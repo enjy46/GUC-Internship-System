@@ -24,7 +24,13 @@
   <main>
     <section class="welcome-section">
       <h1>Welcome, PRO Student</h1>
-      <p>Manage your profile and explore suggested companies tailored to your interests.</p>
+      <div id="proBadge" class="pro-badge">
+        <span class="badge-icon">🏆</span>
+        <div class="badge-content">
+          <span class="badge-text">PRO Student</span>
+          <span class="badge-description">Completed 3+ months of internship</span>
+        </div>
+      </div>
     </section>
 
     <!-- PROFILE SECTION -->
@@ -349,6 +355,10 @@
     document.getElementById("profileForm").addEventListener("submit", function(e) {
       e.preventDefault();
       
+      // Store current badge state
+      const badge = document.getElementById("proBadge");
+      const wasVisible = badge.classList.contains('visible');
+      
       // Save profile data
       const jobInterests = document.getElementById("jobInterests").value;
       const previousInternships = document.getElementById("previousInternships").value;
@@ -361,6 +371,11 @@
       localStorage.setItem("collegeActivities", collegeActivities);
       localStorage.setItem("assessmentScore", assessmentScore);
       localStorage.setItem("showScoreOnProfile", showScoreOnProfile);
+
+      // Restore badge state
+      if (wasVisible) {
+        badge.classList.add('visible');
+      }
 
       // Show success message
       const profileMessage = document.getElementById("profileMessage");
@@ -438,25 +453,121 @@
       font-weight: bold;
       color: #28a745;
     }
-  </style>
-  <!-- ALL YOUR HTML CONTENT ABOVE -->
-<script>
-  const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
-  const assessmentsList = document.getElementById('assessmentsList');
-  const viewScoreBtn = document.getElementById('viewScoreBtn');
 
-  showAssessmentsBtn.addEventListener('click', function() {
-    if (assessmentsList.style.display === 'none') {
-      assessmentsList.style.display = 'block';
-      showAssessmentsBtn.textContent = 'Hide Online Assessments';
-      viewScoreBtn.style.display = 'block';
-    } else {
-      assessmentsList.style.display = 'none';
-      showAssessmentsBtn.textContent = 'Show Online Assessments';
-      viewScoreBtn.style.display = 'none';
+    .pro-badge {
+      background: linear-gradient(135deg, #ffd700, #ffa500);
+      padding: 20px 30px;
+      margin: 20px auto;
+      border-radius: 12px;
+      display: flex !important; /* Force display */
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      border: 2px solid #fff;
+      max-width: 400px;
+      animation: badgeGlow 2s infinite;
+      transition: all 0.3s ease-in-out;
+      opacity: 1 !important; /* Force opacity */
+      visibility: visible !important; /* Force visibility */
+      position: relative;
+      z-index: 1000; /* Ensure it's above other elements */
     }
-  });
-</script>
+
+    .pro-badge.visible {
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: flex !important;
+    }
+
+    @keyframes badgeGlow {
+      0% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+      50% { box-shadow: 0 4px 15px rgba(255,215,0,0.4); }
+      100% { box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    }
+
+    .badge-content {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .badge-icon {
+      font-size: 40px;
+      filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+    }
+
+    .badge-text {
+      font-weight: bold;
+      font-size: 28px;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .badge-description {
+      font-size: 16px;
+      color: #fff;
+      opacity: 0.9;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    }
+
+    .welcome-section {
+      text-align: center;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .welcome-section h1 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    /* Add debug styles */
+    .debug-info {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      z-index: 9999;
+    }
+  </style>
+
+  <!-- Add debug element -->
+  <div id="debugInfo" class="debug-info" style="display: none;"></div>
+
+  <script>
+    // Add debug function
+    function updateDebugInfo() {
+        const debugInfo = document.getElementById('debugInfo');
+        const badge = document.getElementById('proBadge');
+        const isPro = localStorage.getItem("proStudentStatus") === "true";
+        
+        debugInfo.innerHTML = `
+            Badge Display: ${badge.style.display}<br>
+            Badge Visibility: ${badge.style.visibility}<br>
+            Badge Opacity: ${badge.style.opacity}<br>
+            PRO Status: ${isPro}<br>
+            Has Visible Class: ${badge.classList.contains('visible')}
+        `;
+    }
+
+    // Update debug info periodically
+    setInterval(updateDebugInfo, 1000);
+
+    // Show debug info (press Ctrl+D to toggle)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'd') {
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
+        }
+    });
+  </script>
 </body>
 </html>
 
