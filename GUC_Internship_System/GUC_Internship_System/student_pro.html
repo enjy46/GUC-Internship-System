@@ -351,50 +351,82 @@
       }
     };
 
-    // Add event listener for profile form submission
-    document.getElementById("profileForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      // Store current badge state
-      const badge = document.getElementById("proBadge");
-      const wasVisible = badge.classList.contains('visible');
-      
-      // Save profile data
-      const jobInterests = document.getElementById("jobInterests").value;
-      const previousInternships = document.getElementById("previousInternships").value;
-      const collegeActivities = document.getElementById("collegeActivities").value;
-      const assessmentScore = document.getElementById("assessmentScore").value;
-      const showScoreOnProfile = document.getElementById("showScoreOnProfile").checked;
+    // Add debug function
+    function updateDebugInfo() {
+        const debugInfo = document.getElementById('debugInfo');
+        const badge = document.getElementById('proBadge');
+        const isPro = localStorage.getItem("proStudentStatus") === "true";
+        
+        debugInfo.innerHTML = `
+            Badge Display: ${badge.style.display}<br>
+            Badge Visibility: ${badge.style.visibility}<br>
+            Badge Opacity: ${badge.style.opacity}<br>
+            PRO Status: ${isPro}<br>
+            Has Visible Class: ${badge.classList.contains('visible')}
+        `;
+    }
 
-      localStorage.setItem("jobInterests", jobInterests);
-      localStorage.setItem("previousInternships", previousInternships);
-      localStorage.setItem("collegeActivities", collegeActivities);
-      localStorage.setItem("assessmentScore", assessmentScore);
-      localStorage.setItem("showScoreOnProfile", showScoreOnProfile);
+    // Update debug info periodically
+    setInterval(updateDebugInfo, 1000);
 
-      // Restore badge state
-      if (wasVisible) {
-        badge.classList.add('visible');
-      }
-
-      // Show success message
-      const profileMessage = document.getElementById("profileMessage");
-      profileMessage.style.display = "block";
-      setTimeout(() => {
-        profileMessage.style.display = "none";
-      }, 3000);
+    // Show debug info (press Ctrl+D to toggle)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'd') {
+            const debugInfo = document.getElementById('debugInfo');
+            debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
+        }
     });
 
-    // Mark assessment as started
-    function markAssessmentStarted() {
-      alert("Assessment started!");
-    }
+    // Restore online assessment toggle functionality
+    const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
+    const assessmentsList = document.getElementById('assessmentsList');
 
-    // Show dummy score
-    function showDummyScore() {
-      const scoreDisplay = document.getElementById("scoreDisplay");
-      scoreDisplay.style.display = "block";
-    }
+    showAssessmentsBtn.addEventListener('click', function() {
+        if (assessmentsList.style.display === 'none') {
+            assessmentsList.style.display = 'block';
+            showAssessmentsBtn.textContent = 'Hide Online Assessments';
+        } else {
+            assessmentsList.style.display = 'none';
+            showAssessmentsBtn.textContent = 'Show Online Assessments';
+        }
+    });
+
+    // Modify form submission to preserve badge
+    document.getElementById("profileForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        
+        // Store current badge state
+        const badge = document.getElementById("proBadge");
+        const wasVisible = badge.classList.contains('visible');
+        
+        // Save profile data
+        const jobInterests = document.getElementById("jobInterests").value;
+        const previousInternships = document.getElementById("previousInternships").value;
+        const collegeActivities = document.getElementById("collegeActivities").value;
+        const assessmentScore = document.getElementById("assessmentScore").value;
+        const showScoreOnProfile = document.getElementById("showScoreOnProfile").checked;
+
+        localStorage.setItem("jobInterests", jobInterests);
+        localStorage.setItem("previousInternships", previousInternships);
+        localStorage.setItem("collegeActivities", collegeActivities);
+        localStorage.setItem("assessmentScore", assessmentScore);
+        localStorage.setItem("showScoreOnProfile", showScoreOnProfile);
+
+        // Restore badge state
+        if (wasVisible) {
+            badge.classList.add('visible');
+        }
+
+        // Show success message
+        const profileMessage = document.getElementById("profileMessage");
+        profileMessage.style.display = "block";
+        setTimeout(() => {
+            profileMessage.style.display = "none";
+        }, 3000);
+
+        // Update debug info
+        updateDebugInfo();
+    });
   </script>
   
 
@@ -540,34 +572,6 @@
 
   <!-- Add debug element -->
   <div id="debugInfo" class="debug-info" style="display: none;"></div>
-
-  <script>
-    // Add debug function
-    function updateDebugInfo() {
-        const debugInfo = document.getElementById('debugInfo');
-        const badge = document.getElementById('proBadge');
-        const isPro = localStorage.getItem("proStudentStatus") === "true";
-        
-        debugInfo.innerHTML = `
-            Badge Display: ${badge.style.display}<br>
-            Badge Visibility: ${badge.style.visibility}<br>
-            Badge Opacity: ${badge.style.opacity}<br>
-            PRO Status: ${isPro}<br>
-            Has Visible Class: ${badge.classList.contains('visible')}
-        `;
-    }
-
-    // Update debug info periodically
-    setInterval(updateDebugInfo, 1000);
-
-    // Show debug info (press Ctrl+D to toggle)
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && e.key === 'd') {
-            const debugInfo = document.getElementById('debugInfo');
-            debugInfo.style.display = debugInfo.style.display === 'none' ? 'block' : 'none';
-        }
-    });
-  </script>
 </body>
 </html>
 
