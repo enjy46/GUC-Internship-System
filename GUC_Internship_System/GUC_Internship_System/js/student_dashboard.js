@@ -416,8 +416,154 @@ function loadProfileViews() {
   }
 }
 
-// Combine all window.onload logic
+// Mock data for internship reports with comments
+let internshipReports = [
+  { title: "Internship at TechCorp", status: "flagged", comments: "Please revise the introduction section." },
+  { title: "Internship at BuildIt", status: "rejected", comments: "The report lacks sufficient details about your responsibilities." },
+];
+
+// Function to simulate setting a report status
+function setReportStatus(reportTitle, newStatus) {
+  const report = internshipReports.find(r => r.title === reportTitle);
+  if (report) {
+    report.status = newStatus;
+    notifyReportStatusChange(report);
+  }
+}
+
+// Function to notify the student/PRO student about the status change
+function notifyReportStatusChange(report) {
+  const notificationMessage = `Your internship report "${report.title}" status has been set to "${report.status}".`;
+
+  // Display the notification in the console (for debugging)
+  console.log(notificationMessage);
+
+  // Add the notification to the UI
+  const notificationList = document.getElementById("notificationList");
+  const li = document.createElement("li");
+  li.textContent = notificationMessage;
+  notificationList.appendChild(li);
+
+  // Optionally, use an alert for immediate feedback
+  alert(notificationMessage);
+}
+
+// Function to display comments for flagged or rejected reports
+function displayComments() {
+  const commentsContainer = document.getElementById("commentsContainer");
+  commentsContainer.innerHTML = ""; // Clear previous comments
+
+  // Filter reports with flagged or rejected status
+  const flaggedOrRejectedReports = internshipReports.filter(
+    report => report.status === "flagged" || report.status === "rejected"
+  );
+
+  if (flaggedOrRejectedReports.length === 0) {
+    commentsContainer.innerHTML = "<p>No comments available.</p>";
+    return;
+  }
+
+  // Display comments for each flagged or rejected report
+  flaggedOrRejectedReports.forEach(report => {
+    const commentDiv = document.createElement("div");
+    commentDiv.classList.add("comment");
+
+    const title = document.createElement("h4");
+    title.textContent = `Report: ${report.title}`;
+    commentDiv.appendChild(title);
+
+    const status = document.createElement("p");
+    status.textContent = `Status: ${report.status}`;
+    commentDiv.appendChild(status);
+
+    const comment = document.createElement("p");
+    comment.textContent = `Comment: ${report.comments}`;
+    commentDiv.appendChild(comment);
+
+    commentsContainer.appendChild(commentDiv);
+  });
+}
+
+// Function to populate the dropdown with flagged or rejected reports
+function populateAppealDropdown() {
+  const reportToAppeal = document.getElementById("reportToAppeal");
+  reportToAppeal.innerHTML = ""; // Clear previous options
+
+  // Filter reports with flagged or rejected status
+  const flaggedOrRejectedReports = internshipReports.filter(
+    report => report.status === "flagged" || report.status === "rejected"
+  );
+
+  if (flaggedOrRejectedReports.length === 0) {
+    const option = document.createElement("option");
+    option.textContent = "No flagged or rejected reports available";
+    option.disabled = true;
+    option.selected = true;
+    reportToAppeal.appendChild(option);
+    return;
+  }
+
+  // Populate dropdown with flagged or rejected reports
+  flaggedOrRejectedReports.forEach(report => {
+    const option = document.createElement("option");
+    option.value = report.title;
+    option.textContent = `${report.title} (${report.status})`;
+    reportToAppeal.appendChild(option);
+  });
+}
+
+// Function to submit an appeal
+function submitAppeal() {
+  const reportToAppeal = document.getElementById("reportToAppeal").value;
+  const appealMessage = document.getElementById("appealMessage").value.trim();
+
+  if (!reportToAppeal || !appealMessage) {
+    alert("Please select a report and write an appeal message before submitting.");
+    return;
+  }
+
+  // Simulate submitting the appeal (replace with actual API call)
+  console.log(`Appeal submitted for "${reportToAppeal}": ${appealMessage}`);
+  alert(`Your appeal for "${reportToAppeal}" has been submitted.`);
+
+  // Clear the appeal message
+  document.getElementById("appealMessage").value = "";
+}
+
+// Mock data for videos based on majors
+const internshipVideos = {
+  CS: "https://www.example.com/videos/cs_internships.mp4",
+  Eng: "https://www.example.com/videos/eng_internships.mp4",
+  Business: "https://www.example.com/videos/business_internships.mp4",
+};
+
+// Function to load the video based on the selected major
+function loadInternshipVideo() {
+  const major = document.getElementById("majorVideoDropdown").value;
+  const videoPlayer = document.getElementById("videoPlayer");
+
+  // Clear the video player
+  videoPlayer.innerHTML = "";
+
+  if (!major || !internshipVideos[major]) {
+    videoPlayer.innerHTML = "<p>Please select a valid major to view the video.</p>";
+    return;
+  }
+
+  // Create and display the video element
+  const video = document.createElement("video");
+  video.src = internshipVideos[major];
+  video.controls = true;
+  video.style.width = "100%";
+  video.style.maxWidth = "600px";
+  videoPlayer.appendChild(video);
+}
+
+// Example usage: Simulate a status change
 window.onload = function () {
+  // Simulate a status change after 3 seconds (for demonstration purposes)
+  setTimeout(() => setReportStatus("Internship at TechCorp", "accepted"), 3000);
+
   loadProfile();
   loadEvaluation();
   loadReport();
@@ -426,7 +572,10 @@ window.onload = function () {
   loadInternshipHistory();
   searchAndFilterInternships();
   loadProfileViews();
+  displayComments(); // Load comments for flagged or rejected reports
   document.getElementById("majorSelect").addEventListener("change", loadCourses);
+  populateAppealDropdown(); // Populate the dropdown for appeals
+  loadInternshipVideo(); // Ensure the dropdown is ready
 };
 
 // Call this function on page load

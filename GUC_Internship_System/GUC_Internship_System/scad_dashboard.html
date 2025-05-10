@@ -124,6 +124,56 @@
     </div>
   </div>
 
+<!-- Modal for Adding Clarifications -->
+<div id="clarificationModal" style="display: none; position: fixed; top: 20%; left: 30%; width: 40%; background: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+  <h3>Submit Clarification</h3>
+  <p><strong>Report Title:</strong> <span id="clarificationReportTitle"></span></p>
+  <textarea id="clarificationText" placeholder="Enter your clarification here..." rows="5" style="width: 100%;"></textarea>
+  <div style="margin-top: 10px;">
+    <button onclick="submitClarification()">Submit Clarification</button>
+    <button onclick="closeClarificationModal()">Cancel</button>
+  </div>
+</div>
+
+<!-- Statistics Section -->
+<div class="statistics-container">
+  <h3>Real-Time Statistics</h3>
+  <div class="statistics-grid">
+    <div class="stat-card">
+      <h4>Accepted Reports</h4>
+      <p id="acceptedReportsCount">0</p>
+    </div>
+    <div class="stat-card">
+      <h4>Rejected Reports</h4>
+      <p id="rejectedReportsCount">0</p>
+    </div>
+    <div class="stat-card">
+      <h4>Flagged Reports</h4>
+      <p id="flaggedReportsCount">0</p>
+    </div>
+    <div class="stat-card">
+      <h4>Average Review Time</h4>
+      <p id="averageReviewTime">0 days</p>
+    </div>
+    <div class="stat-card">
+      <h4>Most Used Courses</h4>
+      <ul id="mostUsedCourses"></ul>
+    </div>
+    <div class="stat-card">
+      <h4>Top Rated Companies</h4>
+      <ul id="topRatedCompanies"></ul>
+    </div>
+    <div class="stat-card">
+      <h4>Top Companies by Internship Count</h4>
+      <ul id="topCompaniesByCount"></ul>
+    </div>
+  </div>
+</div>
+
+<!-- Button to Generate PDF Report -->
+<div class="generate-report-container">
+  <button class="primary-button" onclick="generateStatisticsReport()">Generate Statistics Report (PDF)</button>
+</div>
 
 <script src="js/scad.js"></script>
 <script>
@@ -182,12 +232,11 @@
 
   // Mock function to fetch all submitted reports (replace with actual API or database call)
   function fetchAllReports() {
+    console.log("Fetching all reports...");
     const reports = [
-      { title: "Internship at TechCorp", student: "Alice", date: "2025-05-01" },
-      { title: "Internship at BuildIt", student: "Bob", date: "2025-04-15" },
-      { title: "Internship at BizWorld", student: "Charlie", date: "2025-03-20" },
+      { title: "Internship at TechCorp", student: "Alice", date: "2025-05-01", status: "flagged" },
+      { title: "Internship at BuildIt", student: "Bob", date: "2025-04-15", status: "rejected" },
     ];
-
     displayReports(reports);
   }
 
@@ -198,10 +247,159 @@
 
     reports.forEach(report => {
       const li = document.createElement("li");
-      li.textContent = `Title: ${report.title}, Student: ${report.student}, Date: ${report.date}`;
+      li.textContent = `Title: ${report.title}, Student: ${report.student}, Date: ${report.date}, Status: ${report.status}`;
+      if (report.status === "flagged" || report.status === "rejected") {
+        const button = document.createElement("button");
+        button.textContent = "Add Clarification";
+        button.style.marginLeft = "10px";
+        button.onclick = () => openClarificationModal(report);
+        li.appendChild(button);
+      }
       reportsList.appendChild(li);
     });
   }
+
+  let selectedReport = null; // Track the selected report for clarification
+
+  // Function to open the clarification modal
+  function openClarificationModal(report) {
+    console.log("Opening clarification modal for:", report.title);
+    selectedReport = report;
+    document.getElementById("clarificationReportTitle").textContent = report.title;
+    document.getElementById("clarificationText").value = ""; // Clear previous input
+    document.getElementById("clarificationModal").style.display = "block";
+  }
+
+  // Function to close the clarification modal
+  function closeClarificationModal() {
+    console.log("Closing clarification modal");
+    document.getElementById("clarificationModal").style.display = "none";
+  }
+
+  // Function to submit a clarification
+  function submitClarification() {
+    console.log("Submitting clarification for:", selectedReport.title);
+    const clarificationText = document.getElementById("clarificationText").value.trim();
+    if (!clarificationText) {
+      alert("Please enter a clarification before submitting.");
+      return;
+    }
+
+    // Save the clarification (replace with actual API or database logic)
+    console.log(`Clarification for report "${selectedReport.title}": ${clarificationText}`);
+    alert(`Clarification submitted for report "${selectedReport.title}".`);
+
+    // Close the modal
+    closeClarificationModal();
+  }
+
+  // Mock data for statistics (replace with real-time API or database calls)
+  function fetchStatistics() {
+    console.log("Fetching statistics...");
+
+    const statistics = {
+      acceptedReports: 120,
+      rejectedReports: 45,
+      flaggedReports: 30,
+      averageReviewTime: 5, // in days
+      mostUsedCourses: ["Data Structures", "Software Engineering", "Marketing 101"],
+      topRatedCompanies: ["TechCorp", "BuildIt", "BizWorld"],
+      topCompaniesByCount: ["TechCorp (50)", "BuildIt (40)", "BizWorld (35)"],
+    };
+
+    displayStatistics(statistics);
+  }
+
+  // Function to display statistics
+  function displayStatistics(stats) {
+    document.getElementById("acceptedReportsCount").textContent = stats.acceptedReports;
+    document.getElementById("rejectedReportsCount").textContent = stats.rejectedReports;
+    document.getElementById("flaggedReportsCount").textContent = stats.flaggedReports;
+    document.getElementById("averageReviewTime").textContent = `${stats.averageReviewTime} days`;
+
+    const mostUsedCoursesList = document.getElementById("mostUsedCourses");
+    mostUsedCoursesList.innerHTML = ""; // Clear the list
+    stats.mostUsedCourses.forEach(course => {
+      const li = document.createElement("li");
+      li.textContent = course;
+      mostUsedCoursesList.appendChild(li);
+    });
+
+    const topRatedCompaniesList = document.getElementById("topRatedCompanies");
+    topRatedCompaniesList.innerHTML = ""; // Clear the list
+    stats.topRatedCompanies.forEach(company => {
+      const li = document.createElement("li");
+      li.textContent = company;
+      topRatedCompaniesList.appendChild(li);
+    });
+
+    const topCompaniesByCountList = document.getElementById("topCompaniesByCount");
+    topCompaniesByCountList.innerHTML = ""; // Clear the list
+    stats.topCompaniesByCount.forEach(company => {
+      const li = document.createElement("li");
+      li.textContent = company;
+      topCompaniesByCountList.appendChild(li);
+    });
+  }
+
+  // Function to generate a PDF report for real-time statistics
+  function generateStatisticsReport() {
+    console.log("Generating statistics report...");
+
+    // Fetch the statistics data from the DOM
+    const acceptedReports = document.getElementById("acceptedReportsCount").textContent;
+    const rejectedReports = document.getElementById("rejectedReportsCount").textContent;
+    const flaggedReports = document.getElementById("flaggedReportsCount").textContent;
+    const averageReviewTime = document.getElementById("averageReviewTime").textContent;
+
+    const mostUsedCourses = Array.from(document.getElementById("mostUsedCourses").children).map(li => li.textContent);
+    const topRatedCompanies = Array.from(document.getElementById("topRatedCompanies").children).map(li => li.textContent);
+    const topCompaniesByCount = Array.from(document.getElementById("topCompaniesByCount").children).map(li => li.textContent);
+
+    // Initialize jsPDF
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Add title
+    doc.setFontSize(18);
+    doc.text("Real-Time Statistics Report", 10, 10);
+
+    // Add statistics data
+    doc.setFontSize(12);
+    doc.text(`Accepted Reports: ${acceptedReports}`, 10, 20);
+    doc.text(`Rejected Reports: ${rejectedReports}`, 10, 30);
+    doc.text(`Flagged Reports: ${flaggedReports}`, 10, 40);
+    doc.text(`Average Review Time: ${averageReviewTime}`, 10, 50);
+
+    // Add most used courses
+    doc.text("Most Used Courses:", 10, 60);
+    mostUsedCourses.forEach((course, index) => {
+      doc.text(`- ${course}`, 15, 70 + index * 10);
+    });
+
+    // Add top-rated companies
+    const topRatedStartY = 70 + mostUsedCourses.length * 10;
+    doc.text("Top Rated Companies:", 10, topRatedStartY);
+    topRatedCompanies.forEach((company, index) => {
+      doc.text(`- ${company}`, 15, topRatedStartY + 10 + index * 10);
+    });
+
+    // Add top companies by internship count
+    const topCompaniesStartY = topRatedStartY + 10 + topRatedCompanies.length * 10;
+    doc.text("Top Companies by Internship Count:", 10, topCompaniesStartY);
+    topCompaniesByCount.forEach((company, index) => {
+      doc.text(`- ${company}`, 15, topCompaniesStartY + 10 + index * 10);
+    });
+
+    // Save the PDF
+    doc.save("Real-Time-Statistics-Report.pdf");
+  }
+
+  // Call fetchStatistics on page load
+  window.onload = function () {
+    fetchStatistics();
+    // Existing functions like fetchAllReports or fetchAllStudents can also be called here
+  };
 </script>
 
 </html>
