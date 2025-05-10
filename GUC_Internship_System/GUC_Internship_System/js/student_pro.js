@@ -290,4 +290,130 @@ window.onload = function () {
     // Update debug info
     updateDebugInfo();
   });
+
+  // Set minimum date for appointment to today
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('appointmentDate').min = today;
+
+  // Handle appointment form submission
+  document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Check if user is PRO student
+    const isPro = localStorage.getItem("proStudentStatus") === "true";
+    if (!isPro) {
+      showAppointmentStatus("Only PRO students can request video call appointments.", "error");
+      return;
+    }
+
+    const appointmentDate = document.getElementById('appointmentDate').value;
+    const appointmentTime = document.getElementById('appointmentTime').value;
+    const appointmentReason = document.getElementById('appointmentReason').value;
+    const appointmentNotes = document.getElementById('appointmentNotes').value;
+
+    // Save appointment details
+    const appointment = {
+      date: appointmentDate,
+      time: appointmentTime,
+      reason: appointmentReason,
+      notes: appointmentNotes,
+      status: 'pending'
+    };
+
+    localStorage.setItem('videoCallAppointment', JSON.stringify(appointment));
+    
+    // Show success message
+    showAppointmentStatus("Appointment requested successfully! We will review your request and confirm shortly.", "success");
+    
+    // Update video call section
+    updateVideoCallSection();
+    
+    // Reset form
+    this.reset();
+  });
+
+  // Show appointment status message
+  function showAppointmentStatus(message, type) {
+    const statusDiv = document.getElementById('appointmentStatus');
+    statusDiv.textContent = message;
+    statusDiv.className = `appointment-status ${type}`;
+    
+    // Hide message after 5 seconds
+    setTimeout(() => {
+      statusDiv.style.display = 'none';
+    }, 5000);
+  }
+
+  // Update video call section
+  function updateVideoCallSection() {
+    const appointment = JSON.parse(localStorage.getItem('videoCallAppointment'));
+    const videoCallSection = document.getElementById('videoCallSection');
+    const startVideoCallBtn = document.getElementById('startVideoCallBtn');
+    
+    if (appointment) {
+      // Update appointment details
+      document.getElementById('callDate').textContent = formatDate(appointment.date);
+      document.getElementById('callTime').textContent = formatTime(appointment.time);
+      document.getElementById('callReason').textContent = formatReason(appointment.reason);
+      
+      // Show video call section
+      videoCallSection.style.display = 'block';
+      
+      // Enable/disable start button based on appointment time
+      const now = new Date();
+      const appointmentDateTime = new Date(`${appointment.date}T${appointment.time}`);
+      const timeDiff = appointmentDateTime - now;
+      
+      // Enable button if appointment is within 5 minutes
+      if (timeDiff > 0 && timeDiff <= 5 * 60 * 1000) {
+        startVideoCallBtn.disabled = false;
+      } else {
+        startVideoCallBtn.disabled = true;
+      }
+    } else {
+      videoCallSection.style.display = 'none';
+    }
+  }
+
+  // Format date for display
+  function formatDate(dateString) {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  }
+
+  // Format time for display
+  function formatTime(timeString) {
+    const [hours, minutes] = timeString.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour % 12 || 12;
+    return `${hour12}:${minutes} ${ampm}`;
+  }
+
+  // Format reason for display
+  function formatReason(reason) {
+    const reasons = {
+      'career_guidance': 'Career Guidance',
+      'report_clarification': 'Report Clarification',
+      'other': 'Other'
+    };
+    return reasons[reason] || reason;
+  }
+
+  // Handle start video call button
+  document.getElementById('startVideoCallBtn').addEventListener('click', function() {
+    const appointment = JSON.parse(localStorage.getItem('videoCallAppointment'));
+    if (appointment) {
+      // Here you would typically integrate with a video call service
+      alert('Starting video call... This would connect to your video call service.');
+    }
+  });
+
+  // Check appointment status periodically
+  setInterval(updateVideoCallSection, 60000); // Check every minute
+
+  // Initialize video call section on page load
+  window.addEventListener('load', function() {
+    updateVideoCallSection();
+  });
 };
