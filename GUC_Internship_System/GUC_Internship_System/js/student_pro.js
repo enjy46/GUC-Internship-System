@@ -116,6 +116,21 @@ document.getElementById("majorSemesterForm").addEventListener("submit", function
 
   document.getElementById("majorSemesterMessage").style.display = "block";
 });
+// Toggle Online Assessments list
+document.addEventListener('DOMContentLoaded', function() {
+  const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
+  const assessmentsList = document.getElementById('assessmentsList');
+
+  showAssessmentsBtn.addEventListener('click', function() {
+    if (assessmentsList.style.display === 'none') {
+      assessmentsList.style.display = 'block';
+      showAssessmentsBtn.textContent = 'Hide Online Assessments';
+    } else {
+      assessmentsList.style.display = 'none';
+      showAssessmentsBtn.textContent = 'Show Online Assessments';
+    }
+  });
+});
 
 // Initialize the page
 window.onload = function () {

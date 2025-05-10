@@ -149,6 +149,19 @@
         <!-- Application statuses will be dynamically populated -->
       </ul>
     </section>
+
+  
+    <!-- ONLINE ASSESSMENTS SECTION -->
+<section class="assessments-section card">
+  <h2>Available Online Assessments</h2>
+  <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
+  <ul id="assessmentsList" style="display: none;">
+    <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
+    <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
+    <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
+  </ul>
+</section>
+
   </main>
 
   <!-- FOOTER -->
@@ -310,6 +323,7 @@
       }
     };
   </script>
+  
 
   <style>
     .status {
@@ -331,6 +345,23 @@
     .status.rejected {
       color: red;
     }
+    
   </style>
+  <!-- ALL YOUR HTML CONTENT ABOVE -->
+<script>
+  const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
+  const assessmentsList = document.getElementById('assessmentsList');
+
+  showAssessmentsBtn.addEventListener('click', function() {
+    if (assessmentsList.style.display === 'none') {
+      assessmentsList.style.display = 'block';
+      showAssessmentsBtn.textContent = 'Hide Online Assessments';
+    } else {
+      assessmentsList.style.display = 'none';
+      showAssessmentsBtn.textContent = 'Show Online Assessments';
+    }
+  });
+</script>
 </body>
 </html>
+

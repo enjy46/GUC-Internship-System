@@ -105,3 +105,21 @@ footer {
   bottom: 0;
   width: 100%;
 }
+.assessments-section ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.assessments-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+.assessments-section ul li a {
+  text-decoration: none;
+  color: #0073e6; /* Matches blue tones in corporate palettes */
+}
+
+.assessments-section ul li a:hover {
+  text-decoration: underline;
+}
