@@ -152,15 +152,17 @@
 
   
     <!-- ONLINE ASSESSMENTS SECTION -->
-<section class="assessments-section card">
-  <h2>Available Online Assessments</h2>
-  <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
-  <ul id="assessmentsList" style="display: none;">
+    <section class="assessments-section card">
+      <h2>Available Online Assessments</h2>
+      <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
+      <ul id="assessmentsList" style="display: none;">
     <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
     <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
     <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
-  </ul>
-</section>
+      </ul>
+      <button id="viewScoreBtn" class="btn" style="display: none;" onclick="showDummyScore()">View My Score</button>
+      <p id="scoreDisplay" style="display: none; font-weight: bold;">Your Score: 85%</p>
+    </section>
 
   </main>
 
@@ -322,6 +324,17 @@
         document.getElementById("reportDisplay").style.display = "block";
       }
     };
+
+    // Mark assessment as started
+    function markAssessmentStarted() {
+      alert("Assessment started!");
+    }
+
+    // Show dummy score
+    function showDummyScore() {
+      const scoreDisplay = document.getElementById("scoreDisplay");
+      scoreDisplay.style.display = "block";
+    }
   </script>
   
 
@@ -351,14 +364,17 @@
 <script>
   const showAssessmentsBtn = document.getElementById('showAssessmentsBtn');
   const assessmentsList = document.getElementById('assessmentsList');
+  const viewScoreBtn = document.getElementById('viewScoreBtn');
 
   showAssessmentsBtn.addEventListener('click', function() {
     if (assessmentsList.style.display === 'none') {
       assessmentsList.style.display = 'block';
       showAssessmentsBtn.textContent = 'Hide Online Assessments';
+      viewScoreBtn.style.display = 'block';
     } else {
       assessmentsList.style.display = 'none';
       showAssessmentsBtn.textContent = 'Show Online Assessments';
+      viewScoreBtn.style.display = 'none';
     }
   });
 </script>

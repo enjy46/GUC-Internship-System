@@ -132,10 +132,28 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+// Mark assessment as started
+function markAssessmentStarted() {
+  localStorage.setItem("assessmentStarted", "true");
+  const viewScoreBtn = document.getElementById("viewScoreBtn");
+  viewScoreBtn.style.display = "block";
+}
+
+// Show dummy score
+function showDummyScore() {
+  const scoreDisplay = document.getElementById("scoreDisplay");
+  scoreDisplay.style.display = "block";
+}
+
 // Initialize the page
 window.onload = function () {
   loadProfile();
   populateSuggestedCompanies();
   loadMajorAndSemester();
   populateInternshipsList();
+
+  const viewScoreBtn = document.getElementById("viewScoreBtn");
+  if (localStorage.getItem("assessmentStarted") !== "true") {
+    viewScoreBtn.style.display = "none";
+  }
 };
