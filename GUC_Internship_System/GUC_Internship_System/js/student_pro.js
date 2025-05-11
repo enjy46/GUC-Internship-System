@@ -695,6 +695,65 @@ function closeLiveVideoPlayer() {
   videoModal.style.display = 'none';
 }
 
+// Chat functionality
+const chatMessages = document.getElementById('chatMessages');
+const chatInput = document.getElementById('chatInput');
+const sendChatBtn = document.getElementById('sendChatBtn');
+
+// Function to add a message to the chat
+function addChatMessage(message, sender = 'You') {
+  const messageElement = document.createElement('div');
+  messageElement.style.marginBottom = '10px';
+  messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+  chatMessages.appendChild(messageElement);
+
+  // Scroll to the bottom of the chat
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Trigger notification if the sender is not "You"
+  if (sender !== 'You') {
+    showNotification(`${sender} sent a new message: "${message}"`);
+  }
+}
+
+// Function to show a notification
+function showNotification(message) {
+  const notificationContainer = document.getElementById('notificationContainer');
+  const notificationMessage = document.getElementById('notificationMessage');
+
+  notificationMessage.textContent = message;
+  notificationContainer.style.display = 'block';
+
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notificationContainer.style.display = 'none';
+  }, 3000);
+}
+
+// Event listener for sending a chat message
+sendChatBtn.addEventListener('click', () => {
+  const message = chatInput.value.trim();
+  if (message) {
+    // Add the message to the chat
+    addChatMessage(message);
+
+    // Simulate receiving a response from another attendee
+    setTimeout(() => {
+      addChatMessage('Thanks for sharing!', 'Attendee');
+    }, 1000);
+
+    // Clear the input field
+    chatInput.value = '';
+  }
+});
+
+// Optional: Allow sending messages by pressing Enter
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    sendChatBtn.click();
+  }
+});
+
 // Initialize video call functionality when the page loads
 window.addEventListener('load', function() {
   initializeVideoCall();

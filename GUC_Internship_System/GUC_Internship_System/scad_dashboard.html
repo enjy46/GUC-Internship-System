@@ -583,5 +583,44 @@
   </ul>
 </section>
 
+<!-- Workshop Management Section -->
+<section class="workshop-management-section card" style="margin-top: 20px;">
+  <h3>Manage Online Workshops</h3>
+
+  <!-- Workshop Form -->
+  <form id="workshopForm" class="workshop-form">
+    <div class="form-group">
+      <label for="workshopName">Workshop Name:</label>
+      <input type="text" id="workshopName" placeholder="Enter workshop name" required>
+    </div>
+    <div class="form-group">
+      <label for="workshopDescription">Short Description:</label>
+      <textarea id="workshopDescription" placeholder="Enter a short description" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="workshopSpeaker">Speaker Bio:</label>
+      <textarea id="workshopSpeaker" placeholder="Enter speaker bio" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="workshopAgenda">Workshop Agenda:</label>
+      <textarea id="workshopAgenda" placeholder="Enter workshop agenda" required></textarea>
+    </div>
+    <div class="form-group">
+      <label for="workshopStartDate">Start Date & Time:</label>
+      <input type="datetime-local" id="workshopStartDate" required>
+    </div>
+    <div class="form-group">
+      <label for="workshopEndDate">End Date & Time:</label>
+      <input type="datetime-local" id="workshopEndDate" required>
+    </div>
+    <button type="submit" class="btn">Save Workshop</button>
+  </form>
+
+  <!-- Workshop List -->
+  <h4>Existing Workshops</h4>
+  <ul id="workshopList" class="workshop-list" style="list-style-type: none; padding: 0;">
+    <!-- Workshops will be dynamically added here -->
+  </ul>
+</section>
 
 </html>

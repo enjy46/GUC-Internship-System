@@ -389,3 +389,89 @@ function rejectCall(studentId) {
 window.addEventListener('load', function() {
   initializeVideoCall();
 });
+
+// Array to store workshops
+let workshops = [];
+
+// Function to render the workshop list
+function renderWorkshops() {
+  const workshopList = document.getElementById('workshopList');
+  workshopList.innerHTML = ''; // Clear the list
+
+  workshops.forEach((workshop, index) => {
+    const li = document.createElement('li');
+    li.style.marginBottom = '15px';
+    li.innerHTML = `
+      <strong>${workshop.name}</strong> <br>
+      <em>${workshop.description}</em> <br>
+      <strong>Speaker:</strong> ${workshop.speaker} <br>
+      <strong>Agenda:</strong> ${workshop.agenda} <br>
+      <strong>Start:</strong> ${new Date(workshop.startDate).toLocaleString()} <br>
+      <strong>End:</strong> ${new Date(workshop.endDate).toLocaleString()} <br>
+      <button onclick="editWorkshop(${index})" class="btn">Edit</button>
+      <button onclick="deleteWorkshop(${index})" class="btn" style="margin-left: 5px;">Delete</button>
+    `;
+    workshopList.appendChild(li);
+  });
+}
+
+// Function to handle form submission
+document.getElementById('workshopForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const name = document.getElementById('workshopName').value.trim();
+  const description = document.getElementById('workshopDescription').value.trim();
+  const speaker = document.getElementById('workshopSpeaker').value.trim();
+  const agenda = document.getElementById('workshopAgenda').value.trim();
+  const startDate = document.getElementById('workshopStartDate').value;
+  const endDate = document.getElementById('workshopEndDate').value;
+
+  if (!name || !description || !speaker || !agenda || !startDate || !endDate) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  // Check if editing an existing workshop
+  const editingIndex = document.getElementById('workshopForm').dataset.editingIndex;
+  if (editingIndex !== undefined) {
+    workshops[editingIndex] = { name, description, speaker, agenda, startDate, endDate };
+    delete document.getElementById('workshopForm').dataset.editingIndex;
+  } else {
+    // Add new workshop
+    workshops.push({ name, description, speaker, agenda, startDate, endDate });
+  }
+
+  // Clear the form
+  this.reset();
+
+  // Re-render the workshop list
+  renderWorkshops();
+});
+
+// Function to edit a workshop
+function editWorkshop(index) {
+  const workshop = workshops[index];
+
+  document.getElementById('workshopName').value = workshop.name;
+  document.getElementById('workshopDescription').value = workshop.description;
+  document.getElementById('workshopSpeaker').value = workshop.speaker;
+  document.getElementById('workshopAgenda').value = workshop.agenda;
+  document.getElementById('workshopStartDate').value = workshop.startDate;
+  document.getElementById('workshopEndDate').value = workshop.endDate;
+
+  // Set the editing index
+  document.getElementById('workshopForm').dataset.editingIndex = index;
+}
+
+// Function to delete a workshop
+function deleteWorkshop(index) {
+  if (confirm('Are you sure you want to delete this workshop?')) {
+    workshops.splice(index, 1); // Remove the workshop
+    renderWorkshops(); // Re-render the list
+  }
+}
+
+// Render workshops on page load
+window.onload = function () {
+  renderWorkshops();
+};
