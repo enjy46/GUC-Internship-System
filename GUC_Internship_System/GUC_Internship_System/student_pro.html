@@ -173,9 +173,13 @@
       <h2>Available Online Assessments</h2>
       <button id="showAssessmentsBtn" class="btn">Show Online Assessments</button>
       <ul id="assessmentsList">
+       
         <li><a href="https://www.truity.com/test/big-five-personality-test" target="_blank">The Big Five Personality Test</a></li>
         <li><a href="https://www.123test.com/disc-personality-test/" target="_blank">DiSC Personality Assessment</a></li>
-        <li><a href="https://www.hrci.org/competency-based-assessments" target="_blank">Competency-Based Assessments (HRCI)</a></li>
+        <li><a href="https://www.16personalities.com/free-personality-test" target="_blank">16Personalities Test (MBTI-based)</a></li>
+  
+        <button id="takenTestBtn" class="btn" style="display: none; margin-top: 10px;" onclick="markTestTaken()">I have taken the test</button>
+        <div id="scoreOutput" style="margin-top: 10px; font-weight: bold;"></div>
       </ul>
     </section>
 
@@ -265,6 +269,38 @@
         </div>
       </div>
     </section>
+   <!-- AVAILABLE WORKSHOPS-->
+    <section style="margin-top: 40px; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+  <h3>Online Career Workshops</h3>
+  <p>As a PRO Student, you can view a list of all upcoming online career workshops and view the details of an online career workshop.</p>
+
+  <ul id="workshopsList">
+    <li>
+      Resume Building Workshop — May 20, 2025 — 
+      <a href="#" onclick="showWorkshopDetails('Resume Building Workshop', 'Learn how to craft a professional and compelling resume that stands out to employers.'); return false;">View details</a>
+      <button onclick="registerForWorkshop('Resume Building Workshop', this)" style="margin-left: 10px;">Register</button>
+    </li>
+    <li>
+      Mastering LinkedIn Profiles — June 5, 2025 — 
+      <a href="#" onclick="showWorkshopDetails('Mastering LinkedIn Profiles', 'Optimize your LinkedIn profile to attract recruiters and showcase your professional brand.'); return false;">View details</a>
+      <button onclick="registerForWorkshop('Mastering LinkedIn Profiles', this)" style="margin-left: 10px;">Register</button>
+    </li>
+    <li>
+      Acing Virtual Interviews — June 18, 2025 — 
+      <a href="#" onclick="showWorkshopDetails('Acing Virtual Interviews', 'Get tips and best practices for succeeding in online job interviews.'); return false;">View details</a>
+      <button onclick="registerForWorkshop('Acing Virtual Interviews', this)" style="margin-left: 10px;">Register</button>
+    </li>
+  </ul>
+
+  <div id="workshopDetails" style="margin-top: 15px; font-style: italic; color: #333;"></div>
+  <div id="registrationConfirmation" style="margin-top: 20px; color: green; font-weight: bold;"></div>
+  <div id="workshopNotification" style="margin-top: 20px; color: blue; font-weight: bold;"></div>
+
+</section>
+
+
+ 
+
 
   </main>
 

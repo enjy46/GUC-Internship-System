@@ -361,6 +361,118 @@ function toggleVideo() {
     }
   }
 }
+// Show the button when any assessment link is clicked
+document.querySelectorAll('#assessmentsList a').forEach(link => {
+  link.addEventListener('click', function() {
+    document.getElementById('takenTestBtn').style.display = 'inline-block';
+  });
+});
+
+// Change button text when clicked
+function markTestTaken() {
+  const btn = document.getElementById('takenTestBtn');
+  btn.textContent = 'View my score';
+}
+// Store which test link was clicked
+let lastClickedTest = '';
+
+document.querySelectorAll('#assessmentsList a').forEach(link => {
+  link.addEventListener('click', function() {
+    const linkText = this.textContent.trim();  // e.g., "The Big Five Personality Test"
+    lastClickedTest = linkText;
+    document.getElementById('takenTestBtn').style.display = 'inline-block';
+    document.getElementById('scoreOutput').textContent = ''; // Clear previous score
+  });
+});
+
+function markTestTaken() {
+  const btn = document.getElementById('takenTestBtn');
+
+  if (btn.textContent === 'I have taken the test') {
+    btn.textContent = 'View my score';
+  } else if (btn.textContent === 'View my score') {
+    showScore();
+  }
+}
+
+// Show dummy score based on clicked test
+function showScore() {
+  const scoreDiv = document.getElementById('scoreOutput');
+  let scoreText = '';
+
+  if (lastClickedTest === 'The Big Five Personality Test') {
+    scoreText = 'Your Big Five Personality Test Score: 75 / 100';
+  } else if (lastClickedTest === 'DiSC Personality Assessment') {
+    scoreText = 'Your DiSC Profile: Dominance: High, Influence: Medium, Steadiness: Low, Conscientiousness: Medium';
+  }
+  else if (lastClickedTest === '16Personalities Test (MBTI-based)') {
+  scoreText = 'Your MBTI Type: ENFP - The Campaigner';
+}
+   else {
+    scoreText = 'No test selected.';
+  }
+
+  scoreDiv.textContent = scoreText;
+}
+
+//WORKSHOP DETAILS
+const registeredWorkshops = [];
+let notificationPermissionAsked = false;
+
+function showWorkshopDetails(title, description) {
+  const detailsDiv = document.getElementById('workshopDetails');
+  detailsDiv.innerHTML = `<strong>${title}</strong>: ${description}`;
+}
+
+function registerForWorkshop(workshopName, buttonElement) {
+  const confirmationDiv = document.getElementById('registrationConfirmation');
+
+  // Show confirmation message
+  confirmationDiv.innerHTML = `You have successfully registered for the "${workshopName}" workshop.`;
+
+  // Disable and update ONLY the clicked button
+  buttonElement.disabled = true;
+  buttonElement.textContent = 'Registered';
+
+  // Save registration
+  registeredWorkshops.push(workshopName);
+
+  // Ask notification permission only once
+  if (!notificationPermissionAsked) {
+    askNotificationPermission();
+    notificationPermissionAsked = true;
+  }
+
+  // Simulate upcoming workshop notification after 10 seconds
+  setTimeout(function() {
+    if (registeredWorkshops.includes(workshopName)) {
+      sendWorkshopNotification(workshopName);
+    }
+  }, 10000); // 10 seconds (for demo)
+}
+
+function askNotificationPermission() {
+  if ('Notification' in window) {
+    Notification.requestPermission().then(permission => {
+      console.log('Notification permission:', permission);
+    });
+  }
+}
+
+function sendWorkshopNotification(workshopName) {
+  if ('Notification' in window && Notification.permission === 'granted') {
+    const notification = new Notification('🔔 Workshop Reminder', {
+      body: `The "${workshopName}" workshop is starting soon!`,
+      icon: 'https://cdn-icons-png.flaticon.com/512/565/565547.png' // optional icon
+    });
+  } else {
+    // Fallback: show message on page
+    const notificationDiv = document.getElementById('workshopNotification');
+    notificationDiv.innerHTML = `🔔 Reminder: The "${workshopName}" workshop is starting soon!`;
+  }
+}
+
+
 
 // Function to toggle audio
 function toggleAudio() {
