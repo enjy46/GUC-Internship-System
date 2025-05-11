@@ -279,22 +279,25 @@
         Resume Building Workshop — May 20, 2025 —
         <a href="#" onclick="showWorkshopDetails('Resume Building Workshop', 'Learn how to craft a professional and compelling resume that stands out to employers.'); return false;">View details</a>
         <button onclick="registerForWorkshop('Resume Building Workshop', this)" style="margin-left: 10px;">Register</button>
-        <button onclick="joinLiveWorkshop('Resume Building Workshop')" style="margin-left: 10px;">Join Live</button>
+        <button onclick="openLiveVideoPlayer('live-stream-url')" style="margin-left: 10px;">Join Live</button>
         <button onclick="showWorkshopVideoPlayer('path-to-resume-workshop.mp4')" style="margin-left: 10px;">Watch Pre-Recorded</button>
+        
     </li>
     <li>
         Mastering LinkedIn Profiles — June 5, 2025 —
         <a href="#" onclick="showWorkshopDetails('Mastering LinkedIn Profiles', 'Optimize your LinkedIn profile to attract recruiters and showcase your professional brand.'); return false;">View details</a>
         <button onclick="registerForWorkshop('Mastering LinkedIn Profiles', this)" style="margin-left: 10px;">Register</button>
-        <button onclick="joinLiveWorkshop('Mastering LinkedIn Profiles')" style="margin-left: 10px;">Join Live</button>
-        <button onclick="showWorkshopVideoPlayer('path-to-linkedin-workshop.mp4')" style="margin-left: 10px;">Watch Pre-Recorded</button>
+         <button onclick="openLiveVideoPlayer('live-stream-url')" style="margin-left: 10px;">Join Live</button>
+         <button onclick="showWorkshopVideoPlayer('path-to-linkedin-workshop.mp4')" style="margin-left: 10px;">Watch Pre-Recorded</button>
+       
     </li>
     <li>
         Acing Virtual Interviews — June 18, 2025 —
         <a href="#" onclick="showWorkshopDetails('Acing Virtual Interviews', 'Get tips and best practices for succeeding in online job interviews.'); return false;">View details</a>
         <button onclick="registerForWorkshop('Acing Virtual Interviews', this)" style="margin-left: 10px;">Register</button>
-        <button onclick="joinLiveWorkshop('Acing Virtual Interviews')" style="margin-left: 10px;">Join Live</button>
+        <button onclick="openLiveVideoPlayer('live-stream-url')" style="margin-left: 10px;">Join Live</button>
         <button onclick="showWorkshopVideoPlayer('path-to-interview-workshop.mp4')" style="margin-left: 10px;">Watch Pre-Recorded</button>
+        
     </li>
 </ul>
 
@@ -362,8 +365,16 @@
   <div id="feedbackConfirmation" style="margin-top: 20px; color: green; font-weight: bold;"></div>
 </section>
 
- 
-
+<!-- Live Video Player Modal -->
+<div id="liveVideoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;">
+  <div style="background: #fff; padding: 20px; border-radius: 8px; display: flex; flex-direction: column; gap: 20px; position: relative; width: 90%; max-width: 1200px;">
+    <button onclick="closeLiveVideoPlayer()" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px;">X</button>
+    <video id="liveVideoPlayer" width="100%" controls autoplay>
+      <source src="" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
 
   </main>
 

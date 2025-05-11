@@ -672,6 +672,29 @@ function saveWorkshopNotes() {
     console.log('Saved Notes:', notes);
 }
 
+function openLiveVideoPlayer(videoUrl) {
+  const videoModal = document.getElementById('liveVideoModal');
+  const videoPlayer = document.getElementById('liveVideoPlayer');
+
+  // Set the video source
+  videoPlayer.src = videoUrl;
+
+  // Show the modal
+  videoModal.style.display = 'flex';
+}
+
+function closeLiveVideoPlayer() {
+  const videoModal = document.getElementById('liveVideoModal');
+  const videoPlayer = document.getElementById('liveVideoPlayer');
+
+  // Pause the video and clear the source
+  videoPlayer.pause();
+  videoPlayer.src = '';
+
+  // Hide the modal
+  videoModal.style.display = 'none';
+}
+
 // Initialize video call functionality when the page loads
 window.addEventListener('load', function() {
   initializeVideoCall();
