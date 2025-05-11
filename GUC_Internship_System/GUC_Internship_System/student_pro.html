@@ -329,6 +329,38 @@
   <div id="workshopNotification" style="margin-top: 20px; color: blue; font-weight: bold;"></div>
 </section>
 
+<!-- Add this below the "Online Career Workshops" section -->
+<section style="margin-top: 40px; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
+  <h3>Rate and Provide Feedback for Workshops</h3>
+  <form id="workshopFeedbackForm">
+    <div class="form-group">
+      <label for="workshopSelect">Select Workshop:</label>
+      <select id="workshopSelect" required>
+        <option value="" disabled selected>Select a workshop</option>
+        <option value="Resume Building Workshop">Resume Building Workshop</option>
+        <option value="Mastering LinkedIn Profiles">Mastering LinkedIn Profiles</option>
+        <option value="Acing Virtual Interviews">Acing Virtual Interviews</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="workshopRating">Rate the Workshop (1-5):</label>
+      <select id="workshopRating" required>
+        <option value="" disabled selected>Select a rating</option>
+        <option value="1">1 - Poor</option>
+        <option value="2">2 - Fair</option>
+        <option value="3">3 - Good</option>
+        <option value="4">4 - Very Good</option>
+        <option value="5">5 - Excellent</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="workshopFeedback">Your Feedback:</label>
+      <textarea id="workshopFeedback" placeholder="Write your feedback here..." required></textarea>
+    </div>
+    <button type="submit" class="btn">Submit Feedback</button>
+  </form>
+  <div id="feedbackConfirmation" style="margin-top: 20px; color: green; font-weight: bold;"></div>
+</section>
 
  
 

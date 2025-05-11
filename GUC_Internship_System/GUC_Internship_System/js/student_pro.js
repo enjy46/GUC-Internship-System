@@ -918,3 +918,20 @@ window.onload = function () {
   // Call checkUserStatus immediately when the page loads
   checkUserStatus();
 };
+
+document.getElementById('workshopFeedbackForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const workshop = document.getElementById('workshopSelect').value;
+  const rating = document.getElementById('workshopRating').value;
+  const feedback = document.getElementById('workshopFeedback').value;
+
+  // Simulate saving feedback (you can replace this with an API call)
+  console.log(`Workshop: ${workshop}, Rating: ${rating}, Feedback: ${feedback}`);
+
+  // Display confirmation message
+  document.getElementById('feedbackConfirmation').textContent = `Thank you for your feedback on "${workshop}"!`;
+  
+  // Clear the form
+  document.getElementById('workshopFeedbackForm').reset();
+});
