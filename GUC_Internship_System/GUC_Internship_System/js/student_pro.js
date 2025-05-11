@@ -472,7 +472,25 @@ function sendWorkshopNotification(workshopName) {
   }
 }
 
+/**
+ * Handles the "Join Live" button click for workshops.
+ * @param {string} workshopName - The name of the workshop.
+ */
+function joinLiveWorkshop(workshopName) {
+    // Example logic: Redirect to a live session link
+    const liveWorkshopLinks = {
+        "Resume Building Workshop": "https://example.com/live/resume-building",
+        "Mastering LinkedIn Profiles": "https://example.com/live/linkedin-profiles",
+        "Acing Virtual Interviews": "https://example.com/live/virtual-interviews"
+    };
 
+    const link = liveWorkshopLinks[workshopName];
+    if (link) {
+        window.open(link, "_blank");
+    } else {
+        alert("Live session link for this workshop is not available.");
+    }
+}
 
 // Function to toggle audio
 function toggleAudio() {
