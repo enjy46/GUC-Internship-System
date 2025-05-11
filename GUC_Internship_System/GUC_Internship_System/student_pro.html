@@ -300,16 +300,26 @@
 
 <!-- Video Player Modal -->
 <div id="videoModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; justify-content: center; align-items: center;">
-    <div style="background: #fff; padding: 20px; border-radius: 8px; text-align: center; position: relative; width: 80%; max-width: 800px;">
-        <button onclick="closeVideoPlayer()" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px;">X</button>
-        <video id="workshopVideo" width="100%" controls style="margin-bottom: 20px;">
-            <source src="" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div>
-            <button onclick="controlVideo('play')" style="margin-right: 10px;">Play</button>
-            <button onclick="controlVideo('pause')" style="margin-right: 10px;">Pause</button>
-            <button onclick="controlVideo('stop')">Stop</button>
+    <div style="background: #fff; padding: 20px; border-radius: 8px; display: flex; gap: 20px; position: relative; width: 90%; max-width: 1200px;">
+        <!-- Video Player -->
+        <div style="flex: 2;">
+            <button onclick="closeVideoPlayer()" style="position: absolute; top: 10px; right: 10px; background: red; color: white; border: none; padding: 5px 10px; border-radius: 5px;">X</button>
+            <video id="workshopVideo" width="100%" controls style="margin-bottom: 20px;">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div>
+                <button onclick="controlVideo('play')" style="margin-right: 10px;">Play</button>
+                <button onclick="controlVideo('pause')" style="margin-right: 10px;">Pause</button>
+                <button onclick="controlVideo('stop')">Stop</button>
+            </div>
+        </div>
+
+        <!-- Notes Section -->
+        <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+            <h3>Workshop Notes</h3>
+            <textarea id="workshopNotes" placeholder="Write your notes here..." style="width: 100%; height: 200px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;"></textarea>
+            <button onclick="saveWorkshopNotes()" style="background: green; color: white; border: none; padding: 10px; border-radius: 5px;">Save Notes</button>
         </div>
     </div>
 </div>

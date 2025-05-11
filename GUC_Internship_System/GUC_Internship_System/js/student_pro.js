@@ -645,6 +645,33 @@ function controlVideo(action) {
     }
 }
 
+/**
+ * Displays the video player and notes section for the selected workshop.
+ * @param {string} videoSrc - The source URL of the workshop video.
+ */
+function showWorkshopVideoPlayerWithNotes(videoSrc) {
+    const videoModal = document.getElementById('videoModal');
+    const videoElement = document.getElementById('workshopVideo');
+
+    // Set the video source and show the modal
+    videoElement.src = videoSrc;
+    videoModal.style.display = 'flex'; // Use flex to align video and notes side by side
+}
+
+/**
+ * Saves the notes entered by the user.
+ */
+function saveWorkshopNotes() {
+    const notes = document.getElementById('workshopNotes').value;
+    if (notes.trim() === '') {
+        alert('Please enter some notes before saving.');
+        return;
+    }
+    alert('Your notes have been saved!');
+    // Optionally, save notes to localStorage or send them to a server
+    console.log('Saved Notes:', notes);
+}
+
 // Initialize video call functionality when the page loads
 window.addEventListener('load', function() {
   initializeVideoCall();
