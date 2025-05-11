@@ -526,4 +526,50 @@
   };
 </script>
 
+<!-- Add this section before the closing main tag -->
+<section class="video-call-section card">
+  <h2>Video Call Management</h2>
+  <div id="appointmentStatus" class="appointment-status"></div>
+  
+  <!-- Video Call Controls -->
+  <div class="video-call-controls">
+    <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+    <button id="toggleVideoBtn" class="btn" disabled>
+      <span class="icon">📹</span> Enable Video
+    </button>
+    <button id="toggleAudioBtn" class="btn" disabled>
+      <span class="icon">🎤</span> Mute
+    </button>
+    <button id="shareScreenBtn" class="btn" disabled>
+      <span class="icon">🖥️</span> Share Screen
+    </button>
+    <button id="endCallBtn" class="btn" disabled>
+      <span class="icon">❌</span> End Call
+    </button>
+  </div>
+
+  <!-- Video Call Container -->
+  <div class="video-container">
+    <div class="video-grid">
+      <div class="video-box">
+        <video id="localVideo" autoplay muted playsinline></video>
+        <span class="video-label">You (SCAD)</span>
+      </div>
+      <div class="video-box">
+        <video id="remoteVideo" autoplay playsinline></video>
+        <span class="video-label">Student</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call Notifications -->
+  <div id="callNotifications" class="call-notifications"></div>
+
+  <!-- Active Calls List -->
+  <div class="active-calls-section">
+    <h3>Active Calls</h3>
+    <ul id="activeCallsList"></ul>
+  </div>
+</section>
+
 </html>

@@ -242,6 +242,236 @@ function checkUserStatus() {
 // Call checkUserStatus every 5 seconds to update the status
 setInterval(checkUserStatus, 5000);
 
+// Video Call State
+let localStream = null;
+let remoteStream = null;
+let peerConnection = null;
+let isVideoEnabled = true;
+let isAudioEnabled = true;
+let isScreenSharing = false;
+
+// Initialize video call functionality
+function initializeVideoCall() {
+  const toggleVideoBtn = document.getElementById('toggleVideoBtn');
+  const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+  const shareScreenBtn = document.getElementById('shareScreenBtn');
+  const endCallBtn = document.getElementById('endCallBtn');
+  const startVideoCallBtn = document.getElementById('startVideoCallBtn');
+
+  // Event listeners for video call controls
+  toggleVideoBtn.addEventListener('click', toggleVideo);
+  toggleAudioBtn.addEventListener('click', toggleAudio);
+  shareScreenBtn.addEventListener('click', toggleScreenShare);
+  endCallBtn.addEventListener('click', endCall);
+  startVideoCallBtn.addEventListener('click', startVideoCall);
+
+  // Listen for incoming calls
+  listenForIncomingCalls();
+}
+
+// Function to handle incoming call notifications
+function listenForIncomingCalls() {
+  // Simulate incoming call (replace with actual WebSocket/real-time implementation)
+  setInterval(() => {
+    if (Math.random() < 0.1) { // 10% chance of incoming call
+      showCallNotification('Incoming call from SCAD Office');
+    }
+  }, 30000);
+}
+
+// Function to show call notifications
+function showCallNotification(message) {
+  const notificationsContainer = document.getElementById('callNotifications');
+  const notification = document.createElement('div');
+  notification.className = 'call-notification';
+  notification.textContent = message;
+  
+  notificationsContainer.appendChild(notification);
+  
+  // Remove notification after 5 seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 5000);
+}
+
+// Function to start video call
+async function startVideoCall() {
+  try {
+    // Get user media
+    localStream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+
+    // Display local video
+    const localVideo = document.getElementById('localVideo');
+    localVideo.srcObject = localStream;
+
+    // Enable call controls
+    enableCallControls();
+
+    // Update call status
+    updateCallStatus('in-call');
+    showCallNotification('Call started');
+
+    // Initialize WebRTC peer connection
+    initializePeerConnection();
+
+  } catch (error) {
+    console.error('Error starting video call:', error);
+    showCallNotification('Failed to start video call');
+  }
+}
+
+// Function to initialize WebRTC peer connection
+function initializePeerConnection() {
+  // Create RTCPeerConnection (replace with your signaling server implementation)
+  peerConnection = new RTCPeerConnection();
+
+  // Add local stream tracks to peer connection
+  localStream.getTracks().forEach(track => {
+    peerConnection.addTrack(track, localStream);
+  });
+
+  // Handle incoming streams
+  peerConnection.ontrack = (event) => {
+    const remoteVideo = document.getElementById('remoteVideo');
+    remoteVideo.srcObject = event.streams[0];
+  };
+
+  // Handle connection state changes
+  peerConnection.onconnectionstatechange = () => {
+    if (peerConnection.connectionState === 'disconnected') {
+      handleCallEnded();
+    }
+  };
+}
+
+// Function to toggle video
+function toggleVideo() {
+  if (localStream) {
+    const videoTrack = localStream.getVideoTracks()[0];
+    if (videoTrack) {
+      videoTrack.enabled = !videoTrack.enabled;
+      isVideoEnabled = videoTrack.enabled;
+      
+      const toggleVideoBtn = document.getElementById('toggleVideoBtn');
+      toggleVideoBtn.innerHTML = `<span class="icon">📹</span> ${isVideoEnabled ? 'Disable' : 'Enable'} Video`;
+      toggleVideoBtn.classList.toggle('active', !isVideoEnabled);
+    }
+  }
+}
+
+// Function to toggle audio
+function toggleAudio() {
+  if (localStream) {
+    const audioTrack = localStream.getAudioTracks()[0];
+    if (audioTrack) {
+      audioTrack.enabled = !audioTrack.enabled;
+      isAudioEnabled = audioTrack.enabled;
+      
+      const toggleAudioBtn = document.getElementById('toggleAudioBtn');
+      toggleAudioBtn.innerHTML = `<span class="icon">🎤</span> ${isAudioEnabled ? 'Mute' : 'Unmute'}`;
+      toggleAudioBtn.classList.toggle('active', !isAudioEnabled);
+    }
+  }
+}
+
+// Function to toggle screen sharing
+async function toggleScreenShare() {
+  try {
+    if (!isScreenSharing) {
+      const screenStream = await navigator.mediaDevices.getDisplayMedia({
+        video: true
+      });
+      
+      // Replace video track with screen share
+      const videoTrack = screenStream.getVideoTracks()[0];
+      const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
+      sender.replaceTrack(videoTrack);
+      
+      isScreenSharing = true;
+      document.getElementById('shareScreenBtn').classList.add('active');
+      
+      // Handle screen share stop
+      videoTrack.onended = () => {
+        toggleScreenShare();
+      };
+    } else {
+      // Restore video track
+      const videoTrack = localStream.getVideoTracks()[0];
+      const sender = peerConnection.getSenders().find(s => s.track.kind === 'video');
+      sender.replaceTrack(videoTrack);
+      
+      isScreenSharing = false;
+      document.getElementById('shareScreenBtn').classList.remove('active');
+    }
+  } catch (error) {
+    console.error('Error toggling screen share:', error);
+    showCallNotification('Failed to share screen');
+  }
+}
+
+// Function to end call
+function endCall() {
+  if (peerConnection) {
+    peerConnection.close();
+    peerConnection = null;
+  }
+  
+  if (localStream) {
+    localStream.getTracks().forEach(track => track.stop());
+    localStream = null;
+  }
+  
+  // Clear video elements
+  document.getElementById('localVideo').srcObject = null;
+  document.getElementById('remoteVideo').srcObject = null;
+  
+  // Disable call controls
+  disableCallControls();
+  
+  // Update call status
+  updateCallStatus('ended');
+  showCallNotification('Call ended');
+}
+
+// Function to handle call ended by other participant
+function handleCallEnded() {
+  showCallNotification('Other participant left the call');
+  endCall();
+}
+
+// Function to enable call controls
+function enableCallControls() {
+  document.getElementById('toggleVideoBtn').disabled = false;
+  document.getElementById('toggleAudioBtn').disabled = false;
+  document.getElementById('shareScreenBtn').disabled = false;
+  document.getElementById('endCallBtn').disabled = false;
+  document.getElementById('startVideoCallBtn').disabled = true;
+}
+
+// Function to disable call controls
+function disableCallControls() {
+  document.getElementById('toggleVideoBtn').disabled = true;
+  document.getElementById('toggleAudioBtn').disabled = true;
+  document.getElementById('shareScreenBtn').disabled = true;
+  document.getElementById('endCallBtn').disabled = true;
+  document.getElementById('startVideoCallBtn').disabled = false;
+}
+
+// Function to update call status
+function updateCallStatus(status) {
+  const callStatus = document.getElementById('callStatus');
+  callStatus.textContent = status === 'in-call' ? 'In Call' : 'Call Ended';
+  callStatus.className = status;
+}
+
+// Initialize video call functionality when the page loads
+window.addEventListener('load', function() {
+  initializeVideoCall();
+});
+
 // Initialize the page
 window.onload = function () {
   // Clear any existing profile data for testing

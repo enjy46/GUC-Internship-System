@@ -222,8 +222,43 @@
           <p><strong>Time:</strong> <span id="callTime"></span></p>
           <p><strong>Reason:</strong> <span id="callReason"></span></p>
           <p><strong>User Status:</strong> <span id="userStatus" style="color: red;">Offline</span></p>
+          <p><strong>Call Status:</strong> <span id="callStatus">Not in call</span></p>
         </div>
-        <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+        
+        <!-- Video Call Controls -->
+        <div class="video-call-controls">
+          <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+          <button id="toggleVideoBtn" class="btn" disabled>
+            <span class="icon">📹</span> Enable Video
+          </button>
+          <button id="toggleAudioBtn" class="btn" disabled>
+            <span class="icon">🎤</span> Mute
+          </button>
+          <button id="shareScreenBtn" class="btn" disabled>
+            <span class="icon">🖥️</span> Share Screen
+          </button>
+          <button id="endCallBtn" class="btn" disabled>
+            <span class="icon">❌</span> End Call
+          </button>
+        </div>
+
+        <!-- Video Call Container -->
+        <div class="video-container">
+          <div class="video-grid">
+            <div class="video-box">
+              <video id="localVideo" autoplay muted playsinline></video>
+              <span class="video-label">You</span>
+            </div>
+            <div class="video-box">
+              <video id="remoteVideo" autoplay playsinline></video>
+              <span class="video-label">Other Participant</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call Notifications -->
+        <div id="callNotifications" class="call-notifications"></div>
+
         <div class="appointment-actions">
           <button id="acceptAppointmentBtn" class="btn accept-btn">Accept Appointment</button>
           <button id="rejectAppointmentBtn" class="btn reject-btn">Reject Appointment</button>
