@@ -597,6 +597,54 @@ function updateCallStatus(status) {
   callStatus.className = status;
 }
 
+/**
+ * Displays the video player for the selected workshop.
+ * @param {string} videoSrc - The source URL of the workshop video.
+ */
+function showWorkshopVideoPlayer(videoSrc) {
+    const videoModal = document.getElementById('videoModal');
+    const videoElement = document.getElementById('workshopVideo');
+
+    // Set the video source and show the modal
+    videoElement.src = videoSrc;
+    videoModal.style.display = 'block';
+}
+
+/**
+ * Closes the video player modal.
+ */
+function closeVideoPlayer() {
+    const videoModal = document.getElementById('videoModal');
+    const videoElement = document.getElementById('workshopVideo');
+
+    // Pause the video and hide the modal
+    videoElement.pause();
+    videoModal.style.display = 'none';
+}
+
+/**
+ * Controls the video playback (play, pause, stop).
+ * @param {string} action - The action to perform (play, pause, stop).
+ */
+function controlVideo(action) {
+    const videoElement = document.getElementById('workshopVideo');
+
+    switch (action) {
+        case 'play':
+            videoElement.play();
+            break;
+        case 'pause':
+            videoElement.pause();
+            break;
+        case 'stop':
+            videoElement.pause();
+            videoElement.currentTime = 0; // Reset video to the beginning
+            break;
+        default:
+            console.error('Invalid video control action:', action);
+    }
+}
+
 // Initialize video call functionality when the page loads
 window.addEventListener('load', function() {
   initializeVideoCall();
