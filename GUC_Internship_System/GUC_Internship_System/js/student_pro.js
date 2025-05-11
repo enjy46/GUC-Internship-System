@@ -274,24 +274,70 @@ function listenForIncomingCalls() {
   // Simulate incoming call (replace with actual WebSocket/real-time implementation)
   setInterval(() => {
     if (Math.random() < 0.1) { // 10% chance of incoming call
-      showCallNotification('Incoming call from SCAD Office');
+      const callerId = 'SCAD' + Math.floor(Math.random() * 1000);
+      showIncomingCallNotification(callerId);
     }
   }, 30000);
 }
 
-// Function to show call notifications
-function showCallNotification(message) {
-  const notificationsContainer = document.getElementById('callNotifications');
-  const notification = document.createElement('div');
-  notification.className = 'call-notification';
-  notification.textContent = message;
+// Function to show incoming call notification
+function showIncomingCallNotification(callerId) {
+  const notificationContainer = document.getElementById('notificationContainer');
+  const notificationMessage = document.getElementById('notificationMessage');
   
-  notificationsContainer.appendChild(notification);
+  // Create a more prominent notification for incoming calls
+  notificationContainer.style.backgroundColor = '#4CAF50';
+  notificationContainer.style.color = 'white';
+  notificationContainer.style.padding = '15px';
+  notificationContainer.style.borderRadius = '5px';
+  notificationContainer.style.boxShadow = '0 2px 5px rgba(0,0,0,0.2)';
   
-  // Remove notification after 5 seconds
-  setTimeout(() => {
-    notification.remove();
-  }, 5000);
+  notificationMessage.innerHTML = `
+    <div style="margin-bottom: 10px;">
+      <strong>Incoming Call from ${callerId}</strong>
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button onclick="acceptIncomingCall('${callerId}')" style="background: white; color: #4CAF50; border: none; padding: 5px 15px; border-radius: 3px; cursor: pointer;">
+        Accept
+      </button>
+      <button onclick="rejectIncomingCall('${callerId}')" style="background: #f44336; color: white; border: none; padding: 5px 15px; border-radius: 3px; cursor: pointer;">
+        Reject
+      </button>
+    </div>
+  `;
+  
+  notificationContainer.style.display = 'block';
+  
+  // Play notification sound
+  const audio = new Audio('notification.mp3');
+  audio.play().catch(e => console.log('Audio play failed:', e));
+}
+
+// Function to accept incoming call
+function acceptIncomingCall(callerId) {
+  // Hide the notification
+  document.getElementById('notificationContainer').style.display = 'none';
+  
+  // Start the video call
+  startVideoCall();
+  
+  // Show call status
+  showCallNotification(`Call with ${callerId} started`);
+  
+  // Update call status
+  updateCallStatus('in-call');
+}
+
+// Function to reject incoming call
+function rejectIncomingCall(callerId) {
+  // Hide the notification
+  document.getElementById('notificationContainer').style.display = 'none';
+  
+  // Show rejection notification
+  showCallNotification(`Call with ${callerId} rejected`);
+  
+  // Update call status
+  updateCallStatus('rejected');
 }
 
 // Function to start video call
@@ -714,20 +760,6 @@ function addChatMessage(message, sender = 'You') {
   if (sender !== 'You') {
     showNotification(`${sender} sent a new message: "${message}"`);
   }
-}
-
-// Function to show a notification
-function showNotification(message) {
-  const notificationContainer = document.getElementById('notificationContainer');
-  const notificationMessage = document.getElementById('notificationMessage');
-
-  notificationMessage.textContent = message;
-  notificationContainer.style.display = 'block';
-
-  // Hide the notification after 3 seconds
-  setTimeout(() => {
-    notificationContainer.style.display = 'none';
-  }, 3000);
 }
 
 // Event listener for sending a chat message
