@@ -1,364 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Company Dashboard</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <div class="dashboard-container">
-    <h2>Welcome, Company</h2>
-    
-    <!-- Simulate email notification -->
-    <button id="sendNotification">Simulate Application Notification</button>
-    <p id="notificationMessage" style="display: none; color: green;">Your application has been accepted!</p>
-    <p id="errorNotification" style="display: none; color: red;">Your application has been rejected.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Company Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <nav class="sidebar">
+      <input type="text" class="menu-search" placeholder="Menu Search..." />
+      <details open>
+        <summary>Main</summary>
+        <ul>
+          <li>
+            <a href="company_dashboard2.html" class="nav-link">Dashboard</a>
+          </li>
+          <li><a href="register.html" class="nav-link">Register</a></li>
+          <li>
+            <a href="upload-documents.html" class="nav-link"
+              >Upload Documents</a
+            >
+          </li>
+          <li><a href="job-posts.html" class="nav-link">Job Posts</a></li>
+          <li><a href="evaluate.html" class="nav-link">Evaluate Intern</a></li>
+          <li><a href="applications.html" class="nav-link">Applications</a></li>
+        </ul>
+      </details>
+    </nav>
 
-    <!-- Job Post Management -->
-    <div class="job-post-container">
-      <h3>Manage Job Posts</h3>
-      
-      <form id="jobPostForm">
-        <input type="text" id="jobTitle" placeholder="Job Title" required>
-        <textarea id="jobDescription" placeholder="Job Description" required></textarea>
-        <input type="text" id="jobDuration" placeholder="Job Duration (e.g., 3 months)" required>
-        <input type="text" id="salary" placeholder="Expected Salary (if paid)" required>
-        <select id="paidUnpaid" required>
-          <option value="">Paid or Unpaid</option>
-          <option value="paid">Paid</option>
-          <option value="unpaid">Unpaid</option>
-        </select>
-        <input type="text" id="skillsRequired" placeholder="Skills Required" required>
-        <button type="submit">Create Job Post</button>
-      </form>
+    <div class="dashboard-container">
+      <h2>Welcome, Company</h2>
 
-      <!-- Search and Filter -->
-      <div class="search-filter-container">
-        <input type="text" id="searchInput" placeholder="Search job posts...">
-        <select id="filterPaidUnpaid">
-          <option value="">Filter by Paid/Unpaid</option>
-          <option value="paid">Paid</option>
-          <option value="unpaid">Unpaid</option>
-        </select>
+      <!-- Simulate email notification -->
+      <button id="sendNotification">Simulate Application Notification</button>
+      <p id="notificationMessage" style="display: none; color: green">
+        Your application has been accepted!
+      </p>
+      <p id="errorNotification" style="display: none; color: red">
+        Your application has been rejected.
+      </p>
+
+      <!-- Job Post Management -->
+      <div class="job-post-container">
+        <h3>Manage Job Posts</h3>
+
+        <form id="jobPostForm">
+          <input type="text" id="jobTitle" placeholder="Job Title" required />
+          <textarea
+            id="jobDescription"
+            placeholder="Job Description"
+            required
+          ></textarea>
+          <input
+            type="text"
+            id="jobDuration"
+            placeholder="Job Duration (e.g., 3 months)"
+            required
+          />
+          <input
+            type="text"
+            id="salary"
+            placeholder="Expected Salary (if paid)"
+            required
+          />
+          <select id="paidUnpaid" required>
+            <option value="">Paid or Unpaid</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+          <input
+            type="text"
+            id="skillsRequired"
+            placeholder="Skills Required"
+            required
+          />
+          <button type="submit">Create Job Post</button>
+        </form>
+
+        <!-- Search and Filter -->
+        <div class="search-filter-container">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search job posts..."
+          />
+          <select id="filterPaidUnpaid">
+            <option value="">Filter by Paid/Unpaid</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+
+        <div id="jobPosts">
+          <h4>Job Posts</h4>
+          <ul id="jobPostList"></ul>
+        </div>
+        <button type="button" onclick="downloadJobPosts()">
+          Download Job Posts as PDF
+        </button>
       </div>
 
-      <div id="jobPosts">
-        <h4>Job Posts</h4>
-        <ul id="jobPostList"></ul>
+      <!-- Applications Section -->
+      <div class="applications-container">
+        <h3>Applications</h3>
+
+        <!-- Filter Applications by Internship Post -->
+        <select id="filterApplicationsByPost">
+          <option value="">All Internship Posts</option>
+          <!-- Options will be dynamically populated -->
+        </select>
+
+        <ul id="applicationsList"></ul>
       </div>
-      <button type="button" onclick="downloadJobPosts()">Download Job Posts as PDF</button>
     </div>
 
-    <!-- Applications Section -->
-    <div class="applications-container">
-      <h3>Applications</h3>
-      
-      <!-- Filter Applications by Internship Post -->
-      <select id="filterApplicationsByPost">
-        <option value="">All Internship Posts</option>
-        <!-- Options will be dynamically populated -->
+    <div
+      id="applicantDetails"
+      style="
+        display: none;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-top: 20px;
+      "
+    >
+      <h4>Applicant Details</h4>
+      <p id="applicantName"></p>
+      <p id="applicantEmail"></p>
+      <p id="applicantResume"></p>
+      <div>
+        <button id="finalizeApplicant">Finalize</button>
+        <button id="acceptApplicant">Accept</button>
+        <button id="rejectApplicant">Reject</button>
+        <button id="setCurrentIntern">Set as Current Intern</button>
+        <button id="setInternshipComplete">Set as Internship Complete</button>
+      </div>
+    </div>
+
+    <div id="currentInternsSection" style="margin-top: 20px">
+      <h3>Current Interns</h3>
+      <!-- Dropdown to filter interns by status -->
+      <select id="filterInternStatus" onchange="filterInternsByStatus()">
+        <option value="">All Interns</option>
+        <option value="current intern">Current Interns</option>
+        <option value="internship complete">Internship Complete</option>
       </select>
-
-      <ul id="applicationsList"></ul>
+      <input
+        type="text"
+        id="searchInternInput"
+        placeholder="Search by name or job title..."
+        oninput="searchInterns()"
+      />
+      <ul id="currentInternsList"></ul>
     </div>
-  </div>
 
-  <div id="applicantDetails" style="display: none; border: 1px solid #ccc; padding: 10px; margin-top: 20px;">
-    <h4>Applicant Details</h4>
-    <p id="applicantName"></p>
-    <p id="applicantEmail"></p>
-    <p id="applicantResume"></p>
-    <div>
-      <button id="finalizeApplicant">Finalize</button>
-      <button id="acceptApplicant">Accept</button>
-      <button id="rejectApplicant">Reject</button>
-      <button id="setCurrentIntern">Set as Current Intern</button>
-      <button id="setInternshipComplete">Set as Internship Complete</button>
+    <div id="evaluationSection" style="margin-top: 20px; display: none">
+      <h3>Evaluation for Completed Internship</h3>
+      <textarea
+        id="evaluationText"
+        placeholder="Write your evaluation here..."
+        rows="5"
+        style="width: 100%"
+      ></textarea>
+      <div style="margin-top: 10px">
+        <button id="saveEvaluation">Save Evaluation</button>
+        <button id="updateEvaluation" style="display: none">
+          Update Evaluation
+        </button>
+        <button id="deleteEvaluation" style="display: none">
+          Delete Evaluation
+        </button>
+      </div>
+      <p
+        id="evaluationMessage"
+        style="color: green; margin-top: 10px; display: none"
+      >
+        Evaluation saved successfully!
+      </p>
     </div>
-  </div>
 
-  <div id="currentInternsSection" style="margin-top: 20px;">
-    <h3>Current Interns</h3>
-    <!-- Dropdown to filter interns by status -->
-    <select id="filterInternStatus" onchange="filterInternsByStatus()">
-      <option value="">All Interns</option>
-      <option value="current intern">Current Interns</option>
-      <option value="internship complete">Internship Complete</option>
-    </select>
-    <input type="text" id="searchInternInput" placeholder="Search by name or job title..." oninput="searchInterns()">
-    <ul id="currentInternsList"></ul>
-  </div>
+    <script src="js/company.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="js/modules/pdfGenerator.js"></script>
+    <script>
+      // Populate mock data in localStorage for testing
+      function populateMockData() {
+        const mockJobPosts = [
+          {
+            title: "Frontend Developer",
+            applications: [
+              {
+                name: "Alice",
+                email: "alice@example.com",
+                resume: "Alice's Resume",
+                status: "current intern",
+              },
+              {
+                name: "Bob",
+                email: "bob@example.com",
+                resume: "Bob's Resume",
+                status: "",
+              },
+            ],
+          },
+          {
+            title: "Backend Developer",
+            applications: [
+              {
+                name: "Charlie",
+                email: "charlie@example.com",
+                resume: "Charlie's Resume",
+                status: "current intern",
+              },
+            ],
+          },
+        ];
+        localStorage.setItem("jobPosts", JSON.stringify(mockJobPosts));
+      }
 
-  <div id="evaluationSection" style="margin-top: 20px; display: none;">
-    <h3>Evaluation for Completed Internship</h3>
-    <textarea id="evaluationText" placeholder="Write your evaluation here..." rows="5" style="width: 100%;"></textarea>
-    <div style="margin-top: 10px;">
-      <button id="saveEvaluation">Save Evaluation</button>
-      <button id="updateEvaluation" style="display: none;">Update Evaluation</button>
-      <button id="deleteEvaluation" style="display: none;">Delete Evaluation</button>
-    </div>
-    <p id="evaluationMessage" style="color: green; margin-top: 10px; display: none;">Evaluation saved successfully!</p>
-  </div>
+      // Call populateMockData on page load
+      populateMockData();
 
-  <script src="js/company.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-<script src="js/modules/pdfGenerator.js"></script>
-  <script>
-    // Populate mock data in localStorage for testing
-    function populateMockData() {
-      const mockJobPosts = [
-        {
-          title: "Frontend Developer",
-          applications: [
-            { name: "Alice", email: "alice@example.com", resume: "Alice's Resume", status: "current intern" },
-            { name: "Bob", email: "bob@example.com", resume: "Bob's Resume", status: "" }
-          ]
-        },
-        {
-          title: "Backend Developer",
-          applications: [
-            { name: "Charlie", email: "charlie@example.com", resume: "Charlie's Resume", status: "current intern" }
-          ]
-        }
-      ];
-      localStorage.setItem("jobPosts", JSON.stringify(mockJobPosts));
-    }
+      // Populate the filter dropdown with internship posts
+      function populateFilterDropdown() {
+        const filterDropdown = document.getElementById(
+          "filterApplicationsByPost"
+        );
+        const internshipPosts =
+          JSON.parse(localStorage.getItem("jobPosts")) || [];
 
-    // Call populateMockData on page load
-    populateMockData();
+        internshipPosts.forEach((post) => {
+          const option = document.createElement("option");
+          option.value = post.title;
+          option.textContent = post.title;
+          filterDropdown.appendChild(option);
+        });
+      }
 
-    // Populate the filter dropdown with internship posts
-    function populateFilterDropdown() {
-      const filterDropdown = document.getElementById("filterApplicationsByPost");
-      const internshipPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      
-      internshipPosts.forEach(post => {
-        const option = document.createElement("option");
-        option.value = post.title;
-        option.textContent = post.title;
-        filterDropdown.appendChild(option);
-      });
-    }
+      // Filter applications based on the selected internship post
+      document
+        .getElementById("filterApplicationsByPost")
+        .addEventListener("change", function () {
+          const selectedPost = this.value;
+          const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+          const applicationsList = document.getElementById("applicationsList");
+          applicationsList.innerHTML = "";
 
-    // Filter applications based on the selected internship post
-    document.getElementById("filterApplicationsByPost").addEventListener("change", function () {
-      const selectedPost = this.value;
-      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      const applicationsList = document.getElementById("applicationsList");
-      applicationsList.innerHTML = "";
-
-      jobPosts.forEach(post => {
-        if (selectedPost === "" || post.title === selectedPost) {
-          post.applications.forEach(application => {
-            const li = document.createElement("li");
-            li.textContent = `Job: ${post.title} | Applicant: ${application.name}`;
-            li.dataset.applicant = JSON.stringify(application);
-            li.addEventListener("click", viewApplicantDetails);
-            applicationsList.appendChild(li);
+          jobPosts.forEach((post) => {
+            if (selectedPost === "" || post.title === selectedPost) {
+              post.applications.forEach((application) => {
+                const li = document.createElement("li");
+                li.textContent = `Job: ${post.title} | Applicant: ${application.name}`;
+                li.dataset.applicant = JSON.stringify(application);
+                li.addEventListener("click", viewApplicantDetails);
+                applicationsList.appendChild(li);
+              });
+            }
           });
+        });
+
+      // View applicant details
+      function viewApplicantDetails(event) {
+        const applicant = JSON.parse(event.target.dataset.applicant);
+        document.getElementById(
+          "applicantName"
+        ).textContent = `Name: ${applicant.name}`;
+        document.getElementById(
+          "applicantEmail"
+        ).textContent = `Email: ${applicant.email}`;
+        document.getElementById(
+          "applicantResume"
+        ).textContent = `Resume: ${applicant.resume}`;
+        document.getElementById("applicantDetails").style.display = "block";
+
+        // Attach actions to buttons
+        document.getElementById("finalizeApplicant").onclick = () =>
+          updateApplicantStatus(applicant, "finalized");
+        document.getElementById("acceptApplicant").onclick = () =>
+          updateApplicantStatus(applicant, "accepted");
+        document.getElementById("rejectApplicant").onclick = () =>
+          updateApplicantStatus(applicant, "rejected");
+        document.getElementById("setCurrentIntern").onclick = () =>
+          updateApplicantStatus(applicant, "current intern");
+        document.getElementById("setInternshipComplete").onclick = () =>
+          updateApplicantStatus(applicant, "internship complete");
+      }
+
+      // Update applicant status
+      function updateApplicantStatus(applicant, status) {
+        applicant.status = status;
+        alert(`Applicant ${applicant.name} has been marked as ${status}.`);
+        document.getElementById("applicantDetails").style.display = "none";
+
+        // Update the application in localStorage (if needed)
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        jobPosts.forEach((post) => {
+          post.applications.forEach((app) => {
+            if (app.name === applicant.name && app.email === applicant.email) {
+              app.status = status;
+            }
+          });
+        });
+        localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+      }
+
+      // Display current interns
+      function displayCurrentInterns() {
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        const currentInternsList =
+          document.getElementById("currentInternsList");
+        currentInternsList.innerHTML = "";
+
+        jobPosts.forEach((post) => {
+          post.applications.forEach((application) => {
+            if (application.status === "current intern") {
+              const li = document.createElement("li");
+              li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
+              currentInternsList.appendChild(li);
+            }
+          });
+        });
+      }
+
+      // Filter interns by status
+      function filterInternsByStatus() {
+        const filterValue = document.getElementById("filterInternStatus").value;
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        const currentInternsList =
+          document.getElementById("currentInternsList");
+        currentInternsList.innerHTML = "";
+
+        jobPosts.forEach((post) => {
+          post.applications.forEach((application) => {
+            if (filterValue === "" || application.status === filterValue) {
+              const li = document.createElement("li");
+              li.textContent = `Name: ${application.name}, Job Title: ${post.title}, Status: ${application.status}`;
+              li.dataset.applicant = JSON.stringify(application);
+              li.addEventListener("click", viewInternDetails);
+              currentInternsList.appendChild(li);
+            }
+          });
+        });
+      }
+
+      // View intern details and show evaluation section
+      function viewInternDetails(event) {
+        const intern = JSON.parse(event.target.dataset.applicant);
+        alert(
+          `Intern Details:\nName: ${intern.name}\nEmail: ${intern.email}\nResume: ${intern.resume}\nStatus: ${intern.status}`
+        );
+        if (intern.status === "internship complete") {
+          showEvaluationSection(intern);
         }
-      });
-    });
-
-    // View applicant details
-    function viewApplicantDetails(event) {
-      const applicant = JSON.parse(event.target.dataset.applicant);
-      document.getElementById("applicantName").textContent = `Name: ${applicant.name}`;
-      document.getElementById("applicantEmail").textContent = `Email: ${applicant.email}`;
-      document.getElementById("applicantResume").textContent = `Resume: ${applicant.resume}`;
-      document.getElementById("applicantDetails").style.display = "block";
-
-      // Attach actions to buttons
-      document.getElementById("finalizeApplicant").onclick = () => updateApplicantStatus(applicant, "finalized");
-      document.getElementById("acceptApplicant").onclick = () => updateApplicantStatus(applicant, "accepted");
-      document.getElementById("rejectApplicant").onclick = () => updateApplicantStatus(applicant, "rejected");
-      document.getElementById("setCurrentIntern").onclick = () => updateApplicantStatus(applicant, "current intern");
-      document.getElementById("setInternshipComplete").onclick = () => updateApplicantStatus(applicant, "internship complete");
-    }
-
-    // Update applicant status
-    function updateApplicantStatus(applicant, status) {
-      applicant.status = status;
-      alert(`Applicant ${applicant.name} has been marked as ${status}.`);
-      document.getElementById("applicantDetails").style.display = "none";
-
-      // Update the application in localStorage (if needed)
-      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      jobPosts.forEach(post => {
-        post.applications.forEach(app => {
-          if (app.name === applicant.name && app.email === applicant.email) {
-            app.status = status;
-          }
-        });
-      });
-      localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
-    }
-
-    // Display current interns
-    function displayCurrentInterns() {
-      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      const currentInternsList = document.getElementById("currentInternsList");
-      currentInternsList.innerHTML = "";
-
-      jobPosts.forEach(post => {
-        post.applications.forEach(application => {
-          if (application.status === "current intern") {
-            const li = document.createElement("li");
-            li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
-            currentInternsList.appendChild(li);
-          }
-        });
-      });
-    }
-
-    // Filter interns by status
-    function filterInternsByStatus() {
-      const filterValue = document.getElementById("filterInternStatus").value;
-      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      const currentInternsList = document.getElementById("currentInternsList");
-      currentInternsList.innerHTML = "";
-
-      jobPosts.forEach(post => {
-        post.applications.forEach(application => {
-          if (filterValue === "" || application.status === filterValue) {
-            const li = document.createElement("li");
-            li.textContent = `Name: ${application.name}, Job Title: ${post.title}, Status: ${application.status}`;
-            li.dataset.applicant = JSON.stringify(application);
-            li.addEventListener("click", viewInternDetails);
-            currentInternsList.appendChild(li);
-          }
-        });
-      });
-    }
-
-    // View intern details and show evaluation section
-    function viewInternDetails(event) {
-      const intern = JSON.parse(event.target.dataset.applicant);
-      alert(`Intern Details:\nName: ${intern.name}\nEmail: ${intern.email}\nResume: ${intern.resume}\nStatus: ${intern.status}`);
-      if (intern.status === "internship complete") {
-        showEvaluationSection(intern);
-      }
-    }
-
-    // Search for interns by name or job title
-    function searchInterns() {
-      const searchInput = document.getElementById("searchInternInput").value.toLowerCase();
-      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-      const currentInternsList = document.getElementById("currentInternsList");
-      currentInternsList.innerHTML = "";
-
-      jobPosts.forEach(post => {
-        post.applications.forEach(application => {
-          if (
-            application.status === "current intern" &&
-            (application.name.toLowerCase().includes(searchInput) || post.title.toLowerCase().includes(searchInput))
-          ) {
-            const li = document.createElement("li");
-            li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
-            currentInternsList.appendChild(li);
-          }
-        });
-      });
-    }
-
-    // Store evaluations in localStorage
-    function saveEvaluationToStorage(internName, evaluation) {
-      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
-      evaluations[internName] = evaluation;
-      localStorage.setItem("evaluations", JSON.stringify(evaluations));
-    }
-
-    function getEvaluationFromStorage(internName) {
-      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
-      return evaluations[internName] || null;
-    }
-
-    function deleteEvaluationFromStorage(internName) {
-      const evaluations = JSON.parse(localStorage.getItem("evaluations")) || {};
-      delete evaluations[internName];
-      localStorage.setItem("evaluations", JSON.stringify(evaluations));
-    }
-
-    // Show evaluation section for a selected intern
-    function showEvaluationSection(intern) {
-      const evaluationSection = document.getElementById("evaluationSection");
-      const evaluationText = document.getElementById("evaluationText");
-      const saveButton = document.getElementById("saveEvaluation");
-      const updateButton = document.getElementById("updateEvaluation");
-      const deleteButton = document.getElementById("deleteEvaluation");
-      const evaluationMessage = document.getElementById("evaluationMessage");
-
-      evaluationSection.style.display = "block";
-      evaluationText.value = "";
-
-      const existingEvaluation = getEvaluationFromStorage(intern.name);
-      if (existingEvaluation) {
-        evaluationText.value = existingEvaluation;
-        saveButton.style.display = "none";
-        updateButton.style.display = "inline-block";
-        deleteButton.style.display = "inline-block";
-      } else {
-        saveButton.style.display = "inline-block";
-        updateButton.style.display = "none";
-        deleteButton.style.display = "none";
       }
 
-      saveButton.onclick = () => {
-        saveEvaluationToStorage(intern.name, evaluationText.value);
-        evaluationMessage.textContent = "Evaluation saved successfully!";
-        evaluationMessage.style.display = "block";
-        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
-        showEvaluationSection(intern); // Refresh buttons
-      };
+      // Search for interns by name or job title
+      function searchInterns() {
+        const searchInput = document
+          .getElementById("searchInternInput")
+          .value.toLowerCase();
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        const currentInternsList =
+          document.getElementById("currentInternsList");
+        currentInternsList.innerHTML = "";
 
-      updateButton.onclick = () => {
-        saveEvaluationToStorage(intern.name, evaluationText.value);
-        evaluationMessage.textContent = "Evaluation updated successfully!";
-        evaluationMessage.style.display = "block";
-        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
-      };
-
-      deleteButton.onclick = () => {
-        deleteEvaluationFromStorage(intern.name);
-        evaluationMessage.textContent = "Evaluation deleted successfully!";
-        evaluationMessage.style.display = "block";
-        setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
-        evaluationSection.style.display = "none";
-      };
-    }
-
-    // Notify students and PRO students when a new internship cycle begins or is about to begin
-    function notifyInternshipCycle() {
-      const currentDate = new Date();
-      const internshipStartDate = new Date("2025-06-01"); // Example start date
-      const notificationDaysBefore = 7; // Notify 7 days before the start date
-
-      const timeDifference = internshipStartDate - currentDate;
-      const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-
-      if (daysDifference === notificationDaysBefore) {
-        notifyUsers("The new internship cycle is about to begin in 7 days!");
-      } else if (daysDifference === 0) {
-        notifyUsers("The new internship cycle has begun!");
+        jobPosts.forEach((post) => {
+          post.applications.forEach((application) => {
+            if (
+              application.status === "current intern" &&
+              (application.name.toLowerCase().includes(searchInput) ||
+                post.title.toLowerCase().includes(searchInput))
+            ) {
+              const li = document.createElement("li");
+              li.textContent = `Name: ${application.name}, Job Title: ${post.title}`;
+              currentInternsList.appendChild(li);
+            }
+          });
+        });
       }
-    }
 
-    // Function to notify users (students and PRO students)
-    function notifyUsers(message) {
-      const userTypes = ["student", "pro student"]; // Example user types
-      userTypes.forEach(userType => {
-        console.log(`Notification for ${userType}: ${message}`);
-        // Replace the console.log with actual notification logic (e.g., email, UI alert, etc.)
-        alert(`Notification for ${userType}: ${message}`);
-      });
-    }
+      // Store evaluations in localStorage
+      function saveEvaluationToStorage(internName, evaluation) {
+        const evaluations =
+          JSON.parse(localStorage.getItem("evaluations")) || {};
+        evaluations[internName] = evaluation;
+        localStorage.setItem("evaluations", JSON.stringify(evaluations));
+      }
 
-    // Call notifyInternshipCycle on page load
-    notifyInternshipCycle();
+      function getEvaluationFromStorage(internName) {
+        const evaluations =
+          JSON.parse(localStorage.getItem("evaluations")) || {};
+        return evaluations[internName] || null;
+      }
 
-    // Call functions on page load
-    populateFilterDropdown();
-    displayCurrentInterns();
-  </script>
-</body>
+      function deleteEvaluationFromStorage(internName) {
+        const evaluations =
+          JSON.parse(localStorage.getItem("evaluations")) || {};
+        delete evaluations[internName];
+        localStorage.setItem("evaluations", JSON.stringify(evaluations));
+      }
+
+      // Show evaluation section for a selected intern
+      function showEvaluationSection(intern) {
+        const evaluationSection = document.getElementById("evaluationSection");
+        const evaluationText = document.getElementById("evaluationText");
+        const saveButton = document.getElementById("saveEvaluation");
+        const updateButton = document.getElementById("updateEvaluation");
+        const deleteButton = document.getElementById("deleteEvaluation");
+        const evaluationMessage = document.getElementById("evaluationMessage");
+
+        evaluationSection.style.display = "block";
+        evaluationText.value = "";
+
+        const existingEvaluation = getEvaluationFromStorage(intern.name);
+        if (existingEvaluation) {
+          evaluationText.value = existingEvaluation;
+          saveButton.style.display = "none";
+          updateButton.style.display = "inline-block";
+          deleteButton.style.display = "inline-block";
+        } else {
+          saveButton.style.display = "inline-block";
+          updateButton.style.display = "none";
+          deleteButton.style.display = "none";
+        }
+
+        saveButton.onclick = () => {
+          saveEvaluationToStorage(intern.name, evaluationText.value);
+          evaluationMessage.textContent = "Evaluation saved successfully!";
+          evaluationMessage.style.display = "block";
+          setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+          showEvaluationSection(intern); // Refresh buttons
+        };
+
+        updateButton.onclick = () => {
+          saveEvaluationToStorage(intern.name, evaluationText.value);
+          evaluationMessage.textContent = "Evaluation updated successfully!";
+          evaluationMessage.style.display = "block";
+          setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+        };
+
+        deleteButton.onclick = () => {
+          deleteEvaluationFromStorage(intern.name);
+          evaluationMessage.textContent = "Evaluation deleted successfully!";
+          evaluationMessage.style.display = "block";
+          setTimeout(() => (evaluationMessage.style.display = "none"), 3000);
+          evaluationSection.style.display = "none";
+        };
+      }
+
+      // Notify students and PRO students when a new internship cycle begins or is about to begin
+      function notifyInternshipCycle() {
+        const currentDate = new Date();
+        const internshipStartDate = new Date("2025-06-01"); // Example start date
+        const notificationDaysBefore = 7; // Notify 7 days before the start date
+
+        const timeDifference = internshipStartDate - currentDate;
+        const daysDifference = Math.ceil(
+          timeDifference / (1000 * 60 * 60 * 24)
+        );
+
+        if (daysDifference === notificationDaysBefore) {
+          notifyUsers("The new internship cycle is about to begin in 7 days!");
+        } else if (daysDifference === 0) {
+          notifyUsers("The new internship cycle has begun!");
+        }
+      }
+
+      // Function to notify users (students and PRO students)
+      function notifyUsers(message) {
+        const userTypes = ["student", "pro student"]; // Example user types
+        userTypes.forEach((userType) => {
+          console.log(`Notification for ${userType}: ${message}`);
+          // Replace the console.log with actual notification logic (e.g., email, UI alert, etc.)
+          alert(`Notification for ${userType}: ${message}`);
+        });
+      }
+
+      // Call notifyInternshipCycle on page load
+      notifyInternshipCycle();
+
+      // Call functions on page load
+      populateFilterDropdown();
+      displayCurrentInterns();
+    </script>
+  </body>
 </html>

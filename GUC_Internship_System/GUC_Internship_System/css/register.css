@@ -1,0 +1,72 @@
+.register-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.register-container form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.register-container form input[type="text"],
+.register-container form input[type="email"],
+.register-container form input[type="tel"],
+.register-container form textarea,
+.register-container form input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.register-container form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.register-container form button:hover {
+  background-color: #0056b3;
+}
+
+.message {
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+main {
+  margin-left: 270px; /* Adjust this value to match the width of the sidebar plus spacing */
+  padding: 20px;
+}

@@ -1,0 +1,120 @@
+.job-posts-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.job-posts-container h2,
+.job-posts-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.job-posts-container form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.job-posts-container form input[type="text"],
+.job-posts-container form input[type="number"],
+.job-posts-container form select,
+.job-posts-container form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.job-posts-container form button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.job-posts-container form button:hover {
+  background-color: #0056b3;
+}
+
+#cancelBtn {
+  background-color: #6c757d;
+  margin-left: 10px;
+}
+
+#cancelBtn:hover {
+  background-color: #5a6268;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+table th,
+table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.action-btn {
+  margin-right: 5px;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: black;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+main {
+  margin-left: 270px; /* Adjust this value to match the width of the sidebar plus spacing */
+  padding: 20px;
+}

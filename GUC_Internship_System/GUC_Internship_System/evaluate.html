@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evaluate Intern</title>
+  <link rel="stylesheet" href="GUC_Internship_System/css/evaluate.css" />
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <nav class="sidebar">
+    <input type="text" class="menu-search" placeholder="Menu Search..." />
+    <details open>
+      <summary>Main</summary>
+      <ul>
+        <li><a href="company_dashboard.html" class="nav-link">Dashboard</a></li>
+        <li><a href="register.html" class="nav-link">Register</a></li>
+        <li><a href="upload-documents.html" class="nav-link">Upload Documents</a></li>
+        <li><a href="job-posts.html" class="nav-link">Job Posts</a></li>
+        <li><a href="evaluate.html" class="nav-link">Evaluate Intern</a></li>
+        <li><a href="applications.html" class="nav-link">Applications</a></li>
+      </ul>
+    </details>
+  </nav>
+  <main>
+    <div class="evaluate-container">
+      <h2>Evaluate Intern</h2>
+      <form id="evaluationForm">
+        <label for="evaluationText">Evaluation:</label>
+        <textarea id="evaluationText" name="evaluationText" rows="8" required></textarea>
+
+        <fieldset class="rating">
+          <legend>Rating:</legend>
+          <label><input type="radio" name="rating" value="1" required /> 1</label>
+          <label><input type="radio" name="rating" value="2" /> 2</label>
+          <label><input type="radio" name="rating" value="3" /> 3</label>
+          <label><input type="radio" name="rating" value="4" /> 4</label>
+          <label><input type="radio" name="rating" value="5" /> 5</label>
+        </fieldset>
+
+        <div class="buttons">
+          <button type="submit" id="saveBtn">Save</button>
+          <button type="button" id="updateBtn" style="display:none;">Update</button>
+          <button type="button" id="deleteBtn" style="display:none;">Delete</button>
+        </div>
+      </form>
+
+      <p id="message" class="message"></p>
+
+      <!-- List of evaluations -->
+      <div id="evaluationsList">
+        <h3>Previous Evaluations</h3>
+        <ul id="evaluationItems"></ul>
+      </div>
+    </div>
+  </main>
+  <script src="GUC_Internship_System/js/evaluate.js"></script>
+  <script>
+    // Highlight active link
+    document.querySelectorAll('.nav-link').forEach(link => {
+      if (link.href === window.location.href) {
+        link.classList.add('active');
+      }
+    });
+  </script>
+</body>
+</html>
