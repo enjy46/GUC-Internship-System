@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Appointments & Video Call | SCAD System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/appointment_call.css" />
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <a href="pro_dashboard.html" class="back-button">← Back</a>
+      <div class="header-center">
+        <h1>SCAD System</h1>
+        <p class="subheading">Appointments & Video Call</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Book Appointment</h2>
+    <div class="appointment-form">
+      <input type="text" id="studentName" placeholder="Your Name" />
+      <textarea id="appointmentReason" placeholder="Reason for appointment..."></textarea>
+      <button onclick="requestAppointment()">Request Appointment</button>
+      <p id="appointmentStatus"></p>
+    </div>
+
+    <h2 class="section-title">Appointment Requests</h2>
+    <div id="appointmentList" class="appointments"></div>
+
+    <div id="callSection" class="hidden">
+      <h2>Live Video Call</h2>
+      <div class="call-controls">
+        <button onclick="toggleVideo()">🎥 Toggle Video</button>
+        <button onclick="toggleMic()">🎤 Toggle Mic</button>
+        <button onclick="shareScreen()">🖥 Share Screen</button>
+        <button onclick="leaveCall()">❌ Leave Call</button>
+      </div>
+      <div id="callStatus"></div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+  <script src="js/appointment_call.js"></script>
+</body>
+</html>
