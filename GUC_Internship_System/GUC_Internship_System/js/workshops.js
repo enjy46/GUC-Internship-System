@@ -57,6 +57,39 @@ function registerWorkshop() {
   if (status) status.textContent = "✅ You are registered for this workshop.";
 }
 
+
+
+
+function submitFeedback() {
+  const rating = document.getElementById("rating").value;
+  const feedback = document.getElementById("feedback").value;
+  alert(`⭐ Rating: ${rating}\n💬 Feedback: ${feedback}`);
+}
+
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const message = input.value.trim();
+  if (message) {
+    const msg = document.createElement("div");
+    msg.classList.add("chat-message");
+    msg.textContent = "🔔 " + message;
+    chatBox.appendChild(msg);
+    input.value = "";
+  }
+}
+
+function closeDetails() {
+  modal.classList.add("hidden");
+  document.getElementById("notes").value = "";
+  document.getElementById("chatBox").innerHTML = "";
+  document.getElementById("rating").value = "";
+  document.getElementById("feedback").value = "";
+  document.getElementById("chatInput").value = "";
+  document.getElementById("videoPlayer").innerHTML = "";
+  document.getElementById("videoPlayer").style.display = "none";
+  registered = false;
+}
+
 function joinLive() {
   const player = document.getElementById("videoPlayer");
 
@@ -130,57 +163,61 @@ function sendMessage() {
 }
 
 function downloadCertificate() {
-  if (!registered) return alert("You must register first.");
+  if (!registered) return alert("❗ You must register first.");
   const certPopup = window.open("", "Certificate", "width=700,height=500");
+  if (!certPopup) {
+    alert("⚠️ Please allow popups in your browser to view the certificate.");
+    return;
+  }
+
   certPopup.document.write(`
-    <style>
-      body { font-family: 'Inter', sans-serif; text-align: center; background: #f0f8ff; padding: 2rem; }
-      footer { text-align: center; }
-      .cert {
-    <div class="cert">
-      <h1>🎓 Certificate of Attendance 🎓</h1>
-      <p>This certifies that</p>
-      <h2>Malak Abuelkhier</h2>
-      <p>has successfully attended</p>
-      <h3>${selectedWorkshop.title}</h3>
-      <p>on ${new Date().toLocaleDateString()}</p>
-      <p style="margin-top:2rem; font-style: italic;">SCAD Career Development Office</p>
-    </div>
+    <html>
+      <head>
+        <title>Certificate of Attendance</title>
+        <style>
+          body {
+            font-family: 'Inter', sans-serif;
+            text-align: center;
+            background: #f0f8ff;
+            padding: 2rem;
+          }
+          .cert {
+            border: 6px double #1e3a8a;
+            padding: 2rem;
+            background: #ffffff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            border-radius: 12px;
+          }
+          h1 { color: #1e3a8a; margin-bottom: 0; }
+          h2 { color: #111827; }
+          h3 { color: #1e3a8a; }
+          p { font-size: 1.1rem; color: #333; }
+          button {
+            margin-top: 2rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 6px;
+            background: #0d1b2a;
+            color: white;
+            border: none;
+            cursor: pointer;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="cert">
+          <h1>🎓 Certificate of Attendance 🎓</h1>
+          <p>This certifies that</p>
+          <h2>Malak Abuelkhier</h2>
+          <p>has successfully attended</p>
+          <h3>${selectedWorkshop.title}</h3>
+          <p>on ${new Date().toLocaleDateString()}</p>
+          <p style="margin-top:2rem; font-style: italic;">SCAD Career Development Office</p>
+          <button onclick="window.print()">🖨 Print Certificate</button>
+        </div>
+      </body>
+    </html>
   `);
   certPopup.document.close();
 }
-
-
-
-function submitFeedback() {
-  const rating = document.getElementById("rating").value;
-  const feedback = document.getElementById("feedback").value;
-  alert(`⭐ Rating: ${rating}\n💬 Feedback: ${feedback}`);
-}
-
-function sendMessage() {
-  const input = document.getElementById("chatInput");
-  const message = input.value.trim();
-  if (message) {
-    const msg = document.createElement("div");
-    msg.classList.add("chat-message");
-    msg.textContent = "🔔 " + message;
-    chatBox.appendChild(msg);
-    input.value = "";
-  }
-}
-
-function closeDetails() {
-  modal.classList.add("hidden");
-  document.getElementById("notes").value = "";
-  document.getElementById("chatBox").innerHTML = "";
-  document.getElementById("rating").value = "";
-  document.getElementById("feedback").value = "";
-  document.getElementById("chatInput").value = "";
-  document.getElementById("videoPlayer").innerHTML = "";
-  document.getElementById("videoPlayer").style.display = "none";
-  registered = false;
-}
-
-
 
