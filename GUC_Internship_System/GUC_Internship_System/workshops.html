@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshops & Learning | SCAD System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/workshops.css">
+</head>
+<body>
+  <header>
+    <div class="top-bar">
+      <a href="pro_dashboard.html" class="back-button">← Back</a>
+      <div class="header-center">
+        <h1>SCAD System</h1>
+        <p class="subheading">Workshops & Learning</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2 class="section-title">Available Career Workshops</h2>
+
+    <div id="workshopList" class="workshop-list"></div>
+
+    <div id="workshopDetails" class="modal hidden">
+      <div class="modal-content">
+        <h3 id="workshopTitle"></h3>
+        <p id="workshopDescription"></p>
+        <button onclick="registerWorkshop()">Register</button>
+        <p id="registrationStatus" style="color: green; font-weight: 600; margin-top: 0.5rem;"></p>
+
+        <button id="joinLiveBtn" onclick="joinLive()">Join Live</button>
+
+
+        <button onclick="toggleRecording()" id="toggleRecording">Play Recording</button>
+        <div id="videoPlayer" style="display: none; margin-top: 1rem;"></div>
+
+        <textarea id="notes" placeholder="Take your notes here..."></textarea>
+        <button onclick="submitNotes()">Save Notes</button>
+        <button onclick="downloadCertificate()">Get Certificate</button>
+        <label for="rating">Rate this Workshop:</label>
+        <select id="rating">
+          <option value="">Select</option>
+          <option value="1">★☆☆☆☆</option>
+          <option value="2">★★☆☆☆</option>
+          <option value="3">★★★☆☆</option>
+          <option value="4">★★★★☆</option>
+          <option value="5">★★★★★</option>
+        </select>
+        <textarea id="feedback" placeholder="Leave feedback..."></textarea>
+        <button onclick="submitFeedback()">Submit Feedback</button>
+        <div id="chatSection">
+          <h4>Chat with Attendees</h4>
+          <div id="chatBox"></div>
+          <input type="text" id="chatInput" placeholder="Type a message..." />
+          <button onclick="sendMessage()">Send</button>
+        </div>
+        <button onclick="closeDetails()">Close</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+  <script src="js/workshops.js"></script>
+</body>
+</html>

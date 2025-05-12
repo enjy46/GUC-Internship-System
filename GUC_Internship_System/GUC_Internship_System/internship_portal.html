@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Portal | SCAD System</title>
+  <link rel="stylesheet" href="css/internship_portal.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      color: #333;
+    }
+
+    header {
+      background-color: #0d1b2a;
+      padding: 1.5rem;
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .subheading {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      font-weight: 400;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters input,
+    .filters select {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      background-color: #f9f9f9;
+    }
+
+    .internship-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: #f1f8ff;
+      border: 1px solid #cce0ff;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h4 {
+      margin: 0 0 0.5rem;
+      color: #0d1b2a;
+    }
+
+    .card p {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+    }
+
+    .apply-btn {
+      margin-top: 1rem;
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 1rem;
+    }
+
+    .modal-content input[type="file"] {
+      margin-bottom: 1rem;
+    }
+
+    .modal-content button {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #0d1b2a;
+      color: white;
+      cursor: pointer;
+    }
+
+    .success-message {
+      color: green;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #0d1b2a;
+      color: white;
+    }
+  </style>
+</head>
+<<body>
+  <header>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <a href="pro_dashboard.html" class="back-button" style="margin-left: 1rem; display: flex; align-items: center; gap: 0.4rem;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+        Back
+      </a>
+      <div style="flex-grow: 1; text-align: center;">
+        <h1 style="margin: 0;">SCAD System</h1>
+        <p class="subheading">Internship Portal</p>
+      </div>
+      <div style="width: 4rem;"></div>
+    </div>
+  </header>
+
+  <style>
+    .back-button {
+      text-decoration: none;
+      background-color: #001f3f;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .back-button:hover {
+      background-color: #2c3e50;
+      transform: scale(1.05);
+    }
+    .back-button svg {
+      vertical-align: middle;
+    }
+  </style>
+
+  
+
+  <div class="container">
+    <div class="section-title">Available Internships</div>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search by job title or company name">
+      <select id="industryFilter">
+        <option value="">All Industries</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Pharmacy">Pharmacy</option>
+        <option value="Business">Business</option>
+      </select>
+      <select id="durationFilter">
+        <option value="">All Durations</option>
+        <option value="1 Month">1 Month</option>
+        <option value="3 Months">3 Months</option>
+        <option value="6 Months">6 Months</option>
+      </select>
+      <select id="paymentFilter">
+        <option value="">Paid or Unpaid</option>
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+      </select>
+    </div>
+
+    <div id="internshipList" class="internship-list"></div>
+  </div>
+
+  <div class="modal" id="applyModal">
+    <div class="modal-content">
+      <h3>Upload Documents</h3>
+      <input type="file" id="documentUpload" />
+      <button id="submitApplication">Apply</button>
+      <div class="success-message" id="successMessage"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const internships = [
+      {
+        title: "Software Engineering Intern",
+        company: "TechSoft",
+        duration: "3 Months",
+        industry: "Engineering",
+        paid: true,
+        salary: "3000 EGP/month",
+        skills: "JavaScript, HTML, CSS",
+        description: "Assist the dev team with web application development."
+      },
+      {
+        title: "Marketing Assistant",
+        company: "BrandHive",
+        duration: "1 Month",
+        industry: "Business",
+        paid: false,
+        salary: "",
+        skills: "Communication, Social Media",
+        description: "Support social media campaigns and content creation."
+      }
+    ];
+
+    const listContainer = document.getElementById("internshipList");
+    const searchInput = document.getElementById("searchInput");
+    const industryFilter = document.getElementById("industryFilter");
+    const durationFilter = document.getElementById("durationFilter");
+    const paymentFilter = document.getElementById("paymentFilter");
+
+    const modal = document.getElementById("applyModal");
+    const successMessage = document.getElementById("successMessage");
+    const submitBtn = document.getElementById("submitApplication");
+
+    let selectedInternship = null;
+
+    function displayInternships() {
+      const keyword = searchInput.value.toLowerCase();
+      const industry = industryFilter.value;
+      const duration = durationFilter.value;
+      const paid = paymentFilter.value;
+
+      const filtered = internships.filter(intern => {
+        return (
+          (keyword === '' || intern.title.toLowerCase().includes(keyword) || intern.company.toLowerCase().includes(keyword)) &&
+          (industry === '' || intern.industry === industry) &&
+          (duration === '' || intern.duration === duration) &&
+          (paid === '' || (paid === 'Paid' && intern.paid) || (paid === 'Unpaid' && !intern.paid))
+        );
+      });
+
+      listContainer.innerHTML = filtered.map((intern, index) => `
+        <div class="card">
+          <h4>${intern.title}</h4>
+          <p><strong>Company:</strong> ${intern.company}</p>
+          <p><strong>Duration:</strong> ${intern.duration}</p>
+          <p><strong>Industry:</strong> ${intern.industry}</p>
+          <p><strong>${intern.paid ? "Paid" : "Unpaid"}</strong></p>
+          ${intern.paid ? `<p><strong>Salary:</strong> ${intern.salary}</p>` : ''}
+          <p><strong>Skills Required:</strong> ${intern.skills}</p>
+          <p><strong>Description:</strong> ${intern.description}</p>
+          <button class="apply-btn" onclick="openModal(${index})">Apply</button>
+        </div>
+      `).join("");
+    }
+
+    function openModal(index) {
+      selectedInternship = internships[index];
+      modal.style.display = "flex";
+      successMessage.textContent = "";
+    }
+
+    submitBtn.addEventListener("click", () => {
+      const file = document.getElementById("documentUpload").files[0];
+      if (!file) {
+        successMessage.textContent = "Please upload a document before applying.";
+        successMessage.style.color = "red";
+        return;
+      }
+      successMessage.style.color = "green";
+      successMessage.textContent = `Application submitted for ${selectedInternship.title} at ${selectedInternship.company}!`;
+    });
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    searchInput.addEventListener("input", displayInternships);
+    industryFilter.addEventListener("change", displayInternships);
+    durationFilter.addEventListener("change", displayInternships);
+    paymentFilter.addEventListener("change", displayInternships);
+
+    displayInternships();
+  </script>
+</body>
+</html>

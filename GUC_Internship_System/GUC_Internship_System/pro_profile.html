@@ -1,0 +1,101 @@
+**HTML (pro_profile.html)**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRO Student Profile | SCAD System</title>
+  <link rel="stylesheet" href="css/pro_profile.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>SCAD System</h1>
+    <p class="subheading">Professional Student Profile</p>
+  </header>
+
+  <div class="container">
+    <div class="section-title">Update Your Profile</div>
+    <form id="profileForm">
+      <!-- Section 1: Personal & Career Information -->
+      <h3 class="subsection">Personal & Career Information</h3>
+
+      <div class="form-group">
+        <label for="fullName">Full Name *</label>
+        <input type="text" id="fullName" placeholder="Enter your full name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="jobInterests">Job Interests</label>
+        <input type="text" id="jobInterests" placeholder="e.g., Software Development, Data Science" />
+      </div>
+
+      <!-- Section 1.1: Previous Experience -->
+      <h3 class="subsection">Previous Internships & Part-time Jobs</h3>
+
+      <div class="form-group">
+        <label for="company">Company Name</label>
+        <input type="text" id="company" placeholder="e.g., Microsoft, Orange" />
+      </div>
+
+      <div class="form-group">
+        <label for="responsibilities">Responsibilities</label>
+        <textarea id="responsibilities" placeholder="What were your main tasks and achievements?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="duration">Duration</label>
+        <input type="text" id="duration" placeholder="e.g., June 2023 – August 2023" />
+      </div>
+
+      <div class="form-group">
+        <label for="activities">College Activities</label>
+        <textarea id="activities" placeholder="Clubs, Events, Leadership Roles"></textarea>
+      </div>
+
+      <!-- Section 2: Academic Info -->
+      <h3 class="subsection">Academic Information</h3>
+
+      <div class="form-group">
+        <label for="major">Major *</label>
+        <select id="major" required>
+          <option value="">Select Major</option>
+          <option value="Applied Arts">Applied Arts</option>
+          <option value="Architecture">Architecture</option>
+          <option value="Business">Business</option>
+          <option value="Business Informatics">Business Informatics</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Law">Law</option>
+          <option value="Pharmacy">Pharmacy</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="semester">Semester Number *</label>
+        <select id="semester" required>
+          <option value="">Select semester</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <button type="submit">Save Profile</button>
+      <div id="message"></div>
+    </form>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+
+</body>
+</html>
