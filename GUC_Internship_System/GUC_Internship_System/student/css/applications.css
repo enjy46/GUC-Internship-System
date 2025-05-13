@@ -1,0 +1,37 @@
+.applications-section {
+    padding: 20px;
+}
+
+.application-item {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.application-item h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.status {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 3px;
+}
+
+.status.pending {
+    background-color: #ffd700;
+    color: #000;
+}
+
+.status.accepted {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.status.rejected {
+    background-color: #f44336;
+    color: #fff;
+}

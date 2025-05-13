@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard - Job Listings</title>
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/student.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student_dashboard.html" class="active">Job Listings</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="internships.html">Internships</a></li>
+          <li><a href="evaluations.html">Evaluations</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="applications.html">Applications</a></li>
+          <li><a href="notifications.html">Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Jobs for You</h1>
+      </header>
+
+      <section class="card job-listings">
+        <form class="search-form" onsubmit="return false;">
+          <input type="text" id="jobSearchInput" placeholder="Job title, keywords, or company" aria-label="Job search" />
+          <input type="text" id="locationSearchInput" placeholder="City, state, zip code, or remote" aria-label="Location search" />
+          <button type="button" onclick="searchJobs()" class="btn-primary">Find Jobs</button>
+        </form>
+        <div id="jobListContainer" class="job-list-container">
+          <!-- Job listings will be dynamically populated here -->
+          <p>Loading job listings...</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="student_dashboard.js"></script>
+</body>
+</html>

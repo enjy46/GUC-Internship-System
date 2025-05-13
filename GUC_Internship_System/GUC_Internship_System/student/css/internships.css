@@ -1,0 +1,75 @@
+.search-filter-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-filter-container input,
+.search-filter-container select {
+  flex: 1;
+}
+
+#internshipHistory {
+  display: grid;
+  gap: 20px;
+}
+
+.internship-item {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.internship-item h3 {
+  margin-top: 0;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.internship-item p {
+  margin-bottom: 5px;
+}
+
+.internship-status {
+  font-weight: bold;
+}
+
+.status-current {
+  color: #4CAF50;
+}
+
+.status-complete {
+  color: #2196F3;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 5px;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+}
+
+.modal-content button {
+  margin-top: 15px;
+}

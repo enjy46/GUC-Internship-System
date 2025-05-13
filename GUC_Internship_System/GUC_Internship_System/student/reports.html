@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Reports</title>
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/reports.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student_dashboard.html">Job Listings</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="internships.html">Internships</a></li>
+          <li><a href="evaluations.html">Evaluations</a></li>
+          <li><a href="reports.html" class="active">Reports</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="applications.html">Applications</a></li>
+          <li><a href="notifications.html">Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Internship Reports</h1>
+      </header>
+
+      <section class="report-section card">
+        <form id="internshipReportForm">
+          <label for="reportTitle">Report Title</label>
+          <input type="text" id="reportTitle" placeholder="Enter report title" required>
+
+          <label for="reportIntro">Introduction:</label>
+          <textarea id="reportIntro" placeholder="Write the introduction..." required></textarea>
+
+          <label for="reportBody">Report Body:</label>
+          <textarea id="reportBody" placeholder="Write the main content..." required></textarea>
+
+          <div class="report-buttons">
+            <button type="button" onclick="saveReport()">Save Report</button>
+            <button type="button" onclick="deleteReport()">Delete Report</button>
+            <button type="button" onclick="downloadReportAsPDF()">Download as PDF</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="comments-section card">
+        <h2>Comments on Your Internship Report</h2>
+        <div id="commentsContainer">
+          <!-- Comments will be dynamically populated -->
+          <p>No comments available.</p>
+        </div>
+      </section>
+
+      <section class="appeal-section card">
+        <h2>Appeal a Flagged or Rejected Report</h2>
+        <div id="appealContainer">
+          <select id="reportToAppeal">
+            <!-- Options will be dynamically populated -->
+          </select>
+          <textarea id="appealMessage" placeholder="Write your appeal message here..." rows="5" style="width: 100%;"></textarea>
+          <button onclick="submitAppeal()">Submit Appeal</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/reports.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="js/modules/pdfGenerator.js"></script>
+</body>
+</html>

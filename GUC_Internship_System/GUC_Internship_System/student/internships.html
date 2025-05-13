@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Internships</title>
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/internships.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="profile.html">Profile</a></li>
+          <li><a href="internships.html" class="active">Internships</a></li>
+          <li><a href="evaluations.html">Evaluations</a></li>
+          <li><a href="reports.html">Reports</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="applications.html">Applications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Your Internships</h1>
+      </header>
+
+      <section class="card">
+        <div class="search-filter-container">
+          <input type="text" id="searchInternshipsInput" placeholder="Search by job title or company name..." oninput="searchAndFilterInternships()">
+          <select id="filterInternshipsStatus" onchange="searchAndFilterInternships()">
+            <option value="">All Internships</option>
+            <option value="current intern">Current Intern</option>
+            <option value="internship complete">Internship Complete</option>
+          </select>
+        </div>
+        <div id="internshipHistory">
+          <!-- Internship history will be dynamically populated here -->
+        </div>
+      </section>
+
+      <div id="completedInternshipDetails" class="modal" style="display: none;">
+        <div class="modal-content">
+          <h3>Completed Internship Details</h3>
+          <p id="completedInternshipTitle"></p>
+          <p id="completedInternshipCompany"></p>
+          <p id="completedInternshipDuration"></p>
+          <p id="completedInternshipSalary"></p>
+          <button onclick="closeCompletedInternshipDetails()">Close</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/internships.js"></script>
+</body>
+</html>
