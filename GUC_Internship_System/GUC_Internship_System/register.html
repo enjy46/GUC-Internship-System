@@ -1,58 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Register Company</title>
-  <link rel="stylesheet" href="GUC_Internship_System/css/register.css" />
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <nav class="sidebar">
-    <input type="text" class="menu-search" placeholder="Menu Search..." />
-    <details open>
-      <summary>Main</summary>
-      <ul>
-        <li><a href="company_dashboard.html" class="nav-link">Dashboard</a></li>
-        <li><a href="register.html" class="nav-link">Register</a></li>
-        <li><a href="upload-documents.html" class="nav-link">Upload Documents</a></li>
-        <li><a href="job-posts.html" class="nav-link">Job Posts</a></li>
-        <li><a href="evaluate.html" class="nav-link">Evaluate Intern</a></li>
-        <li><a href="applications.html" class="nav-link">Applications</a></li>
-      </ul>
-    </details>
-  </nav>
-  <main>
-    <div class="register-container">
-      <h2>Register Company</h2>
-      <form id="registerForm" enctype="multipart/form-data">
-        <label for="companyName">Company Name:</label>
-        <input type="text" id="companyName" name="companyName" required />
+  <head>
+    <meta c current harset="UTF-8" />
+    <title>Register</title>
+    <link rel="stylesheet" href="GUC_Internship_System/css/register.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+      <h1>Company Register</h1>
+    </header>
 
-        <label for="companyEmail">Company Email:</label>
-        <input type="email" id="companyEmail" name="companyEmail" required />
+    <nav class="sidebar">
+      <input type="text" class="menu-search" placeholder="Menu Search..." />
+      <details open>
+        <summary>Main</summary>
+        <ul>
+          <li>
+            <a href="company_dashboard.html" class="nav-link"> 🏠 Dashboard </a>
+          </li>
+          <li>
+            <a href="register.html" class="nav-link"> 📝 Register </a>
+          </li>
+          <li>
+            <a href="upload-documents.html" class="nav-link">
+              📤 Upload Documents
+            </a>
+          </li>
+          <li>
+            <a href="job-posts.html" class="nav-link"> 💼 Job Posts </a>
+          </li>
+          <li>
+            <a href="evaluate.html" class="nav-link"> 🧑‍💻 Evaluate Intern </a>
+          </li>
+          <li>
+            <a href="applications.html" class="nav-link"> 📄 Applications </a>
+          </li>
+          <li>
+            <a href="currentinterns.html" class="nav-link">
+              👨‍🎓 Current Interns
+            </a>
+          </li>
+        </ul>
+      </details>
+    </nav>
+    <main>
+      <div class="register-container">
+        <h2>Register Company</h2>
+        <form id="registerForm" enctype="multipart/form-data">
+          <label for="companyName">Company Name:</label>
+          <input type="text" id="companyName" name="companyName" required />
 
-        <label for="companyPhone">Phone Number:</label>
-        <input type="tel" id="companyPhone" name="companyPhone" required />
+          <label for="companyEmail">Company Email:</label>
+          <input type="email" id="companyEmail" name="companyEmail" required />
 
-        <label for="companyAddress">Address:</label>
-        <textarea id="companyAddress" name="companyAddress" required></textarea>
+          <label for="companyPhone">Phone Number:</label>
+          <input type="tel" id="companyPhone" name="companyPhone" required />
 
-        <label for="companyLogo">Upload Company Logo:</label>
-        <input type="file" id="companyLogo" name="companyLogo" accept="image/*" required />
+          <label for="companyAddress">Address:</label>
+          <textarea
+            id="companyAddress"
+            name="companyAddress"
+            required
+          ></textarea>
 
-        <button type="submit">Register</button>
-      </form>
-      <p id="registerMessage" class="message"></p>
-    </div>
-  </main>
-  <script src="GUC_Internship_System/js/register.js"></script>
-  <script>
-    // Highlight active link
-    document.querySelectorAll('.nav-link').forEach(link => {
-      if (link.href === window.location.href) {
-        link.classList.add('active');
-      }
-    });
-  </script>
-</body>
+          <label for="companyLogo">Upload Company Logo:</label>
+          <input
+            type="file"
+            id="companyLogo"
+            name="companyLogo"
+            accept="image/*"
+            required
+          />
+
+          <button type="submit">Register</button>
+        </form>
+        <p id="registerMessage" class="message"></p>
+      </div>
+    </main>
+    <script src="GUC_Internship_System/js/register.js"></script>
+    <script>
+      // Highlight active link
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        if (link.href === window.location.href) {
+          link.classList.add("active");
+        }
+      });
+    </script>
+  </body>
 </html>

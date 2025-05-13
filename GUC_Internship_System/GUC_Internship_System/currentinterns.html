@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Current Interns</title>
+    <link rel="stylesheet" href="css/currentinterns.css" />
+  </head>
+  <body>
+    <!-- Fixed Header -->
+    <header class="fixed-header">
+      <h1>Current Interns</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <input type="text" class="menu-search" placeholder="Menu Search..." />
+      <details open>
+        <summary>Main</summary>
+        <ul>
+          <li>
+            <a href="company_dashboard.html" class="nav-link"> 🏠 Dashboard </a>
+          </li>
+          <li>
+            <a href="register.html" class="nav-link"> 📝 Register </a>
+          </li>
+          <li>
+            <a href="upload-documents.html" class="nav-link">
+              📤 Upload Documents
+            </a>
+          </li>
+          <li>
+            <a href="job-posts.html" class="nav-link"> 💼 Job Posts </a>
+          </li>
+          <li>
+            <a href="evaluate.html" class="nav-link"> 🧑‍💻 Evaluate Intern </a>
+          </li>
+          <li>
+            <a href="currentinterns.html" class="nav-link">
+              👨‍🎓 Current Interns</a
+            >
+          </li>
+        </ul>
+      </details>
+    </nav>
+
+    <div class="dashboard-container">
+      <h2>Current Interns</h2>
+      <div id="currentInternsSection">
+        <h3>Interns List</h3>
+        <!-- Dropdown to filter interns by status -->
+        <select id="filterInternStatus" onchange="filterInternsByStatus()">
+          <option value="">All Interns</option>
+          <option value="current intern">Current Interns</option>
+          <option value="internship complete">Internship Complete</option>
+        </select>
+        <input
+          type="text"
+          id="searchInternInput"
+          placeholder="Search by name or job title..."
+          oninput="searchInterns()"
+        />
+        <ul id="currentInternsList"></ul>
+      </div>
+
+      <!-- Intern Details Section -->
+      <div
+        id="internDetails"
+        style="
+          display: none;
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-top: 20px;
+        "
+      >
+        <h4>Intern Details</h4>
+        <p id="internName"></p>
+        <p id="internEmail"></p>
+        <p id="internResume"></p>
+        <p id="internStatus"></p>
+      </div>
+    </div>
+
+    <script src="js/currentinterns.js"></script>
+  </body>
+</html>

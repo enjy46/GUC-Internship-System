@@ -5,6 +5,7 @@ body {
   background-color: #f4f8fc;
   color: #333;
   padding: 20px;
+  padding-top: 60px; /* Add padding to prevent content overlap */
 }
 
 header {
@@ -409,4 +410,24 @@ footer {
   padding: 1rem;
   font-size: 0.9rem;
   margin-top: 2rem;
+}
+
+/* Fixed Header Styles */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #001f3f; /* Dark blue background */
+  color: white;
+  text-align: center;
+  padding: 15px 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.fixed-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
