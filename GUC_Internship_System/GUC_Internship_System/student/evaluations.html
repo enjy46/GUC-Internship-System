@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Company Evaluations</title>
-  <link rel="stylesheet" href="../css/pro_dashboard.css" />
+  <link rel="stylesheet" href="css/student_base.css" />
   <link rel="stylesheet" href="css/evaluations.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 <body>
   <div class="app-container">
@@ -16,14 +17,14 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="student_dashboard.html" class="nav-link">Job Listings</a></li>
-          <li><a href="profile.html" class="nav-link">Profile</a></li>
-          <li><a href="internships.html" class="nav-link">Internships</a></li>
-          <li><a href="evaluations.html" class="nav-link active">Evaluations</a></li>
-          <li><a href="reports.html" class="nav-link">Reports</a></li>
-          <li><a href="courses.html" class="nav-link">Courses</a></li>
-          <li><a href="applications.html" class="nav-link">Applications</a></li>
-          <li><a href="notifications.html" class="nav-link">Notifications</a></li>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
+          <li><a href="evaluations.html" class="nav-link active"><i class="fas fa-star"></i>Evaluations</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="applications.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
         </ul>
       </nav>
     </aside>
@@ -34,35 +35,37 @@
       </header>
 
       <section class="dashboard-container">
-        <div id="evaluationForm" class="evaluation-form">
+        <div id="evaluationForm" class="evaluation-section evaluation-form">
           <h2>Submit Your Evaluation</h2>
           <form id="companyEvaluationForm">
             <div class="form-group">
               <label for="companySelect">Select Company:</label>
-              <select id="companySelect" required>
+              <select id="companySelect" required aria-label="Choose a company">
                 <option value="">Choose a company</option>
               </select>
             </div>
             <div class="form-group">
               <label for="evaluationText">Your Evaluation:</label>
-              <textarea id="evaluationText" rows="4" required></textarea>
+              <textarea id="evaluationText" rows="4" required aria-label="Enter your evaluation"></textarea>
             </div>
-            <div class="form-group">
+            <div class="form-group checkbox-group">
               <label>
-                <input type="checkbox" id="recommendCompany">
+                <input type="checkbox" id="recommendCompany" aria-label="Recommend this company">
                 I recommend this company
               </label>
             </div>
-            <button type="submit" class="dashboard-btn btn-primary">Submit Evaluation</button>
+            <div class="grid-buttons">
+              <button type="submit" class="dashboard-btn btn-submit" aria-label="Submit evaluation">Submit Evaluation</button>
+            </div>
           </form>
         </div>
 
-        <div id="evaluationDisplay" class="evaluation-display" style="display: none;">
+        <div id="evaluationDisplay" class="evaluation-section evaluation-display" style="display: none;">
           <h2>Your Evaluation</h2>
-          <div id="evaluationContent"></div>
-          <div class="button-group">
-            <button id="editEvaluation" class="dashboard-btn btn-secondary">Edit</button>
-            <button id="deleteEvaluation" class="dashboard-btn btn-danger">Delete</button>
+          <div id="evaluationContent" class="evaluation-content"></div>
+          <div class="grid-buttons">
+            <button id="editEvaluation" class="dashboard-btn btn-edit" aria-label="Edit evaluation">Edit</button>
+            <button id="deleteEvaluation" class="dashboard-btn btn-delete" aria-label="Delete evaluation">Delete</button>
           </div>
         </div>
       </section>

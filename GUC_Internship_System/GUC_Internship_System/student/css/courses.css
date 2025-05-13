@@ -32,13 +32,13 @@ body {
   padding: 2rem 1rem;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
 }
 
 .sidebar-header h2 {
   margin: 0;
   font-size: 1.6rem;
   font-weight: 600;
-  color: white;
 }
 
 .sidebar-toggle {
@@ -105,68 +105,99 @@ body {
 
 .main-header {
   background-color: #0d1b2a;
-  color: #ffffff;
-  padding: 1.5rem;
+  color: #ffffff; /* Changed to pure white */
+  padding: 1.5rem; /* Reduced padding for less prominence */
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-.main-header h1 {
-  color: white;
-  margin: 0;
-}
-
 h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem; /* Slightly smaller for balance */
+  font-weight: 500; /* Lighter weight for elegance */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   color: #ffffff;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard-container {
-  max-width: 800px;
-  margin: 1.5rem auto;
-  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  text-align: center;
 }
 
-.evaluation-section {
-  width: 100%;
-  min-height: 300px; /* Ensure consistent height */
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.evaluation-form, .evaluation-display {
-  margin-bottom: 1rem;
+.courses-section, .helpful-courses-section {
+  margin-bottom: 2.5rem;
 }
 
 h2 {
   color: #0d1b2a;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+#majorCoursesDropdown {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px;
+  cursor: pointer;
+}
+
+#majorCoursesDropdown:hover {
+  border-color: #001f3f;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#majorCoursesDropdown:focus {
+  border-color: #001f3f;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+}
+
+#selectableCourses {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+#selectableCourses li {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+}
+
+#selectableCourses input[type="checkbox"] {
+  margin-right: 1rem;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #001f3f;
+}
+
+#selectableCourses label {
+  cursor: pointer;
 }
 
 .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
 }
 
-.form-group label {
-  display: block;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-}
-
-.form-group select,
-.form-group textarea {
+.form-group input[type="text"] {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.85rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-family: 'Inter', sans-serif;
@@ -174,92 +205,35 @@ h2 {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group select:hover,
-.form-group textarea:hover {
+.form-group input[type="text"]:hover {
   border-color: #001f3f;
 }
 
-.form-group select:focus,
-.form-group textarea:focus {
+.form-group input[type="text"]:focus {
   border-color: #001f3f;
   outline: none;
   box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
 }
 
-.form-group textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-.checkbox-group {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-group input[type="checkbox"] {
-  margin-right: 0.5rem;
-  width: 20px;
-  height: 20px;
-  accent-color: #001f3f;
-}
-
-.checkbox-group label {
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.evaluation-content {
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.evaluation-content p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-.evaluation-content strong {
-  font-weight: 600;
-}
-
-#evaluationDisplay {
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#evaluationContent {
-  background-color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
-#evaluationContent p {
-  margin: 0 0 10px 0;
-}
-
-.button-group {
-  display: flex;
-  justify-content: flex-start;
-  gap: 10px; /* Reduced gap between buttons */
-  margin-top: 15px;
+.grid-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
 .dashboard-btn {
-  padding: 8px 16px;
+  display: block;
+  padding: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
+  position: relative;
 }
 
 .dashboard-btn:hover::after {
@@ -277,57 +251,29 @@ h2 {
   z-index: 10;
 }
 
-#editEvaluation {
-  background-color: #2196F3;
-  color: white;
-}
-
-#editEvaluation:hover {
-  background-color: #1976D2;
-}
-
-#deleteEvaluation {
-  background-color: #f44336;
-  color: white;
-}
-
-#deleteEvaluation:hover {
-  background-color: #D32F2F;
-}
-
-.btn-submit {
-  background-color: #388e3c;
-}
-
-.btn-submit:hover {
-  background-color: #2e7d32;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.btn-edit {
+.btn-add {
   background-color: #01579b;
 }
 
-.btn-edit:hover {
+.btn-add:hover {
   background-color: #013c6e;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.btn-delete {
-  background-color: #c62828;
+.btn-save {
+  background-color: #388e3c;
 }
 
-.btn-delete:hover {
-  background-color: #b71c1c;
+.btn-save:hover {
+  background-color: #2e7d32;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 footer {
   background-color: #0d1b2a;
-  color: #ffffff;
+  color: #ffffff; /* Changed to white */
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
@@ -361,14 +307,18 @@ footer {
   background-color: #c62828;
 }
 
-.warning {
-  background-color: #f57c00; /* Orange for warning */
-}
-
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-5px); }
   75% { transform: translateX(5px); }
+}
+
+.course-message {
+  color: #ff0000;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  transition: opacity 0.3s ease-in-out;
 }
 
 @media (max-width: 768px) {
@@ -388,15 +338,11 @@ footer {
     margin-left: 250px;
   }
   .dashboard-container {
-    margin: 1rem auto;
-    padding: 1.2rem;
+    margin: 1rem;
+    padding: 1.5rem;
   }
   .grid-buttons {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .dashboard-btn {
-    width: 100%;
+    grid-template-columns: 1fr;
   }
   .feedback {
     max-width: 90%;
