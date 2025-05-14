@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta c current harset="UTF-8" />
+    <meta charset="UTF-8" />
     <title>Register</title>
     <link rel="stylesheet" href="GUC_Internship_System/css/register.css" />
     <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      .feedback {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        max-width: 320px;
+        padding: 14px 28px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 2000; /* Increased to ensure it appears above the sidebar */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transition: right 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .feedback.show {
+        right: 20px;
+      }
+
+      .feedback.success {
+        background-color: #388e3c;
+      }
+
+      .feedback.error {
+        background-color: #c62828;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Fixed Header -->
@@ -75,18 +117,12 @@
           />
 
           <button type="submit">Register</button>
+          <!-- Message will appear here -->
+          <p id="registerMessage" class="message" style="margin-top: 10px"></p>
         </form>
-        <p id="registerMessage" class="message"></p>
       </div>
     </main>
     <script src="GUC_Internship_System/js/register.js"></script>
-    <script>
-      // Highlight active link
-      document.querySelectorAll(".nav-link").forEach((link) => {
-        if (link.href === window.location.href) {
-          link.classList.add("active");
-        }
-      });
-    </script>
+    <script src="js/register.js"></script>
   </body>
 </html>

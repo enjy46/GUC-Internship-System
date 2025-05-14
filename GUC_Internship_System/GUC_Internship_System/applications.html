@@ -9,7 +9,7 @@
   <body>
     <!-- Fixed Header -->
     <header class="fixed-header">
-      <h1>Applications</h1>
+      <h1>Internship posts and Applications</h1>
     </header>
     <nav class="sidebar">
       <input type="text" class="menu-search" placeholder="Menu Search..." />
@@ -46,7 +46,17 @@
     </nav>
     <main>
       <div class="applications-container">
-        <h2>Applications</h2>
+        <h2>Internship Posts</h2>
+
+        <!-- Search Feature -->
+        <div class="search-container">
+          <label for="searchPosts">Search Internship Posts:</label>
+          <input
+            type="text"
+            id="searchPosts"
+            placeholder="Search through the list of my company's internship posts only"
+          />
+        </div>
 
         <!-- Filter by Internship Post -->
         <div class="filters">
@@ -92,7 +102,6 @@
         </div>
       </div>
     </main>
-    <!-- <script src="GUC_Internship_System/js/applications.js"> -->
     <script>
       // Populate the filter dropdown with internship posts
       function populateFilterDropdown() {
@@ -101,6 +110,8 @@
         );
         const internshipPosts =
           JSON.parse(localStorage.getItem("jobPosts")) || [];
+        filterDropdown.innerHTML =
+          '<option value="">All Internship Posts</option>';
         internshipPosts.forEach((post) => {
           const option = document.createElement("option");
           option.value = post.title;
@@ -108,6 +119,35 @@
           filterDropdown.appendChild(option);
         });
       }
+
+      // Filter internship posts based on search input
+      function filterPostsBySearch() {
+        const searchInput = document
+          .getElementById("searchPosts")
+          .value.toLowerCase();
+        const filterDropdown = document.getElementById(
+          "filterApplicationsByPost"
+        );
+        const internshipPosts =
+          JSON.parse(localStorage.getItem("jobPosts")) || [];
+
+        filterDropdown.innerHTML =
+          '<option value="">All Internship Posts</option>';
+        internshipPosts
+          .filter((post) => post.title.toLowerCase().includes(searchInput))
+          .forEach((post) => {
+            const option = document.createElement("option");
+            option.value = post.title;
+            option.textContent = post.title;
+            filterDropdown.appendChild(option);
+          });
+      }
+
+      // Attach event listener to the search input
+      document
+        .getElementById("searchPosts")
+        .addEventListener("input", filterPostsBySearch);
+
       document
         .getElementById("filterApplicationsByPost")
         .addEventListener("change", function () {
@@ -174,6 +214,7 @@
           updateApplicantStatus(applicant, "internship complete");
       }
 
+      // Populate the dropdown on page load
       populateFilterDropdown();
     </script>
   </body>

@@ -1,28 +1,32 @@
-document.getElementById('uploadForm').addEventListener('submit', function(event) {
-  event.preventDefault();
+document
+  .getElementById("uploadForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
 
-  const files = document.getElementById('documentUpload').files;
-  const statusElem = document.getElementById('uploadStatus');
+    const files = document.getElementById("documentUpload").files;
 
-  if (files.length === 0) {
-    statusElem.textContent = 'Please select at least one document to upload.';
-    statusElem.style.color = 'red';
-    return;
-  }
+    if (files.length === 0) {
+      displayMessage("Please select at least one document to upload.", true);
+      return;
+    }
 
-  // Simulate upload process
-  statusElem.textContent = 'Uploading documents...';
-  statusElem.style.color = 'black';
+    // Simulate upload process
+    displayMessage("Documents uploaded successfully!", false);
 
-  setTimeout(() => {
-    statusElem.textContent = 'Documents uploaded successfully!';
-    statusElem.style.color = 'green';
-    document.getElementById('uploadForm').reset();
-  }, 1500);
-});
+    // Clear the form
+    this.reset();
+  });
+// Clear form
+function displayMessage(message, isError) {
+  const messageElem = document.getElementById("registerMessage");
+  messageElem.textContent = message; // Set the message text
+  messageElem.style.color = isError ? "red" : "green"; // Set the color based on error or success
+  messageElem.style.display = "block"; // Ensure the message is visible
+}
 
-document.querySelectorAll('.nav-link').forEach(link => {
+// Highlight the active navigation link
+document.querySelectorAll(".nav-link").forEach((link) => {
   if (link.href === window.location.href) {
-    link.classList.add('active');
+    link.classList.add("active");
   }
 });
