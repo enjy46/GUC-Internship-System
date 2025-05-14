@@ -1,0 +1,51 @@
+/* Dashboard container */
+.dashboard-container {
+  max-width: 800px; /* Matches evaluations.css */
+  margin: 1.5rem auto; /* Matches evaluations.css */
+  padding: 1.5rem; /* Matches evaluations.css */
+  background: white;
+  border-radius: 12px; /* Matches evaluations.css */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* Matches evaluations.css */
+  text-align: left;
+}
+
+.dashboard-section {
+  margin-bottom: 1rem; /* Matches evaluations.css evaluation-section spacing */
+}
+
+.dashboard-section h2 {
+  color: var(--primary-color);
+  font-size: 1.4rem; /* Matches evaluations.css */
+  font-weight: 600; /* Matches evaluations.css */
+  margin-bottom: 1rem; /* Matches evaluations.css */
+}
+
+.quick-links {
+  list-style-type: none;
+  padding: 0;
+}
+
+.quick-links li {
+  margin-bottom: 0.5rem; /* Adjusted for consistency with evaluations.css */
+}
+
+.quick-links a {
+  color: #01579b; /* Matches btn-edit color in evaluations.css */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.2s ease; /* Matches evaluations.css nav-link */
+}
+
+.quick-links a:hover {
+  color: var(--secondary-color); /* Matches evaluations.css nav-link hover */
+  transform: translateX(5px); /* Matches evaluations.css nav-link hover */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin: 1rem auto; /* Matches evaluations.css */
+    padding: 1.2rem; /* Matches evaluations.css */
+  }
+}

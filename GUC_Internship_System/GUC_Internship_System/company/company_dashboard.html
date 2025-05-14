@@ -1,67 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Company Dashboard</title>
-    <link rel="stylesheet" href="../css/styles.css" />
-  </head>
-  <body>
-    <!-- Fixed Header -->
-    <header class="fixed-header main-header">
-      <h1>Welcome Company</h1>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <title>Company Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../css/company_base.css" />
+  <link rel="stylesheet" href="css/company_dashboard.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- Sidebar -->
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <h2>Company Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li>
-            <a href="company_dashboard.html" class="nav-link">
-              <i class="fas fa-home"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="register.html" class="nav-link">
-              <i class="fas fa-user"></i> Register
-            </a>
-          </li>
-          <li>
-            <a href="upload-documents.html" class="nav-link">
-              <i class="fas fa-upload"></i> Upload Documents
-            </a>
-          </li>
-          <li>
-            <a href="job-posts.html" class="nav-link">
-              <i class="fas fa-briefcase"></i> Job Posts
-            </a>
-          </li>
-          <li>
-            <a href="evaluate.html" class="nav-link">
-              <i class="fas fa-star"></i> Evaluate Intern
-            </a>
-          </li>
-          <li>
-            <a href="applications.html" class="nav-link">
-              <i class="fas fa-paper-plane"></i> Applications
-            </a>
-          </li>
-          <li>
-            <a href="currentinterns.html" class="nav-link">
-              <i class="fas fa-graduation-cap"></i> Current Interns
-            </a>
-          </li>
+          <li><a href="company_dashboard.html" class="nav-link active"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="register.html" class="nav-link"><i class="fas fa-user"></i>Register</a></li>
+          <li><a href="upload-documents.html" class="nav-link"><i class="fas fa-upload"></i>Upload Documents</a></li>
+          <li><a href="job-posts.html" class="nav-link"><i class="fas fa-briefcase"></i>Job Posts</a></li>
+          <li><a href="evaluate.html" class="nav-link"><i class="fas fa-star"></i>Evaluate Intern</a></li>
+          <li><a href="applications.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="currentinterns.html" class="nav-link"><i class="fas fa-graduation-cap"></i>Current Interns</a></li>
         </ul>
       </nav>
     </aside>
 
-    <!-- Dashboard Content -->
-    <div class="dashboard-container">
-      <h2>Welcome, Company</h2>
-
-      <!-- Example Buttons -->
-    </div>
-  </body>
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Welcome, Company</h1>
+      </header>
+      <section class="dashboard-container">
+        <h2>Dashboard Overview</h2>
+        <p>Use the sidebar to navigate through your company dashboard features.</p>
+      </section>
+    </main>
+  </div>
+</body>
 </html>
