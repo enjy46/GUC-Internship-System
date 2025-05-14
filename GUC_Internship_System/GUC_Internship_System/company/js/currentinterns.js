@@ -71,13 +71,6 @@ function displayCurrentInterns() {
         li.addEventListener("click", viewInternDetails);
 
         // Add "Evaluate Intern" button for current interns
-        const evaluateButton = document.createElement("button");
-        evaluateButton.textContent = "Evaluate Intern";
-        evaluateButton.style.marginLeft = "10px";
-        evaluateButton.onclick = () => redirectToEvaluate(application);
-        li.appendChild(evaluateButton);
-
-        currentInternsList.appendChild(li);
       }
     });
   });
@@ -99,10 +92,7 @@ function filterInternsByStatus() {
         li.addEventListener("click", viewInternDetails);
 
         // Add "Evaluate Intern" button for current intern or internship complete
-        if (
-          application.status === "current intern" ||
-          application.status === "internship complete"
-        ) {
+        if (application.status === "internship complete") {
           const evaluateButton = document.createElement("button");
           evaluateButton.textContent = "Evaluate Intern";
           evaluateButton.style.marginLeft = "10px";
@@ -115,7 +105,13 @@ function filterInternsByStatus() {
     });
   });
 }
-
+// Redirect to the Evaluate Intern page
+function redirectToEvaluate(intern) {
+  // Save the selected intern's details to localStorage
+  localStorage.setItem("selectedIntern", JSON.stringify(intern));
+  // Redirect to the evaluate.html page
+  window.location.href = "evaluate.html";
+}
 // Filter interns by status
 function filterInternsByStatus() {
   const filterValue = document.getElementById("filterInternStatus").value;
@@ -132,10 +128,7 @@ function filterInternsByStatus() {
         li.addEventListener("click", viewInternDetails);
 
         // Add "Evaluate Intern" button for current intern or internship complete
-        if (
-          application.status === "current intern" ||
-          application.status === "internship complete"
-        ) {
+        if (application.status === "internship complete") {
           const evaluateButton = document.createElement("button");
           evaluateButton.textContent = "Evaluate Intern";
           evaluateButton.style.marginLeft = "10px";
