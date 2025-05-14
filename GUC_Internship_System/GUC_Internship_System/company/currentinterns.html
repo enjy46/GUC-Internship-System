@@ -99,5 +99,46 @@
     </div>
 
     <script src="js/currentinterns.js"></script>
+    <script>
+      // Example data for interns
+      const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+      console.log("Job Posts Data:", jobPosts);
+
+      // Display interns with "Evaluate Intern" button for "internship complete" status
+      function displayInterns() {
+        console.log("displayInterns function called");
+        const currentInternsList =
+          document.getElementById("currentInternsList");
+        currentInternsList.innerHTML = ""; // Clear the list
+
+        jobPosts.forEach((post) => {
+          post.applications.forEach((application) => {
+            const li = document.createElement("li");
+            li.textContent = `Name: ${application.name}, Job Title: ${post.title}, Status: ${application.status}`;
+
+            // Add "Evaluate Intern" button for completed internships
+            if (application.status === "internship complete") {
+              const evaluateButton = document.createElement("button");
+              evaluateButton.textContent = "Evaluate Intern";
+              evaluateButton.style.marginLeft = "10px";
+              evaluateButton.onclick = () => redirectToEvaluate(application);
+              li.appendChild(evaluateButton);
+            }
+
+            currentInternsList.appendChild(li);
+          });
+        });
+      }
+
+      // Redirect to the Evaluate Intern page
+      function redirectToEvaluate(intern) {
+        // Pass intern details to the evaluate page (if needed)
+        localStorage.setItem("selectedIntern", JSON.stringify(intern));
+        window.location.href = "evaluate.html";
+      }
+
+      // Call displayInterns on page load
+      document.addEventListener("DOMContentLoaded", displayInterns);
+    </script>
   </body>
 </html>

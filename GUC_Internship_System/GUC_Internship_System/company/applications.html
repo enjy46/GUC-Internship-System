@@ -120,37 +120,18 @@
     </main>
     <script>
       // Populate the filter dropdown with internship posts
-      function populateFilterDropdown() {
+      function populateFilterDropdown(searchQuery = "") {
         const filterDropdown = document.getElementById(
           "filterApplicationsByPost"
         );
         const internshipPosts =
           JSON.parse(localStorage.getItem("jobPosts")) || [];
-        filterDropdown.innerHTML =
-          '<option value="">All Internship Posts</option>';
-        internshipPosts.forEach((post) => {
-          const option = document.createElement("option");
-          option.value = post.title;
-          option.textContent = post.title;
-          filterDropdown.appendChild(option);
-        });
-      }
-
-      // Filter internship posts based on search input
-      function filterPostsBySearch() {
-        const searchInput = document
-          .getElementById("searchPosts")
-          .value.toLowerCase();
-        const filterDropdown = document.getElementById(
-          "filterApplicationsByPost"
-        );
-        const internshipPosts =
-          JSON.parse(localStorage.getItem("jobPosts")) || [];
-
         filterDropdown.innerHTML =
           '<option value="">All Internship Posts</option>';
         internshipPosts
-          .filter((post) => post.title.toLowerCase().includes(searchInput))
+          .filter((post) =>
+            post.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
           .forEach((post) => {
             const option = document.createElement("option");
             option.value = post.title;
@@ -159,22 +140,100 @@
           });
       }
 
-      // Attach event listener to the search input
-      document
-        .getElementById("searchPosts")
-        .addEventListener("input", filterPostsBySearch);
+      // Populate applications count per post
+      function populateApplicationsCount(searchQuery = "") {
+        const applicationsPerPost = document.getElementById(
+          "applicationsPerPost"
+        );
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        applicationsPerPost.innerHTML = "";
+        jobPosts
+          .filter((post) =>
+            post.title.toLowerCase().includes(searchQuery.toLowerCase())
+          )
+          .forEach((post) => {
+            const li = document.createElement("li");
+            li.textContent = `${post.title}: ${
+              post.applications ? post.applications.length : 0
+            } application(s)`;
+            applicationsPerPost.appendChild(li);
+          });
+      }
 
-      document
-        .getElementById("filterApplicationsByPost")
-        .addEventListener("change", function () {
-          const selectedPost = this.value;
-          const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
-          const applicationsList = document.getElementById("applicationsList");
-          applicationsList.innerHTML = "";
+      // Update applications count for the selected internship post or all posts
+      function updateApplicationsCount() {
+        const selectedPost = document.getElementById(
+          "filterApplicationsByPost"
+        ).value;
+        const applicationsPerPost = document.getElementById(
+          "applicationsPerPost"
+        );
+        applicationsPerPost.innerHTML = ""; // Clear the list
+
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+
+        if (selectedPost) {
+          // Display count for the selected internship post
+          const selectedJob = jobPosts.find(
+            (post) => post.title === selectedPost
+          );
+
+          if (selectedJob) {
+            const count = selectedJob.applications
+              ? selectedJob.applications.length
+              : 0;
+            const li = document.createElement("li");
+            li.textContent = `${selectedJob.title}: ${count} application(s)`;
+            applicationsPerPost.appendChild(li);
+          }
+        } else {
+          // Display total count for all internship posts
+          let totalApplications = 0;
 
           jobPosts.forEach((post) => {
+            const count = post.applications ? post.applications.length : 0;
+            totalApplications += count;
+
+            const li = document.createElement("li");
+            li.textContent = `${post.title}: ${count} application(s)`;
+            applicationsPerPost.appendChild(li);
+          });
+
+          // Add a summary for the total applications
+          const totalLi = document.createElement("li");
+          totalLi.style.fontWeight = "bold";
+          totalLi.textContent = `Total Applications: ${totalApplications}`;
+          applicationsPerPost.appendChild(totalLi);
+        }
+      }
+
+      // Filter internship posts based on search input
+      function filterPostsBySearch() {
+        const searchInput = document
+          .getElementById("searchPosts")
+          .value.toLowerCase();
+        populateFilterDropdown(searchInput);
+        populateApplicationsCount(searchInput);
+        updateApplicationsList();
+      }
+
+      // Update applications list based on filter and search
+      function updateApplicationsList() {
+        const selectedPost = document.getElementById(
+          "filterApplicationsByPost"
+        ).value;
+        const searchInput = document
+          .getElementById("searchPosts")
+          .value.toLowerCase();
+        const applicationsList = document.getElementById("applicationsList");
+        const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
+        applicationsList.innerHTML = "";
+
+        jobPosts
+          .filter((post) => post.title.toLowerCase().includes(searchInput))
+          .forEach((post) => {
             if (selectedPost === "" || post.title === selectedPost) {
-              post.applications.forEach((application) => {
+              (post.applications || []).forEach((application) => {
                 const li = document.createElement("li");
                 li.textContent = `Job: ${post.title} | Applicant: ${application.name}`;
                 li.dataset.applicant = JSON.stringify(application);
@@ -183,7 +242,22 @@
               });
             }
           });
-        });
+      }
+
+      // Attach event listener to the search input
+      document
+        .getElementById("searchPosts")
+        .addEventListener("input", filterPostsBySearch);
+
+      // Attach event listener to the filter dropdown
+      document
+        .getElementById("filterApplicationsByPost")
+        .addEventListener("change", updateApplicationsList);
+
+      // Attach event listener to the dropdown menu
+      document
+        .getElementById("filterApplicationsByPost")
+        .addEventListener("change", updateApplicationsCount);
 
       // Update applicant status
       function updateApplicantStatus(applicant, status) {
@@ -191,16 +265,25 @@
         alert(`Applicant ${applicant.name} has been marked as ${status}.`);
         document.getElementById("applicantDetails").style.display = "none";
 
-        // Update the application in localStorage (if needed)
+        // Update the application in localStorage
         const jobPosts = JSON.parse(localStorage.getItem("jobPosts")) || [];
         jobPosts.forEach((post) => {
-          post.applications.forEach((app) => {
-            if (app.name === applicant.name && app.email === applicant.email) {
-              app.status = status;
-            }
-          });
+          if (post.applications) {
+            post.applications.forEach((app) => {
+              if (
+                app.name === applicant.name &&
+                app.email === applicant.email
+              ) {
+                app.status = status;
+              }
+            });
+          }
         });
         localStorage.setItem("jobPosts", JSON.stringify(jobPosts));
+        populateApplicationsCount(
+          document.getElementById("searchPosts").value.toLowerCase()
+        );
+        updateApplicationsList();
       }
 
       // View applicant details
@@ -230,8 +313,15 @@
           updateApplicantStatus(applicant, "internship complete");
       }
 
-      // Populate the dropdown on page load
-      populateFilterDropdown();
+      // Initialize the page
+      function initializePage() {
+        populateFilterDropdown();
+        populateApplicationsCount();
+        updateApplicationsList();
+      }
+
+      // Call initialization on page load
+      window.onload = initializePage;
     </script>
   </body>
 </html>
