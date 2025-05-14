@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Statistics | SCAD System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      color: #333;
+    }
+    
+    /* App container styles */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background-color: #0d1b2a;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar-header {
+      padding: 0 1rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    
+    .sidebar-nav .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    
+    .sidebar-nav .nav-link:hover,
+    .sidebar-nav .nav-link.active {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .sidebar-nav .nav-link i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Main content styles */
+    .main-content {
+      flex: 1;
+      padding: 1rem;
+    }
+    
+    .main-header {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .main-header h1 {
+      margin: 0;
+    }
+    
+    /* Statistics grid layout */
+    .statistics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Card styles */
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .card h3 {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* Stat card styles */
+    .stat-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    
+    .stat-card h4 {
+      color: #0d1b2a;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .stat-card ul {
+      text-align: left;
+      padding-left: 1rem;
+    }
+    
+    .stat-card ul li {
+      background: none;
+      border: none;
+      padding: 0.3rem 0;
+      margin-bottom: 0.2rem;
+    }
+    
+    .stat-card ul li:hover {
+      background: none;
+      cursor: default;
+    }
+    
+    /* Chart container */
+    .chart-container {
+      height: 250px;
+      position: relative;
+    }
+    
+    /* Button styles */
+    .primary-button {
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .primary-button:hover {
+      background-color: #2c3e50;
+    }
+    
+    /* Export button container */
+    .export-container {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    /* Trend indicator */
+    .trend-up {
+      color: #4caf50;
+    }
+    
+    .trend-down {
+      color: #f44336;
+    }
+    
+    .trend-neutral {
+      color: #ff9800;
+    }
+    
+    /* Progress bar */
+    .progress-container {
+      background-color: #e9ecef;
+      border-radius: 8px;
+      height: 8px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: #0d1b2a;
+      border-radius: 8px;
+    }
+    
+    /* Filter styles */
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .filters select {
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .statistics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        width: 70px;
+      }
+      
+      .sidebar-nav .nav-link span {
+        display: none;
+      }
+      
+      .sidebar-header h2 {
+        font-size: 0.8rem;
+      }
+      
+      .filters {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Faculty Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li>
+            <a href="faculty_dashboard.html" class="nav-link">
+              <i class="fas fa-home"></i>Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="faculty_statistics.html" class="nav-link active">
+              <i class="fas fa-chart-bar"></i>Statistics
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1>SCAD System</h1>
+        <p class="subheading">Faculty Statistics</p>
+      </header>
+
+      <!-- Filters -->
+      <div class="card">
+        <h3>Filter Statistics</h3>
+        <div class="filters">
+          <select id="academicYearFilter">
+            <option value="">All Academic Years</option>
+            <option value="2024-2025">2024-2025</option>
+            <option value="2023-2024">2023-2024</option>
+            <option value="2022-2023">2022-2023</option>
+          </select>
+          <select id="majorFilter">
+            <option value="">All Majors</option>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Business">Business</option>
+          </select>
+          <select id="semesterFilter">
+            <option value="">All Semesters</option>
+            <option value="Fall">Fall</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+          </select>
+          <button class="primary-button" onclick="applyFilters()">Apply Filters</button>
+        </div>
+      </div>
+
+      <!-- Statistics Overview -->
+      <div class="statistics-grid">
+        <!-- Total Students Card -->
+        <div class="stat-card">
+          <h4>Total Students</h4>
+          <p id="totalStudentsCount">450</p>
+          <p class="trend-up"><i class="fas fa-arrow-up"></i> 5% from last year</p>
+        </div>
+        
+        <!-- Internship Placement Rate -->
+        <div class="stat-card">
+          <h4>Internship Placement Rate</h4>
+          <p id="placementRateCount">87%</p>
+          <p class="trend-up"><i class="fas fa-arrow-up"></i> 3% from last year</p>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: 87%"></div>
+          </div>
+        </div>
+        
+        <!-- Average Internship Duration -->
+        <div class="stat-card">
+          <h4>Average Internship Duration</h4>
+          <p id="avgDurationCount">4.2 months</p>
+          <p class="trend-up"><i class="fas fa-arrow-up"></i> 0.5 months from last year</p>
+        </div>
+        
+        <!-- Reports Submitted -->
+        <div class="stat-card">
+          <h4>Reports Submitted</h4>
+          <p id="reportsSubmittedCount">395</p>
+          <p class="trend-up"><i class="fas fa-arrow-up"></i> 12% from last year</p>
+        </div>
+        
+        <!-- Reports Accepted -->
+        <div class="stat-card">
+          <h4>Reports Accepted</h4>
+          <p id="reportsAcceptedCount">350</p>
+          <p class="trend-neutral"><i class="fas fa-arrows-alt-h"></i> Similar to last year</p>
+        </div>
+        
+        <!-- Average Review Time -->
+        <div class="stat-card">
+          <h4>Average Review Time</h4>
+          <p id="avgReviewTimeCount">4.5 days</p>
+          <p class="trend-down"><i class="fas fa-arrow-down"></i> 1.2 days from last year</p>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="card">
+        <h3>Internship Trends</h3>
+        <div class="chart-container">
+          <canvas id="internshipTrendsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="statistics-grid">
+        <!-- Top Companies -->
+        <div class="card">
+          <h3>Top Companies</h3>
+          <div class="chart-container">
+            <canvas id="topCompaniesChart"></canvas>
+          </div>
+        </div>
+        
+        <!-- Major Distribution -->
+        <div class="card">
+          <h3>Major Distribution</h3>
+          <div class="chart-container">
+            <canvas id="majorDistributionChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Most Used Courses -->
+      <div class="card">
+        <h3>Most Used Courses in Internships</h3>
+        <ul id="mostUsedCoursesList">
+          <li>Data Structures and Algorithms - 78% of students reported using</li>
+          <li>Database Systems - 65% of students reported using</li>
+          <li>Software Engineering - 62% of students reported using</li>
+          <li>Web Development - 58% of students reported using</li>
+          <li>Human Computer Interaction - 45% of students reported using</li>
+        </ul>
+      </div>
+
+      <!-- Export Button -->
+      <div class="export-container">
+        <button class="primary-button" onclick="exportStatisticsReport()">
+          <i class="fas fa-file-export"></i> Export Statistics Report (PDF)
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Include Chart.js and jsPDF -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="js/modules/pdfGenerator.js"></script>
+  
+  <script>
+    // Initialize charts when the page loads
+    window.onload = function() {
+      initializeCharts();
+    };
+    
+    // Initialize charts
+    function initializeCharts() {
+      // Internship Trends Chart
+      const trendsCtx = document.getElementById('internshipTrendsChart').getContext('2d');
+      const trendsChart = new Chart(trendsCtx, {
+        type: 'line',
+        data: {
+          labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
+          datasets: [
+            {
+              label: 'Internship Placements',
+              data: [320, 350, 380, 410, 430, 450],
+              borderColor: 'rgba(13, 27, 42, 1)',
+              backgroundColor: 'rgba(13, 27, 42, 0.1)',
+              tension: 0.4,
+              fill: true
+            },
+            {
+              label: 'Reports Submitted',
+              data: [290, 320, 340, 370, 390, 395],
+              borderColor: 'rgba(65, 105, 225, 1)',
+              backgroundColor: 'rgba(65, 105, 225, 0.1)',
+              tension: 0.4,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Internship Placement and Report Submission Trends'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Students'
+              }
+            },
+            x: {
+              title: {
+                display: true,
+                text: 'Year'
+              }
+            }
+          }
+        }
+      });
+      
+      // Top Companies Chart
+      const companiesCtx = document.getElementById('topCompaniesChart').getContext('2d');
+      const companiesChart = new Chart(companiesCtx, {
+        type: 'bar',
+        data: {
+          labels: ['TechCorp', 'InnovateTech', 'BuildSmart', 'MarketLeaders', 'GlobalSoft'],
+          datasets: [{
+            label: 'Number of Interns',
+            data: [65, 59, 45, 40, 35],
+            backgroundColor: [
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)'
+            ],
+            borderColor: [
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Top Companies by Number of Interns'
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: 'Number of Interns'
+              }
+            }
+          }
+        }
+      });
+      
+      // Major Distribution Chart
+      const majorCtx = document.getElementById('majorDistributionChart').getContext('2d');
+      const majorChart = new Chart(majorCtx, {
+        type: 'pie',
+        data: {
+          labels: ['Computer Science', 'Engineering', 'Business'],
+          datasets: [{
+            data: [45, 30, 25],
+            backgroundColor: [
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(65, 105, 225, 0.7)',
+              'rgba(46, 139, 87, 0.7)'
+            ],
+            borderColor: [
+              'rgba(13, 27, 42, 1)',
+              'rgba(65, 105, 225, 1)',
+              'rgba(46, 139, 87, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Distribution of Interns by Major (%)'
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+    }
+    
+    // Apply filters to the statistics
+    function applyFilters() {
+      const academicYear = document.getElementById('academicYearFilter').value;
+      const major = document.getElementById('majorFilter').value;
+      const semester = document.getElementById('semesterFilter').value;
+      
+      console.log(`Applying filters: Academic Year: ${academicYear || 'All'}, Major: ${major || 'All'}, Semester: ${semester || 'All'}`);
+      
+      // In a real implementation, this would fetch filtered data from the server
+      // For this example, we'll just show an alert
+      alert(`Filters applied: Academic Year: ${academicYear || 'All'}, Major: ${major || 'All'}, Semester: ${semester || 'All'}`);
+      
+      // Simulate loading new data
+      setTimeout(() => {
+        // Update statistics based on filters (mock data)
+        if (major === "Computer Science") {
+          document.getElementById('totalStudentsCount').textContent = '215';
+          document.getElementById('placementRateCount').textContent = '92%';
+          document.getElementById('reportsSubmittedCount').textContent = '198';
+        } else if (major === "Engineering") {
+          document.getElementById('totalStudentsCount').textContent = '135';
+          document.getElementById('placementRateCount').textContent = '85%';
+          document.getElementById('reportsSubmittedCount').textContent = '115';
+        } else if (major === "Business") {
+          document.getElementById('totalStudentsCount').textContent = '100';
+          document.getElementById('placementRateCount').textContent = '80%';
+          document.getElementById('reportsSubmittedCount').textContent = '82';
+        } else {
+          document.getElementById('totalStudentsCount').textContent = '450';
+          document.getElementById('placementRateCount').textContent = '87%';
+          document.getElementById('reportsSubmittedCount').textContent = '395';
+        }
+      }, 500);
+    }
+    
+    // Export statistics as PDF
+    function exportStatisticsReport() {
+      console.log("Generating statistics report...");
+      
+      // Initialize jsPDF
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      
+      // Add title
+      doc.setFontSize(18);
+      doc.text("Faculty Statistics Report", 10, 10);
+      
+      // Add current date
+      const currentDate = new Date().toLocaleDateString();
+      doc.setFontSize(12);
+      doc.text(`Generated on: ${currentDate}`, 10, 20);
+      
+      // Add filters applied
+      const academicYear = document.getElementById('academicYearFilter').value || 'All';
+      const major = document.getElementById('majorFilter').value || 'All';
+      const semester = document.getElementById('semesterFilter').value || 'All';
+      
+      doc.text(`Filters: Academic Year: ${academicYear}, Major: ${major}, Semester: ${semester}`, 10, 30);
+      
+      // Add key statistics
+      doc.setFontSize(14);
+      doc.text("Key Statistics", 10, 40);
+      
+      doc.setFontSize(12);
+      doc.text(`Total Students: ${document.getElementById('totalStudentsCount').textContent}`, 10, 50);
+      doc.text(`Placement Rate: ${document.getElementById('placementRateCount').textContent}`, 10, 60);
+      doc.text(`Average Duration: ${document.getElementById('avgDurationCount').textContent}`, 10, 70);
+      doc.text(`Reports Submitted: ${document.getElementById('reportsSubmittedCount').textContent}`, 10, 80);
+      doc.text(`Reports Accepted: ${document.getElementById('reportsAcceptedCount').textContent}`, 10, 90);
+      doc.text(`Average Review Time: ${document.getElementById('avgReviewTimeCount').textContent}`, 10, 100);
+      
+      // Add most used courses
+      doc.setFontSize(14);
+      doc.text("Most Used Courses in Internships", 10, 120);
+      
+      doc.setFontSize(12);
+      const courses = document.querySelectorAll('#mostUsedCoursesList li');
+      courses.forEach((course, index) => {
+        doc.text(`- ${course.textContent}`, 15, 130 + (index * 10));
+      });
+      
+      // Save the PDF
+      doc.save("Faculty-Statistics-Report.pdf");
+      
+      alert("Statistics report has been generated and downloaded.");
+    }
+  </script>
+</body>
+</html>
