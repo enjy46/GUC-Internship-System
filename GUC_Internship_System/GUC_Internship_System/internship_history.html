@@ -3,148 +3,494 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Internship History | SCAD System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Your Applications - Internship Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      background-color: #f4f8fc;
       color: #333;
+      margin: 0;
+      overflow-x: hidden;
     }
-    header {
-      background-color: #0d1b2a;
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
       color: white;
-      padding: 1rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
     }
-    .top-bar {
+
+    .sidebar.collapsed {
+      transform: translateX(-250px);
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 1rem;
+      cursor: pointer;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-nav li {
+      margin: 0;
+    }
+
+    .nav-link {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-    }
-    .back-button {
-      background-color: #001f3f;
+      padding: 1.2rem 2rem;
       color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
       text-decoration: none;
-      font-weight: 600;
-      margin-left: 1rem;
-      transition: 0.3s ease;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    .back-button:hover {
-      background-color: #2c3e50;
-    }
-    .header-center {
-      flex-grow: 1;
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
       text-align: center;
     }
-    .subheading {
-      font-size: 1rem;
-      font-weight: 400;
-      margin-top: 0.3rem;
+
+    .nav-link:hover {
+      background-color: #2c3e50;
+      transform: translateX(5px);
     }
-    .container {
-      max-width: 960px;
+
+    .nav-link.active {
+      background-color: #001f3f;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .main-content.collapsed {
+      margin-left: 0;
+    }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .dashboard-container {
+      max-width: 1000px;
       margin: 2rem auto;
       padding: 2rem;
       background: white;
       border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    .section-title {
-      font-size: 1.5rem;
-      color: #0d1b2a;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       text-align: center;
-      margin-bottom: 1.5rem;
     }
+
+    .card {
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #0d1b2a;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+    }
+
     .filters {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
+
     .filters input,
     .filters select {
-      flex: 1;
-      padding: 0.75rem;
-      border-radius: 8px;
+      width: 100%;
+      padding: 0.85rem;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
       font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
+
+    .filters input:hover,
+    .filters select:hover {
+      border-color: #001f3f;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #001f3f;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+    }
+
     .internship-list {
       display: grid;
-      gap: 1rem;
+      gap: 1.5rem;
     }
+
     .internship-card {
       border: 1px solid #ccc;
-      padding: 1rem;
+      padding: 1.2rem;
       border-radius: 8px;
       background-color: #f9f9f9;
+      text-align: left;
     }
+
     .internship-card h3 {
       margin-top: 0;
       color: #0d1b2a;
+      font-size: 1.2rem;
+      font-weight: 600;
     }
+
     .internship-card p {
-      margin: 0.3rem 0;
+      margin: 0.5rem 0;
+      font-size: 1rem;
     }
+
     .internship-card .action-btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      margin: 0.5rem 0.5rem 0 0;
+      background-color: #01579b;
+    }
+
+    .internship-card .action-btn:hover {
+      background-color: #013c6e;
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .internship-card .action-btn:hover::after {
+      content: attr(aria-label);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
       background-color: #0d1b2a;
       color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      font-size: 0.95rem;
-      margin: 0.3rem 0.2rem 0 0;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      z-index: 10;
     }
-    .internship-card .action-btn:hover {
-      background-color: #2c3e50;
-    }
+
     .notification {
       margin-top: 1rem;
       font-size: 0.9rem;
-      color: green;
+      color: #388e3c;
       font-weight: 500;
     }
+
     footer {
       background-color: #0d1b2a;
-      color: white;
+      color: #ffffff;
       text-align: center;
       padding: 1rem;
       margin-top: 2rem;
     }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+    }
+
+    .modal-content h3 {
+      color: #0d1b2a;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .modal-content label {
+      display: block;
+      margin: 0.5rem 0;
+      font-weight: 500;
+    }
+
+    .modal-content select,
+    .modal-content textarea,
+    .modal-content input[type="file"] {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content button {
+      display: block;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background-color: #01579b;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #013c6e;
+      transform: scale(1.05);
+    }
+
+    .feedback {
+      position: fixed;
+      top: 20px;
+      right: -400px;
+      max-width: 320px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: right 0.4s ease-in-out;
+      animation: shake 0.3s ease-in-out;
+    }
+
+    .feedback.show {
+      right: 20px;
+    }
+
+    .success {
+      background-color: #388e3c;
+    }
+
+    .error {
+      background-color: #c62828;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+      .sidebar.collapsed {
+        transform: translateX(0);
+      }
+      .sidebar-toggle {
+        display: block;
+      }
+      .main-content {
+        margin-left: 0Jest;
+      }
+      .main-content.collapsed {
+        margin-left: 250px;
+      }
+      .dashboard-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      .feedback {
+        max-width: 90%;
+        font-size: 1rem;
+        padding: 12px 20px;
+      }
+      .internship-card .action-btn:hover::after {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="top-bar">
-      <a href="pro_dashboard.html" class="back-button">← Back</a>
-      <div class="header-center">
-        <h1>SCAD System</h1>
-        <p class="subheading">Internship History & Evaluation</p>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship<br>Portal</h2>
       </div>
-    </div>
-  </header>
-  <main class="container">
-    <h2 class="section-title">Your Internship Records</h2>
-    <div class="filters">
-      <input type="text" id="searchInput" placeholder="Search by job title or company name">
-      <select id="statusFilter">
-        <option value="">All Statuses</option>
-        <option value="current">Current</option>
-        <option value="completed">Completed</option>
-      </select>
-      <input type="date" id="dateFilter" />
-    </div>
-    <div id="historyList" class="internship-list"></div>
-  </main>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student/dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="student/profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="student/internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
+          <li><a href="student/evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li>
+          <li><a href="student/reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="student/courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="internship_history.html" class="nav-link active"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="student/notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Your Applications</h1>
+      </header>
+
+      <section class="dashboard-container">
+        <div class="card">
+          <h2>Your Internship Applications</h2>
+          <div class="filters">
+            <input type="text" id="searchInput" placeholder="Search by job title or company name" aria-label="Search applications">
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="">All Statuses</option>
+              <option value="current">Current</option>
+              <option value="completed">Completed</option>
+            </select>
+            <input type="date" id="dateFilter" aria-label="Filter by date">
+          </div>
+          <div id="historyList" class="internship-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
   <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+    <p>© 2025 Internship Portal. All rights reserved.</p>
   </footer>
+
+  <!-- Evaluation Modal -->
+  <div id="evaluationModal" class="modal">
+    <div class="modal-content">
+      <h3>Company Evaluation</h3>
+      <label>How would you rate the internship?</label>
+      <div style="margin:0.5rem 0;">
+        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+      </div>
+      <label>Would you recommend this company to others?</label>
+      <select>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+      <label>Additional Comments</label>
+      <textarea style="height:100px;"></textarea>
+      <button onclick="submitEvaluation()">Submit Evaluation</button>
+    </div>
+  </div>
+
+  <!-- Report Upload Modal -->
+  <div id="reportModal" class="modal">
+    <div class="modal-content">
+      <h3>Submit Internship Report</h3>
+      <input type="file" accept="application/pdf">
+      <button onclick="submitReport()">Upload</button>
+    </div>
+  </div>
+
+  <!-- View Flag Comments Modal -->
+  <div id="flagCommentsModal" class="modal">
+    <div class="modal-content">
+      <h3>Comments on Your Report</h3>
+      <p>Your report was flagged for the following reason(s):</p>
+      <ul>
+        <li>Insufficient detail in the internship description</li>
+        <li>Missing supervisor's feedback</li>
+      </ul>
+      <button onclick="closeFlagComments()">Close</button>
+    </div>
+  </div>
+
   <script>
     const internships = [
       {
@@ -166,10 +512,12 @@
         flagged: false
       }
     ];
+
     const historyList = document.getElementById("historyList");
     const searchInput = document.getElementById("searchInput");
     const statusFilter = document.getElementById("statusFilter");
     const dateFilter = document.getElementById("dateFilter");
+
     function renderInternships() {
       const keyword = searchInput.value.toLowerCase();
       const status = statusFilter.value;
@@ -189,122 +537,100 @@
           <p><strong>Status:</strong> ${intern.status.charAt(0).toUpperCase() + intern.status.slice(1)}</p>
           <p><strong>Evaluation:</strong> ${intern.evaluation ? 'Submitted' : 'Not Submitted'}</p>
           <p><strong>Report:</strong> ${intern.reportSubmitted ? 'Finalized' : 'Pending'}</p>
-          ${intern.flagged ? '<p style="color:red;"><strong>⚠ Report Flagged</strong></p><button class="action-btn" onclick="viewFlagComments()">View Comments</button>' : ''}
+          ${intern.flagged ? '<p style="color:#c62828;"><strong>⚠ Report Flagged</strong></p><button class="action-btn" onclick="viewFlagComments()" aria-label="View Comments">View Comments</button>' : ''}
           <div id="notif-${index}" class="notification"></div>
-          ${intern.status === 'completed' && !intern.evaluation ? `<button class="action-btn" onclick="handleAction(${index}, 'evaluate')">Evaluate Company</button>` : ''}
-          ${!intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'submitReport')">Submit Internship Report</button>` : ''}
-          ${intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'downloadPDF')">Download Report PDF</button>` : ''}
-          ${intern.flagged ? `<button class="action-btn" onclick="handleAction(${index}, 'appeal')">Appeal Report</button>` : ''}
+          ${intern.status === 'completed' && !intern.evaluation ? `<button class="action-btn" onclick="handleAction(${index}, 'evaluate')" aria-label="Evaluate Company">Evaluate Company</button>` : ''}
+          ${!intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'submitReport')" aria-label="Submit Internship Report">Submit Internship Report</button>` : ''}
+          ${intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'downloadPDF')" aria-label="Download Report PDF">Download Report PDF</button>` : ''}
+          ${intern.flagged ? `<button class="action-btn" onclick="handleAction(${index}, 'appeal')" aria-label="Appeal Report">Appeal Report</button>` : ''}
         </div>`;
       }).join('');
     }
+
+    let currentNotif = null;
+
     function handleAction(index, type) {
-      const notif = document.getElementById(`notif-${index}`);
+      currentNotif = document.getElementById(`notif-${index}`);
       switch (type) {
         case 'evaluate':
-          notif.textContent = '✅ Evaluation submitted successfully.';
+          document.getElementById('evaluationModal').style.display = 'flex';
+          showFeedback('Opened evaluation form.', 'success');
           break;
         case 'submitReport':
-          notif.textContent = '📄 Internship report submitted and saved.';
+          document.getElementById('reportModal').style.display = 'flex';
+          showFeedback('Opened report upload form.', 'success');
           break;
         case 'downloadPDF':
-          notif.textContent = '⬇ Report PDF download started.';
+          currentNotif.textContent = '⬇ Report PDF download started.';
+          showFeedback('Report PDF download started.', 'success');
           break;
         case 'appeal':
-          notif.textContent = '✉ Appeal message sent to SCAD office.';
+          currentNotif.textContent = '✉ Appeal message sent to Internship office.';
+          showFeedback('Appeal message sent.', 'success');
           break;
         default:
-          notif.textContent = '';
+          currentNotif.textContent = '';
       }
     }
+
+    function submitEvaluation() {
+      document.getElementById('evaluationModal').style.display = 'none';
+      if (currentNotif) currentNotif.textContent = '✅ Evaluation submitted successfully.';
+      showFeedback('Evaluation submitted successfully!', 'success');
+    }
+
+    function submitReport() {
+      document.getElementById('reportModal').style.display = 'none';
+      if (currentNotif) currentNotif.textContent = '📄 Internship report submitted and saved.';
+      showFeedback('Report submitted successfully!', 'success');
+    }
+
+    function viewFlagComments() {
+      document.getElementById('flagCommentsModal').style.display = 'flex';
+      showFeedback('Viewing flag comments.', 'success');
+    }
+
+    function closeFlagComments() {
+      document.getElementById('flagCommentsModal').style.display = 'none';
+      showFeedback('Closed flag comments.', 'success');
+    }
+
+    function showFeedback(message, type) {
+      const feedbackDiv = document.createElement('div');
+      feedbackDiv.textContent = message;
+      feedbackDiv.className = `feedback ${type}`;
+      feedbackDiv.setAttribute('role', 'alert');
+      document.body.appendChild(feedbackDiv);
+
+      setTimeout(() => {
+        feedbackDiv.classList.add('show');
+      }, 100);
+
+      feedbackDiv.addEventListener('click', () => {
+        feedbackDiv.classList.remove('show');
+        setTimeout(() => feedbackDiv.remove(), 300);
+      });
+
+      setTimeout(() => {
+        feedbackDiv.classList.remove('show');
+        setTimeout(() => feedbackDiv.remove(), 300);
+      }, 5000);
+    }
+
     searchInput.addEventListener("input", renderInternships);
     statusFilter.addEventListener("change", renderInternships);
     dateFilter.addEventListener("change", renderInternships);
     renderInternships();
-  </script>
-  <div id="evaluationModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
-  <div style="background:white; padding:2rem; border-radius:10px; width:90%; max-width:500px;">
-    <h3>Company Evaluation</h3>
-    <label>How would you rate the internship?</label>
-    <div style="margin:0.5rem 0;">
-      <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
-    </div>
-    <label>Would you recommend this company to others?</label>
-    <select style="width:100%; margin:0.5rem 0;">
-      <option>Yes</option>
-      <option>No</option>
-    </select>
-    <label>Additional Comments</label>
-    <textarea style="width:100%; height:100px;"></textarea>
-    <button onclick="submitEvaluation()" style="margin-top:1rem; background:#0d1b2a; color:white; padding:0.5rem 1rem; border:none; border-radius:5px;">Submit Evaluation</button>
-  </div>
-</div>
 
-<!-- Report Upload Modal -->
-<div id="reportModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
-  <div style="background:white; padding:2rem; border-radius:10px; width:90%; max-width:500px;">
-    <h3>Submit Internship Report</h3>
-    <input type="file" accept="application/pdf" style="margin-bottom:1rem;">
-    <button onclick="submitReport()" style="background:#0d1b2a; color:white; padding:0.5rem 1rem; border:none; border-radius:5px;">Upload</button>
-  </div>
-</div>
-
-<script>
-  let currentNotif = null;
-
-  function handleAction(index, type) {
-    currentNotif = document.getElementById(`notif-${index}`);
-    switch (type) {
-      case 'evaluate':
-        document.getElementById('evaluationModal').style.display = 'flex';
-        break;
-      case 'submitReport':
-        document.getElementById('reportModal').style.display = 'flex';
-        break;
-      case 'downloadPDF':
-        currentNotif.textContent = '⬇ Report PDF download started.';
-        break;
-      case 'appeal':
-        currentNotif.textContent = '✉ Appeal message sent to SCAD office.';
-        break;
-      default:
-        currentNotif.textContent = '';
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.querySelector('.main-content');
+    if (sidebarToggle && sidebar && mainContent) {
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('collapsed');
+      });
     }
-  }
-
-  function submitEvaluation() {
-    document.getElementById('evaluationModal').style.display = 'none';
-    if (currentNotif) currentNotif.textContent = '✅ Evaluation submitted successfully.';
-  }
-
-  function submitReport() {
-    document.getElementById('reportModal').style.display = 'none';
-    if (currentNotif) currentNotif.textContent = '📄 Internship report submitted and saved.';
-  }
-</script>
-<!-- View Flag Comments Modal -->
-<div id="flagCommentsModal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
-  <div style="background:white; padding:2rem; border-radius:10px; width:90%; max-width:500px;">
-    <h3>Comments on Your Report</h3>
-    <p style="margin-top: 1rem;">Your report was flagged for the following reason(s):</p>
-    <ul>
-      <li>Insufficient detail in the internship description</li>
-      <li>Missing supervisor's feedback</li>
-    </ul>
-    <button onclick="closeFlagComments()" style="margin-top:1rem; background:#0d1b2a; color:white; padding:0.5rem 1rem; border:none; border-radius:5px;">Close</button>
-  </div>
-</div>
-
-<script>
-  function viewFlagComments() {
-    document.getElementById('flagCommentsModal').style.display = 'flex';
-  }
-
-  function closeFlagComments() {
-    document.getElementById('flagCommentsModal').style.display = 'none';
-  }
-</script>
-
-
+  </script>
 </body>
 </html>
