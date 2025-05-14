@@ -2,13 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Company Dashboard</title>
+  <title>Company Dashboard | SCAD System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="../css/company_base.css" />
-  <link rel="stylesheet" href="css/company_dashboard.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      color: #333;
+    }
+    
+    /* Sidebar styles */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    .sidebar {
+      width: 250px;
+      background-color: #0d1b2a;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+    
+    .sidebar-header {
+      padding: 0 1rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0;
+    }
+    
+    .sidebar-nav .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: white;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+    
+    .sidebar-nav .nav-link:hover,
+    .sidebar-nav .nav-link.active {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    .sidebar-nav .nav-link i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Main content styles */
+    .main-content {
+      flex: 1;
+      padding: 1rem;
+    }
+    
+    .main-header {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+    }
+    
+    .main-header h1 {
+      margin: 0;
+    }
+    
+    /* Dashboard container styles */
+    .dashboard-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .dashboard-container h2 {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .dashboard-container p {
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
@@ -33,7 +125,8 @@
     <!-- Main Content -->
     <main class="main-content">
       <header class="main-header">
-        <h1>Welcome, Company</h1>
+        <h1>SCAD System</h1>
+        <p class="subheading">Company Dashboard</p>
       </header>
       <section class="dashboard-container">
         <h2>Dashboard Overview</h2>

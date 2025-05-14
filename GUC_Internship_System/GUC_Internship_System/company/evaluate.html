@@ -2,120 +2,289 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Evaluate Intern</title>
-    <link rel="stylesheet" href="css/evaluate.css" />
-    <link rel="stylesheet" href="../css/company_base.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <title>Evaluate Intern | SCAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+        color: #333;
+      }
+      
+      /* Sidebar styles */
+      .app-container {
+        display: flex;
+        min-height: 100vh;
+      }
+      
+      .sidebar {
+        width: 250px;
+        background-color: #0d1b2a;
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      }
+      
+      .sidebar-header {
+        padding: 0 1rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .sidebar-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      
+      .sidebar-nav .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s ease;
+      }
+      
+      .sidebar-nav .nav-link:hover,
+      .sidebar-nav .nav-link.active {
+        background-color: rgba(255,255,255,0.1);
+      }
+      
+      .sidebar-nav .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+      
+      /* Main content styles */
+      .main-content {
+        flex: 1;
+        padding: 1rem;
+      }
+      
+      .main-header {
+        background-color: #0d1b2a;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+      }
+      
+      .main-header h1 {
+        margin: 0;
+      }
+      
+      /* Evaluate container styles */
+      .evaluate-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      .evaluate-container h2 {
+        font-size: 1.5rem;
+        color: #0d1b2a;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      #evaluationForm {
+        display: grid;
+        gap: 1rem;
+      }
+      
+      #evaluationForm label {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      
+      #evaluationForm textarea {
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        width: 100%;
+        font-family: 'Inter', sans-serif;
+      }
+      
+      /* Rating styles */
+      .rating {
+        border: none;
+        padding: 0.5rem 0;
+      }
+      
+      .rating legend {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      
+      .rating label {
+        display: inline-block;
+        margin-right: 1rem;
+      }
+      
+      /* Button styles */
+      .buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+      
+      .buttons button {
+        background-color: #0d1b2a;
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      
+      .buttons button:hover {
+        background-color: #2c3e50;
+      }
+      
+      /* Message styles */
+      .message {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: green;
+        font-weight: 500;
+      }
+      
+      /* Evaluations list styles */
+      #evaluationsList {
+        margin-top: 2rem;
+      }
+      
+      #evaluationsList h3 {
+        font-size: 1.2rem;
+        color: #0d1b2a;
+        margin-bottom: 1rem;
+      }
+      
+      #evaluationItems {
+        list-style: none;
+        padding: 0;
+      }
+      
+      #evaluationItems li {
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        background-color: #f9f9f9;
+      }
+    </style>
   </head>
   <body>
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-      <h1>Evaluate Student</h1>
-    </header>
-
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h2>Company Portal</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a href="company_dashboard.html" class="nav-link active"
-              ><i class="fas fa-home"></i>Dashboard</a
-            >
-          </li>
-          <li>
-            <a href="register.html" class="nav-link"
-              ><i class="fas fa-user"></i>Register</a
-            >
-          </li>
-          <li>
-            <a href="upload-documents.html" class="nav-link"
-              ><i class="fas fa-upload"></i>Upload Documents</a
-            >
-          </li>
-          <li>
-            <a href="job-posts.html" class="nav-link"
-              ><i class="fas fa-briefcase"></i>Job Posts</a
-            >
-          </li>
-          <li>
-            <a href="evaluate.html" class="nav-link"
-              ><i class="fas fa-star"></i>Evaluate Intern</a
-            >
-          </li>
-          <li>
-            <a href="applications.html" class="nav-link"
-              ><i class="fas fa-paper-plane"></i>Applications</a
-            >
-          </li>
-          <li>
-            <a href="currentinterns.html" class="nav-link"
-              ><i class="fas fa-graduation-cap"></i>Current Interns</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </aside>
-    <main>
-      <div class="evaluate-container">
-        <h2>Evaluate Intern</h2>
-        <form id="evaluationForm">
-          <label for="evaluationText">Evaluation:</label>
-          <textarea
-            id="evaluationText"
-            name="evaluationText"
-            rows="8"
-            required
-          ></textarea>
-
-          <fieldset class="rating">
-            <legend>Rating:</legend>
-            <label
-              ><input type="radio" name="rating" value="1" required /> 1</label
-            >
-            <label><input type="radio" name="rating" value="2" /> 2</label>
-            <label><input type="radio" name="rating" value="3" /> 3</label>
-            <label><input type="radio" name="rating" value="4" /> 4</label>
-            <label><input type="radio" name="rating" value="5" /> 5</label>
-          </fieldset>
-
-          <div class="buttons">
-            <button type="submit" id="saveBtn">Save</button>
-            <button type="button" id="updateBtn" style="display: none">
-              Update
-            </button>
-            <button type="button" id="deleteBtn" style="display: none">
-              Delete
-            </button>
-          </div>
-        </form>
-
-        <p id="message" class="message"></p>
-
-        <!-- List of evaluations -->
-        <div id="evaluationsList">
-          <h3>Previous Evaluations</h3>
-          <ul id="evaluationItems"></ul>
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Company Portal</h2>
         </div>
-      </div>
-    </main>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="company_dashboard.html" class="nav-link"
+                ><i class="fas fa-home"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="register.html" class="nav-link"
+                ><i class="fas fa-user"></i>Register</a
+              >
+            </li>
+            <li>
+              <a href="upload-documents.html" class="nav-link"
+                ><i class="fas fa-upload"></i>Upload Documents</a
+              >
+            </li>
+            <li>
+              <a href="job-posts.html" class="nav-link"
+                ><i class="fas fa-briefcase"></i>Job Posts</a
+              >
+            </li>
+            <li>
+              <a href="evaluate.html" class="nav-link active"
+                ><i class="fas fa-star"></i>Evaluate Intern</a
+              >
+            </li>
+            <li>
+              <a href="applications.html" class="nav-link"
+                ><i class="fas fa-paper-plane"></i>Applications</a
+              >
+            </li>
+            <li>
+              <a href="currentinterns.html" class="nav-link"
+                ><i class="fas fa-graduation-cap"></i>Current Interns</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <h1>SCAD System</h1>
+          <p class="subheading">Evaluate Intern</p>
+        </header>
+        <section class="evaluate-container">
+          <h2>Evaluate Intern</h2>
+          <form id="evaluationForm">
+            <label for="evaluationText">Evaluation:</label>
+            <textarea
+              id="evaluationText"
+              name="evaluationText"
+              rows="8"
+              required
+            ></textarea>
+
+            <fieldset class="rating">
+              <legend>Rating:</legend>
+              <label
+                ><input type="radio" name="rating" value="1" required /> 1</label
+              >
+              <label><input type="radio" name="rating" value="2" /> 2</label>
+              <label><input type="radio" name="rating" value="3" /> 3</label>
+              <label><input type="radio" name="rating" value="4" /> 4</label>
+              <label><input type="radio" name="rating" value="5" /> 5</label>
+            </fieldset>
+
+            <div class="buttons">
+              <button type="submit" id="saveBtn">Save</button>
+              <button type="button" id="updateBtn" style="display: none">
+                Update
+              </button>
+              <button type="button" id="deleteBtn" style="display: none">
+                Delete
+              </button>
+            </div>
+          </form>
+
+          <p id="message" class="message"></p>
+
+          <!-- List of evaluations -->
+          <div id="evaluationsList">
+            <h3>Previous Evaluations</h3>
+            <ul id="evaluationItems"></ul>
+          </div>
+        </section>
+      </main>
+    </div>
     <script src="js/evaluate.js"></script>
-    <script>
-      // Highlight active link
-      document.querySelectorAll(".nav-link").forEach((link) => {
-        if (link.href === window.location.href) {
-          link.classList.add("active");
-        }
-      });
-    </script>
   </body>
 </html>
