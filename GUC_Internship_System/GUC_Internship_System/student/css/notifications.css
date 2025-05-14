@@ -63,6 +63,8 @@ body {
   margin: 0;
 }
 
+/* Removed invalid .navzion selector and stray closing brace */
+
 .nav-link {
   display: flex;
   align-items: center;
@@ -128,7 +130,7 @@ body {
   text-align: center;
 }
 
-.applications-section {
+.notifications-section {
   margin-bottom: 2.5rem;
 }
 
@@ -139,42 +141,10 @@ h2 {
   margin-bottom: 1.2rem;
 }
 
-.application-item {
-  background-color: #f9f9f9;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
+#notificationsList p {
+  color: #333;
+  font-size: 1rem;
   text-align: left;
-}
-
-.application-item h3 {
-  margin-top: 0;
-  color: #0d1b2a;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.status {
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.status.pending {
-  background-color: #ffd700;
-  color: #000;
-}
-
-.status.accepted {
-  background-color: #388e3c;
-  color: #fff;
-}
-
-.status.rejected {
-  background-color: #c62828;
-  color: #fff;
 }
 
 footer {
