@@ -2,16 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <link rel="stylesheet" href="css/currentinterns.css" />
-    <link rel="stylesheet" href="css/styles.css" />
+    <title>Upload Verification Documents</title>
+    <link rel="stylesheet" href="css/upload-documents.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <style>
+      /* Ensure the status message is visible */
+      .status-message {
+        font-size: 1rem;
+        margin-top: 10px;
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <!-- Fixed Header -->
     <header class="fixed-header">
-      <h1>Current Interns</h1>
+      <h1>Upload Document</h1>
     </header>
-
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
@@ -57,43 +64,39 @@
         </ul>
       </nav>
     </aside>
+    <main>
+      <div class="upload-container">
+        <h2>Upload Verification Documents</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <label for="documentUpload">Select Documents to Upload:</label>
+          <input
+            type="file"
+            id="documentUpload"
+            name="documents"
+            multiple
+            required
+          />
 
-    <div class="dashboard-container">
-      <div id="currentInternsSection">
-        <h3>Interns List</h3>
-        <!-- Dropdown to filter interns by status -->
-        <select id="filterInternStatus" onchange="filterInternsByStatus()">
-          <option value="">All Interns</option>
-          <option value="current intern">Current Interns</option>
-          <option value="internship complete">Internship Complete</option>
-        </select>
-        <input
-          type="text"
-          id="searchInternInput"
-          placeholder="Search by name or job title..."
-          oninput="searchInterns()"
-        />
-        <ul id="currentInternsList"></ul>
+          <button type="submit">Upload</button>
+          <!-- Message will appear here -->
+          <p
+            id="uploadStatus"
+            class="status-message"
+            style="margin-top: 10px"
+          ></p>
+        </form>
       </div>
+    </main>
+    <script src="js/upload-documents.js"></script>
+    <script src="../GUC_Internship_System/js/upload-documents.js"></script>
 
-      <!-- Intern Details Section -->
-      <div
-        id="internDetails"
-        style="
-          display: none;
-          border: 1px solid #ccc;
-          padding: 10px;
-          margin-top: 20px;
-        "
-      >
-        <h4>Intern Details</h4>
-        <p id="internName"></p>
-        <p id="internEmail"></p>
-        <p id="internResume"></p>
-        <p id="internStatus"></p>
-      </div>
-    </div>
-
-    <script src="js/currentinterns.js"></script>
+    <script>
+      // Highlight active link
+      document.querySelectorAll(".nav-link").forEach((link) => {
+        if (link.href === window.location.href) {
+          link.classList.add("active");
+        }
+      });
+    </script>
   </body>
 </html>

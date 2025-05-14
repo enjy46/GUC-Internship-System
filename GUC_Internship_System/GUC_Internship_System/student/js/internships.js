@@ -5,32 +5,57 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function loadInternships() {
-  const internshipHistory = document.getElementById('internshipHistory');
-  
-  // Mock data - replace with actual API call
+  // Simulated data - replace with actual data fetching logic
   const internships = [
-    { company: 'Tech Corp', position: 'Software Engineer Intern', status: 'current intern', startDate: '2023-06-01' },
-    { company: 'Data Inc', position: 'Data Analyst Intern', status: 'internship complete', startDate: '2022-06-01', endDate: '2022-08-31' },
+    { title: "Software Developer Intern", company: "Tech Co", duration: "3 months", status: "internship complete", salary: "$3000/month" },
+    { title: "Data Analyst Intern", company: "Data Corp", duration: "6 months", status: "current intern", salary: "$2500/month" },
+    // Add more internship data as needed
   ];
 
+  const internshipHistory = document.getElementById('internshipHistory');
   internshipHistory.innerHTML = '';
 
   internships.forEach(internship => {
     const internshipElement = document.createElement('div');
     internshipElement.className = 'internship-item';
     internshipElement.innerHTML = `
-      <h3>${internship.position} at ${internship.company}</h3>
-      <p>Status: <span class="internship-status status-${internship.status.replace(' ', '-')}">${internship.status}</span></p>
-      <p>Start Date: ${internship.startDate}</p>
-      ${internship.endDate ? `<p>End Date: ${internship.endDate}</p>` : ''}
+      <h3 class="internship-title">${internship.title}</h3>
+      <p class="internship-company">${internship.company}</p>
+      <p class="internship-duration">${internship.duration}</p>
+      <p class="internship-status">${internship.status}</p>
     `;
+
+    if (internship.status === "internship complete") {
+      internshipElement.addEventListener('click', () => showCompletedInternshipDetails(internship));
+    }
+
     internshipHistory.appendChild(internshipElement);
   });
 }
 
 function searchAndFilterInternships() {
-  // Implement search and filter functionality
-  console.log('Search and filter internships');
+  const searchInput = document.getElementById('searchInternshipsInput').value.toLowerCase();
+  const statusFilter = document.getElementById('filterInternshipsStatus').value.toLowerCase();
+  const internshipItems = document.querySelectorAll('.internship-item');
+
+  internshipItems.forEach(item => {
+    const title = item.querySelector('.internship-title').textContent.toLowerCase();
+    const company = item.querySelector('.internship-company').textContent.toLowerCase();
+    const status = item.querySelector('.internship-status').textContent.toLowerCase();
+
+    const matchesSearch = title.includes(searchInput) || company.includes(searchInput);
+    const matchesFilter = statusFilter === '' || status === statusFilter;
+
+    item.style.display = matchesSearch && matchesFilter ? 'block' : 'none';
+  });
+}
+
+function showCompletedInternshipDetails(internship) {
+  document.getElementById('completedInternshipTitle').textContent = `Title: ${internship.title}`;
+  document.getElementById('completedInternshipCompany').textContent = `Company: ${internship.company}`;
+  document.getElementById('completedInternshipDuration').textContent = `Duration: ${internship.duration}`;
+  document.getElementById('completedInternshipSalary').textContent = `Salary: ${internship.salary}`;
+  document.getElementById('completedInternshipDetails').style.display = 'block';
 }
 
 function closeCompletedInternshipDetails() {

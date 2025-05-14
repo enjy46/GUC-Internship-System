@@ -112,8 +112,10 @@ body {
 }
 
 .main-header h1 {
-  color: white;
   margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 h1 {
