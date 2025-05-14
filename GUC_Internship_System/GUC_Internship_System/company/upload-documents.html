@@ -2,101 +2,133 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Upload Verification Documents</title>
+    <title>Upload Documents</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/company_base.css" />
     <link rel="stylesheet" href="css/upload-documents.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <style>
-      /* Ensure the status message is visible */
-      .status-message {
-        font-size: 1rem;
-        margin-top: 10px;
-        display: block;
+      .feedback {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        max-width: 320px;
+        padding: 14px 28px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 2000; /* Increased to ensure it appears above the sidebar */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transition: right 0.4s ease-in-out, opacity 0.3s ease-in-out;
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .feedback.show {
+        right: 20px;
+      }
+
+      .feedback.success {
+        background-color: #388e3c;
+      }
+
+      .feedback.error {
+        background-color: #c62828;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
       }
     </style>
   </head>
   <body>
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-      <h1>Upload Document</h1>
-    </header>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h2>Company Portal</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a href="company_dashboard.html" class="nav-link">
-              <i class="fas fa-home"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="register.html" class="nav-link">
-              <i class="fas fa-user"></i> Register
-            </a>
-          </li>
-          <li>
-            <a href="upload-documents.html" class="nav-link">
-              <i class="fas fa-upload"></i> Upload Documents
-            </a>
-          </li>
-          <li>
-            <a href="job-posts.html" class="nav-link">
-              <i class="fas fa-briefcase"></i> Job Posts
-            </a>
-          </li>
-          <li>
-            <a href="evaluate.html" class="nav-link">
-              <i class="fas fa-star"></i> Evaluate Intern
-            </a>
-          </li>
-          <li>
-            <a href="applications.html" class="nav-link">
-              <i class="fas fa-paper-plane"></i> Applications
-            </a>
-          </li>
-          <li>
-            <a href="currentinterns.html" class="nav-link">
-              <i class="fas fa-graduation-cap"></i> Current Interns
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-    <main>
-      <div class="upload-container">
-        <h2>Upload Verification Documents</h2>
-        <form id="uploadForm" enctype="multipart/form-data">
-          <label for="documentUpload">Select Documents to Upload:</label>
-          <input
-            type="file"
-            id="documentUpload"
-            name="documents"
-            multiple
-            required
-          />
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Company Portal</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="company_dashboard.html" class="nav-link"
+                ><i class="fas fa-home"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="register.html" class="nav-link"
+                ><i class="fas fa-user"></i>Register</a
+              >
+            </li>
+            <li>
+              <a href="upload-documents.html" class="nav-link active"
+                ><i class="fas fa-upload"></i>Upload Documents</a
+              >
+            </li>
+            <li>
+              <a href="job-posts.html" class="nav-link"
+                ><i class="fas fa-briefcase"></i>Job Posts</a
+              >
+            </li>
+            <li>
+              <a href="evaluate.html" class="nav-link"
+                ><i class="fas fa-star"></i>Evaluate Intern</a
+              >
+            </li>
+            <li>
+              <a href="applications.html" class="nav-link"
+                ><i class="fas fa-paper-plane"></i>Applications</a
+              >
+            </li>
+            <li>
+              <a href="currentinterns.html" class="nav-link"
+                ><i class="fas fa-graduation-cap"></i>Current Interns</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-          <button type="submit">Upload</button>
-          <!-- Message will appear here -->
-          <p
-            id="uploadStatus"
-            class="status-message"
-            style="margin-top: 10px"
-          ></p>
-        </form>
-      </div>
-    </main>
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <h1>Upload Documents</h1>
+        </header>
+        <section class="upload-container">
+          <h2>Upload Verification Documents</h2>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <label for="documentUpload">Select Documents to Upload:</label>
+            <input
+              type="file"
+              id="documentUpload"
+              name="documents"
+              multiple
+              required
+            />
+
+            <button type="submit">Upload</button>
+            <!-- Message will appear here -->
+            <p id="uploadStatus" class="message" style="margin-top: 10px"></p>
+          </form>
+        </section>
+      </main>
+    </div>
     <script src="js/upload-documents.js"></script>
-    <script src="../GUC_Internship_System/js/upload-documents.js"></script>
-
-    <script>
-      // Highlight active link
-      document.querySelectorAll(".nav-link").forEach((link) => {
-        if (link.href === window.location.href) {
-          link.classList.add("active");
-        }
-      });
-    </script>
   </body>
 </html>

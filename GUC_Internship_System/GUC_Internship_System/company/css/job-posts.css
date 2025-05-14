@@ -100,21 +100,7 @@ table th {
 .delete-btn:hover {
   background-color: #c82333;
 }
-* Sidebar styles */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 250px;
-  background-color: #f4f4f4;
-  border-right: 1px solid #ccc;
-  padding: 20px;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-
-main {
+* main {
   margin-left: 270px; /* Adjust this value to match the width of the sidebar plus spacing */
   padding: 20px;
 }
