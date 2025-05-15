@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Applications - Internship Portal</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
@@ -41,10 +43,6 @@
       transition: transform 0.3s ease-in-out;
     }
 
-    .sidebar.collapsed {
-      transform: translateX(-250px);
-    }
-
     .sidebar-header {
       padding: 2rem 1rem;
       text-align: center;
@@ -58,25 +56,9 @@
       color: white;
     }
 
-    .sidebar-toggle {
-      display: none;
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      position: absolute;
-      top: 1.5rem;
-      right: 1rem;
-      cursor: pointer;
-    }
-
     .sidebar-nav ul {
       list-style: none;
       padding: 0;
-      margin: 0;
-    }
-
-    .sidebar-nav li {
       margin: 0;
     }
 
@@ -117,16 +99,13 @@
       transition: margin-left 0.3s ease-in-out;
     }
 
-    .main-content.collapsed {
-      margin-left: 0;
-    }
-
     .main-header {
       background-color: #0d1b2a;
       color: #ffffff;
       padding: 1.5rem;
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
 
     .main-header h1 {
@@ -136,52 +115,74 @@
       color: #ffffff;
     }
 
+    .pro-badge {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pro-badge img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .pro-badge span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
+      margin-top: 1px;
+      text-align: center;
+      max-width: 150px;
+    }
+
     .dashboard-container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 2rem auto;
       padding: 2rem;
       background: white;
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-      text-align: center;
     }
 
     .card {
       background-color: #fff;
-      border-radius: 5px;
+      border-radius: 12px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 20px;
-      margin-bottom: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
     }
 
     h2 {
       color: #0d1b2a;
       font-size: 1.6rem;
       font-weight: 600;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     .filters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1.5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .filters input,
     .filters select {
       width: 100%;
       padding: 0.85rem;
-      border: 1px solid #ccc;
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .filters input:hover,
-    .filters select:hover {
-      border-color: #001f3f;
+      transition: all 0.3s ease;
     }
 
     .filters input:focus,
@@ -197,60 +198,50 @@
     }
 
     .internship-card {
-      border: 1px solid #ccc;
-      padding: 1.2rem;
-      border-radius: 8px;
-      background-color: #f9f9f9;
-      text-align: left;
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+
+    .internship-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: #001f3f;
     }
 
     .internship-card h3 {
-      margin-top: 0;
-      color: #0d1b2a;
+      color: #001f3f;
       font-size: 1.2rem;
-      font-weight: 600;
+      margin-bottom: 0.5rem;
     }
 
     .internship-card p {
-      margin: 0.5rem 0;
+      color: #666;
       font-size: 1rem;
+      margin: 0.5rem 0;
     }
 
-    .internship-card .action-btn {
+    .action-btn {
       display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.5rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       color: white;
       text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      margin: 0.5rem 0.5rem 0 0;
       background-color: #01579b;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin: 0.5rem 0.5rem 0 0;
     }
 
-    .internship-card .action-btn:hover {
+    .action-btn:hover {
       background-color: #013c6e;
-      transform: scale(1.05);
+      transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .internship-card .action-btn:hover::after {
-      content: attr(aria-label);
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #0d1b2a;
-      color: white;
-      padding: 0.5rem;
-      border-radius: 4px;
-      font-size: 0.9rem;
-      white-space: nowrap;
-      z-index: 10;
     }
 
     .notification {
@@ -285,23 +276,24 @@
     .modal-content {
       background: white;
       padding: 2rem;
-      border-radius: 10px;
+      border-radius: 12px;
       width: 90%;
       max-width: 500px;
-      text-align: left;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
     .modal-content h3 {
       color: #0d1b2a;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
     }
 
     .modal-content label {
       display: block;
-      margin: 0.5rem 0;
+      margin: 1rem 0 0.5rem;
       font-weight: 500;
+      color: #333;
     }
 
     .modal-content select,
@@ -309,7 +301,7 @@
     .modal-content input[type="file"] {
       width: 100%;
       padding: 0.85rem;
-      border: 1px solid #ccc;
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
       font-family: 'Inter', sans-serif;
       font-size: 1rem;
@@ -318,20 +310,23 @@
 
     .modal-content button {
       display: block;
-      padding: 0.5rem 1rem;
+      width: 100%;
+      padding: 0.85rem;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       color: white;
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 500;
       background-color: #01579b;
       cursor: pointer;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
     }
 
     .modal-content button:hover {
       background-color: #013c6e;
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .feedback {
@@ -347,7 +342,6 @@
       z-index: 1000;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
       transition: right 0.4s ease-in-out;
-      animation: shake 0.3s ease-in-out;
     }
 
     .feedback.show {
@@ -362,28 +356,12 @@
       background-color: #c62828;
     }
 
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-5px); }
-      75% { transform: translateX(5px); }
-    }
-
-    /* Responsive */
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-250px);
       }
-      .sidebar.collapsed {
-        transform: translateX(0);
-      }
-      .sidebar-toggle {
-        display: block;
-      }
       .main-content {
-        margin-left: 0Jest;
-      }
-      .main-content.collapsed {
-        margin-left: 250px;
+        margin-left: 0;
       }
       .dashboard-container {
         margin: 1rem;
@@ -397,9 +375,6 @@
         font-size: 1rem;
         padding: 12px 20px;
       }
-      .internship-card .action-btn:hover::after {
-        display: none;
-      }
     }
   </style>
 </head>
@@ -407,18 +382,19 @@
   <div class="app-container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>Internship<br>Portal</h2>
+        <h2>Internship Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="student/dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
-          <li><a href="student/profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
-          <li><a href="student/internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
-          <li><a href="student/evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li>
-          <li><a href="student/reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="student/courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
           <li><a href="internship_history.html" class="nav-link active"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="student/notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+          <li><a href="past_present_internships.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="notifications_pro.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
         </ul>
       </nav>
     </aside>
@@ -426,11 +402,15 @@
     <main class="main-content">
       <header class="main-header">
         <h1>Your Applications</h1>
+        <div class="pro-badge">
+          <img src="assets/pro_badge.png" alt="Pro Badge">
+          <span>Completed your 3+ months internship</span>
+        </div>
       </header>
 
       <section class="dashboard-container">
         <div class="card">
-          <h2>Your Internship Applications</h2>
+          <h2><i class="fas fa-paper-plane"></i> Your Internship Applications</h2>
           <div class="filters">
             <input type="text" id="searchInput" placeholder="Search by job title or company name" aria-label="Search applications">
             <select id="statusFilter" aria-label="Filter by status">
@@ -447,7 +427,7 @@
   </div>
 
   <footer>
-    <p>© 2025 Internship Portal. All rights reserved.</p>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
   <!-- Evaluation Modal -->

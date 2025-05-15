@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Appointments - Internship Portal</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/appointments.css">
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="past_present_internships.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link active"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Career Guidance Appointments</h1>
+        <div class="pro-badge">
+          <img src="assets/pro_badge.png" alt="Pro Badge">
+          <span>Completed your 3+ months internship</span>
+        </div>
+      </header>
+
+      <section class="dashboard-container">
+        <div class="card">
+          <h2><i class="fas fa-video"></i> Video Call Appointments</h2>
+          
+          <!-- Appointment Status -->
+          <div id="appointmentStatus" class="appointment-status"></div>
+
+          <!-- Appointment Form -->
+          <form id="appointmentForm">
+            <div class="form-group">
+              <label for="appointmentDate">Date:</label>
+              <input type="date" id="appointmentDate" name="date" required>
+            </div>
+            <div class="form-group">
+              <label for="appointmentTime">Time:</label>
+              <input type="time" id="appointmentTime" name="time" required>
+            </div>
+            <div class="form-group">
+              <label for="appointmentReason">Reason:</label>
+              <select id="appointmentReason" name="reason" required>
+                <option value="">Select a reason</option>
+                <option value="career_guidance">Career Guidance</option>
+                <option value="report_clarification">Report Clarification</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="appointmentNotes">Additional Notes:</label>
+              <textarea id="appointmentNotes" name="notes" placeholder="Please provide any additional details about your request"></textarea>
+            </div>
+            <button type="submit" class="btn" id="requestAppointmentBtn">Request Appointment</button>
+          </form>
+
+          <!-- Video Call Section -->
+          <div id="videoCallSection" class="video-call-container" style="display: none;">
+            <h3>Your Video Call</h3>
+            <div class="video-call-info">
+              <p><strong>Date:</strong> <span id="callDate"></span></p>
+              <p><strong>Time:</strong> <span id="callTime"></span></p>
+              <p><strong>Reason:</strong> <span id="callReason"></span></p>
+              <p><strong>User Status:</strong> <span id="userStatus" style="color: red;">Offline</span></p>
+              <p><strong>Call Status:</strong> <span id="callStatus">Not in call</span></p>
+              <p><strong>Call Duration:</strong> <span id="callDuration">00:00</span></p>
+            </div>
+            
+            <!-- Video Call Controls -->
+            <div class="video-call-controls">
+              <button id="startVideoCallBtn" class="btn">Start Video Call</button>
+              <button id="toggleVideoBtn" class="btn" disabled>
+                <span class="icon">📹</span> Enable Video
+              </button>
+              <button id="toggleAudioBtn" class="btn" disabled>
+                <span class="icon">🎤</span> Mute
+              </button>
+              <button id="shareScreenBtn" class="btn" disabled>
+                <span class="icon">🖥️</span> Share Screen
+              </button>
+              <button id="endCallBtn" class="btn" disabled>
+                <span class="icon">❌</span> End Call
+              </button>
+            </div>
+
+            <!-- Video Call Container -->
+            <div class="video-container">
+              <div class="video-grid">
+                <div class="video-box">
+                  <video id="localVideo" autoplay muted playsinline></video>
+                  <span class="video-label">You</span>
+                </div>
+                <div class="video-box">
+                  <video id="remoteVideo" autoplay playsinline></video>
+                  <span class="video-label">Other Participant</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Call Notifications -->
+            <div id="callNotifications" class="call-notifications"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <!-- Notification Container -->
+  <div id="notificationContainer" class="notification-container" style="display: none;">
+    <p id="notificationMessage"></p>
+  </div>
+
+  <script src="js/appointments.js"></script>
+</body>
+</html>

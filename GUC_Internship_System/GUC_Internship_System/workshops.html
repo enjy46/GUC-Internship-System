@@ -3,152 +3,293 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Workshops & Learning | SCAD System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/workshops.css">
+  <title>Workshops - Internship Portal</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/workshops.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f8fc;
+      color: #333;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color: #2c3e50;
+      transform: translateX(5px);
+    }
+
+    .nav-link.active {
+      background-color: #001f3f;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .pro-badge {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pro-badge img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .pro-badge span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
+      margin-top: 1px;
+      text-align: center;
+      max-width: 150px;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    footer {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .dashboard-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="top-bar">
-      <a href="pro_dashboard.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
-      <div class="header-center">
-        <h1>SCAD System</h1>
-        <p class="subheading">Workshops & Learning</p>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
       </div>
-    </div>
-  </header>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="past_present_internships.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link active"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="notifications_pro.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <main class="container">
-    <h2 class="section-title">Available Career Workshops</h2>
-
-    <div id="workshopList" class="workshop-list"></div>
-
-    <div id="workshopDetails" class="modal hidden">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 id="workshopTitle"></h3>
-          <button class="close-btn" onclick="closeDetails()"><i class="fas fa-times"></i></button>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Workshops</h1>
+        <div class="pro-badge">
+          <img src="assets/pro_badge.png" alt="Pro Badge">
+          <span>Completed your 3+ months internship</span>
         </div>
-        
-        <div class="workshop-info">
-          <p id="workshopDescription"></p>
-          <div class="workshop-status">
-            <span class="status-badge" id="workshopStatus">Not Registered</span>
-          </div>
-        </div>
-        
-        <div class="action-buttons">
-          <button onclick="registerWorkshop()" class="primary-btn register-btn">
-            <i class="fas fa-user-plus"></i> Register for Workshop
-          </button>
-        </div>
+      </header>
 
-        <div id="videoPlayer" class="video-container">
-          <div class="video-header">
-            <h4>Workshop Video</h4>
-            <div class="video-mode">
-              <button id="joinLiveBtn" onclick="joinLive()" class="mode-btn" disabled>
-                <i class="fas fa-video"></i> Watch Live
-              </button>
-              <button onclick="toggleRecording()" id="toggleRecording" class="mode-btn" disabled>
-                <i class="fas fa-play"></i> Watch Recording
-              </button>
-            </div>
-          </div>
-          <div class="video-notes-container">
-            <div class="video-wrapper">
-              <iframe id="workshopVideo" 
-                width="100%" 
-                height="500" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-              </iframe>
-            </div>
-            <div class="notes-section">
-              <h4><i class="fas fa-pencil-alt"></i> Your Notes</h4>
-              <textarea id="notes" placeholder="Take your notes here..." class="notes-textarea"></textarea>
-              <button onclick="submitNotes()" class="submit-btn">
-                <i class="fas fa-save"></i> Save Notes
-              </button>
-            </div>
-          </div>
+      <section class="dashboard-container">
+        <div class="card">
+          <h2><i class="fas fa-chalkboard-teacher"></i> Available Workshops</h2>
+          <div id="workshopList" class="workshop-list"></div>
         </div>
+      </section>
+    </main>
+  </div>
 
-        <div class="workshop-features">
-          <div class="feature-card">
-            <i class="fas fa-comments"></i>
-            <h4>Live Chat</h4>
-            <p>Interact with other participants</p>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-certificate"></i>
-            <h4>Certificate</h4>
-            <p>Get your completion certificate</p>
-          </div>
-          <div class="feature-card">
-            <i class="fas fa-star"></i>
-            <h4>Feedback</h4>
-            <p>Share your experience</p>
-          </div>
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <!-- Workshop Details Modal -->
+  <div id="workshopDetails" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="workshopTitle"></h3>
+        <button class="close-btn" onclick="closeDetails()">&times;</button>
+      </div>
+      <div class="workshop-info">
+        <p id="workshopDescription"></p>
+        <div class="workshop-status">
+          <span id="workshopStatus" class="status-badge">Not Registered</span>
         </div>
-
-        <div class="feedback-section">
-          <h4><i class="fas fa-star"></i> Workshop Feedback</h4>
-          <div class="rating-container">
-            <label for="rating">Rate this Workshop:</label>
-            <select id="rating" class="rating-select">
-              <option value="">Select Rating</option>
-              <option value="1">★☆☆☆☆ Poor</option>
-              <option value="2">★★☆☆☆ Fair</option>
-              <option value="3">★★★☆☆ Good</option>
-              <option value="4">★★★★☆ Very Good</option>
-              <option value="5">★★★★★ Excellent</option>
-            </select>
-          </div>
-          <textarea id="feedback" placeholder="Share your thoughts about this workshop..." class="feedback-textarea"></textarea>
-          <button onclick="submitFeedback()" class="submit-btn">
-            <i class="fas fa-paper-plane"></i> Submit Feedback
-          </button>
-        </div>
-
-        <div class="certificate-section">
-          <button onclick="showCertificate()" class="certificate-btn">
-            <i class="fas fa-certificate"></i> Get Certificate
-          </button>
-          <div class="certificate-info">
-            <p><i class="fas fa-info-circle"></i> After completing the workshop, you can get your certificate</p>
-          </div>
-        </div>
-
-        <div id="chatSection" class="chat-section">
-          <h4><i class="fas fa-comments"></i> Chat with Attendees</h4>
-          <div id="chatBox" class="chat-box"></div>
-          <div class="chat-input-container">
-            <input type="text" id="chatInput" placeholder="Type a message..." class="chat-input" />
-            <button onclick="sendMessage()" class="chat-send-btn">
-              <i class="fas fa-paper-plane"></i>
+      </div>
+      <div class="action-buttons">
+        <button class="action-btn register-btn" onclick="registerWorkshop()">Register for Workshop</button>
+      </div>
+      <div class="video-container">
+        <div class="video-header">
+          <h4>Workshop Content</h4>
+          <div class="video-mode">
+            <button id="toggleRecording" class="mode-btn" disabled onclick="toggleRecording()">
+              <i class="fas fa-play"></i> Watch Recording
+            </button>
+            <button id="joinLiveBtn" class="mode-btn" disabled onclick="joinLive()">
+              <i class="fas fa-video"></i> Join Live
             </button>
           </div>
         </div>
+        <div class="video-wrapper">
+          <iframe id="workshopVideo" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+        </div>
       </div>
+      <div class="video-notes-container">
+        <div class="notes-section">
+          <h4><i class="fas fa-sticky-note"></i> Your Notes</h4>
+          <textarea id="notes" class="notes-textarea" placeholder="Take notes during the workshop..."></textarea>
+          <button class="submit-btn" onclick="submitNotes()">
+            <i class="fas fa-save"></i> Save Notes
+          </button>
+        </div>
+      </div>
+      <div class="feedback-section">
+        <h4><i class="fas fa-star"></i> Workshop Feedback</h4>
+        <div class="rating-container">
+          <label>Rate this workshop:</label>
+          <select id="rating" class="rating-select">
+            <option value="">Select rating</option>
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option>
+            <option value="4">⭐⭐⭐⭐ Very Good</option>
+            <option value="3">⭐⭐⭐ Good</option>
+            <option value="2">⭐⭐ Fair</option>
+            <option value="1">⭐ Poor</option>
+          </select>
+        </div>
+        <textarea id="feedback" class="feedback-textarea" placeholder="Share your thoughts about the workshop..."></textarea>
+        <button class="submit-btn" onclick="submitFeedback()">
+          <i class="fas fa-paper-plane"></i> Submit Feedback
+        </button>
+      </div>
+      <button class="certificate-btn" onclick="showCertificate()">
+        <i class="fas fa-certificate"></i> View Certificate
+      </button>
     </div>
-  </main>
+  </div>
 
   <!-- Certificate Modal -->
   <div id="certificateModal" class="modal hidden">
     <div class="modal-content certificate-modal">
       <div class="modal-header">
-        <h3>Certificate of Achievement</h3>
-        <button class="close-btn" onclick="closeCertificate()"><i class="fas fa-times"></i></button>
+        <h3>Certificate of Completion</h3>
+        <button class="close-btn" onclick="closeCertificate()">&times;</button>
       </div>
       <div class="certificate-content">
         <div class="cert">
           <div class="cert-border">
             <div class="cert-inner">
               <div class="cert-header">
-                <img src="images/scad-logo.png" alt="SCAD Logo" class="cert-logo">
+                <img src="assets/guc_logo.png" alt="GUC Logo" class="cert-logo">
                 <h1>Certificate of Achievement</h1>
               </div>
               <div class="cert-body">
@@ -156,7 +297,7 @@
                 <h2>Malak Abuelkhier</h2>
                 <p class="cert-text">has successfully completed the workshop</p>
                 <h3 id="certificateTitle"></h3>
-                <p id="certificateDate" class="cert-date"></p>
+                <p class="cert-date" id="certificateDate"></p>
               </div>
               <div class="signature">
                 <div class="signature-line"></div>
@@ -165,26 +306,20 @@
               </div>
             </div>
           </div>
-          <div class="certificate-download-section">
-            <button onclick="downloadCertificate()" class="download-btn-large">
-              <i class="fas fa-download"></i> Download Certificate
-            </button>
-          </div>
         </div>
+      </div>
+      <div class="certificate-download-section">
+        <button class="download-btn-large" onclick="downloadCertificate()">
+          <i class="fas fa-download"></i> Download Certificate
+        </button>
       </div>
     </div>
   </div>
 
   <div id="notification" class="notification hidden">
-    <i class="fas fa-info-circle"></i>
     <span id="notificationText"></span>
   </div>
 
-  <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
-  </footer>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/workshops.js"></script>
 </body>
 </html>
