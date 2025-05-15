@@ -1,101 +1,996 @@
-**HTML (pro_profile.html)**
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PRO Student Profile | SCAD System</title>
-  <link rel="stylesheet" href="css/pro_profile.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Student Profile | SCAD System</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .dashboard-container {
+      display: grid;
+      gap: 2rem;
+      padding: 1rem;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f8fc;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      margin: 2rem;
+      gap: 2rem;
+      padding-bottom: 4rem;
+    }
+
+    .profile-container {
+      flex: 2;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .sidebar-container {
+      flex: 1;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      min-width: 300px;
+      height: fit-content;
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: #0d1b2a;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 350px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-content h3 {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .modal-content input {
+      margin: 0.8rem 0;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      width: 100%;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+
+    .profile-info p {
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .profile-info button {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.8rem;
+      min-width: 60px;
+    }
+
+    .certificate-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .certificate-list li {
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .certificate-list li:hover {
+      border-color: #0d1b2a;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    footer {
+      background-color: #0d1b2a;
+      color: white;
+      text-align: center;
+      padding: 0.8rem;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .profile-section {
+      margin-bottom: 1.5rem;
+      padding: 1.2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin-bottom: 0.8rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-header i {
+      font-size: 1rem;
+      width: 20px;
+    }
+
+    select.edit-dropdown {
+      padding: 0.6rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      margin-top: 0.4rem;
+    }
+
+    .edit-field {
+      margin-top: 0.4rem;
+    }
+
+    .edit-field.show {
+      display: block;
+    }
+
+    .edit-buttons {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+
+    .cancel-button {
+      background-color: #dc3545;
+    }
+
+    .cancel-button:hover {
+      background-color: #bb2d3b;
+    }
+
+    .main-content {
+      padding: 0 1rem;
+    }
+
+    .main-header header {
+      margin-bottom: 1.5rem;
+    }
+
+    .uneditable-field {
+      background-color: #f8f9fa;
+      opacity: 0.9;
+    }
+
+    .uneditable-badge {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      background-color: #6c757d;
+      color: white;
+      border-radius: 4px;
+      margin-left: auto;
+    }
+
+    .profile-info p {
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .profile-info p strong {
+      min-width: 100px;
+    }
+
+    /* Add these new styles for academic section */
+    .academic-field {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    .academic-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .academic-info strong {
+      min-width: 80px;
+      color: #4a5568;
+    }
+
+    .academic-info span {
+      font-size: 1rem;
+      color: #2d3748;
+    }
+
+    .edit-btn {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      color: #0d1b2a;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .edit-btn:hover {
+      background-color: #e9ecef;
+      transform: translateY(-50%);
+    }
+
+    .edit-btn i {
+      font-size: 0.8rem;
+    }
+
+    .edit-field {
+      display: none;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .edit-field.show {
+      display: block;
+    }
+
+    .edit-dropdown {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      background-color: white;
+    }
+
+    .edit-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .save-btn, .cancel-btn {
+      flex: 1;
+      padding: 0.6rem;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+
+    .save-btn {
+      background-color: #0d1b2a;
+    }
+
+    .save-btn:hover {
+      background-color: #1b263b;
+    }
+
+    .cancel-btn {
+      background-color: #dc3545;
+    }
+
+    .cancel-btn:hover {
+      background-color: #bb2d3b;
+    }
+
+    .edit-buttons i {
+      font-size: 0.8rem;
+    }
+
+    /* Updated Academic Information styles */
+    .academic-info-container {
+      padding: 1rem;
+      background: #ffffff;
+      border-radius: 8px;
+    }
+
+    .info-row {
+      position: relative;
+      padding: 1rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+    }
+
+    .info-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      font-weight: 600;
+      color: #4a5568;
+      width: 100px;
+    }
+
+    .info-content {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .edit-button {
+      background: none;
+      border: none;
+      color: #0d1b2a;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .edit-button:hover {
+      color: #1b263b;
+      transform: scale(1.1);
+    }
+
+    .dropdown-edit {
+      display: none;
+      width: 100%;
+      padding-top: 1rem;
+      margin-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .dropdown-edit.show {
+      display: block;
+    }
+
+    .edit-select {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      background-color: white;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .save-button, .cancel-button {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .save-button {
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+    }
+
+    .save-button:hover {
+      background-color: #1b263b;
+    }
+
+    .cancel-button {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+    }
+
+    .cancel-button:hover {
+      background-color: #bb2d3b;
+    }
+
+    /* Add these styles for the experience section */
+    .add-experience-btn {
+      margin-left: auto;
+      padding: 0.4rem 0.8rem;
+      background-color: #4CAF50;
+      font-size: 0.8rem;
+    }
+
+    .add-experience-btn:hover {
+      background-color: #45a049;
+    }
+
+    .experience-entry {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .experience-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .experience-title {
+      font-weight: 600;
+      color: #0d1b2a;
+    }
+
+    .delete-experience {
+      background-color: #dc3545;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .delete-experience:hover {
+      background-color: #bb2d3b;
+    }
+
+    .experience-field {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .experience-field:last-child {
+      margin-bottom: 0;
+    }
+
+    .experience-label {
+      font-weight: 500;
+      min-width: 120px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>SCAD System</h1>
-    <p class="subheading">Professional Student Profile</p>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+    <header class="main-header">
+      <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+        <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Student Profile</h1>
+        
+        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+          <!-- Notification Icon -->
+          <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                    border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                    align-items: center; justify-content: center;">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div style="position: relative; display: inline-block;">
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                 border-radius: 8px; z-index: 1; margin-top: 10px;">
+              <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+          <!-- Pro Badge -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+            <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+          </div>
+        </div>
+    </header>
   </header>
 
   <div class="container">
-    <div class="section-title">Update Your Profile</div>
-    <form id="profileForm">
-      <!-- Section 1: Personal & Career Information -->
-      <h3 class="subsection">Personal & Career Information</h3>
+    <!-- Profile Information Section -->
+    <div class="profile-container">
+          <!-- Personal Information Section -->
+          <div class="profile-section">
+            <div class="section-header">
+              <i class="fas fa-user"></i> Personal Information
+            </div>
+            <div class="profile-info">
+              <p><strong>Full Name: </strong><span id="fullName">Malak Abuelkhier</span> <button onclick="editField('fullName')">Edit</button></p>
+              <p style="display: flex; align-items: center; justify-content: space-between;">
+                <strong>Student ID: </strong>
+                <span id="studentId" style="flex: 1; text-align: center;">58-3123</span>
+              </p>
+              <p>
+                <strong>Email: </strong>
+                <span id="email">malakabuelkhairr@gmail.com</span>
+                <button onclick="editField('email')">Edit</button>
+              </p>
+            </div>
+          </div>
 
-      <div class="form-group">
-        <label for="fullName">Full Name *</label>
-        <input type="text" id="fullName" placeholder="Enter your full name" required />
+          <!-- Academic Information Section -->
+          <div class="profile-section">
+            <div class="section-header">
+              <i class="fas fa-graduation-cap"></i> Academic Information
+            </div>
+            <div class="profile-info academic-info-container">
+              <div class="info-row">
+                <div class="info-label">Major:</div>
+                <div class="info-content">
+                  <span id="major">Engineering</span>
+                  <button onclick="showDropdown('major')" class="edit-button">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+                <div id="major-edit" class="dropdown-edit">
+                  <select id="major-select" class="edit-select">
+                    <option value="Engineering">Engineering</option>
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Business">Business</option>
+                    <option value="Architecture">Architecture</option>
+                    <option value="Media Engineering">Media Engineering</option>
+                    <option value="Pharmacy">Pharmacy</option>
+                  </select>
+                  <div class="button-group">
+                    <button onclick="saveDropdownEdit('major')" class="save-button">Save</button>
+                    <button onclick="cancelEdit('major')" class="cancel-button">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="info-row">
+                <div class="info-label">Semester:</div>
+                <div class="info-content">
+                  <span id="semester">5</span>
+                  <button onclick="showDropdown('semester')" class="edit-button">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                </div>
+                <div id="semester-edit" class="dropdown-edit">
+                  <select id="semester-select" class="edit-select">
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                    <option value="9">Semester 9</option>
+                    <option value="10">Semester 10</option>
+                  </select>
+                  <div class="button-group">
+                    <button onclick="saveDropdownEdit('semester')" class="save-button">Save</button>
+                    <button onclick="cancelEdit('semester')" class="cancel-button">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Career Interests Section -->
+          <div class="profile-section">
+            <div class="section-header">
+              <i class="fas fa-briefcase"></i> Career Interests
+            </div>
+            <div class="profile-info">
+        <p><strong>Job Interests: </strong><span id="jobInterests">Software Development, Data Science</span> <button onclick="editField('jobInterests')">Edit</button></p>
+            </div>
+          </div>
+
+          <!-- Previous Experience Section -->
+          <div class="profile-section">
+            <div class="section-header">
+              <i class="fas fa-history"></i> Previous Experience
+              <button onclick="addNewExperience()" class="add-experience-btn">
+                <i class="fas fa-plus"></i> Add Experience
+              </button>
+            </div>
+            <div class="profile-info" id="experienceContainer">
+              <!-- Default/Dummy Experience Entry -->
+              <div class="experience-entry" id="experience-1">
+                <div class="experience-header">
+                  <span class="experience-title">Experience 1</span>
+                  <button onclick="deleteExperience(1)" class="delete-experience">
+                    <i class="fas fa-trash"></i> Delete
+                  </button>
+                </div>
+                <div class="experience-field">
+                  <span class="experience-label">Company:</span>
+                  <span id="company-1">Microsoft</span>
+                  <button onclick="editField('company-1')" class="edit-button">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+                <div class="experience-field">
+                  <span class="experience-label">Position:</span>
+                  <span id="position-1">Software Engineering Intern</span>
+                  <button onclick="editField('position-1')" class="edit-button">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+                <div class="experience-field">
+                  <span class="experience-label">Type:</span>
+                  <span id="type-1">Internship</span>
+                  <button onclick="showTypeDropdown(1)" class="edit-button">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                  <div id="type-edit-1" class="dropdown-edit">
+                    <select id="type-select-1" class="edit-select">
+                      <option value="Internship">Internship</option>
+                      <option value="Part-time">Part-time</option>
+                    </select>
+                    <div class="button-group">
+                      <button onclick="saveTypeEdit(1)" class="save-button">Save</button>
+                      <button onclick="cancelTypeEdit(1)" class="cancel-button">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="experience-field">
+                  <span class="experience-label">Responsibilities:</span>
+                  <span id="responsibilities-1">Developed and maintained web applications.</span>
+                  <button onclick="editField('responsibilities-1')" class="edit-button">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+                <div class="experience-field">
+                  <span class="experience-label">Duration:</span>
+                  <span id="duration-1">3 months (June 2023 - August 2023)</span>
+                  <button onclick="editField('duration-1')" class="edit-button">
+                    <i class="fas fa-edit"></i> Edit
+                  </button>
+                </div>
+              </div>
+            </div>
       </div>
 
-      <div class="form-group">
-        <label for="jobInterests">Job Interests</label>
-        <input type="text" id="jobInterests" placeholder="e.g., Software Development, Data Science" />
+          <!-- College Activities Section -->
+          <div class="profile-section">
+            <div class="section-header">
+              <i class="fas fa-users"></i> College Activities
+            </div>
+            <div class="profile-info">
+              <p><strong>Activities: </strong><span id="activities">President of the Tech Club, Organized hackathons and workshops.</span> <button onclick="editField('activities')">Edit</button></p>
+            </div>
+          </div>
+
+          <button type="button" onclick="saveProfile()" style="margin-top: 1rem;">Save All Changes</button>
+    </div>
+
+    <!-- Sidebar Section for Earned Certificates -->
+    <div class="sidebar-container">
+          <div class="section-title"><i class="fas fa-certificate"></i> Earned Certificates</div>
+          <ul class="certificate-list">
+        <li>Data Science Expert – Coursera, June 2023</li>
+        <li>Software Development Basics – Udemy, August 2023</li>
+        <li>Cloud Computing Fundamentals – Google, September 2023</li>
+      </ul>
+        </div>
       </div>
+    </main>
+  </div>
 
-      <!-- Section 1.1: Previous Experience -->
-      <h3 class="subsection">Previous Internships & Part-time Jobs</h3>
-
-      <div class="form-group">
-        <label for="company">Company Name</label>
-        <input type="text" id="company" placeholder="e.g., Microsoft, Orange" />
-      </div>
-
-      <div class="form-group">
-        <label for="responsibilities">Responsibilities</label>
-        <textarea id="responsibilities" placeholder="What were your main tasks and achievements?"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="duration">Duration</label>
-        <input type="text" id="duration" placeholder="e.g., June 2023 – August 2023" />
-      </div>
-
-      <div class="form-group">
-        <label for="activities">College Activities</label>
-        <textarea id="activities" placeholder="Clubs, Events, Leadership Roles"></textarea>
-      </div>
-
-      <!-- Section 2: Academic Info -->
-      <h3 class="subsection">Academic Information</h3>
-
-      <div class="form-group">
-        <label for="major">Major *</label>
-        <select id="major" required>
-          <option value="">Select Major</option>
-          <option value="Applied Arts">Applied Arts</option>
-          <option value="Architecture">Architecture</option>
-          <option value="Business">Business</option>
-          <option value="Business Informatics">Business Informatics</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Law">Law</option>
-          <option value="Pharmacy">Pharmacy</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="semester">Semester Number *</label>
-        <select id="semester" required>
-          <option value="">Select semester</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-        </select>
-      </div>
-      <button type="submit">Save Profile</button>
-      <div id="message"></div>
-    </form>
+  <!-- Modal for Editing Fields -->
+  <div class="modal" id="editModal">
+    <div class="modal-content">
+      <h3>Edit Profile Information</h3>
+      <input type="text" id="editInput" placeholder="Enter new value" />
+      <button onclick="saveEdit()" style="margin-top: 1rem;">Save</button>
+    </div>
   </div>
 
   <footer>
     <p>&copy; 2025 SCAD System. All rights reserved.</p>
   </footer>
 
+  <script>
+    let currentField;
+    let experienceCount = 1;
 
+    function editField(field) {
+      if (field === 'major' || field === 'semester') {
+        showDropdown(field);
+      } else {
+      currentField = field;
+      const fieldValue = document.getElementById(field).textContent;
+      document.getElementById('editInput').value = fieldValue;
+      document.getElementById('editModal').style.display = 'flex';
+      }
+    }
+
+    function saveEdit() {
+      const newValue = document.getElementById('editInput').value;
+      document.getElementById(currentField).textContent = newValue;
+      document.getElementById('editModal').style.display = 'none';
+    }
+
+    function saveProfile() {
+      alert('Profile Saved!');
+    }
+
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    function showDropdown(field) {
+      document.getElementById(`${field}-edit`).classList.add('show');
+    }
+
+    function saveDropdownEdit(field) {
+      const select = document.getElementById(`${field}-select`);
+      const value = select.value;
+      document.getElementById(field).textContent = value;
+      document.getElementById(`${field}-edit`).classList.remove('show');
+    }
+
+    function cancelEdit(field) {
+      document.getElementById(`${field}-edit`).classList.remove('show');
+    }
+
+    function addNewExperience() {
+      const experienceContainer = document.getElementById('experienceContainer');
+      experienceCount++;
+      
+      const experienceHTML = `
+        <div class="experience-entry" id="experience-${experienceCount}">
+          <div class="experience-header">
+            <span class="experience-title">Experience ${experienceCount}</span>
+            <button onclick="deleteExperience(${experienceCount})" class="delete-experience">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+          <div class="experience-field">
+            <span class="experience-label">Company:</span>
+            <span id="company-${experienceCount}">New Company</span>
+            <button onclick="editField('company-${experienceCount}')" class="edit-button">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+          <div class="experience-field">
+            <span class="experience-label">Position:</span>
+            <span id="position-${experienceCount}">Position Title</span>
+            <button onclick="editField('position-${experienceCount}')" class="edit-button">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+          <div class="experience-field">
+            <span class="experience-label">Type:</span>
+            <span id="type-${experienceCount}">Internship</span>
+            <button onclick="showTypeDropdown(${experienceCount})" class="edit-button">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <div id="type-edit-${experienceCount}" class="dropdown-edit">
+              <select id="type-select-${experienceCount}" class="edit-select">
+                <option value="Internship">Internship</option>
+                <option value="Part-time">Part-time</option>
+              </select>
+              <div class="button-group">
+                <button onclick="saveTypeEdit(${experienceCount})" class="save-button">Save</button>
+                <button onclick="cancelTypeEdit(${experienceCount})" class="cancel-button">Cancel</button>
+              </div>
+            </div>
+          </div>
+          <div class="experience-field">
+            <span class="experience-label">Responsibilities:</span>
+            <span id="responsibilities-${experienceCount}">Add your responsibilities</span>
+            <button onclick="editField('responsibilities-${experienceCount}')" class="edit-button">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+          <div class="experience-field">
+            <span class="experience-label">Duration:</span>
+            <span id="duration-${experienceCount}">Add duration</span>
+            <button onclick="editField('duration-${experienceCount}')" class="edit-button">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+          </div>
+        </div>
+      `;
+      
+      experienceContainer.insertAdjacentHTML('beforeend', experienceHTML);
+    }
+
+    function deleteExperience(id) {
+      const experienceElement = document.getElementById(`experience-${id}`);
+      if (experienceElement) {
+        experienceElement.remove();
+      }
+    }
+
+    function showTypeDropdown(id) {
+      document.getElementById(`type-edit-${id}`).classList.add('show');
+    }
+
+    function saveTypeEdit(id) {
+      const select = document.getElementById(`type-select-${id}`);
+      const value = select.value;
+      document.getElementById(`type-${id}`).textContent = value;
+      document.getElementById(`type-edit-${id}`).classList.remove('show');
+    }
+
+    function cancelTypeEdit(id) {
+      document.getElementById(`type-edit-${id}`).classList.remove('show');
+    }
+
+    window.onclick = function(event) {
+      if (event.target === document.getElementById('editModal')) {
+        document.getElementById('editModal').style.display = 'none';
+      }
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    };
+
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  </script>
 </body>
 </html>
