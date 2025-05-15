@@ -4,56 +4,339 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Available Internships | SCAD System</title>
-  <link rel="stylesheet" href="../css/available_internships.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Add Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f8fc;
+      color: #333;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    header h2 {
+      margin: 0.5rem 0 0;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: calc(100vh - 120px);
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: calc(100vh - 70px);
+      position: fixed;
+      top: 70px;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar.collapsed {
+      transform: translateX(-250px);
+    }
+
+    .toggle-sidebar-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 1rem;
+    }
+
+    .sidebar-title {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .sidebar-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-link:hover {
+      background-color: #2c3e50;
+      transform: translateX(5px);
+    }
+
+    .container {
+      margin-left: 250px;
+      flex: 1;
+      padding: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filters input,
+    .filters select {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s ease;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #0d1b2a;
+      outline: none;
+    }
+
+    .internship-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .card {
+      background-color: #f1f8ff;
+      border: 1px solid #cce0ff;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      position: relative;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 4px;
+      background-color: #1e88e5;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .card h4 {
+      margin: 0 0 0.5rem;
+      color: #0d1b2a;
+    }
+
+    .card p {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+    }
+
+    .apply-btn {
+      margin-top: 1rem;
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .apply-btn:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 1rem;
+      color: #0d1b2a;
+    }
+
+    .modal-content input[type="file"] {
+      margin-bottom: 1rem;
+    }
+
+    .modal-content button {
+      margin-top: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background-color: #0d1b2a;
+      color: white;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    .success-message {
+      color: green;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    footer {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+
+      .container {
+        margin-left: 0;
+      }
+
+      .toggle-sidebar-btn {
+        display: block;
+      }
+
+      .filters {
+        flex-direction: column;
+      }
+
+      .filters input,
+      .filters select {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>SCAD System</h1>
     <h2>Available Internships</h2>
   </header>
- <div class="dashboard-container">
+
+  <div class="dashboard-container">
     <!-- Sidebar -->
     <aside class="sidebar collapsed">
       <button class="toggle-sidebar-btn">
-        <i data-lucide="menu" class="icon"></i>
+        <i class="fas fa-bars icon"></i>
       </button>
       <h2 class="sidebar-title">SCAD System</h2>
       <ul class="sidebar-menu">
-         <li><a href="#" class="sidebar-link"><i data-lucide="home" class="icon"></i> <span class="link-text">Dashboard</span></a></li>
-        <li><a href="company_applications.html" class="sidebar-link"><i data-lucide="briefcase" class="icon"></i> <span class="link-text">Company Applications</span></a></li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="user" class="icon"></i> <span class="link-text">Profile</span></a></li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="settings" class="icon"></i> <span class="link-text">Settings</span></a></li>
+        <li><a href="#" class="sidebar-link"><i class="fas fa-home icon"></i> <span class="link-text">Dashboard</span></a></li>
+        <li><a href="company_applications.html" class="sidebar-link"><i class="fas fa-briefcase icon"></i> <span class="link-text">Company Applications</span></a></li>
+        <li><a href="#" class="sidebar-link"><i class="fas fa-user icon"></i> <span class="link-text">Profile</span></a></li>
+        <li><a href="#" class="sidebar-link"><i class="fas fa-cog icon"></i> <span class="link-text">Settings</span></a></li>
       </ul>
     </aside>
 
-  
-  <main class="container">
-    <div class="section-title">Explore Internship Opportunities</div>
+    <main class="container">
+      <div class="section-title">Explore Internship Opportunities</div>
 
-    <div class="filters">
-      <input type="text" id="searchInput" placeholder="Search by job title or company name">
-      <select id="industryFilter">
-        <option value="">All Industries</option>
-        <option value="Engineering">Engineering</option>
-        <option value="Pharmacy">Pharmacy</option>
-        <option value="Business">Business</option>
-      </select>
-      <select id="durationFilter">
-        <option value="">All Durations</option>
-        <option value="1 Month">1 Month</option>
-        <option value="3 Months">3 Months</option>
-        <option value="6 Months">6 Months</option>
-      </select>
-      <select id="paymentFilter">
-        <option value="">Paid or Unpaid</option>
-        <option value="Paid">Paid</option>
-        <option value="Unpaid">Unpaid</option>
-      </select>
-    </div>
+      <div class="filters">
+        <input type="text" id="searchInput" placeholder="Search by job title or company name">
+        <select id="industryFilter">
+          <option value="">All Industries</option>
+          <option value="Engineering">Engineering</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Business">Business</option>
+        </select>
+        <select id="durationFilter">
+          <option value="">All Durations</option>
+          <option value="1 Month">1 Month</option>
+          <option value="3 Months">3 Months</option>
+          <option value="6 Months">6 Months</option>
+        </select>
+        <select id="paymentFilter">
+          <option value="">Paid or Unpaid</option>
+          <option value="Paid">Paid</option>
+          <option value="Unpaid">Unpaid</option>
+        </select>
+      </div>
 
-    <div id="internshipList" class="internship-list"></div>
-  </main>
+      <div id="internshipList" class="internship-list"></div>
+    </main>
+  </div>
 
   <div class="modal" id="applyModal">
     <div class="modal-content">
@@ -65,9 +348,112 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+    <p>© 2025 SCAD System. All rights reserved.</p>
   </footer>
 
-  <script src="../js/available_internships.js"></script>
+  <script>
+    const internships = [
+      {
+        title: "Software Engineering Intern",
+        company: "TechSoft",
+        duration: "3 Months",
+        industry: "Engineering",
+        paid: true,
+        salary: "3000 EGP/month",
+        skills: "JavaScript, HTML, CSS",
+        description: "Assist the dev team with web application development."
+      },
+      {
+        title: "Marketing Assistant",
+        company: "BrandHive",
+        duration: "1 Month",
+        industry: "Business",
+        paid: false,
+        salary: "",
+        skills: "Communication, Social Media",
+        description: "Support social media campaigns and content creation."
+      }
+    ];
+
+    const listContainer = document.getElementById("internshipList");
+    const searchInput = document.getElementById("searchInput");
+    const industryFilter = document.getElementById("industryFilter");
+    const durationFilter = document.getElementById("durationFilter");
+    const paymentFilter = document.getElementById("paymentFilter");
+
+    const modal = document.getElementById("applyModal");
+    const successMessage = document.getElementById("successMessage");
+    const submitBtn = document.getElementById("submitApplication");
+
+    let selectedInternship = null;
+
+    function displayInternships() {
+      const keyword = searchInput.value.toLowerCase();
+      const industry = industryFilter.value;
+      const duration = durationFilter.value;
+      const paid = paymentFilter.value;
+
+      const filtered = internships.filter(intern => {
+        return (
+          (keyword === '' || intern.title.toLowerCase().includes(keyword) || intern.company.toLowerCase().includes(keyword)) &&
+          (industry === '' || intern.industry === industry) &&
+          (duration === '' || intern.duration === duration) &&
+          (paid === '' || (paid === 'Paid' && intern.paid) || (paid === 'Unpaid' && !intern.paid))
+        );
+      });
+
+      listContainer.innerHTML = filtered.map((intern, index) => `
+        <div class="card">
+          <h4>${intern.title}</h4>
+          <p><strong>Company:</strong> ${intern.company}</p>
+          <p><strong>Duration:</strong> ${intern.duration}</p>
+          <p><strong>Industry:</strong> ${intern.industry}</p>
+          <p><strong>${intern.paid ? "Paid" : "Unpaid"}</strong></p>
+          ${intern.paid ? `<p><strong>Salary:</strong> ${intern.salary}</p>` : ''}
+          <p><strong>Skills Required:</strong> ${intern.skills}</p>
+          <p><strong>Description:</strong> ${intern.description}</p>
+          <button class="apply-btn" onclick="openModal(${index})">Apply</button>
+        </div>
+      `).join("");
+    }
+
+    function openModal(index) {
+      selectedInternship = internships[index];
+      modal.style.display = "flex";
+      successMessage.textContent = "";
+    }
+
+    submitBtn.addEventListener("click", () => {
+      const file = document.getElementById("documentUpload").files[0];
+      if (!file) {
+        successMessage.textContent = "Please upload a document before applying.";
+        successMessage.style.color = "red";
+        return;
+      }
+      successMessage.style.color = "green";
+      successMessage.textContent = `Application submitted for ${selectedInternship.title} at ${selectedInternship.company}!`;
+    });
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    };
+
+    searchInput.addEventListener("input", displayInternships);
+    industryFilter.addEventListener("change", displayInternships);
+    durationFilter.addEventListener("change", displayInternships);
+    paymentFilter.addEventListener("change", displayInternships);
+
+    displayInternships();
+
+    // Sidebar toggle functionality
+    document.querySelector('.toggle-sidebar-btn').addEventListener('click', () => {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('collapsed');
+      const mainContainer = document.querySelector('.container');
+      mainContainer.style.marginLeft = sidebar.classList.contains('collapsed') ? '0' : '250px';
+    });
+  </script>
 </body>
 </html>
