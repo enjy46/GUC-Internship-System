@@ -132,6 +132,105 @@ body {
 
 .notifications-section {
   margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 1.2rem;
+  border-bottom: 1px solid #e0e0e0;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: #f8f9fa;
+}
+
+.notification-item.unread {
+  background-color: #f0f7ff;
+}
+
+.notification-item.unread:hover {
+  background-color: #e6f2ff;
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  background-color: #e3f2fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.notification-icon i {
+  color: #1976d2;
+  font-size: 1.2rem;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #0d1b2a;
+  font-weight: 600;
+}
+
+.notification-content p {
+  margin: 0 0 0.5rem 0;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.notification-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.notification-badge {
+  width: 8px;
+  height: 8px;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+}
+
+.notification-item.high .notification-icon {
+  background-color: #e8f5e9;
+}
+
+.notification-item.high .notification-icon i {
+  color: #2e7d32;
+}
+
+.notification-item.medium .notification-icon {
+  background-color: #fff3e0;
+}
+
+.notification-item.medium .notification-icon i {
+  color: #f57c00;
+}
+
+.no-notifications {
+  text-align: center;
+  color: #666;
+  padding: 2rem;
+  font-style: italic;
 }
 
 h2 {
@@ -174,5 +273,21 @@ footer {
   .dashboard-container {
     margin: 1rem;
     padding: 1.5rem;
+  }
+  .notification-item {
+    padding: 1rem;
+  }
+  
+  .notification-icon {
+    width: 35px;
+    height: 35px;
+  }
+  
+  .notification-content h3 {
+    font-size: 1rem;
+  }
+  
+  .notification-content p {
+    font-size: 0.9rem;
   }
 }

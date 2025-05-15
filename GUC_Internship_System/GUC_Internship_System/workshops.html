@@ -6,11 +6,12 @@
   <title>Workshops & Learning | SCAD System</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/workshops.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
   <header>
     <div class="top-bar">
-      <a href="pro_dashboard.html" class="back-button">← Back</a>
+      <a href="pro_dashboard.html" class="back-button"><i class="fas fa-arrow-left"></i> Back</a>
       <div class="header-center">
         <h1>SCAD System</h1>
         <p class="subheading">Workshops & Learning</p>
@@ -25,44 +26,165 @@
 
     <div id="workshopDetails" class="modal hidden">
       <div class="modal-content">
-        <h3 id="workshopTitle"></h3>
-        <p id="workshopDescription"></p>
-        <button onclick="registerWorkshop()">Register</button>
-        <button id="joinLiveBtn" onclick="joinLive()">Join Live</button>
-
-
-        <button onclick="toggleRecording()" id="toggleRecording">Play Recording</button>
-        <div id="videoPlayer" style="display: none; margin-top: 1rem;"></div>
-
-        <textarea id="notes" placeholder="Take your notes here..."></textarea>
-        <button onclick="submitNotes()">Save Notes</button>
-        <button onclick="downloadCertificate()">Get Certificate</button>
-        <label for="rating">Rate this Workshop:</label>
-        <select id="rating">
-          <option value="">Select</option>
-          <option value="1">★☆☆☆☆</option>
-          <option value="2">★★☆☆☆</option>
-          <option value="3">★★★☆☆</option>
-          <option value="4">★★★★☆</option>
-          <option value="5">★★★★★</option>
-        </select>
-        <textarea id="feedback" placeholder="Leave feedback..."></textarea>
-        <button onclick="submitFeedback()">Submit Feedback</button>
-        <div id="chatSection">
-          <h4>Chat with Attendees</h4>
-          <div id="chatBox"></div>
-          <input type="text" id="chatInput" placeholder="Type a message..." />
-          <button onclick="sendMessage()">Send</button>
+        <div class="modal-header">
+          <h3 id="workshopTitle"></h3>
+          <button class="close-btn" onclick="closeDetails()"><i class="fas fa-times"></i></button>
         </div>
-        <button onclick="closeDetails()">Close</button>
+        
+        <div class="workshop-info">
+          <p id="workshopDescription"></p>
+          <div class="workshop-status">
+            <span class="status-badge" id="workshopStatus">Not Registered</span>
+          </div>
+        </div>
+        
+        <div class="action-buttons">
+          <button onclick="registerWorkshop()" class="primary-btn register-btn">
+            <i class="fas fa-user-plus"></i> Register for Workshop
+          </button>
+        </div>
+
+        <div id="videoPlayer" class="video-container">
+          <div class="video-header">
+            <h4>Workshop Video</h4>
+            <div class="video-mode">
+              <button id="joinLiveBtn" onclick="joinLive()" class="mode-btn" disabled>
+                <i class="fas fa-video"></i> Watch Live
+              </button>
+              <button onclick="toggleRecording()" id="toggleRecording" class="mode-btn" disabled>
+                <i class="fas fa-play"></i> Watch Recording
+              </button>
+            </div>
+          </div>
+          <div class="video-notes-container">
+            <div class="video-wrapper">
+              <iframe id="workshopVideo" 
+                width="100%" 
+                height="500" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+              </iframe>
+            </div>
+            <div class="notes-section">
+              <h4><i class="fas fa-pencil-alt"></i> Your Notes</h4>
+              <textarea id="notes" placeholder="Take your notes here..." class="notes-textarea"></textarea>
+              <button onclick="submitNotes()" class="submit-btn">
+                <i class="fas fa-save"></i> Save Notes
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="workshop-features">
+          <div class="feature-card">
+            <i class="fas fa-comments"></i>
+            <h4>Live Chat</h4>
+            <p>Interact with other participants</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-certificate"></i>
+            <h4>Certificate</h4>
+            <p>Get your completion certificate</p>
+          </div>
+          <div class="feature-card">
+            <i class="fas fa-star"></i>
+            <h4>Feedback</h4>
+            <p>Share your experience</p>
+          </div>
+        </div>
+
+        <div class="feedback-section">
+          <h4><i class="fas fa-star"></i> Workshop Feedback</h4>
+          <div class="rating-container">
+            <label for="rating">Rate this Workshop:</label>
+            <select id="rating" class="rating-select">
+              <option value="">Select Rating</option>
+              <option value="1">★☆☆☆☆ Poor</option>
+              <option value="2">★★☆☆☆ Fair</option>
+              <option value="3">★★★☆☆ Good</option>
+              <option value="4">★★★★☆ Very Good</option>
+              <option value="5">★★★★★ Excellent</option>
+            </select>
+          </div>
+          <textarea id="feedback" placeholder="Share your thoughts about this workshop..." class="feedback-textarea"></textarea>
+          <button onclick="submitFeedback()" class="submit-btn">
+            <i class="fas fa-paper-plane"></i> Submit Feedback
+          </button>
+        </div>
+
+        <div class="certificate-section">
+          <button onclick="showCertificate()" class="certificate-btn">
+            <i class="fas fa-certificate"></i> Get Certificate
+          </button>
+          <div class="certificate-info">
+            <p><i class="fas fa-info-circle"></i> After completing the workshop, you can get your certificate</p>
+          </div>
+        </div>
+
+        <div id="chatSection" class="chat-section">
+          <h4><i class="fas fa-comments"></i> Chat with Attendees</h4>
+          <div id="chatBox" class="chat-box"></div>
+          <div class="chat-input-container">
+            <input type="text" id="chatInput" placeholder="Type a message..." class="chat-input" />
+            <button onclick="sendMessage()" class="chat-send-btn">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </main>
+
+  <!-- Certificate Modal -->
+  <div id="certificateModal" class="modal hidden">
+    <div class="modal-content certificate-modal">
+      <div class="modal-header">
+        <h3>Certificate of Achievement</h3>
+        <button class="close-btn" onclick="closeCertificate()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="certificate-content">
+        <div class="cert">
+          <div class="cert-border">
+            <div class="cert-inner">
+              <div class="cert-header">
+                <img src="images/scad-logo.png" alt="SCAD Logo" class="cert-logo">
+                <h1>Certificate of Achievement</h1>
+              </div>
+              <div class="cert-body">
+                <p class="cert-text">This is to certify that</p>
+                <h2>Malak Abuelkhier</h2>
+                <p class="cert-text">has successfully completed the workshop</p>
+                <h3 id="certificateTitle"></h3>
+                <p id="certificateDate" class="cert-date"></p>
+              </div>
+              <div class="signature">
+                <div class="signature-line"></div>
+                <div class="signature-text">SCAD Career Development Office</div>
+                <div class="signature-line"></div>
+              </div>
+            </div>
+          </div>
+          <div class="certificate-download-section">
+            <button onclick="downloadCertificate()" class="download-btn-large">
+              <i class="fas fa-download"></i> Download Certificate
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notification" class="notification hidden">
+    <i class="fas fa-info-circle"></i>
+    <span id="notificationText"></span>
+  </div>
 
   <footer>
     <p>&copy; 2025 SCAD System. All rights reserved.</p>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="js/workshops.js"></script>
 </body>
 </html>
