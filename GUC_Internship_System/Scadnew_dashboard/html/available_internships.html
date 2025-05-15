@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Internships | SCAD System</title>
+  <link rel="stylesheet" href="../css/available_internships.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <h1>SCAD System</h1>
+    <h2>Available Internships</h2>
+  </header>
+ <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar collapsed">
+      <button class="toggle-sidebar-btn">
+        <i data-lucide="menu" class="icon"></i>
+      </button>
+      <h2 class="sidebar-title">SCAD System</h2>
+      <ul class="sidebar-menu">
+         <li><a href="#" class="sidebar-link"><i data-lucide="home" class="icon"></i> <span class="link-text">Dashboard</span></a></li>
+        <li><a href="company_applications.html" class="sidebar-link"><i data-lucide="briefcase" class="icon"></i> <span class="link-text">Company Applications</span></a></li>
+        <li><a href="#" class="sidebar-link"><i data-lucide="user" class="icon"></i> <span class="link-text">Profile</span></a></li>
+        <li><a href="#" class="sidebar-link"><i data-lucide="settings" class="icon"></i> <span class="link-text">Settings</span></a></li>
+      </ul>
+    </aside>
+
+  
+  <main class="container">
+    <div class="section-title">Explore Internship Opportunities</div>
+
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search by job title or company name">
+      <select id="industryFilter">
+        <option value="">All Industries</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Pharmacy">Pharmacy</option>
+        <option value="Business">Business</option>
+      </select>
+      <select id="durationFilter">
+        <option value="">All Durations</option>
+        <option value="1 Month">1 Month</option>
+        <option value="3 Months">3 Months</option>
+        <option value="6 Months">6 Months</option>
+      </select>
+      <select id="paymentFilter">
+        <option value="">Paid or Unpaid</option>
+        <option value="Paid">Paid</option>
+        <option value="Unpaid">Unpaid</option>
+      </select>
+    </div>
+
+    <div id="internshipList" class="internship-list"></div>
+  </main>
+
+  <div class="modal" id="applyModal">
+    <div class="modal-content">
+      <h3>Upload Documents</h3>
+      <input type="file" id="documentUpload" />
+      <button id="submitApplication">Apply</button>
+      <div class="success-message" id="successMessage"></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+  <script src="../js/available_internships.js"></script>
+</body>
+</html>

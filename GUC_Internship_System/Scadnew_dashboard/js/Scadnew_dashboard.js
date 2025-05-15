@@ -13,6 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
       window.location.href = "company_applications.html"; // Redirect to the Company Applications page
     });
   }
+  const internshipPortalBtn = document.getElementById("internshipPortalBtn");
+  if (internshipPortalBtn) {
+    internshipPortalBtn.addEventListener("click", function () {
+      window.location.href = "available_internships.html";
+    });
+  }
 
   const sidebar = document.querySelector('.sidebar');
   const toggleSidebarBtn = document.querySelector('.toggle-sidebar-btn');
