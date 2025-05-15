@@ -2,35 +2,207 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PRO Student Dashboard | SCAD System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/pro_dashboard.css" />
-  <script defer src="pro_dashboard.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Student Dashboard - Internship Portal</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .dashboard-container {
+      display: grid;
+      gap: 2rem;
+      padding: 1rem;
+    }
+    .search-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    .search-form {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .search-form input {
+      flex: 1;
+      min-width: 200px;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .search-form input:focus {
+      border-color: #001f3f;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.1);
+    }
+    .search-form button {
+      padding: 1rem 2rem;
+      background-color: #0d1b2a;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .search-form button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .suggested-jobs {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    .suggested-jobs h2 {
+      color: #333;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .suggested-jobs h2 i {
+      color: #4CAF50;
+    }
+    .job-list {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .job-card {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2px solid #e0e0e0;
+      transition: all 0.3s ease;
+    }
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: #001f3f;
+    }
+    .job-card h3 {
+      color: #001f3f;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .job-card .company {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .job-card .rating {
+      color: #4CAF50;
+      font-weight: 600;
+    }
+    .job-card .location {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .job-card .description {
+      color: #444;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .job-card .match-reason {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid #e0e0e0;
+      color: #4CAF50;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>SCAD System</h1>
-    <h2>Welcome, PRO Student</h2>
-  </header>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <ul>
+          <li><a href="student_dashboard.html" class="nav-link active"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="applications.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="past_present_internships.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <main class="dashboard-container">
-    <div class="badge-box">
-      <img src="assets/pro_badge.png" alt="PRO Badge" class="badge" />
-      <p class="badge-label">🏅 Completed 3+ months of internship</p>
-    </div>
+    <main class="main-content">
+      <header class="main-header">
+        <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+  <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Student Dashboard</h1>
+  
+  <div style="position: absolute; top: 6px; right: 10px; display: flex; flex-direction: column; align-items: center;">
+    <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+    <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+  </div>
+</header>
 
-    <div class="grid-buttons">
-      <a href="pro_profile.html" class="dashboard-btn" title="Update your profile and academic details">👤 Profile & Academic Info</a>
-      <a href="internship_portal.html" class="dashboard-btn" title="Search and apply for internships">💼 Internship Portal</a>
-      <a href="internship_history.html" class="dashboard-btn" title="View your internship history and evaluations">📚 Internship History</a>
-      <a href="workshops.html" class="dashboard-btn" title="Join and explore career workshops">📺 Workshops & Learning</a>
-      <a href="appointment_call.html" class="dashboard-btn" title="Request appointments and start video calls">📞 Appointments & Calls</a>
-    </div>
-  </main>
+      </header>
 
+      <section class="dashboard-container">
+        <div class="search-section">
+          <form class="search-form" onsubmit="searchJobs(); return false;">
+            <input type="text" id="jobSearchInput" placeholder="Search by job title or company">
+            <input type="text" id="locationSearchInput" placeholder="Search by location">
+            <button type="button" onclick="searchJobs()">Search</button>
+
+
+          </form>
+        </div>
+
+        <div class="suggested-jobs">
+          <h2><i class="fas fa-lightbulb"></i>Suggested Jobs Based on Your Profile</h2>
+          <div id="jobListContainer" class="job-list">
+            <!-- Job cards will be dynamically added here -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
   <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+    <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
+
+  <script src="student\js\pro_dashboard.js"></script>
 </body>
 </html>
