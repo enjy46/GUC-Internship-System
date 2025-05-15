@@ -11,6 +11,7 @@
   <style>
     .main-header h1 {
       color: white;
+      padding: 2.5rem;
     }
     .grid-buttons {
       display: flex;
@@ -51,6 +52,148 @@
       font-weight: 600;
       color: white;
     }
+
+    .semester-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 1200px) {
+      .semester-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .semester-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eef2f7;
+    }
+
+    .semester-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eef2f7;
+    }
+
+    .semester-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #0d1b2a;
+    }
+
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .course-item {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+
+    .course-item:hover {
+      transform: translateX(5px);
+      border-color: #1976d2;
+      background: #f5f9ff;
+    }
+
+    .course-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-right: 1rem;
+      accent-color: #1976d2;
+    }
+
+    .course-info {
+      flex: 1;
+    }
+
+    .course-code {
+      font-weight: 600;
+      color: #1976d2;
+      font-size: 0.9rem;
+    }
+
+    .course-name {
+      color: #333;
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+    }
+
+    .course-status {
+      font-size: 0.8rem;
+      color: #4CAF50;
+      margin-top: 0.2rem;
+    }
+
+    .save-section {
+      position: sticky;
+      bottom: 20px;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      margin-top: 2rem;
+    }
+
+    .save-button {
+      background: linear-gradient(135deg, #1976d2, #1565c0);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .save-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+    }
+
+    .feedback {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+    }
+
+    .feedback.show {
+      transform: translateX(0);
+    }
+
+    .feedback.error {
+      background: #f44336;
+    }
   </style>
 </head>
 <body>
@@ -79,31 +222,19 @@
       </header>
 
       <section class="dashboard-container">
-        <div class="courses-grid">
-          <div class="courses-section card">
-            <h2><i class="fas fa-graduation-cap"></i> Courses in Your Major</h2>
-            <p class="section-description">Select the courses that are relevant to your major. These courses will help us understand your academic background better.</p>
-            <select id="majorCoursesDropdown" multiple aria-label="Select courses in your major">
-              <!-- Options will be dynamically populated -->
-            </select>
+        <div class="helpful-courses-section">
+          <h2><i class="fas fa-star"></i> Courses That Helped in Internship</h2>
+          <p class="section-description">Select the courses that you found particularly helpful during your internship experience.</p>
+          
+          <div class="semester-grid" id="semesterGrid">
+            <!-- Semester cards will be dynamically added here -->
           </div>
 
-          <div class="helpful-courses-section card">
-            <h2><i class="fas fa-star"></i> Courses That Helped in Internship</h2>
-            <p class="section-description">Add courses that you found particularly helpful during your internship experience.</p>
-            <ul id="selectableCourses" aria-label="Selected helpful courses"></ul>
-            <div id="courseMessage" class="course-message"></div>
-            <div class="form-group">
-              <input type="text" id="manualCourseInput" placeholder="Enter course name..." aria-label="Add a custom course">
-            </div>
-            <div class="grid-buttons">
-              <button id="addCourseBtn" class="dashboard-btn btn-add" onclick="addManualCourse()">
-                <i class="fas fa-plus"></i> Add Course
-              </button>
-              <button id="saveCoursesBtn" class="dashboard-btn btn-save" onclick="saveSelectedCourses()">
-                <i class="fas fa-save"></i> Save
-              </button>
-            </div>
+          <div class="save-section">
+            <button class="save-button" onclick="saveSelectedCourses()">
+              <i class="fas fa-save"></i>
+              Save Selected Courses
+            </button>
           </div>
         </div>
       </section>

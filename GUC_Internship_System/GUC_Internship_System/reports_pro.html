@@ -1,145 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Applications | SCAD System</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Reports - Internship Portal</title>
   <link rel="stylesheet" href="student/css/student_base.css" />
-  <link rel="stylesheet" href="student/css/courses.css" />
+  <link rel="stylesheet" href="student/css/pro_reports.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     .main-header h1 {
       color: white;
     }
-    
-    .applications-container {
-      padding: 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .applications-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-
-    .application-card {
-      background: white;
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid #e5e7eb;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .application-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .application-header {
+    .grid-buttons {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
     }
-
-    .application-title h3 {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #1a202c;
-      font-weight: 600;
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
-
-    .company-name {
-      color: #4a5568;
-      font-size: 1rem;
-      margin-top: 0.3rem;
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
     }
-
-    .status-badge {
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-weight: 500;
-      font-size: 0.875rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .btn-save {
+      background-color: #2196F3;
+      color: white;
     }
-
-    .application-date {
-      color: #6b7280;
-      font-size: 0.9rem;
-      margin-top: 1rem;
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
     }
-
-    .status-pending {
-      background-color: #FEF3C7;
-      color: #92400E;
+    .dashboard-btn:hover::after {
+      content: none !important;
     }
-
-    .status-finalized {
-      background-color: #DBEAFE;
-      color: #1E40AF;
-    }
-
-    .status-accepted {
-      background-color: #D1FAE5;
-      color: #065F46;
-    }
-
-    .status-rejected {
-      background-color: #FEE2E2;
-      color: #991B1B;
-    }
-
-    @media (max-width: 1024px) {
-      .applications-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* Update sidebar styles */
     .sidebar-header {
       padding: 2rem 1rem;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
-
     .sidebar-header h2 {
       margin: 0;
-      font-size: 1.6rem;  /* Matching pro_dashboard font size */
+      font-size: 1.6rem;
       font-weight: 600;
       color: white;
     }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .application-card {
-        padding: 1.5rem;
-      }
-
-      .company-info {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-      }
-
-      .status-container {
-        text-align: center;
-        margin-top: 1rem;
-        padding-left: 0;
-      }
-
-      .company-logo {
-        width: 60px;
-        height: 60px;
-      }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 2.6rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
   </style>
 </head>
 <body>
   <div class="app-container">
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Internship Portal</h2>
@@ -148,22 +106,21 @@
         <ul>
           <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
           <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
-          <li><a href="application.html" class="nav-link active"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
           <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
           <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
           <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
           <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="reports_pro.html" class="nav-link active"><i class="fas fa-file-alt"></i>Reports</a></li>
           <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
-      <!-- Header -->
       <header class="main-header">
         <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
-          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">My Applications</h1>
+          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Your Reports</h1>
           
           <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
             <!-- Notification Icon -->
@@ -198,65 +155,64 @@
         </header>
       </header>
 
-      <!-- Applications Container -->
-      <div class="applications-container">
-        <div class="applications-grid">
-          <!-- Application Card 1 -->
-          <div class="application-card">
-            <div class="application-header">
-              <div class="application-title">
-                <h3>Software Engineering Intern</h3>
-                <div class="company-name">Microsoft</div>
-              </div>
-              <span class="status-badge status-pending">Pending</span>
+      <section class="dashboard-container">
+        <div class="report-section card">
+          <h2>Internship Report</h2>
+          <form id="internshipReportForm">
+            <div class="form-group">
+              <label for="reportTitle">Report Title</label>
+              <input type="text" id="reportTitle" placeholder="Enter report title" required>
             </div>
-            <div class="application-date">Applied on: January 15, 2024</div>
-          </div>
+            <div class="form-group">
+              <label for="reportIntro">Introduction</label>
+              <textarea id="reportIntro" placeholder="Write the introduction..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="reportBody">Report Body</label>
+              <textarea id="reportBody" placeholder="Write the main content..." required></textarea>
+            </div>
+            <div class="grid-buttons">
+              <button type="button" class="dashboard-btn btn-save" onclick="saveReport()">Save Report</button>
+              <button type="button" class="dashboard-btn btn-delete" onclick="deleteReport()">Delete Report</button>
+              <button type="button" class="dashboard-btn btn-download" onclick="downloadReportAsPDF()">Download as PDF</button>
+            </div>
+          </form>
+        </div>
 
-          <!-- Application Card 2 -->
-          <div class="application-card">
-            <div class="application-header">
-              <div class="application-title">
-                <h3>Data Science Intern</h3>
-                <div class="company-name">Google</div>
-              </div>
-              <span class="status-badge status-finalized">Finalized</span>
-            </div>
-            <div class="application-date">Applied on: January 10, 2024</div>
-          </div>
-
-          <!-- Application Card 3 -->
-          <div class="application-card">
-            <div class="application-header">
-              <div class="application-title">
-                <h3>Cloud Engineering Intern</h3>
-                <div class="company-name">Amazon</div>
-              </div>
-              <span class="status-badge status-accepted">Accepted</span>
-            </div>
-            <div class="application-date">Applied on: January 5, 2024</div>
-          </div>
-
-          <!-- Application Card 4 -->
-          <div class="application-card">
-            <div class="application-header">
-              <div class="application-title">
-                <h3>Frontend Developer Intern</h3>
-                <div class="company-name">Meta</div>
-              </div>
-              <span class="status-badge status-rejected">Rejected</span>
-            </div>
-            <div class="application-date">Applied on: December 20, 2023</div>
+        <div class="comments-section card">
+          <h2>Comments on Your Internship Report</h2>
+          <div id="commentsContainer">
+            <p>No comments available.</p>
           </div>
         </div>
-      </div>
+
+        <div class="appeal-section card">
+          <h2>Appeal a Flagged or Rejected Report</h2>
+          <div id="appealContainer">
+            <div class="form-group">
+              <select id="reportToAppeal">
+                <!-- Options will be dynamically populated -->
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea id="appealMessage" placeholder="Write your appeal message here..." rows="5"></textarea>
+            </div>
+            <div class="grid-buttons">
+              <button class="dashboard-btn btn-save" onclick="submitAppeal()">Submit Appeal</button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
   <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
+  <script src="student/js/pro_reports.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="student/js/modules/pdfGenerator.js"></script>
   <script>
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
@@ -267,15 +223,17 @@
       }
     }
 
-    window.onclick = function(event) {
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');
       
       if (!profileIcon && dropdown.style.display === "block") {
         dropdown.style.display = "none";
       }
-    };
+    });
 
+    // Prevent dropdown from closing when clicking inside it
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });

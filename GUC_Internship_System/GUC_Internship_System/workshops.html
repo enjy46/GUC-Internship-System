@@ -100,12 +100,11 @@
     .main-header {
       background-color: #0d1b2a;
       color: #ffffff;
-      padding: 1.5rem;
+      padding: 3rem;
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       position: relative;
     }
-
     .main-header h1 {
       margin: 0;
       font-size: 1.8rem;
@@ -167,6 +166,290 @@
         padding: 1.5rem;
       }
     }
+
+    #commentsModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: flex-end;
+      align-items: stretch;
+      z-index: 1000;
+    }
+
+    .comments-modal-content {
+      background: white;
+      padding: 2rem;
+      width: 400px;
+      height: 100%;
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+      }
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      color: #0d1b2a;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+
+    .close-btn:hover {
+      background-color: rgba(13, 27, 42, 0.1);
+    }
+
+    .comments-content {
+      margin-top: 2rem;
+    }
+
+    #appealText {
+      width: 100%;
+      margin: 1rem 0;
+      padding: 1rem;
+      min-height: 150px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+    }
+
+    .video-section {
+        display: flex;
+        gap: 2rem;
+        margin: 2rem;
+        height: 500px;
+    }
+
+    .video-container {
+        flex: 3;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .video-header {
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .video-player {
+        flex: 1;
+        width: 100%;
+        background: #f5f5f5;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .video-player iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .video-notes-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+    }
+
+    .notes-header {
+        margin-bottom: 1rem;
+    }
+
+    .notes-textarea {
+        flex: 1;
+        width: 100%;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        resize: none;
+        margin-bottom: 1rem;
+    }
+
+    .save-notes-btn {
+        padding: 0.75rem 1.5rem;
+        background-color: #01579b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .save-notes-btn:hover {
+        background-color: #013c6e;
+        transform: translateY(-2px);
+    }
+
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        display: none;
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: 500;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .notification.show {
+        display: block;
+    }
+
+    /* Update certificate modal styles */
+    .certificate-modal {
+        max-width: 800px;
+        width: 90%;
+        margin: 2rem auto;
+        position: relative;
+    }
+
+    .cert {
+        transform: scale(0.8);
+        margin: -2rem;
+    }
+
+    .certificate-modal .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        color: #0d1b2a;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s;
+        z-index: 1000;
+    }
+
+    .certificate-modal .close-btn:hover {
+        background-color: rgba(13, 27, 42, 0.1);
+    }
+
+    .download-certificate-btn {
+        position: absolute;
+        top: 10px;
+        right: 44px;
+        padding: 6px 12px;
+        background-color: #01579b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .download-certificate-btn:hover {
+        background-color: #013c6e;
+    }
+
+    /* Remove the certificate download section */
+    .certificate-download-section {
+        display: none;
+    }
+
+    /* Update the register button style */
+    .action-btn.register-btn {
+        padding: 10px 24px;
+        font-size: 16px;
+        background-color: #01579b;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: auto;
+        min-width: 140px;
+        font-weight: 500;
+    }
+
+    .action-btn.register-btn:hover {
+        background-color: #013c6e;
+        transform: translateY(-2px);
+    }
+
+    /* Update the register button positioning */
+    .action-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin: 0;
+        padding-right: 1rem;
+        position: relative;
+        top: -1rem;
+    }
+
+    /* Adjust the workshop info spacing */
+    .workshop-info {
+        margin-bottom: 0;
+    }
+
+    .workshop-status {
+        margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -184,8 +467,8 @@
           <li><a href="workshops.html" class="nav-link active"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
           <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
           <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <!-- <li><a href="notifications_pro.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li> -->
-          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
         </ul>
       </nav>
     </aside>
@@ -193,9 +476,35 @@
     <main class="main-content">
       <header class="main-header">
         <h1>Workshops</h1>
-        <div class="pro-badge">
-          <img src="assets/pro_badge.png" alt="Pro Badge">
-          <span>Completed your 3+ months internship</span>
+        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+            <!-- Notification Icon -->
+            <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+                <i class="fas fa-bell" style="font-size: 1.4rem;">
+                    <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                          border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                          align-items: center; justify-content: center;">3</span>
+                </i>
+            </a>
+            
+            <!-- Profile Icon with Dropdown -->
+            <div style="position: relative; display: inline-block;">
+                <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+                    <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+                </a>
+                <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                     background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                     border-radius: 8px; z-index: 1000; margin-top: 10px;">
+                    <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                       display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                       display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <!-- Pro Badge -->
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+            </div>
         </div>
       </header>
 
@@ -226,31 +535,40 @@
         </div>
       </div>
       <div class="action-buttons">
-        <button class="action-btn register-btn" onclick="registerWorkshop()">Register for Workshop</button>
+        <button class="action-btn register-btn" onclick="registerWorkshop()">
+            Register
+        </button>
       </div>
-      <div class="video-container">
-        <div class="video-header">
-          <h4>Workshop Content</h4>
-          <div class="video-mode">
-            <button id="toggleRecording" class="mode-btn" disabled onclick="toggleRecording()">
-              <i class="fas fa-play"></i> Watch Recording
-            </button>
-            <button id="joinLiveBtn" class="mode-btn" disabled onclick="joinLive()">
-              <i class="fas fa-video"></i> Join Live
-            </button>
-          </div>
+      <div class="video-section">
+        <div class="video-container">
+            <div class="video-header">
+                <h4>Workshop Content</h4>
+                <div class="video-mode">
+                    <button id="toggleRecording" class="mode-btn" disabled onclick="toggleRecording()">
+                        <i class="fas fa-play"></i> Watch Recording
+                    </button>
+                    <button id="joinLiveBtn" class="mode-btn" disabled onclick="joinLive()">
+                        <i class="fas fa-video"></i> Join Live
+                    </button>
+                </div>
+            </div>
+            <div class="video-player">
+                <iframe id="workshopVideo" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-        <div class="video-wrapper">
-          <iframe id="workshopVideo" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
-        </div>
-      </div>
-      <div class="video-notes-container">
-        <div class="notes-section">
-          <h4><i class="fas fa-sticky-note"></i> Your Notes</h4>
-          <textarea id="notes" class="notes-textarea" placeholder="Take notes during the workshop..."></textarea>
-          <button class="submit-btn" onclick="submitNotes()">
-            <i class="fas fa-save"></i> Save Notes
-          </button>
+        
+        <div class="video-notes-container">
+            <div class="notes-header">
+                <h3>Workshop Notes</h3>
+            </div>
+            <textarea 
+                class="notes-textarea" 
+                placeholder="Take notes during the workshop..."
+                id="notesTextarea"
+            ></textarea>
+            <button class="save-notes-btn" onclick="saveNotes()">
+                <i class="fas fa-save"></i> Save Notes
+            </button>
         </div>
       </div>
       <div class="feedback-section">
@@ -280,46 +598,117 @@
   <!-- Certificate Modal -->
   <div id="certificateModal" class="modal hidden">
     <div class="modal-content certificate-modal">
-      <div class="modal-header">
-        <h3>Certificate of Completion</h3>
         <button class="close-btn" onclick="closeCertificate()">&times;</button>
-      </div>
-      <div class="certificate-content">
-        <div class="cert">
-          <div class="cert-border">
-            <div class="cert-inner">
-              <div class="cert-header">
-                <img src="assets/guc_logo.png" alt="GUC Logo" class="cert-logo">
-                <h1>Certificate of Achievement</h1>
-              </div>
-              <div class="cert-body">
-                <p class="cert-text">This is to certify that</p>
-                <h2>Malak Abuelkhier</h2>
-                <p class="cert-text">has successfully completed the workshop</p>
-                <h3 id="certificateTitle"></h3>
-                <p class="cert-date" id="certificateDate"></p>
-              </div>
-              <div class="signature">
-                <div class="signature-line"></div>
-                <div class="signature-text">SCAD Career Development Office</div>
-                <div class="signature-line"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="certificate-download-section">
-        <button class="download-btn-large" onclick="downloadCertificate()">
-          <i class="fas fa-download"></i> Download Certificate
+        <button class="download-certificate-btn" onclick="downloadCertificate()">
+            <i class="fas fa-download"></i> Download
         </button>
-      </div>
+        <div class="certificate-content">
+            <div class="cert">
+                <div class="cert-border">
+                    <div class="cert-inner">
+                        <div class="cert-header">
+                            <img src="assets/guc_logo.png" alt="GUC Logo" class="cert-logo">
+                            <h1>Certificate of Achievement</h1>
+                        </div>
+                        <div class="cert-body">
+                            <p class="cert-text">This is to certify that</p>
+                            <h2>Malak Abuelkhier</h2>
+                            <p class="cert-text">has successfully completed the workshop</p>
+                            <h3 id="certificateTitle"></h3>
+                            <p class="cert-date" id="certificateDate"></p>
+                        </div>
+                        <div class="signature">
+                            <div class="signature-line"></div>
+                            <div class="signature-text">SCAD Career Development Office</div>
+                            <div class="signature-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 
-  <div id="notification" class="notification hidden">
+  <div id="notification" class="notification">
     <span id="notificationText"></span>
   </div>
 
   <script src="js/workshops.js"></script>
+  <script>
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        const notificationText = document.getElementById('notificationText');
+        
+        // Clear any existing timeouts
+        if (notification.timeoutId) {
+            clearTimeout(notification.timeoutId);
+        }
+        
+        // Update message and show notification
+        notificationText.textContent = message;
+        notification.classList.add('show');
+        
+        // Set timeout to hide notification
+        notification.timeoutId = setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+
+    function saveNotes() {
+        const notes = document.getElementById('notesTextarea').value;
+        if (!notes.trim()) {
+            showNotification('Please enter some notes before saving! 📝');
+            return;
+        }
+        // Here you would typically save the notes to a database
+        showNotification('Notes saved successfully! 📝');
+    }
+
+    function submitFeedback() {
+        const rating = document.getElementById('rating').value;
+        const feedback = document.getElementById('feedback').value;
+        
+        if (!rating) {
+            showNotification('Please select a rating before submitting! ⭐');
+            return;
+        }
+        
+        if (!feedback.trim()) {
+            showNotification('Please provide some feedback before submitting! 💭');
+            return;
+        }
+        
+        // Here you would typically save the feedback to a database
+        showNotification('Thank you for your feedback! 🙏');
+        
+        // Clear the form
+        document.getElementById('rating').value = '';
+        document.getElementById('feedback').value = '';
+    }
+
+    function toggleDropdown() {
+        var dropdown = document.getElementById("profileDropdown");
+        if (dropdown.style.display === "none" || dropdown.style.display === "") {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        var dropdown = document.getElementById("profileDropdown");
+        var profileIcon = event.target.closest('.fa-user-circle');
+        
+        if (!profileIcon && dropdown.style.display === "block") {
+            dropdown.style.display = "none";
+        }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+        event.stopPropagation();
+    });
+  </script>
 </body>
 </html>

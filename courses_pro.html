@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Student Dashboard - Internship Portal</title>
+  <title>Your Courses - Internship Portal</title>
   <link rel="stylesheet" href="student/css/student_base.css" />
   <link rel="stylesheet" href="student/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -17,121 +17,49 @@
       gap: 2rem;
       padding: 1rem;
     }
-    .search-section {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    }
-    .search-form {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .search-form input {
-      flex: 1;
-      min-width: 200px;
-      padding: 1rem;
-      border: 2px solid #e0e0e0;
-      border-radius: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-    .search-form input:focus {
-      border-color: #001f3f;
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.1);
-    }
-    .search-form button {
-      padding: 0.5rem 1rem;
-      background-color: #0d1b2a;
+    .sidebar {
+      background: #0d1b2a;
       color: white;
-      width:150px;
-      border: none;
-      border-radius: 3px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      cursor: pointer;
+      width: 280px;
+      min-height: 100vh;
+      padding: 1rem 0;
       transition: all 0.3s ease;
-      position: center;
+      position: fixed;
+      left: 0;
+      top: 0;
     }
-    
-    .search-form button:hover {
-      background-color: #1b263b;
-      transform: translateY(-2px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    .sidebar-nav {
+      padding: 1rem;
     }
-    .suggested-jobs {
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
-    .suggested-jobs h2 {
-      color: #333;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
+    .sidebar-nav .nav-link {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-    }
-    .suggested-jobs h2 i {
-      color: #4CAF50;
-    }
-    .job-list {
-      display: grid;
-      gap: 1.5rem;
-    }
-    .job-card {
-      background: #f8f9fa;
-      padding: 1.5rem;
-      border-radius: 12px;
-      border: 2px solid #e0e0e0;
+      padding: 0.8rem 1rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
       transition: all 0.3s ease;
     }
-    .job-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border-color: #001f3f;
+    .sidebar-nav .nav-link i {
+      margin-right: 0.8rem;
+      font-size: 1.1rem;
+      width: 20px;
+      text-align: center;
     }
-    .job-card h3 {
-      color: #001f3f;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
+    .sidebar-nav .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
     }
-    .job-card .company {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .job-card .rating {
-      color: #4CAF50;
+    .sidebar-nav .nav-link.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
       font-weight: 600;
-    }
-    .job-card .location {
-      color: #666;
-      font-size: 0.9rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .job-card .description {
-      color: #444;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .job-card .match-reason {
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid #e0e0e0;
-      color: #4CAF50;
-      font-size: 0.9rem;
-      font-weight: 500;
     }
     .sidebar-header {
       padding: 2rem 1rem;
@@ -143,6 +71,11 @@
       font-size: 1.6rem;
       font-weight: 600;
       color: white;
+    }
+    .main-content {
+      margin-left: 280px;
+      min-height: 100vh;
+      background: #f8f9fa;
     }
     .dropdown-content {
       display: none;
@@ -180,6 +113,137 @@
       position: relative;
       cursor: pointer;
     }
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+    .semester-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 1200px) {
+      .semester-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .semester-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid #eef2f7;
+    }
+    .semester-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #eef2f7;
+    }
+    .semester-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #0d1b2a;
+    }
+    .course-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .course-item {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+    .course-item:hover {
+      transform: translateX(5px);
+      border-color: #1976d2;
+      background: #f5f9ff;
+    }
+    .course-checkbox {
+      width: 20px;
+      height: 20px;
+      margin-right: 1rem;
+      accent-color: #1976d2;
+    }
+    .course-info {
+      flex: 1;
+    }
+    .course-code {
+      font-weight: 600;
+      color: #1976d2;
+      font-size: 0.9rem;
+    }
+    .course-name {
+      color: #333;
+      font-size: 0.95rem;
+      margin-top: 0.2rem;
+    }
+    .course-status {
+      font-size: 0.8rem;
+      color: #4CAF50;
+      margin-top: 0.2rem;
+    }
+    .save-section {
+      position: sticky;
+      bottom: 20px;
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      z-index: 100;
+      margin-top: 2rem;
+    }
+    .save-button {
+      background: linear-gradient(135deg, #1976d2, #1565c0);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    .save-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+    }
+    .feedback {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      background: #4CAF50;
+      color: white;
+      font-weight: 500;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.3s ease;
+    }
+    .feedback.show {
+      transform: translateX(0);
+    }
+    .feedback.error {
+      background: #f44336;
+    }
   </style>
 </head>
 <body>
@@ -190,7 +254,7 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="pro_dashboard.html" class="nav-link active"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
           <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
           <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
           <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
@@ -198,7 +262,7 @@
           <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
           <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
           <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="courses_pro.html" class="nav-link active"><i class="fas fa-book"></i>Courses</a></li>
         </ul>
       </nav>
     </aside>
@@ -206,7 +270,7 @@
     <main class="main-content">
       <header class="main-header">
         <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
-          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Student Dashboard</h1>
+          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Your Courses</h1>
           
           <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
             <!-- Notification Icon -->
@@ -242,29 +306,30 @@
       </header>
 
       <section class="dashboard-container">
-        <div class="search-section">
-          <form class="search-form" onsubmit="searchJobs(); return false;">
-            <input type="text" id="jobSearchInput" placeholder="Search by job title or company">
-            <button type="button" onclick="searchJobs()">Search</button>
+        <div class="helpful-courses-section">
+          <h2><i class="fas fa-star"></i> Courses That Helped in Internship</h2>
+          <p class="section-description">Select the courses that you found particularly helpful during your internship experience.</p>
+          
+          <div class="semester-grid" id="semesterGrid">
+            <!-- Semester cards will be dynamically added here -->
+          </div>
 
-
-          </form>
-        </div>
-
-        <div class="suggested-jobs">
-          <h2><i class="fas fa-lightbulb"></i>Suggested Jobs Based on Your Profile</h2>
-          <div id="jobListContainer" class="job-list">
-            <!-- Job cards will be dynamically added here -->
+          <div class="save-section">
+            <button class="save-button" onclick="saveSelectedCourses()">
+              <i class="fas fa-save"></i>
+              Save Selected Courses
+            </button>
           </div>
         </div>
       </section>
     </main>
   </div>
+
   <footer>
     <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
-  <script src="student\js\pro_dashboard.js"></script>
+  <script src="student/js/pro_courses.js"></script>
   <script>
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
@@ -274,6 +339,8 @@
         dropdown.style.display = "none";
       }
     }
+
+    // Close dropdown when clicking outside
     document.addEventListener('click', function(event) {
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');
@@ -287,14 +354,6 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
-
-    // Keep your existing event listeners for internship functionality
-    searchInput.addEventListener("input", displayInternships);
-    industryFilter.addEventListener("change", displayInternships);
-    durationFilter.addEventListener("change", displayInternships);
-    paymentFilter.addEventListener("change", displayInternships);
-
-    displayInternships();
   </script>
 </body>
 </html>
