@@ -102,10 +102,14 @@
     .main-header {
       background-color: #0d1b2a;
       color: #ffffff;
-      padding: 1.5rem;
+      padding: 4rem;
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       position: relative;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .main-header h1 {
@@ -138,6 +142,108 @@
       margin-top: 1px;
       text-align: center;
       max-width: 150px;
+    }
+
+    .header-icons {
+      position: absolute;
+      right: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .notification-icon, .profile-dropdown {
+      width: 35px;
+      height: 35px;
+    }
+
+    .notification-icon {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .notification-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-icon i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0d1b2a;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .profile-dropdown:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .profile-dropdown i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 120%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      min-width: 150px;
+      overflow: hidden;
+    }
+
+    .dropdown-content a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .dropdown-content a i {
+      margin-right: 0.5rem;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
     }
 
     .dashboard-container {
@@ -197,51 +303,147 @@
       gap: 1.5rem;
     }
 
-    .internship-card {
-      background: #f8f9fa;
-      padding: 1.5rem;
+    .internship-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      min-height: 400px;
       border-radius: 12px;
-      border: 2px solid #e0e0e0;
+    }
+
+    .internship-card {
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.08);
+      padding: 2rem;
+      position: relative;
       transition: all 0.3s ease;
+      border: 1px solid #0d1b2a;
     }
 
     .internship-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      border-color: #001f3f;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(13, 27, 42, 0.15);
+      border-color: #0d1b2a;
     }
 
-    .internship-card h3 {
-      color: #001f3f;
-      font-size: 1.2rem;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .company-title {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
-    .internship-card p {
-      color: #666;
-      font-size: 1rem;
-      margin: 0.5rem 0;
+    .download-icon {
+      color: #4a5568;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      background: rgba(13, 27, 42, 0.05);
+    }
+
+    .download-icon:hover {
+      color: #0d1b2a;
+      background: rgba(13, 27, 42, 0.1);
+      transform: scale(1.1);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .status-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-flagged {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed rgba(13, 27, 42, 0.1);
+    }
+
+    .info-label {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    .info-value {
+      color: #0f172a;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .card-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
     }
 
     .action-btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
+      width: 100%;
+      padding: 0.8rem;
       border: none;
-      border-radius: 8px;
-      color: white;
-      text-decoration: none;
+      border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 500;
-      background-color: #01579b;
       cursor: pointer;
-      transition: all 0.3s ease;
-      margin: 0.5rem 0.5rem 0 0;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn.primary {
+      background: #0d1b2a;
+      color: white;
+    }
+
+    .action-btn.secondary {
+      background: rgba(13, 27, 42, 0.05);
+      color: #0d1b2a;
     }
 
     .action-btn:hover {
-      background-color: #013c6e;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-btn.primary:hover {
+      background: #1b263b;
+    }
+
+    .action-btn.secondary:hover {
+      background: rgba(13, 27, 42, 0.1);
     }
 
     .notification {
@@ -356,6 +558,12 @@
       background-color: #c62828;
     }
 
+    @media (max-width: 1200px) {
+      .internship-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-250px);
@@ -375,6 +583,74 @@
         font-size: 1rem;
         padding: 12px 20px;
       }
+      .internship-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Add missing comments modal */
+    #commentsModal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .comments-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #0d1b2a;
+    }
+
+    /* Add styles for star rating */
+    .star-rating {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .star {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .star.active {
+      color: #ffd700;
+    }
+
+    .star:hover,
+    .star:hover ~ .star {
+      color: #ffd700;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
     }
   </style>
 </head>
@@ -388,8 +664,8 @@
         <ul>
           <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
           <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
-          <li><a href="internship_history.html" class="nav-link active"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="past_present_internships.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
           <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
           <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
           <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
@@ -401,16 +677,42 @@
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Your Applications</h1>
-        <div class="pro-badge">
-          <img src="assets/pro_badge.png" alt="Pro Badge">
-          <span>Completed your 3+ months internship</span>
+        <h1>Past & Present Internships</h1>
+        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+          <!-- Notification Icon -->
+          <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                    border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                    align-items: center; justify-content: center;">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div style="position: relative; display: inline-block;">
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                 border-radius: 8px; z-index: 1000; margin-top: 10px;">
+              <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+          <!-- Pro Badge -->
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+            <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+          </div>
         </div>
       </header>
 
       <section class="dashboard-container">
         <div class="card">
-          <h2><i class="fas fa-paper-plane"></i> Your Internship Applications</h2>
+          <h2><i class="fas fa-paper-plane"></i> Your Past & Present Internships </h2>
           <div class="filters">
             <input type="text" id="searchInput" placeholder="Search by job title or company name" aria-label="Search applications">
             <select id="statusFilter" aria-label="Filter by status">
@@ -420,7 +722,7 @@
             </select>
             <input type="date" id="dateFilter" aria-label="Filter by date">
           </div>
-          <div id="historyList" class="internship-list"></div>
+          <div id="historyList" class="internship-grid"></div>
         </div>
       </section>
     </main>
@@ -433,18 +735,23 @@
   <!-- Evaluation Modal -->
   <div id="evaluationModal" class="modal">
     <div class="modal-content">
+      <button class="close-btn" onclick="closeEvaluationModal()">×</button>
       <h3>Company Evaluation</h3>
       <label>How would you rate the internship?</label>
-      <div style="margin:0.5rem 0;">
-        <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
+      <div class="star-rating" id="starRating">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
       </div>
       <label>Would you recommend this company to others?</label>
-      <select>
-        <option>Yes</option>
-        <option>No</option>
+      <select id="recommendSelect">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
       </select>
       <label>Additional Comments</label>
-      <textarea style="height:100px;"></textarea>
+      <textarea id="evaluationComments" style="height:100px;"></textarea>
       <button onclick="submitEvaluation()">Submit Evaluation</button>
     </div>
   </div>
@@ -471,6 +778,26 @@
     </div>
   </div>
 
+  <!-- Comments Modal -->
+  <div id="commentsModal" class="modal">
+    <div class="comments-modal-content">
+      <button class="close-btn" onclick="closeCommentsModal()">×</button>
+      <h3>Report Comments</h3>
+      <div class="comments-content">
+        <p>Your report has been flagged for the following reasons:</p>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Insufficient detail in the internship description</li>
+          <li>Missing supervisor's feedback</li>
+        </ul>
+        <div style="margin-top: 1.5rem;">
+          <h4>Would you like to appeal this decision?</h4>
+          <textarea id="appealText" placeholder="Enter your appeal message..." style="width: 100%; margin: 1rem 0; padding: 0.5rem; min-height: 100px;"></textarea>
+          <button class="action-btn primary" onclick="submitAppeal()">Submit Appeal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     const internships = [
       {
@@ -490,6 +817,15 @@
         evaluation: false,
         reportSubmitted: false,
         flagged: false
+      },
+      {
+        title: "Software Engineer Intern",
+        company: "Google",
+        date: "2024-12-15",
+        status: "completed",
+        evaluation: true,
+        reportSubmitted: true,
+        flagged: false
       }
     ];
 
@@ -502,6 +838,7 @@
       const keyword = searchInput.value.toLowerCase();
       const status = statusFilter.value;
       const date = dateFilter.value;
+      
       const filtered = internships.filter(intern => {
         return (
           (keyword === '' || intern.title.toLowerCase().includes(keyword) || intern.company.toLowerCase().includes(keyword)) &&
@@ -509,22 +846,62 @@
           (date === '' || intern.date === date)
         );
       });
-      historyList.innerHTML = filtered.map((intern, index) => {
-        return `<div class="internship-card">
-          <h3>${intern.title}</h3>
-          <p><strong>Company:</strong> ${intern.company}</p>
-          <p><strong>Date:</strong> ${intern.date}</p>
-          <p><strong>Status:</strong> ${intern.status.charAt(0).toUpperCase() + intern.status.slice(1)}</p>
-          <p><strong>Evaluation:</strong> ${intern.evaluation ? 'Submitted' : 'Not Submitted'}</p>
-          <p><strong>Report:</strong> ${intern.reportSubmitted ? 'Finalized' : 'Pending'}</p>
-          ${intern.flagged ? '<p style="color:#c62828;"><strong>⚠ Report Flagged</strong></p><button class="action-btn" onclick="viewFlagComments()" aria-label="View Comments">View Comments</button>' : ''}
-          <div id="notif-${index}" class="notification"></div>
-          ${intern.status === 'completed' && !intern.evaluation ? `<button class="action-btn" onclick="handleAction(${index}, 'evaluate')" aria-label="Evaluate Company">Evaluate Company</button>` : ''}
-          ${!intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'submitReport')" aria-label="Submit Internship Report">Submit Internship Report</button>` : ''}
-          ${intern.reportSubmitted ? `<button class="action-btn" onclick="handleAction(${index}, 'downloadPDF')" aria-label="Download Report PDF">Download Report PDF</button>` : ''}
-          ${intern.flagged ? `<button class="action-btn" onclick="handleAction(${index}, 'appeal')" aria-label="Appeal Report">Appeal Report</button>` : ''}
-        </div>`;
-      }).join('');
+      
+      // Create a grid with placeholder cards if needed
+      const totalCards = 3; // Always show 3 cards
+      const html = [];
+      
+      for (let i = 0; i < totalCards; i++) {
+        if (i < filtered.length) {
+          const intern = filtered[i];
+          html.push(`
+            <div class="internship-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="company-title">${intern.company}</h3>
+                  <span class="status-badge ${intern.status === 'completed' ? 'status-completed' : 'status-flagged'}">
+                    ${intern.status.charAt(0).toUpperCase() + intern.status.slice(1)}
+                  </span>
+                </div>
+                <i class="fas fa-download download-icon" onclick="downloadInternshipReport(${i + 1})" title="Download Report"></i>
+              </div>
+              <div class="card-content">
+                <div class="info-row">
+                  <span class="info-label">Position</span>
+                  <span class="info-value">${intern.title}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value">${new Date(intern.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">${intern.flagged ? 'Flagged' : (intern.evaluation ? 'Evaluated' : 'Pending Evaluation')}</span>
+                </div>
+              </div>
+              <div class="card-actions">
+                ${intern.flagged ? `
+                  <button class="action-btn primary" onclick="viewComments(${i + 1})">
+                    <i class="fas fa-comments"></i> View Comments
+                  </button>
+                ` : ''}
+                ${!intern.evaluation ? `
+                  <button class="action-btn primary" onclick="openEvaluationModal(${i + 1})">
+                    <i class="fas fa-star"></i> Evaluate
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `);
+        } else {
+          // Add empty placeholder card to maintain grid structure
+          html.push(`
+            <div class="internship-card" style="visibility: hidden;"></div>
+          `);
+        }
+      }
+      
+      historyList.innerHTML = html.join('');
     }
 
     let currentNotif = null;
@@ -554,9 +931,21 @@
     }
 
     function submitEvaluation() {
-      document.getElementById('evaluationModal').style.display = 'none';
-      if (currentNotif) currentNotif.textContent = '✅ Evaluation submitted successfully.';
+      if (currentRating === 0) {
+        showFeedback('Please select a rating', 'error');
+        return;
+      }
+
+      const evaluation = {
+        rating: currentRating,
+        recommend: document.getElementById('recommendSelect').value,
+        comments: document.getElementById('evaluationComments').value
+      };
+
+      // Here you would typically send this data to your backend
+      console.log('Evaluation submitted:', evaluation);
       showFeedback('Evaluation submitted successfully!', 'success');
+      closeEvaluationModal();
     }
 
     function submitReport() {
@@ -611,6 +1000,124 @@
         mainContent.classList.toggle('collapsed');
       });
     }
+
+    // Function to handle report downloads
+    function downloadInternshipReport(id) {
+      // Create a dummy PDF file for demonstration
+      const blob = new Blob(['Internship Report Content'], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `internship-report-${id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      showFeedback('Report downloaded successfully!', 'success');
+    }
+
+    // Function to handle evaluation modal
+    function openEvaluationModal(id) {
+      document.getElementById('evaluationModal').style.display = 'flex';
+      currentInternshipId = id;
+    }
+
+    // Function to handle comments view
+    function viewComments(id) {
+      document.getElementById('commentsModal').style.display = 'flex';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+    }
+
+    function closeCommentsModal() {
+      document.getElementById('commentsModal').style.display = 'none';
+    }
+
+    function submitAppeal() {
+      const appealText = document.getElementById('appealText').value;
+      if (appealText.trim()) {
+        showFeedback('Appeal submitted successfully!', 'success');
+        closeCommentsModal();
+      } else {
+        showFeedback('Please enter an appeal message', 'error');
+      }
+    }
+
+    // Add star rating functionality
+    let currentRating = 0;
+    const starRating = document.getElementById('starRating');
+    const stars = starRating.getElementsByClassName('star');
+
+    // Initialize star rating
+    Array.from(stars).forEach(star => {
+      star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-rating');
+        setRating(rating);
+      });
+    });
+
+    function setRating(rating) {
+      currentRating = rating;
+      Array.from(stars).forEach(star => {
+        const starRating = star.getAttribute('data-rating');
+        star.classList.toggle('active', starRating <= currentRating);
+      });
+    }
+
+    function closeEvaluationModal() {
+      document.getElementById('evaluationModal').style.display = 'none';
+      // Reset the form
+      currentRating = 0;
+      setRating(0);
+      document.getElementById('recommendSelect').value = 'yes';
+      document.getElementById('evaluationComments').value = '';
+    }
+
+    // Add event listener for profile dropdown
+    document.querySelector('.profile-dropdown').addEventListener('click', function() {
+      this.querySelector('.dropdown-content').style.display = 
+        this.querySelector('.dropdown-content').style.display === 'none' ? 'block' : 'none';
+    });
+
+    // Close dropdown when clicking outside
+    window.addEventListener('click', function(e) {
+      if (!e.target.closest('.profile-dropdown')) {
+        document.querySelector('.dropdown-content').style.display = 'none';
+      }
+    });
+
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
   </script>
 </body>
 </html>
