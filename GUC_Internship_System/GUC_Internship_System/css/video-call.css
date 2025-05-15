@@ -1,0 +1,474 @@
+/* Zoom-like Video Call Interface */
+:root {
+  --zoom-bg: #1a1a1a;
+  --zoom-header-height: 36px;
+  --zoom-footer-height: 64px;
+  --zoom-sidebar-width: 280px;
+  --zoom-border-color: #333;
+  --zoom-accent: #0e72ed;
+  --zoom-hover: #2d2d2d;
+  --zoom-text: #fff;
+  --zoom-text-secondary: #a4a4a4;
+  --zoom-window-width: 960px;
+  --zoom-window-height: 640px;
+}
+
+.video-call-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--zoom-window-width);
+  height: var(--zoom-window-height);
+  background: var(--zoom-bg);
+  color: var(--zoom-text);
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  resize: both;
+  min-width: 480px;
+  min-height: 360px;
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
+}
+
+/* Overlay background */
+.video-call-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+}
+
+/* Window Controls */
+.window-controls {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 8px;
+  z-index: 100;
+}
+
+.window-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--zoom-text);
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s;
+}
+
+.window-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.window-btn.minimize {
+  background: #ffd60a;
+}
+
+.window-btn.maximize {
+  background: #4caf50;
+}
+
+.window-btn.close {
+  background: #ff4d4f;
+}
+
+/* Header */
+.zoom-header {
+  height: var(--zoom-header-height);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--zoom-border-color);
+}
+
+.zoom-header-left,
+.zoom-header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meeting-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.connection-info {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #4caf50;
+  font-size: 12px;
+}
+
+/* Main Content */
+.zoom-content {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: var(--zoom-bg);
+}
+
+/* Video Grid */
+.video-grid {
+  height: 100%;
+  padding: 12px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-auto-rows: minmax(160px, auto);
+  align-items: center;
+  justify-items: center;
+}
+
+.video-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-box video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-box.active-speaker {
+  border: 2px solid var(--zoom-accent);
+}
+
+.participant-info {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.participant-controls {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.video-box:hover .participant-controls {
+  opacity: 1;
+}
+
+/* Footer Controls */
+.zoom-footer {
+  height: var(--zoom-footer-height);
+  background: var(--zoom-bg);
+  border-top: 1px solid var(--zoom-border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+}
+
+.controls-left,
+.controls-center,
+.controls-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.control-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px;
+  border: none;
+  background: transparent;
+  color: var(--zoom-text);
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.control-btn:hover {
+  background: var(--zoom-hover);
+}
+
+.control-btn.active {
+  background: var(--zoom-accent);
+}
+
+.control-btn i {
+  font-size: 18px;
+}
+
+.control-btn span {
+  font-size: 11px;
+}
+
+.control-btn.end-call {
+  background: #dc3545;
+  padding: 6px 12px;
+}
+
+.control-btn.end-call:hover {
+  background: #c82333;
+}
+
+/* Sidebar */
+.zoom-sidebar {
+  position: absolute;
+  right: 0;
+  top: var(--zoom-header-height);
+  bottom: var(--zoom-footer-height);
+  width: var(--zoom-sidebar-width);
+  background: var(--zoom-bg);
+  border-left: 1px solid var(--zoom-border-color);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.zoom-sidebar.active {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  height: 40px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--zoom-border-color);
+  font-size: 14px;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Chat Panel */
+.chat-messages {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-message {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.message-sender {
+  font-weight: 500;
+}
+
+.message-time {
+  color: var(--zoom-text-secondary);
+}
+
+.message-content {
+  background: var(--zoom-hover);
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.chat-input-container {
+  padding: 12px;
+  border-top: 1px solid var(--zoom-border-color);
+}
+
+.chat-input-wrapper {
+  display: flex;
+  gap: 6px;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 6px 10px;
+  background: var(--zoom-hover);
+  border: 1px solid var(--zoom-border-color);
+  border-radius: 4px;
+  color: var(--zoom-text);
+  font-size: 13px;
+  resize: none;
+}
+
+.chat-input:focus {
+  outline: none;
+  border-color: var(--zoom-accent);
+}
+
+.send-btn {
+  padding: 6px 12px;
+  background: var(--zoom-accent);
+  border: none;
+  border-radius: 4px;
+  color: var(--zoom-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.send-btn:hover {
+  background: #0d68d8;
+}
+
+/* View Options */
+.view-options {
+  display: flex;
+  gap: 6px;
+}
+
+.view-btn {
+  padding: 4px 8px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--zoom-border-color);
+  border-radius: 4px;
+  color: var(--zoom-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.view-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.view-btn.active {
+  background: var(--zoom-accent);
+  border-color: var(--zoom-accent);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .video-call-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  
+  .zoom-sidebar {
+    width: 100%;
+  }
+  
+  .controls-left,
+  .controls-right {
+    display: none;
+  }
+  
+  .controls-center {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+/* Minimized Call Indicator */
+.minimized-call-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--zoom-bg);
+  color: var(--zoom-text);
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 9997;
+  animation: slideIn 0.3s ease-out;
+}
+
+.minimized-call-indicator i {
+  font-size: 16px;
+  color: var(--zoom-accent);
+}
+
+.minimized-call-indicator span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.minimized-call-indicator button {
+  background: transparent;
+  border: none;
+  color: var(--zoom-text);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.minimized-call-indicator button:hover {
+  background: var(--zoom-hover);
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+} 

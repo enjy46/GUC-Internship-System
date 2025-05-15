@@ -9,6 +9,722 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="css/appointments.css">
+  <style>
+    :root {
+      --primary-color: #0d1b2a;
+      --primary-light: #1b263b;
+      --success-color: #4CAF50;
+      --warning-color: #FF9800;
+      --danger-color: #f44336;
+      --text-primary: #2c3e50;
+      --text-secondary: #666;
+      --bg-light: #f8f9fa;
+      --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .main-header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      color: #ffffff;
+      padding: 2.6rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.15);
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      letter-spacing: -0.5px;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .card h2 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #eef2f7;
+    }
+
+    .card h2 i {
+      font-size: 2rem;
+      color: var(--primary-color);
+      opacity: 0.9;
+    }
+
+    /* Form Styling */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-group input[type="date"],
+    .form-group input[type="time"],
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: var(--transition-base);
+      background-color: white;
+      color: var(--text-primary);
+    }
+
+    .form-group input[type="date"]:focus,
+    .form-group input[type="time"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%232c3e50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 1.2em;
+      padding-right: 2.5rem;
+    }
+
+    .btn {
+      background: var(--primary-color);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-base);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(13, 27, 42, 0.2);
+    }
+
+    /* Video Call Section */
+    .video-call-container {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 2px solid #eef2f7;
+    }
+
+    .video-call-container h3 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .video-call-info {
+      background: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin-bottom: 2rem;
+    }
+
+    .video-call-info p {
+      margin: 0.8rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .video-call-info strong {
+      min-width: 120px;
+      color: var(--primary-color);
+    }
+
+    .video-call-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .video-call-controls .btn {
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      flex: 1;
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .video-call-controls .btn[disabled] {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .video-call-controls .btn .icon {
+      font-size: 1.2rem;
+    }
+
+    .video-container {
+      background: var(--bg-light);
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .video-box {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16/9;
+    }
+
+    .video-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-label {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+    }
+
+    /* Status Indicators */
+    #userStatus, #callStatus {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    #userStatus::before, #callStatus::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    #userStatus[style*="color: red"]::before {
+      background: var(--danger-color);
+    }
+
+    #userStatus[style*="color: green"]::before {
+      background: var(--success-color);
+    }
+
+    /* Call Notifications */
+    .call-notifications {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+
+    .notification {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .dashboard-container {
+        padding: 1rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+
+      .video-call-controls {
+        flex-direction: column;
+      }
+
+      .video-call-controls .btn {
+        width: 100%;
+      }
+    }
+
+    /* Enhanced Grid Layout for Appointments */
+    .appointments-grid {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .appointment-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      padding: 1.5rem;
+      display: flex;
+      gap: 2rem;
+      transition: var(--transition-base);
+      border: 1px solid #eef2f7;
+    }
+
+    .appointment-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointment-time {
+      min-width: 140px;
+      padding-right: 1.5rem;
+      border-right: 2px solid #eef2f7;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .appointment-time .date {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .appointment-time .time {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+    }
+
+    .appointment-details {
+      flex: 1;
+    }
+
+    .appointment-details h3 {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .appointment-details p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .appointment-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-badge.upcoming {
+      background-color: rgba(76, 175, 80, 0.1);
+      color: var(--success-color);
+    }
+
+    .join-call-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+    }
+
+    /* Video Call Section Enhancements */
+    .video-call-section {
+      background: linear-gradient(to bottom, #1a1a1a, #2d2d2d);
+      color: white;
+      border: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-call-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.8);
+      animation: none;
+    }
+
+    .video-call-section h2 {
+      color: white;
+      position: relative;
+      display: inline-block;
+      padding-bottom: 0.5rem;
+    }
+
+    .video-call-section h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: white;
+      opacity: 0.8;
+    }
+
+    .video-call-section h2 i {
+      color: white;
+      opacity: 0.9;
+    }
+
+    .video-call-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+    }
+
+    .call-timer {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .call-timer::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #4CAF50;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      height: 60vh;
+    }
+
+    .video-box {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .video-box:hover {
+      transform: scale(1.02);
+    }
+
+    .video-box.main-video {
+      height: 100%;
+    }
+
+    .video-box.self-video {
+      height: calc(60vh - 1.5rem);
+    }
+
+    .video-box video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem 1.5rem;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+      color: white;
+    }
+
+    .participant-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .connection-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      opacity: 0.9;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    }
+
+    .video-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      margin: 0 2rem;
+    }
+
+    .control-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      border: none;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 100px;
+    }
+
+    .control-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .control-btn i {
+      font-size: 1.6rem;
+      transition: transform 0.3s ease;
+    }
+
+    .control-btn:hover i {
+      transform: scale(1.1);
+    }
+
+    .control-btn span {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .control-btn.end-call {
+      background: #f44336;
+    }
+
+    .control-btn.end-call:hover {
+      background: #d32f2f;
+    }
+
+    /* Enhanced Toast Notifications */
+    .toast-container {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .toast {
+      background: white;
+      color: var(--text-primary);
+      padding: 1rem 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      animation: slideIn 0.3s ease-out;
+      max-width: 400px;
+      border-left: 4px solid;
+    }
+
+    .toast.success {
+      border-color: var(--success-color);
+    }
+
+    .toast.info {
+      border-color: #2196F3;
+    }
+
+    .toast.scad {
+      background: #f8f9fa;
+      border-color: #0d1b2a;
+    }
+
+    .toast i {
+      font-size: 1.4rem;
+    }
+
+    .toast.success i {
+      color: var(--success-color);
+    }
+
+    .toast.info i {
+      color: #2196F3;
+    }
+
+    .toast.scad i {
+      color: #0d1b2a;
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .toast-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .toast-btn.accept {
+      background: var(--success-color);
+      color: white;
+    }
+
+    .toast-btn.reject {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .toast-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .appointment-card {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .appointment-time {
+        border-right: none;
+        border-bottom: 2px solid #eef2f7;
+        padding-right: 0;
+        padding-bottom: 1rem;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .video-controls {
+        flex-wrap: wrap;
+      }
+
+      .control-btn {
+        flex: 1;
+        min-width: 120px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
@@ -67,85 +783,113 @@
       </header>
 
       <section class="dashboard-container">
+        <!-- Request Appointment Section -->
         <div class="card">
-          <h2><i class="fas fa-video"></i> Video Call Appointments</h2>
-          
-          <!-- Appointment Status -->
-          <div id="appointmentStatus" class="appointment-status"></div>
-
-          <!-- Appointment Form -->
-          <form id="appointmentForm">
-            <div class="form-group">
-              <label for="appointmentDate">Date:</label>
-              <input type="date" id="appointmentDate" name="date" required>
-            </div>
-            <div class="form-group">
-              <label for="appointmentTime">Time:</label>
-              <input type="time" id="appointmentTime" name="time" required>
-            </div>
-            <div class="form-group">
-              <label for="appointmentReason">Reason:</label>
-              <select id="appointmentReason" name="reason" required>
-                <option value="">Select a reason</option>
-                <option value="career_guidance">Career Guidance</option>
-                <option value="report_clarification">Report Clarification</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="appointmentNotes">Additional Notes:</label>
-              <textarea id="appointmentNotes" name="notes" placeholder="Please provide any additional details about your request"></textarea>
-            </div>
-            <button type="submit" class="btn" id="requestAppointmentBtn">Request Appointment</button>
-          </form>
-
-          <!-- Video Call Section -->
-          <div id="videoCallSection" class="video-call-container" style="display: none;">
-            <h3>Your Video Call</h3>
-            <div class="video-call-info">
-              <p><strong>Date:</strong> <span id="callDate"></span></p>
-              <p><strong>Time:</strong> <span id="callTime"></span></p>
-              <p><strong>Reason:</strong> <span id="callReason"></span></p>
-              <p><strong>User Status:</strong> <span id="userStatus" style="color: red;">Offline</span></p>
-              <p><strong>Call Status:</strong> <span id="callStatus">Not in call</span></p>
-              <p><strong>Call Duration:</strong> <span id="callDuration">00:00</span></p>
-            </div>
-            
-            <!-- Video Call Controls -->
-            <div class="video-call-controls">
-              <button id="startVideoCallBtn" class="btn">Start Video Call</button>
-              <button id="toggleVideoBtn" class="btn" disabled>
-                <span class="icon">📹</span> Enable Video
-              </button>
-              <button id="toggleAudioBtn" class="btn" disabled>
-                <span class="icon">🎤</span> Mute
-              </button>
-              <button id="shareScreenBtn" class="btn" disabled>
-                <span class="icon">🖥️</span> Share Screen
-              </button>
-              <button id="endCallBtn" class="btn" disabled>
-                <span class="icon">❌</span> End Call
-              </button>
-            </div>
-
-            <!-- Video Call Container -->
-            <div class="video-container">
-              <div class="video-grid">
-                <div class="video-box">
-                  <video id="localVideo" autoplay muted playsinline></video>
-                  <span class="video-label">You</span>
+            <h2><i class="fas fa-calendar-plus"></i> Request Appointment</h2>
+            <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="appointmentDate">Date:</label>
+                    <input type="date" id="appointmentDate" name="date" required>
                 </div>
-                <div class="video-box">
-                  <video id="remoteVideo" autoplay playsinline></video>
-                  <span class="video-label">Other Participant</span>
+                <div class="form-group">
+                    <label for="appointmentTime">Time:</label>
+                    <input type="time" id="appointmentTime" name="time" required>
                 </div>
-              </div>
-            </div>
-
-            <!-- Call Notifications -->
-            <div id="callNotifications" class="call-notifications"></div>
-          </div>
+                <div class="form-group">
+                    <label for="appointmentReason">Reason:</label>
+                    <select id="appointmentReason" name="reason" required>
+                        <option value="">Select a reason</option>
+                        <option value="career_guidance">Career Guidance</option>
+                        <option value="report_clarification">Report Clarification</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentNotes">Additional Notes:</label>
+                    <textarea id="appointmentNotes" name="notes" placeholder="Please provide any additional details about your request"></textarea>
+                </div>
+                <button type="submit" class="btn" id="requestAppointmentBtn">
+                    <i class="fas fa-paper-plane"></i> Request Appointment
+                </button>
+            </form>
         </div>
+
+        <!-- Upcoming Appointments Section -->
+        <div class="card">
+            <h2><i class="fas fa-calendar-check"></i> Upcoming Appointments</h2>
+            <div class="appointments-grid">
+                <!-- Example of an upcoming appointment -->
+                <div class="appointment-card">
+                    <div class="appointment-time">
+                        <div class="date">March 15, 2024</div>
+                        <div class="time">2:30 PM</div>
+                    </div>
+                    <div class="appointment-details">
+                        <h3>Career Guidance Session</h3>
+                        <p><i class="fas fa-user"></i> With: Career Advisor</p>
+                        <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
+                        <div class="appointment-status">
+                            <span class="status-badge upcoming">Upcoming</span>
+                            <button class="btn join-call-btn" onclick="showVideoCall()">
+                                <i class="fas fa-video"></i> Join Video Call
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Call Section (Initially Hidden) -->
+        <div id="videoCallSection" class="card video-call-section" style="display: none;">
+            <div class="video-call-header">
+                <h2><i class="fas fa-video"></i> Active Video Call</h2>
+                <div class="call-timer">Duration: <span id="callDuration">00:00</span></div>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-box main-video">
+                    <video id="remoteVideo" autoplay playsinline></video>
+                    <div class="video-overlay">
+                        <span class="participant-name">Career Advisor</span>
+                        <div class="connection-status">
+                            <span class="status-dot"></span> Excellent Connection
+                        </div>
+                    </div>
+                </div>
+                <div class="video-box self-video">
+                    <video id="localVideo" autoplay muted playsinline></video>
+                    <div class="video-overlay">
+                        <span class="participant-name">You</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-controls">
+                <button class="control-btn" id="toggleAudioBtn">
+                    <i class="fas fa-microphone"></i>
+                    <span>Mute</span>
+                </button>
+                <button class="control-btn" id="toggleVideoBtn">
+                    <i class="fas fa-video"></i>
+                    <span>Stop Video</span>
+                </button>
+                <button class="control-btn" id="shareScreenBtn">
+                    <i class="fas fa-desktop"></i>
+                    <span>Share Screen</span>
+                </button>
+                <button class="control-btn" id="chatBtn">
+                    <i class="fas fa-comments"></i>
+                    <span>Chat</span>
+                </button>
+                <button class="control-btn end-call" id="endCallBtn">
+                    <i class="fas fa-phone-slash"></i>
+                    <span>End Call</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Toast Notifications Container -->
+        <div id="toastContainer" class="toast-container"></div>
       </section>
     </main>
   </div>
@@ -159,6 +903,175 @@
     <p id="notificationMessage"></p>
   </div>
 
-  <script src="js/appointments.js"></script>
+  <script>
+    // Function to show video call section
+    function showVideoCall() {
+        document.getElementById('videoCallSection').style.display = 'block';
+        document.getElementById('videoCallSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Function to format date
+    function formatDate(date) {
+        return new Intl.DateTimeFormat('en-US', {
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        }).format(new Date(date));
+    }
+
+    // Function to format time
+    function formatTime(time) {
+        return new Intl.DateTimeFormat('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true
+        }).format(new Date(`2024-01-01T${time}`));
+    }
+
+    // Function to add appointment to upcoming section
+    function addUpcomingAppointment(appointmentData) {
+        const appointmentsGrid = document.querySelector('.appointments-grid');
+        const appointmentCard = document.createElement('div');
+        appointmentCard.className = 'appointment-card';
+        appointmentCard.innerHTML = `
+            <div class="appointment-time">
+                <div class="date">${formatDate(appointmentData.date)}</div>
+                <div class="time">${formatTime(appointmentData.time)}</div>
+            </div>
+            <div class="appointment-details">
+                <h3>${appointmentData.reason.replace('_', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h3>
+                <p><i class="fas fa-user"></i> With: Career Advisor</p>
+                <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
+                <div class="appointment-status">
+                    <span class="status-badge upcoming">Upcoming</span>
+                    <button class="btn join-call-btn" onclick="showVideoCall()">
+                        <i class="fas fa-video"></i> Join Video Call
+                    </button>
+                </div>
+            </div>
+        `;
+
+        // Add animation class
+        appointmentCard.classList.add('fade-in');
+        
+        // Insert at the beginning of the grid
+        if (appointmentsGrid.firstChild) {
+            appointmentsGrid.insertBefore(appointmentCard, appointmentsGrid.firstChild);
+        } else {
+            appointmentsGrid.appendChild(appointmentCard);
+        }
+    }
+
+    // Enhanced toast notification system
+    function showToast(message, type = 'success', actions = false) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        if (type === 'scad') {
+            toast.innerHTML = `
+                <i class="fas fa-user-tie"></i>
+                <div class="toast-content">
+                    <div>${message}</div>
+                    ${actions ? `
+                        <div class="toast-actions">
+                            <button class="toast-btn accept" onclick="handleAppointment(true)">
+                                <i class="fas fa-check"></i> Accept
+                            </button>
+                            <button class="toast-btn reject" onclick="handleAppointment(false)">
+                                <i class="fas fa-times"></i> Reject
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        } else {
+            toast.innerHTML = `
+                <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'}"></i>
+                <div class="toast-content">${message}</div>
+            `;
+        }
+
+        document.getElementById('toastContainer').appendChild(toast);
+
+        // Remove toast after 5 seconds if it's not a SCAD action toast
+        if (!actions) {
+            setTimeout(() => {
+                toast.style.animation = 'slideOut 0.3s ease-out forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 5000);
+        }
+    }
+
+    // Store the current appointment data
+    let currentAppointmentData = null;
+
+    // Handle appointment response
+    function handleAppointment(accepted) {
+        const response = accepted ? 'accepted' : 'rejected';
+        const toast = document.querySelector('.toast.scad');
+        if (toast) {
+            toast.remove();
+            showToast(`Appointment ${response} by SCAD Advisor`, 'info');
+
+            // If accepted, add to upcoming appointments
+            if (accepted && currentAppointmentData) {
+                addUpcomingAppointment(currentAppointmentData);
+            }
+        }
+    }
+
+    // Handle appointment form submission
+    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+            date: this.querySelector('#appointmentDate').value,
+            time: this.querySelector('#appointmentTime').value,
+            reason: this.querySelector('#appointmentReason').value,
+            notes: this.querySelector('#appointmentNotes').value
+        };
+
+        // Store the current appointment data
+        currentAppointmentData = formData;
+        
+        // Show initial success notification
+        showToast('Appointment requested successfully! Waiting for confirmation.');
+        
+        // Show SCAD response notification after 2 seconds
+        setTimeout(() => {
+            showToast('New appointment request received from Student', 'scad', true);
+        }, 2000);
+        
+        this.reset();
+    });
+
+    // Add fade-in animation
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes slideOut {
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+  </script>
 </body>
 </html>
