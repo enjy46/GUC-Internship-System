@@ -2,10 +2,138 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Register</title>
-    <link rel="stylesheet" href="css/register.css" />
-    <link rel="stylesheet" href="../css/styles.css" />
+    <title>Register | SCAD System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+        color: #333;
+      }
+      
+      /* Sidebar styles */
+      .app-container {
+        display: flex;
+        min-height: 100vh;
+      }
+      
+      .sidebar {
+        width: 250px;
+        background-color: #0d1b2a;
+        color: white;
+        padding: 1rem 0;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      }
+      
+      .sidebar-header {
+        padding: 0 1rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+      
+      .sidebar-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 1rem 0;
+      }
+      
+      .sidebar-nav .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s ease;
+      }
+      
+      .sidebar-nav .nav-link:hover,
+      .sidebar-nav .nav-link.active {
+        background-color: rgba(255,255,255,0.1);
+      }
+      
+      .sidebar-nav .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+      
+      /* Main content styles */
+      .main-content {
+        flex: 1;
+        padding: 1rem;
+      }
+      
+      .main-header {
+        background-color: #0d1b2a;
+        color: white;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+      }
+      
+      .main-header h1 {
+        margin: 0;
+      }
+      
+      /* Register form styles */
+      .register-container {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      
+      .register-container h2 {
+        font-size: 1.5rem;
+        color: #0d1b2a;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      
+      #registerForm {
+        display: grid;
+        gap: 1rem;
+      }
+      
+      #registerForm label {
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+      }
+      
+      #registerForm input,
+      #registerForm textarea {
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        width: 100%;
+      }
+      
+      #registerForm button {
+        background-color: #0d1b2a;
+        color: white;
+        border: none;
+        padding: 0.75rem 1rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 1rem;
+      }
+      
+      #registerForm button:hover {
+        background-color: #2c3e50;
+      }
+      
+      /* Feedback notification styles */
       .feedback {
         position: fixed;
         top: 20px;
@@ -16,7 +144,7 @@
         color: white;
         font-weight: 600;
         font-size: 1.1rem;
-        z-index: 2000; /* Increased to ensure it appears above the sidebar */
+        z-index: 2000;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         transition: right 0.4s ease-in-out, opacity 0.3s ease-in-out;
         animation: shake 0.3s ease-in-out;
@@ -46,94 +174,112 @@
           transform: translateX(5px);
         }
       }
+      
+      .message {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: green;
+        font-weight: 500;
+      }
     </style>
   </head>
   <body>
-    <!-- Fixed Header -->
-    <header class="fixed-header">
-      <h1>Company Register</h1>
-    </header>
+    <div class="app-container">
+      <!-- Sidebar Navigation -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2>Company Portal</h2>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="company_dashboard.html" class="nav-link"
+                ><i class="fas fa-home"></i>Dashboard</a
+              >
+            </li>
+            <li>
+              <a href="register.html" class="nav-link active"
+                ><i class="fas fa-user"></i>Register</a
+              >
+            </li>
+            <li>
+              <a href="upload-documents.html" class="nav-link"
+                ><i class="fas fa-upload"></i>Upload Documents</a
+              >
+            </li>
+            <li>
+              <a href="job-posts.html" class="nav-link"
+                ><i class="fas fa-briefcase"></i>Job Posts</a
+              >
+            </li>
+            <li>
+              <a href="evaluate.html" class="nav-link"
+                ><i class="fas fa-star"></i>Evaluate Intern</a
+              >
+            </li>
+            <li>
+              <a href="applications.html" class="nav-link"
+                ><i class="fas fa-paper-plane"></i>Applications</a
+              >
+            </li>
+            <li>
+              <a href="currentinterns.html" class="nav-link"
+                ><i class="fas fa-graduation-cap"></i>Current Interns</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <h2>Company Portal</h2>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li>
-            <a href="company_dashboard.html" class="nav-link">
-              <i class="fas fa-home"></i> Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="register.html" class="nav-link">
-              <i class="fas fa-user"></i> Register
-            </a>
-          </li>
-          <li>
-            <a href="upload-documents.html" class="nav-link">
-              <i class="fas fa-upload"></i> Upload Documents
-            </a>
-          </li>
-          <li>
-            <a href="job-posts.html" class="nav-link">
-              <i class="fas fa-briefcase"></i> Job Posts
-            </a>
-          </li>
-          <li>
-            <a href="evaluate.html" class="nav-link">
-              <i class="fas fa-star"></i> Evaluate Intern
-            </a>
-          </li>
-          <li>
-            <a href="applications.html" class="nav-link">
-              <i class="fas fa-paper-plane"></i> Applications
-            </a>
-          </li>
-          <li>
-            <a href="currentinterns.html" class="nav-link">
-              <i class="fas fa-graduation-cap"></i> Current Interns
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-    <main>
-      <div class="register-container">
-        <h2>Register Company</h2>
-        <form id="registerForm" enctype="multipart/form-data">
-          <label for="companyName">Company Name:</label>
-          <input type="text" id="companyName" name="companyName" required />
+      <!-- Main Content -->
+      <main class="main-content">
+        <header class="main-header">
+          <h1>SCAD System</h1>
+          <p class="subheading">Company Registration</p>
+        </header>
+        <section class="register-container">
+          <h2>Register Your Company</h2>
+          <form id="registerForm" enctype="multipart/form-data">
+            <label for="companyName">Company Name:</label>
+            <input type="text" id="companyName" name="companyName" required />
 
-          <label for="companyEmail">Company Email:</label>
-          <input type="email" id="companyEmail" name="companyEmail" required />
+            <label for="companyEmail">Company Email:</label>
+            <input
+              type="email"
+              id="companyEmail"
+              name="companyEmail"
+              required
+            />
 
-          <label for="companyPhone">Phone Number:</label>
-          <input type="tel" id="companyPhone" name="companyPhone" required />
+            <label for="companyPhone">Phone Number:</label>
+            <input type="tel" id="companyPhone" name="companyPhone" required />
 
-          <label for="companyAddress">Address:</label>
-          <textarea
-            id="companyAddress"
-            name="companyAddress"
-            required
-          ></textarea>
+            <label for="companyAddress">Address:</label>
+            <textarea
+              id="companyAddress"
+              name="companyAddress"
+              required
+            ></textarea>
 
-          <label for="companyLogo">Upload Company Logo:</label>
-          <input
-            type="file"
-            id="companyLogo"
-            name="companyLogo"
-            accept="image/*"
-            required
-          />
+            <label for="companyLogo">Upload Company Logo:</label>
+            <input
+              type="file"
+              id="companyLogo"
+              name="companyLogo"
+              accept="image/*"
+              required
+            />
 
-          <button type="submit">Register</button>
-          <!-- Message will appear here -->
-          <p id="registerMessage" class="message" style="margin-top: 10px"></p>
-        </form>
-      </div>
-    </main>
+            <button type="submit">Register</button>
+            <!-- Message will appear here -->
+            <p
+              id="registerMessage"
+              class="message"
+            ></p>
+          </form>
+        </section>
+      </main>
+    </div>
     <script src="js/register.js"></script>
     <script src="../GUC_Internship_System/js/register.js"></script>
   </body>

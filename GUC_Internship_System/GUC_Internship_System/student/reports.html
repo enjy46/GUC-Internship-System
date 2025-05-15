@@ -3,78 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Student Reports</title>
+  <title>Your Reports - Internship Portal</title>
   <link rel="stylesheet" href="css/student_base.css" />
   <link rel="stylesheet" href="css/reports.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .grid-buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-save {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
+    }
+    .dashboard-btn:hover::after {
+      content: none !important;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Internship Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="student_dashboard.html">Job Listings</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a href="internships.html">Internships</a></li>
-          <li><a href="evaluations.html">Evaluations</a></li>
-          <li><a href="reports.html" class="active">Reports</a></li>
-          <li><a href="courses.html">Courses</a></li>
-          <li><a href="applications.html">Applications</a></li>
-          <li><a href="notifications.html">Notifications</a></li>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="internships copy.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
+          <li><a href="evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li>
+          <!-- <li><a href="reports.html" class="nav-link active"><i class="fas fa-file-alt"></i>Reports</a></li> -->
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Internship Reports</h1>
+        <h1>Your Reports</h1>
       </header>
 
-      <section class="report-section card">
-        <form id="internshipReportForm">
-          <label for="reportTitle">Report Title</label>
-          <input type="text" id="reportTitle" placeholder="Enter report title" required>
-
-          <label for="reportIntro">Introduction:</label>
-          <textarea id="reportIntro" placeholder="Write the introduction..." required></textarea>
-
-          <label for="reportBody">Report Body:</label>
-          <textarea id="reportBody" placeholder="Write the main content..." required></textarea>
-
-          <div class="report-buttons">
-            <button type="button" onclick="saveReport()">Save Report</button>
-            <button type="button" onclick="deleteReport()">Delete Report</button>
-            <button type="button" onclick="downloadReportAsPDF()">Download as PDF</button>
-          </div>
-        </form>
-      </section>
-
-      <section class="comments-section card">
-        <h2>Comments on Your Internship Report</h2>
-        <div id="commentsContainer">
-          <!-- Comments will be dynamically populated -->
-          <p>No comments available.</p>
+      <section class="dashboard-container">
+        <div class="report-section card">
+          <h2>Internship Report</h2>
+          <form id="internshipReportForm">
+            <div class="form-group">
+              <label for="reportTitle">Report Title</label>
+              <input type="text" id="reportTitle" placeholder="Enter report title" required>
+            </div>
+            <div class="form-group">
+              <label for="reportIntro">Introduction</label>
+              <textarea id="reportIntro" placeholder="Write the introduction..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="reportBody">Report Body</label>
+              <textarea id="reportBody" placeholder="Write the main content..." required></textarea>
+            </div>
+            <div class="grid-buttons">
+              <button type="button" class="dashboard-btn btn-save" onclick="saveReport()">Save Report</button>
+              <button type="button" class="dashboard-btn btn-delete" onclick="deleteReport()">Delete Report</button>
+              <button type="button" class="dashboard-btn btn-download" onclick="downloadReportAsPDF()">Download as PDF</button>
+            </div>
+          </form>
         </div>
-      </section>
 
-      <section class="appeal-section card">
-        <h2>Appeal a Flagged or Rejected Report</h2>
-        <div id="appealContainer">
-          <select id="reportToAppeal">
-            <!-- Options will be dynamically populated -->
-          </select>
-          <textarea id="appealMessage" placeholder="Write your appeal message here..." rows="5" style="width: 100%;"></textarea>
-          <button onclick="submitAppeal()">Submit Appeal</button>
+        <div class="comments-section card">
+          <h2>Comments on Your Internship Report</h2>
+          <div id="commentsContainer">
+            <p>No comments available.</p>
+          </div>
+        </div>
+
+        <div class="appeal-section card">
+          <h2>Appeal a Flagged or Rejected Report</h2>
+          <div id="appealContainer">
+            <div class="form-group">
+              <select id="reportToAppeal">
+                <!-- Options will be dynamically populated -->
+              </select>
+            </div>
+            <div class="form-group">
+              <textarea id="appealMessage" placeholder="Write your appeal message here..." rows="5"></textarea>
+            </div>
+            <div class="grid-buttons">
+              <button class="dashboard-btn btn-save" onclick="submitAppeal()">Submit Appeal</button>
+            </div>
+          </div>
         </div>
       </section>
     </main>
   </div>
 
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
   <script src="js/reports.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="js/modules/pdfGenerator.js"></script>
+  <script src="../js/modules/pdfGenerator.js"></script>
 </body>
 </html>

@@ -3,41 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Student Notifications</title>
+  <title>Your Notifications - Internship Portal</title>
   <link rel="stylesheet" href="css/student_base.css" />
   <link rel="stylesheet" href="css/notifications.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .grid-buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-save {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
+    }
+    .dashboard-btn:hover::after {
+      content: none !important;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
         <h2>Internship Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="student_dashboard.html">Job Listings</a></li>
-          <li><a href="profile.html">Profile</a></li>
-          <li><a href="internships.html">Internships</a></li>
-          <li><a href="evaluations.html">Evaluations</a></li>
-          <li><a href="reports.html">Reports</a></li>
-          <li><a href="courses.html">Courses</a></li>
-          <li><a href="applications.html">Applications</a></li>
-          <li><a href="notifications.html" class="active">Notifications</a></li>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="internships copy.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
+          <!-- <li><a href="evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li> -->
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="notifications.html" class="nav-link active"><i class="fas fa-bell"></i>Notifications</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Notifications</h1>
+        <h1>Your Notifications</h1>
       </header>
 
-      <section class="card">
-        <p>Your notifications will be displayed here.</p>
+      <section class="dashboard-container">
+        <div class="notifications-section card">
+          <h2>Notifications</h2>
+          <div id="notificationsList">
+            <p>Your notifications will be displayed here.</p>
+          </div>
+        </div>
       </section>
     </main>
   </div>
+
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
 
   <script src="js/notifications.js"></script>
 </body>

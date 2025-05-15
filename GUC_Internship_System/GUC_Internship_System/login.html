@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <title>SCAD System Login</title>
   <link rel="stylesheet" href="css/login.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     body {
       margin: 0;
       padding: 0;
       height: 100vh;
       font-family: 'Inter', sans-serif;
-      background:  #001f3f;
+      background: linear-gradient(135deg, #001f3f 0%, #0d1b2a 100%);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -25,29 +26,55 @@
       text-align: center;
       max-width: 420px;
       width: 100%;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     h2 {
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       font-size: 2rem;
       color: #0d1b2a;
+      font-weight: 600;
     }
 
-    input, select {
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #666;
+    }
+
+    input {
       width: 100%;
-      padding: 1rem;
-      margin: 0.7rem 0;
-      border: 1px solid #ccc;
+      padding: 1rem 1rem 1rem 3rem;
+      border: 2px solid #e1e1e1;
       border-radius: 12px;
       font-size: 1rem;
-      background-color: #f4f6f9;
-      transition: 0.3s;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
     }
 
-    input:focus, select:focus {
+    input:focus {
       border-color: #001f3f;
       background-color: #fff;
       outline: none;
+      box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.1);
     }
 
     button {
@@ -61,36 +88,68 @@
       border-radius: 12px;
       margin-top: 1rem;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     button:hover {
       background-color: #2c3e50;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active {
+      transform: translateY(0);
     }
 
     #errorMsg {
       color: #d32f2f;
       margin-top: 1rem;
-      font-weight: 600;
+      font-weight: 500;
+      padding: 0.75rem;
+      border-radius: 8px;
+      background-color: rgba(211, 47, 47, 0.1);
+      display: none;
+      animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    .forgot-password {
+      display: block;
+      margin-top: 1rem;
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .forgot-password:hover {
+      color: #001f3f;
     }
   </style>
 </head>
 <body>
   <div class="login-container">
-    <h2>Login to SCAD System</h2>
+    <h2>Welcome Back</h2>
     <form id="loginForm">
-      <input type="email" id="email" placeholder="Email" required />
-      <input type="password" id="password" placeholder="Password" required />
-      <select id="role" required>
-        <option value="">Select Role</option>
-        <option value="company">Company</option>
-        <option value="student">Student</option>
-        <option value="scad">SCAD Office</option>
-        <option value="faculty">Faculty Member</option>
-      </select>
-      <button type="submit">Login</button>
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="email" placeholder="Email" required />
+      </div>
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+      <button type="submit">Sign In</button>
+      <a href="forgot_password.html" class="forgot-password">Forgot Password?</a>
     </form>
-    <p id="errorMsg" style="display: none;">Invalid login credentials or role!</p>
+    <p id="errorMsg">Invalid email or password!</p>
   </div>
   <script src="js/main.js"></script>
 </body>

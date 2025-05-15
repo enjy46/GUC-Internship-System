@@ -589,4 +589,33 @@ function downloadReportAsPDF() {
   generatePDF(title, content);
 }
 
+// Set up modal functionality
+function setupModals() {
+  // Close internship details modal
+  document.getElementById("closeInternshipModal").addEventListener("click", function() {
+    document.getElementById("internshipDetailsModal").style.display = "none";
+  });
+  
+  // Close report modal
+  document.getElementById("closeReportModal").addEventListener("click", function() {
+    document.getElementById("reportModal").style.display = "none";
+  });
+  
+  // Close modals when clicking outside
+  window.addEventListener("click", function(event) {
+    const modals = document.querySelectorAll(".modal");
+    modals.forEach(modal => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+  
+  // Update profile button
+  document.getElementById("updateProfileBtn").addEventListener("click", function(e) {
+    e.preventDefault();
+    alert("Profile updated successfully!");
+  });
+}
+
 

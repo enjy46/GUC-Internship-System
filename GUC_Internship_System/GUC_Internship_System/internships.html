@@ -1,36 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Available Internships</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .filters input, .filters select {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .filters input:hover, .filters select:hover {
+      border-color: #001f3f;
+    }
+    .filters input:focus, .filters select:focus {
+      border-color: #001f3f;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+    }
+    .internship-list {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+  </style>
 </head>
 <body>
-  <h1>Available Internships</h1>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student/student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="student/profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
+          <li><a href="internships.html" class="nav-link active"><i class="fas fa-briefcase"></i>Internships</a></li>
+          <li><a href="student/evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li>
+          <li><a href="student/reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="student/courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="student/notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
+        </ul>
+      </nav>
+    </aside>
 
-  <section class="filters">
-    <input type="text" id="searchTitle" placeholder="Search by Job Title or Company">
-    <select id="industryFilter">
-      <option value="">All Industries</option>
-      <option value="Tech">Tech</option>
-      <option value="Finance">Finance</option>
-      <option value="Healthcare">Healthcare</option>
-      <option value="Education">Education</option>
-    </select>
-    <select id="durationFilter">
-      <option value="">All Durations</option>
-      <option value="1 month">1 month</option>
-      <option value="2 months">2 months</option>
-      <option value="3+ months">3+ months</option>
-    </select>
-    <select id="paidFilter">
-      <option value="">All</option>
-      <option value="paid">Paid</option>
-      <option value="unpaid">Unpaid</option>
-    </select>
-  </section>
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Available Internships</h1>
+      </header>
 
-  <section id="internshipList" class="internship-list"></section>
+      <section class="dashboard-container">
+        <div class="filters">
+          <input type="text" id="searchTitle" placeholder="Search by Job Title or Company">
+          <select id="industryFilter">
+            <option value="">All Industries</option>
+            <option value="Tech">Tech</option>
+            <option value="Finance">Finance</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Education">Education</option>
+          </select>
+          <select id="durationFilter">
+            <option value="">All Durations</option>
+            <option value="1 month">1 month</option>
+            <option value="2 months">2 months</option>
+            <option value="3+ months">3+ months</option>
+          </select>
+          <select id="paidFilter">
+            <option value="">All</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+          </select>
+        </div>
+
+        <section id="internshipList" class="internship-list"></section>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
 
   <script src="js/internships.js"></script>
 </body>

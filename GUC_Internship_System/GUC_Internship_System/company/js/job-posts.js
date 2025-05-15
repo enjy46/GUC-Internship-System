@@ -3,6 +3,7 @@ const jobPostsTableBody = document.querySelector('#jobPostsTable tbody');
 const submitBtn = document.getElementById('submitBtn');
 const cancelBtn = document.getElementById('cancelBtn');
 const jobIdInput = document.getElementById('jobId');
+const alertNotification = document.getElementById('alertNotification');
 
 let jobPosts = JSON.parse(localStorage.getItem('jobPosts')) || [];
 
@@ -47,6 +48,19 @@ function fillForm(post, index) {
   cancelBtn.style.display = 'inline-block';
 }
 
+// Show alert notification
+function showAlert(message, type) {
+  alertNotification.textContent = message;
+  alertNotification.className = 'alert-notification';
+  alertNotification.classList.add(`alert-${type}`);
+  alertNotification.style.display = 'block';
+  
+  // Auto-hide the alert after 5 seconds
+  setTimeout(() => {
+    alertNotification.style.display = 'none';
+  }, 5000);
+}
+
 jobPostForm.addEventListener('submit', function(event) {
   event.preventDefault();
 
@@ -58,12 +72,12 @@ jobPostForm.addEventListener('submit', function(event) {
   const skillsRequired = document.getElementById('skillsRequired').value.trim();
 
   if (!title || !description || !duration || !paidUnpaid || !skillsRequired) {
-    alert('Please fill in all required fields.');
+    showAlert('Please fill in all required fields.', 'error');
     return;
   }
 
   if (paidUnpaid === 'paid' && !salary) {
-    alert('Please enter the expected salary for paid internships.');
+    showAlert('Please enter the expected salary for paid internships.', 'error');
     return;
   }
 
@@ -81,9 +95,11 @@ jobPostForm.addEventListener('submit', function(event) {
   if (jobId === '') {
     // Create new job post
     jobPosts.push(jobPost);
+    showAlert('Job post created successfully!', 'success');
   } else {
     // Update existing job post
     jobPosts[jobId] = jobPost;
+    showAlert('Job post updated successfully!', 'success');
   }
 
   localStorage.setItem('jobPosts', JSON.stringify(jobPosts));
@@ -106,6 +122,7 @@ jobPostsTableBody.addEventListener('click', function(event) {
       localStorage.setItem('jobPosts', JSON.stringify(jobPosts));
       renderJobPosts();
       clearForm();
+      showAlert('Job post deleted successfully!', 'success');
     }
   }
 });
