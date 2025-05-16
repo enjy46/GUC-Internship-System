@@ -332,6 +332,166 @@
         grid-template-columns: 1fr;
       }
     }
+
+    .status-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .status-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .status-item.accepted {
+      background-color: #F0FFF0;
+      color: #006400;
+      border: 1px solid #98FB98;
+    }
+
+    .status-item.rejected {
+      background-color: #FFE4E1;
+      color: #B22222;
+      border: 1px solid #FF6347;
+    }
+
+    .status-item.flagged {
+      background-color: #FFE4C4;
+      color: #8B4513;
+      border: 1px solid #DEB887;
+    }
+
+    .status-label {
+      font-size: 0.9rem;
+    }
+
+    .status-count {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .courses-list, .companies-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+    }
+
+    .courses-list li, .companies-list li {
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 0.9rem;
+    }
+
+    .courses-list li:last-child, .companies-list li:last-child {
+      border-bottom: none;
+    }
+
+    .evaluation-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .evaluation-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .evaluation-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .evaluation-card h4 {
+      color: #0d1b2a;
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+    }
+
+    .rating-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .rating-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .rating-label {
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    .rating-value {
+      font-weight: 600;
+      color: #0d1b2a;
+      font-size: 1.1rem;
+    }
+
+    .company-ratings-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .company-ratings-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 0.75rem;
+    }
+
+    .company-ratings-list li:last-child {
+      margin-bottom: 0;
+    }
+
+    .company-name {
+      font-weight: 500;
+      color: #0d1b2a;
+    }
+
+    .rating-stars {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .rating-stars i {
+      color: #ffc107;
+    }
+
+    .rating-score {
+      font-weight: 600;
+      color: #0d1b2a;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .evaluation-stats {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -406,49 +566,60 @@
 
       <!-- Statistics Overview -->
       <div class="statistics-grid">
-        <!-- Total Students Card -->
+        <!-- Report Status Statistics -->
         <div class="stat-card">
-          <h4>Total Students</h4>
-          <p id="totalStudentsCount">450</p>
-          <p class="trend-up"><i class="fas fa-arrow-up"></i> 5% from last year</p>
-        </div>
-        
-        <!-- Internship Placement Rate -->
-        <div class="stat-card">
-          <h4>Internship Placement Rate</h4>
-          <p id="placementRateCount">87%</p>
-          <p class="trend-up"><i class="fas fa-arrow-up"></i> 3% from last year</p>
-          <div class="progress-container">
-            <div class="progress-bar" style="width: 87%"></div>
+          <h4>Report Status</h4>
+          <div class="status-stats">
+            <div class="status-item accepted">
+              <span class="status-label">Accepted</span>
+              <span class="status-count" id="acceptedReportsCount">350</span>
+            </div>
+            <div class="status-item rejected">
+              <span class="status-label">Rejected</span>
+              <span class="status-count" id="rejectedReportsCount">25</span>
+            </div>
+            <div class="status-item flagged">
+              <span class="status-label">Flagged</span>
+              <span class="status-count" id="flaggedReportsCount">15</span>
+            </div>
           </div>
         </div>
-        
-        <!-- Average Internship Duration -->
-        <div class="stat-card">
-          <h4>Average Internship Duration</h4>
-          <p id="avgDurationCount">4.2 months</p>
-          <p class="trend-up"><i class="fas fa-arrow-up"></i> 0.5 months from last year</p>
-        </div>
-        
-        <!-- Reports Submitted -->
-        <div class="stat-card">
-          <h4>Reports Submitted</h4>
-          <p id="reportsSubmittedCount">395</p>
-          <p class="trend-up"><i class="fas fa-arrow-up"></i> 12% from last year</p>
-        </div>
-        
-        <!-- Reports Accepted -->
-        <div class="stat-card">
-          <h4>Reports Accepted</h4>
-          <p id="reportsAcceptedCount">350</p>
-          <p class="trend-neutral"><i class="fas fa-arrows-alt-h"></i> Similar to last year</p>
-        </div>
-        
+
         <!-- Average Review Time -->
         <div class="stat-card">
           <h4>Average Review Time</h4>
           <p id="avgReviewTimeCount">4.5 days</p>
-          <p class="trend-down"><i class="fas fa-arrow-down"></i> 1.2 days from last year</p>
+          <p class="trend-down"><i class="fas fa-arrow-down"></i> 1.2 days from last cycle</p>
+        </div>
+
+        <!-- Most Used Courses -->
+        <div class="stat-card">
+          <h4>Most Used Courses</h4>
+          <ul id="mostUsedCoursesList" class="courses-list">
+            <li>Algorithms (60 students)</li>
+            <li>Database Systems (45 students)</li>
+            <li>Business Analytics (40 students)</li>
+          </ul>
+        </div>
+
+        <!-- Top Rated Companies -->
+        <div class="stat-card">
+          <h4>Top Rated Companies</h4>
+          <ul id="topRatedCompaniesList" class="companies-list">
+            <li>InnovateTech (4.8/5)</li>
+            <li>BuildSmart (4.7/5)</li>
+            <li>MarketLeaders (4.6/5)</li>
+          </ul>
+        </div>
+
+        <!-- Top Companies by Count -->
+        <div class="stat-card">
+          <h4>Top Companies by Internship Count</h4>
+          <ul id="topCompaniesByCountList" class="companies-list">
+            <li>InnovateTech (60 interns)</li>
+            <li>BuildSmart (50 interns)</li>
+            <li>MarketLeaders (40 interns)</li>
+          </ul>
         </div>
       </div>
 
@@ -486,8 +657,68 @@
         </div>
       </div>
 
-      <!-- Most Used Courses -->
-      
+      <!-- Add new section for Top Companies based on student evaluations -->
+      <div class="card">
+        <h3><i class="fas fa-star"></i> Top Companies by Student Evaluation</h3>
+        <div class="evaluation-stats">
+          <div class="chart-container">
+            <canvas id="companyEvaluationChart"></canvas>
+          </div>
+          <div class="evaluation-details">
+            <div class="evaluation-card">
+              <h4>Overall Ratings</h4>
+              <div class="rating-stats">
+                <div class="rating-item">
+                  <span class="rating-label">Average Rating</span>
+                  <span class="rating-value">4.7/5</span>
+                </div>
+                <div class="rating-item">
+                  <span class="rating-label">Total Evaluations</span>
+                  <span class="rating-value">150</span>
+                </div>
+              </div>
+            </div>
+            <div class="evaluation-card">
+              <h4>Top Rated Companies</h4>
+              <ul class="company-ratings-list">
+                <li>
+                  <span class="company-name">InnovateTech</span>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="rating-score">4.8</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="company-name">BuildSmart</span>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span class="rating-score">4.7</span>
+                  </div>
+                </li>
+                <li>
+                  <span class="company-name">MarketLeaders</span>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span class="rating-score">4.6</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- Export Button -->
       <div class="export-container">
@@ -796,34 +1027,113 @@
       
       doc.text(`Filters: Academic Year: ${academicYear}, Major: ${major}, Semester: ${semester}`, 10, 30);
       
-      // Add key statistics
+      // Add report status statistics
       doc.setFontSize(14);
-      doc.text("Key Statistics", 10, 40);
-      
+      doc.text("Report Status Statistics", 10, 45);
       doc.setFontSize(12);
-      doc.text(`Total Students: ${document.getElementById('totalStudentsCount').textContent}`, 10, 50);
-      doc.text(`Placement Rate: ${document.getElementById('placementRateCount').textContent}`, 10, 60);
-      doc.text(`Average Duration: ${document.getElementById('avgDurationCount').textContent}`, 10, 70);
-      doc.text(`Reports Submitted: ${document.getElementById('reportsSubmittedCount').textContent}`, 10, 80);
-      doc.text(`Reports Accepted: ${document.getElementById('reportsAcceptedCount').textContent}`, 10, 90);
-      doc.text(`Average Review Time: ${document.getElementById('avgReviewTimeCount').textContent}`, 10, 100);
+      doc.text(`Accepted Reports: ${document.getElementById('acceptedReportsCount').textContent}`, 15, 55);
+      doc.text(`Rejected Reports: ${document.getElementById('rejectedReportsCount').textContent}`, 15, 65);
+      doc.text(`Flagged Reports: ${document.getElementById('flaggedReportsCount').textContent}`, 15, 75);
+      
+      // Add average review time
+      doc.setFontSize(14);
+      doc.text("Review Time Statistics", 10, 90);
+      doc.setFontSize(12);
+      doc.text(`Average Review Time: ${document.getElementById('avgReviewTimeCount').textContent}`, 15, 100);
       
       // Add most used courses
       doc.setFontSize(14);
-      doc.text("Most Used Courses in Internships", 10, 120);
-      
+      doc.text("Most Used Courses in Internships", 10, 115);
       doc.setFontSize(12);
       const courses = document.querySelectorAll('#mostUsedCoursesList li');
       courses.forEach((course, index) => {
-        doc.text(`- ${course.textContent}`, 15, 130 + (index * 10));
+        doc.text(`- ${course.textContent}`, 15, 125 + (index * 10));
+      });
+      
+      // Add top rated companies
+      const topRatedY = 125 + (courses.length * 10);
+      doc.setFontSize(14);
+      doc.text("Top Rated Companies", 10, topRatedY);
+      doc.setFontSize(12);
+      const topRated = document.querySelectorAll('#topRatedCompaniesList li');
+      topRated.forEach((company, index) => {
+        doc.text(`- ${company.textContent}`, 15, topRatedY + 10 + (index * 10));
+      });
+      
+      // Add top companies by count
+      const topCountY = topRatedY + 10 + (topRated.length * 10);
+      doc.setFontSize(14);
+      doc.text("Top Companies by Internship Count", 10, topCountY);
+      doc.setFontSize(12);
+      const topCount = document.querySelectorAll('#topCompaniesByCountList li');
+      topCount.forEach((company, index) => {
+        doc.text(`- ${company.textContent}`, 15, topCountY + 10 + (index * 10));
       });
       
       // Save the PDF
       doc.save("Faculty-Statistics-Report.pdf");
       
-      // Show notification instead of alert
+      // Show notification
       showNotification("Statistics report has been generated and downloaded successfully!", "success");
     }
+
+    // Initialize the company evaluation chart
+    function initializeCompanyEvaluationChart() {
+      const ctx = document.getElementById('companyEvaluationChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['InnovateTech', 'BuildSmart', 'MarketLeaders', 'TechCorp', 'GlobalSoft'],
+          datasets: [{
+            label: 'Average Rating',
+            data: [4.8, 4.7, 4.6, 4.5, 4.4],
+            backgroundColor: [
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(13, 27, 42, 0.7)'
+            ],
+            borderColor: [
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)',
+              'rgba(13, 27, 42, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Company Ratings by Students'
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 5,
+              title: {
+                display: true,
+                text: 'Rating (out of 5)'
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Call the function when the page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeCompanyEvaluationChart();
+    });
   </script>
 </body>
 </html>

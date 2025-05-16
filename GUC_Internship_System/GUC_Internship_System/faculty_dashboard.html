@@ -401,7 +401,6 @@
       max-width: 320px;
       padding: 14px 28px;
       border-radius: 8px;
-      color: white;
       font-weight: 600;
       font-size: 1.1rem;
       z-index: 2000;
@@ -415,17 +414,152 @@
     }
 
     .toast-notification.success {
-      background-color: #388e3c;
+      background-color: #F0FFF0;
+      color: #006400;
+      border: 2px solid #98FB98;
     }
 
     .toast-notification.error {
-      background-color: #c62828;
+      background-color: #FFE4E1;
+      color: #B22222;
+      border: 2px solid #FF6347;
+    }
+
+    .toast-notification.warning {
+      background-color: #FFE4C4;
+      color: #8B4513;
+      border: 2px solid #DEB887;
     }
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       25% { transform: translateX(-5px); }
       75% { transform: translateX(5px); }
+    }
+
+    /* Add PDF download button styles */
+    .download-btn {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .download-btn:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    .download-btn i {
+      font-size: 1rem;
+    }
+
+    /* Add report card styles */
+    .report-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: #0d1b2a;
+    }
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin: 0;
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .report-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .report-meta i {
+      color: #0d1b2a;
+    }
+
+    .status-select {
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .status-select.flagged {
+      color: #8B4513;
+      border-color: #DEB887 !important;
+      background-color: #FFE4C4 !important;
+    }
+
+    .status-select.rejected {
+      color: #B22222;
+      border-color: #FF6347 !important;
+      background-color: #FFE4E1 !important;
+    }
+
+    .status-select.accepted {
+      color: #006400;
+      border-color: #98FB98 !important;
+      background-color: #F0FFF0 !important;
+    }
+
+    .status-select:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Style for the select options */
+    .status-select option {
+      padding: 8px;
+    }
+
+    .status-select option[value="flagged"] {
+      background-color: #FFE4C4;
+      color: #8B4513;
+    }
+
+    .status-select option[value="rejected"] {
+      background-color: #FFE4E1;
+      color: #B22222;
+    }
+
+    .status-select option[value="accepted"] {
+      background-color: #F0FFF0;
+      color: #006400;
     }
   </style>
 </head>
@@ -495,7 +629,6 @@
             </select>
             <select id="filterByStatus">
               <option value="">All Statuses</option>
-              <option value="pending">Pending</option>
               <option value="flagged">Flagged</option>
               <option value="rejected">Rejected</option>
               <option value="accepted">Accepted</option>
@@ -554,50 +687,464 @@
     </div>
   </div>
 
-  <!-- Include jsPDF and the reusable PDF generator -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="js/modules/pdfGenerator.js"></script>
-  <script src="js/faculty_dashboard.js"></script>
+  <!-- Include jsPDF and html2canvas libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <script>
     let selectedReport = null; // Track the selected report for clarification
 
-    // Mock function to fetch all submitted reports (replace with actual API or database call)
-    function fetchAllReports() {
-      console.log("Fetching all reports...");
-      const reports = [
-        { title: "Internship at TechCorp", student: "Alice", date: "2025-05-01", status: "flagged" },
-        { title: "Internship at BuildIt", student: "Bob", date: "2025-04-15", status: "rejected" },
-        { title: "Internship at BizWorld", student: "Charlie", date: "2025-03-20", status: "accepted" },
+    // Initialize global variables for data
+    let allStudents = [];
+    let allReports = [];
+
+    // Function to fetch all students (mock example)
+    function fetchAllStudents() {
+      console.log("Fetching all students...");
+      const statusFilter = document.getElementById("statusFilter").value;
+      console.log("Selected status filter:", statusFilter);
+      
+      // Initialize the allStudents array with mock data
+      allStudents = [
+        { 
+          name: "Alice Johnson", 
+          id: "1001", 
+          major: "Computer Science", 
+          status: "current intern",
+          company: "TechCorp",
+          position: "Software Developer Intern",
+          startDate: "2025-01-01",
+          endDate: "2025-06-30",
+          supervisor: "John Smith",
+          rating: "Excellent",
+          comments: "Outstanding performance"
+        },
+        { 
+          name: "Bob Smith", 
+          id: "1002", 
+          major: "Engineering", 
+          status: "internship complete",
+          company: "BuildIt",
+          position: "Engineering Intern",
+          startDate: "2024-06-01",
+          endDate: "2024-12-31",
+          supervisor: "Jane Doe",
+          rating: "Good",
+          comments: "Good technical skills"
+        },
+        { 
+          name: "Charlie Davis", 
+          id: "1003", 
+          major: "Business", 
+          status: "not started",
+          company: "N/A",
+          position: "N/A",
+          startDate: "N/A",
+          endDate: "N/A",
+          supervisor: "N/A",
+          rating: "N/A",
+          comments: "N/A"
+        },
+        { 
+          name: "David Wilson", 
+          id: "1004", 
+          major: "Computer Science", 
+          status: "current intern",
+          company: "DataTech",
+          position: "Data Science Intern",
+          startDate: "2025-02-01",
+          endDate: "2025-07-31",
+          supervisor: "Mike Johnson",
+          rating: "Excellent",
+          comments: "Strong analytical skills"
+        },
+        { 
+          name: "Eva Brown", 
+          id: "1005", 
+          major: "Engineering", 
+          status: "not started",
+          company: "N/A",
+          position: "N/A",
+          startDate: "N/A",
+          endDate: "N/A",
+          supervisor: "N/A",
+          rating: "N/A",
+          comments: "N/A"
+        }
       ];
-      displayReports(reports);
+      
+      displayStudents(allStudents);
     }
 
-    // Function to display reports in the list
+    // Function to display students
+    function displayStudents(students) {
+      const studentsList = document.getElementById("studentsList");
+      const statusFilter = document.getElementById("statusFilter").value;
+      
+      studentsList.innerHTML = ""; // Clear the list
+      
+      const filteredStudents = statusFilter ? 
+        students.filter(student => student.status === statusFilter) : 
+        students;
+      
+      if (filteredStudents.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No students found with the selected status.";
+        li.style.textAlign = "center";
+        li.style.padding = "2rem";
+        li.style.color = "#666";
+        studentsList.appendChild(li);
+        return;
+      }
+      
+      filteredStudents.forEach(student => {
+        const card = document.createElement("div");
+        card.className = "report-card";
+        
+        card.innerHTML = `
+          <div class="report-header">
+            <div>
+              <h4 class="report-title">${student.name}</h4>
+              <div class="report-meta">
+                <span><i class="fas fa-id-card"></i> ${student.id}</span>
+                <span><i class="fas fa-graduation-cap"></i> ${student.major}</span>
+                <span><i class="fas fa-info-circle"></i> ${student.status}</span>
+              </div>
+            </div>
+            <div class="report-actions">
+              <button class="download-btn" onclick="generateStudentReport('${student.id}')">
+                <i class="fas fa-file-pdf"></i> PDF
+              </button>
+            </div>
+          </div>
+        `;
+        
+        studentsList.appendChild(card);
+      });
+
+      // Add "Download All" button if there are students
+      if (filteredStudents.length > 0) {
+        const downloadAllBtn = document.createElement("button");
+        downloadAllBtn.className = "primary-button";
+        downloadAllBtn.style.marginTop = "1rem";
+        downloadAllBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download All Reports';
+        downloadAllBtn.onclick = generateAllStudentsReport;
+        studentsList.appendChild(downloadAllBtn);
+      }
+    }
+
+    // Function to generate a PDF report for a student
+    function generateStudentReport(studentId) {
+      console.log("Generating report for student:", studentId);
+      const student = allStudents.find(s => s.id === studentId);
+      if (!student) {
+        console.error('Student not found:', studentId);
+        alert('Student not found. Please try again.');
+        return;
+      }
+
+      try {
+        const doc = new jsPDF();
+        
+        // Add title
+        doc.setFontSize(18);
+        doc.text("Student Internship Report", 20, 20);
+
+        // Add student information
+        doc.setFontSize(12);
+        doc.text(`Student Name: ${student.name}`, 20, 40);
+        doc.text(`Student ID: ${student.id}`, 20, 50);
+        doc.text(`Major: ${student.major}`, 20, 60);
+        doc.text(`Status: ${student.status}`, 20, 70);
+
+        // Add internship details
+        doc.setFontSize(14);
+        doc.text("Internship Details", 20, 90);
+        doc.setFontSize(12);
+        doc.text(`Company: ${student.company}`, 20, 100);
+        doc.text(`Position: ${student.position}`, 20, 110);
+        doc.text(`Start Date: ${student.startDate}`, 20, 120);
+        doc.text(`End Date: ${student.endDate}`, 20, 130);
+
+        // Add evaluation information
+        doc.setFontSize(14);
+        doc.text("Evaluation Information", 20, 150);
+        doc.setFontSize(12);
+        doc.text(`Supervisor: ${student.supervisor}`, 20, 160);
+        doc.text(`Rating: ${student.rating}`, 20, 170);
+        doc.text(`Comments: ${student.comments}`, 20, 180);
+
+        // Add footer
+        const currentDate = new Date().toLocaleDateString();
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${currentDate}`, 20, 280);
+
+        // Save the PDF
+        doc.save(`Student-Report-${student.id}.pdf`);
+        console.log("PDF generated successfully for student:", studentId);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Error generating PDF. Please try again.');
+      }
+    }
+
+    // Function to generate a PDF report for all students
+    function generateAllStudentsReport() {
+      console.log("Generating report for all students");
+      try {
+        const doc = new jsPDF();
+
+        // Add title
+        doc.setFontSize(18);
+        doc.text("All Students Report", 20, 20);
+
+        // Add current date
+        const currentDate = new Date().toLocaleDateString();
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${currentDate}`, 20, 30);
+
+        // Add student information
+        doc.setFontSize(12);
+        let yPosition = 50;
+        
+        allStudents.forEach((student, index) => {
+          if (yPosition > 270) {
+            doc.addPage();
+            yPosition = 20;
+          }
+
+          doc.text(`Student ${index + 1}:`, 20, yPosition);
+          doc.text(`Name: ${student.name}`, 30, yPosition + 10);
+          doc.text(`ID: ${student.id}`, 30, yPosition + 20);
+          doc.text(`Major: ${student.major}`, 30, yPosition + 30);
+          doc.text(`Status: ${student.status}`, 30, yPosition + 40);
+          yPosition += 60;
+        });
+
+        // Save the PDF
+        doc.save("All-Students-Report.pdf");
+        console.log("PDF generated successfully for all students");
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Error generating PDF. Please try again.');
+      }
+    }
+
+    // Function to fetch all reports (mock example)
+    function fetchAllReports() {
+      console.log("Fetching all reports...");
+      
+      // Initialize the allReports array with mock data
+      allReports = [
+        { 
+          id: "R001", 
+          title: "Internship at TechCorp", 
+          student: { 
+            id: "1001", 
+            name: "Alice Johnson", 
+            email: "alice.johnson@example.com", 
+            major: "Computer Science", 
+            status: "current intern", 
+            details: "Working at TechCorp" 
+          }, 
+          status: "flagged",
+          date: "2025-05-01",
+          content: "Detailed report about internship experience at TechCorp",
+          feedback: "Needs clarification on project scope"
+        },
+        { 
+          id: "R002", 
+          title: "Internship at BuildIt", 
+          student: { 
+            id: "1002", 
+            name: "Bob Smith", 
+            email: "bob.smith@example.com", 
+            major: "Engineering", 
+            status: "internship complete", 
+            details: "Completed internship at BuildIt" 
+          }, 
+          status: "rejected",
+          date: "2025-04-15",
+          content: "Final report for BuildIt internship",
+          feedback: "Insufficient technical details"
+        },
+        { 
+          id: "R003", 
+          title: "Internship at BizWorld", 
+          student: { 
+            id: "1003", 
+            name: "Charlie Davis", 
+            email: "charlie.davis@example.com", 
+            major: "Business", 
+            status: "not started", 
+            details: "Looking for opportunities" 
+          }, 
+          status: "accepted",
+          date: "2025-03-20",
+          content: "Business analysis report for BizWorld",
+          feedback: "Well-structured and comprehensive"
+        }
+      ];
+
+      filterReports();
+    }
+
+    // Function to display reports
     function displayReports(reports) {
       const reportsList = document.getElementById("reportsList");
       reportsList.innerHTML = ""; // Clear the list before populating
 
-      reports.forEach(report => {
+      if (!reports || reports.length === 0) {
         const li = document.createElement("li");
-        li.textContent = `Title: ${report.title}, Student: ${report.student}, Date: ${report.date}, Status: ${report.status}`;
-        if (report.status === "flagged" || report.status === "rejected") {
-          const button = document.createElement("button");
-          button.textContent = "Add Clarification";
-          button.className = "primary-button";
-          button.style.marginLeft = "10px";
-          button.onclick = () => openClarificationModal(report);
-          li.appendChild(button);
-        }
+        li.textContent = "No reports found.";
         reportsList.appendChild(li);
+        return;
+      }
+
+      reports.forEach(report => {
+        const card = document.createElement("div");
+        card.className = "report-card";
+        
+        card.innerHTML = `
+          <div class="report-header">
+            <div>
+              <h4 class="report-title">${report.title}</h4>
+              <div class="report-meta">
+                <span><i class="fas fa-user"></i> ${report.student.name}</span>
+                <span><i class="fas fa-calendar"></i> ${report.date}</span>
+              </div>
+            </div>
+            <div class="report-actions" style="display: flex; gap: 0.75rem; align-items: center;">
+              <select class="status-select ${report.status}" onchange="updateReportStatus('${report.id}', this.value)" style="padding: 0.5rem; border-radius: 6px; border: 1px solid #e0e0e0; background-color: white; cursor: pointer;">
+                <option value="flagged" ${report.status === 'flagged' ? 'selected' : ''}>Flagged</option>
+                <option value="rejected" ${report.status === 'rejected' ? 'selected' : ''}>Rejected</option>
+                <option value="accepted" ${report.status === 'accepted' ? 'selected' : ''}>Accepted</option>
+              </select>
+              <button class="download-btn" onclick="downloadReportAsPDF('${report.id}')">
+                <i class="fas fa-file-pdf"></i> PDF
+              </button>
+              ${report.status === "flagged" || report.status === "rejected" ? 
+                `<button class="primary-button" onclick="openClarificationModal('${report.id}')">
+                  Add Clarification
+                </button>` : ''}
+            </div>
+          </div>
+        `;
+        
+        reportsList.appendChild(card);
       });
     }
 
+    // Function to update report status
+    function updateReportStatus(reportId, newStatus) {
+      const report = allReports.find(r => r.id === reportId);
+      if (!report) return;
+
+      // Update the status
+      report.status = newStatus;
+
+      // Update the UI
+      const statusSelect = document.querySelector(`select[onchange="updateReportStatus('${reportId}', this.value)"]`);
+      if (statusSelect) {
+        statusSelect.className = `status-select ${newStatus}`;
+      }
+
+      // Show notification with status-specific color
+      let notificationType = "success";
+      if (newStatus === "rejected") {
+        notificationType = "error";
+      } else if (newStatus === "flagged") {
+        notificationType = "warning";
+      }
+      showNotification(`Report status updated to ${newStatus}`, notificationType);
+
+      // Refresh the reports display to update the clarification button visibility
+      displayReports(allReports);
+    }
+
+    // Function to download a report as PDF
+    function downloadReportAsPDF(reportId) {
+      console.log("Generating PDF for report:", reportId);
+      const report = allReports.find(r => r.id === reportId);
+      if (!report) {
+        console.error('Report not found:', reportId);
+        alert('Report not found. Please try again.');
+        return;
+      }
+
+      try {
+        const doc = new jsPDF();
+
+        // Add title
+        doc.setFontSize(18);
+        doc.text("Internship Report", 20, 20);
+
+        // Add report details
+        doc.setFontSize(12);
+        doc.text(`Report Title: ${report.title}`, 20, 40);
+        doc.text(`Submission Date: ${report.date}`, 20, 50);
+        doc.text(`Status: ${report.status.charAt(0).toUpperCase() + report.status.slice(1)}`, 20, 60);
+
+        // Add student information
+        doc.setFontSize(14);
+        doc.text("Student Information", 20, 80);
+        doc.setFontSize(12);
+        doc.text(`Name: ${report.student.name}`, 20, 90);
+        doc.text(`ID: ${report.student.id}`, 20, 100);
+        doc.text(`Major: ${report.student.major}`, 20, 110);
+        doc.text(`Email: ${report.student.email}`, 20, 120);
+
+        // Add report content
+        doc.setFontSize(14);
+        doc.text("Report Content", 20, 140);
+        doc.setFontSize(12);
+        const splitContent = doc.splitTextToSize(report.content, 170);
+        doc.text(splitContent, 20, 150);
+
+        // Add feedback if available
+        if (report.feedback) {
+          const yPosition = 150 + (splitContent.length * 7);
+          doc.setFontSize(14);
+          doc.text("Feedback", 20, yPosition);
+          doc.setFontSize(12);
+          const splitFeedback = doc.splitTextToSize(report.feedback, 170);
+          doc.text(splitFeedback, 20, yPosition + 10);
+        }
+
+        // Add footer
+        const currentDate = new Date().toLocaleDateString();
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${currentDate}`, 20, 280);
+
+        // Save the PDF
+        doc.save(`Internship-Report-${report.id}.pdf`);
+        console.log("PDF generated successfully for report:", reportId);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Error generating PDF. Please try again.');
+      }
+    }
+
+    // Function to filter reports
+    function filterReports() {
+      const major = document.getElementById('filterByMajor').value;
+      const status = document.getElementById('filterByStatus').value;
+
+      const filteredReports = allReports.filter(report => {
+        return (
+          (major === '' || report.student.major === major) &&
+          (status === '' || report.status === status)
+        );
+      });
+
+      displayReports(filteredReports);
+    }
+
     // Function to open the clarification modal
-    function openClarificationModal(report) {
-      console.log("Opening clarification modal for:", report.title);
-      selectedReport = report;
-      document.getElementById("clarificationReportTitle").textContent = report.title;
+    function openClarificationModal(reportId) {
+      console.log("Opening clarification modal for:", reportId);
+      selectedReport = allReports.find(r => r.id === reportId);
+      document.getElementById("clarificationReportTitle").textContent = selectedReport.title;
       document.getElementById("clarificationText").value = ""; // Clear previous input
       document.getElementById("clarificationModal").style.display = "flex";
     }
@@ -666,7 +1213,33 @@
 
       reports.forEach(report => {
         const li = document.createElement("li");
-        li.textContent = `Student: ${report.student}, Company: ${report.company}, Supervisor: ${report.supervisor}`;
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.padding = "1rem";
+        li.style.borderBottom = "1px solid #e0e0e0";
+        
+        const reportInfo = document.createElement("div");
+        reportInfo.textContent = `Student: ${report.student}, Company: ${report.company}, Supervisor: ${report.supervisor}`;
+        
+        const actionsDiv = document.createElement("div");
+        actionsDiv.style.display = "flex";
+        actionsDiv.style.gap = "1rem";
+        actionsDiv.style.alignItems = "center";
+
+        // Add PDF download button
+        const downloadBtn = document.createElement("button");
+        downloadBtn.className = "download-btn";
+        downloadBtn.innerHTML = '<i class="fas fa-file-pdf"></i> PDF';
+        downloadBtn.onclick = (e) => {
+          e.stopPropagation();
+          downloadEvaluationReportAsPDF(report);
+        };
+
+        actionsDiv.appendChild(downloadBtn);
+        
+        li.appendChild(reportInfo);
+        li.appendChild(actionsDiv);
         li.style.cursor = "pointer";
         li.onclick = () => openEvaluationReportModal(report);
         evaluationReportsList.appendChild(li);
@@ -792,56 +1365,35 @@
       doc.save("Real-Time-Statistics-Report.pdf");
     }
 
-    // Function to fetch all students (mock example)
-    function fetchAllStudents() {
-      console.log("Fetching all students...");
-      const statusFilter = document.getElementById("statusFilter").value;
-      console.log("Selected status filter:", statusFilter);
-      
-      const students = [
-        { name: "Alice Johnson", id: "1001", major: "Computer Science", status: "current intern" },
-        { name: "Bob Smith", id: "1002", major: "Engineering", status: "internship complete" },
-        { name: "Charlie Davis", id: "1003", major: "Business", status: "not started" },
-        { name: "David Wilson", id: "1004", major: "Computer Science", status: "current intern" },
-        { name: "Eva Brown", id: "1005", major: "Engineering", status: "not started" },
-      ];
-      
-      displayStudents(students);
-    }
+    // Function to download evaluation report as PDF
+    function downloadEvaluationReportAsPDF(report) {
+      try {
+        const doc = new jsPDF();
 
-    // Function to display students
-    function displayStudents(students) {
-      const studentsList = document.getElementById("studentsList");
-      const statusFilter = document.getElementById("statusFilter").value;
-      
-      studentsList.innerHTML = ""; // Clear the list
-      
-      const filteredStudents = statusFilter ? 
-        students.filter(student => student.status === statusFilter) : 
-        students;
-      
-      if (filteredStudents.length === 0) {
-        const li = document.createElement("li");
-        li.textContent = "No students found with the selected status.";
-        li.style.textAlign = "center";
-        li.style.padding = "2rem";
-        li.style.color = "#666";
-        studentsList.appendChild(li);
-        return;
+        // Add title
+        doc.setFontSize(18);
+        doc.text("Evaluation Report", 20, 20);
+
+        // Add report details
+        doc.setFontSize(12);
+        doc.text(`Student: ${report.student}`, 20, 40);
+        doc.text(`Company: ${report.company}`, 20, 50);
+        doc.text(`Supervisor: ${report.supervisor}`, 20, 60);
+        doc.text(`Start Date: ${report.startDate}`, 20, 70);
+        doc.text(`End Date: ${report.endDate}`, 20, 80);
+
+        // Add footer
+        const currentDate = new Date().toLocaleDateString();
+        doc.setFontSize(10);
+        doc.text(`Generated on: ${currentDate}`, 20, 280);
+
+        // Save the PDF
+        doc.save(`Evaluation-Report-${report.student}.pdf`);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Error generating PDF. Please try again.');
       }
-      
-      filteredStudents.forEach(student => {
-        const li = document.createElement("li");
-        li.textContent = `Name: ${student.name}, ID: ${student.id}, Major: ${student.major}, Status: ${student.status}`;
-        studentsList.appendChild(li);
-      });
     }
-
-    // Call fetchStatistics on page load
-    window.onload = function () {
-      fetchStatistics();
-      // Existing functions like fetchAllReports or fetchAllStudents can also be called here
-    };
 
     // Add this function for the profile dropdown
     function toggleDropdown() {
@@ -863,6 +1415,63 @@
     document.getElementById("profileDropdown")?.addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+    // Initialize jsPDF
+    const { jsPDF } = window.jspdf;
+
+    // Initialize data when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      fetchAllStudents();
+      fetchAllReports();
+    });
+
+    // Update the toast notification styles to match dropdown colors
+    const notificationStyles = document.createElement('style');
+    notificationStyles.textContent = `
+      .toast-notification {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        max-width: 320px;
+        padding: 14px 28px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 2000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transition: right 0.4s ease-in-out;
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .toast-notification.show {
+        right: 20px;
+      }
+
+      .toast-notification.success {
+        background-color: #F0FFF0;
+        color: #006400;
+        border: 2px solid #98FB98;
+      }
+
+      .toast-notification.error {
+        background-color: #FFE4E1;
+        color: #B22222;
+        border: 2px solid #FF6347;
+      }
+
+      .toast-notification.warning {
+        background-color: #FFE4C4;
+        color: #8B4513;
+        border: 2px solid #DEB887;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
+    `;
+    document.head.appendChild(notificationStyles);
   </script>
 </body>
 </html>
