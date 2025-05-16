@@ -359,6 +359,7 @@
         position: sticky;
         top: 2rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        margin-top: 0;
       }
 
       .applications-summary h3 {
@@ -394,10 +395,19 @@
         align-items: center;
       }
 
+      .summary-list li span:first-child {
+        flex: 1;
+        padding-right: 1rem;
+      }
+
       .summary-list li span:last-child {
         font-weight: 500;
         min-width: 40px;
         text-align: right;
+        background-color: #f3f4f6;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.875rem;
       }
 
       .summary-list li:last-child {
@@ -411,6 +421,7 @@
 
       .summary-list li:last-child span:last-child {
         font-weight: 600;
+        background-color: #e5e7eb;
       }
 
       @media (max-width: 1200px) {
@@ -423,7 +434,7 @@
           margin-top: 2rem;
         }
       }
-
+      
       /* Modal styles */
       .modal {
         display: none;
@@ -435,7 +446,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 1000;
       }
-
+      
       .modal-content {
         background-color: white;
         margin: 2rem auto;
@@ -476,7 +487,7 @@
         margin: 0.75rem 0;
         color: #4a5568;
       }
-
+      
       .modal-buttons {
         display: flex;
         gap: 1rem;
@@ -531,7 +542,7 @@
       .notification.error {
         background-color: #c62828;
       }
-
+      
       @keyframes shake {
         0%, 100% { transform: translateX(0); }
         25% { transform: translateX(-5px); }
@@ -743,21 +754,21 @@
                 ><i class="fas fa-user"></i>Register</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="upload-documents.html" class="nav-link"
                 ><i class="fas fa-upload"></i>Upload Documents</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="job-posts.html" class="nav-link"
                 ><i class="fas fa-briefcase"></i>Job Posts</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="evaluate.html" class="nav-link"
                 ><i class="fas fa-star"></i>Evaluate Intern</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="applications.html" class="nav-link active"
                 ><i class="fas fa-paper-plane"></i>Applications</a
@@ -800,10 +811,6 @@
         </header>
         <section class="applications-container">
           <div class="main-content-area">
-            <div class="header-actions">
-              <h2>Internship Applications</h2>
-            </div>
-
             <div class="search-filters">
               <div class="search-container">
                 <input
@@ -837,7 +844,7 @@
     <div id="applicantModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">
-          <h3>Applicant Details</h3>
+        <h3>Applicant Details</h3>
           <button class="close-modal">&times;</button>
         </div>
         <div class="modal-body">
@@ -996,13 +1003,34 @@
 
         summaryHTML += '<h4>Applications by Status</h4>';
         summaryHTML += `
-          <li>Pending Applications: ${statusCounts.pending}</li>
-          <li>Finalized Applications: ${statusCounts.finalized}</li>
-          <li>Accepted Applications: ${statusCounts.accepted}</li>
-          <li>Rejected Applications: ${statusCounts.rejected}</li>
-          <li>Current Interns: ${statusCounts.current}</li>
-          <li>Completed Internships: ${statusCounts.completed}</li>
-          <li>Total Applications: ${mockApplications.length}</li>
+          <li>
+            <span>Pending Applications</span>
+            <span>${statusCounts.pending}</span>
+          </li>
+          <li>
+            <span>Finalized Applications</span>
+            <span>${statusCounts.finalized}</span>
+          </li>
+          <li>
+            <span>Accepted Applications</span>
+            <span>${statusCounts.accepted}</span>
+          </li>
+          <li>
+            <span>Rejected Applications</span>
+            <span>${statusCounts.rejected}</span>
+          </li>
+          <li>
+            <span>Current Interns</span>
+            <span>${statusCounts.current}</span>
+          </li>
+          <li>
+            <span>Completed Internships</span>
+            <span>${statusCounts.completed}</span>
+          </li>
+          <li>
+            <span>Total Applications</span>
+            <span>${mockApplications.length}</span>
+          </li>
         `;
 
         summaryList.innerHTML = summaryHTML;

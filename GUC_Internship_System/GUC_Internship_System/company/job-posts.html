@@ -54,26 +54,26 @@
         margin: 0 auto;
         grid-column: 1 / -1;
       }
-
+      
       .job-posts-container h3 {
         font-size: 1.5rem;
         color: #0d1b2a;
         text-align: center;
         margin-bottom: 1.5rem;
       }
-
+      
       #jobPostForm {
         display: grid;
         gap: 1rem;
       }
-
+      
       #jobPostForm label {
         display: block;
         font-weight: 600;
         margin-bottom: 0.5rem;
         color: #0d1b2a;
       }
-
+      
       #jobPostForm input,
       #jobPostForm textarea,
       #jobPostForm select {
@@ -100,7 +100,7 @@
         margin-top: 20px;
         justify-content: flex-end;
       }
-
+      
       #jobPostForm button {
         background-color: #0d1b2a;
         color: white;
@@ -113,7 +113,7 @@
         transition: all 0.3s ease;
         min-width: 150px;
       }
-
+      
       #jobPostForm button:hover {
         background-color: #2c3e50;
         transform: translateY(-2px);
@@ -419,21 +419,21 @@
                 ><i class="fas fa-user"></i>Register</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="upload-documents.html" class="nav-link"
                 ><i class="fas fa-upload"></i>Upload Documents</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="job-posts.html" class="nav-link active"
                 ><i class="fas fa-briefcase"></i>Job Posts</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="evaluate.html" class="nav-link"
                 ><i class="fas fa-star"></i>Evaluate Intern</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="applications.html" class="nav-link"
                 ><i class="fas fa-paper-plane"></i>Applications</a
@@ -495,14 +495,14 @@
               <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-              <form id="jobPostForm">
+          <form id="jobPostForm">
                 <div class="form-group">
-                  <label for="jobTitle">Job Title:</label>
+            <label for="jobTitle">Job Title:</label>
                   <input type="text" id="jobTitle" required>
                 </div>
                 <div class="form-group">
-                  <label for="jobDescription">Job Description:</label>
-                  <textarea id="jobDescription" rows="4" required></textarea>
+            <label for="jobDescription">Job Description:</label>
+            <textarea id="jobDescription" rows="4" required></textarea>
                 </div>
                 <div class="form-group">
                   <label for="duration">Duration (months):</label>
@@ -511,9 +511,9 @@
                 <div class="form-group">
                   <label for="compensationType">Compensation Type:</label>
                   <select id="compensationType" required>
-                    <option value="paid">Paid</option>
-                    <option value="unpaid">Unpaid</option>
-                  </select>
+              <option value="paid">Paid</option>
+              <option value="unpaid">Unpaid</option>
+            </select>
                 </div>
                 <div class="form-group" id="salaryGroup" style="display: none;">
                   <label for="salary">Salary (per month):</label>
