@@ -24,6 +24,7 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         padding: 1.5rem;
         transition: transform 0.3s ease;
+        cursor: pointer;
       }
 
       .dashboard-card:hover {
@@ -219,8 +220,9 @@
         margin-left: 250px;
         flex: 1;
         background-color: #f4f8fc;
-        padding-bottom: 2rem;
+        padding-bottom: 4rem;
         transition: margin-left 0.3s ease-in-out;
+        min-height: 100vh;
       }
 
       .main-header {
@@ -244,8 +246,59 @@
         text-align: center;
         padding: 1rem;
         margin-top: 2rem;
-        color: #666;
+        color: #ffffff;
         font-size: 0.9rem;
+        position: fixed;
+        bottom: 0;
+        left: 250px;
+        right: 0;
+        background-color: #0d1b2a;
+        border-top: 1px solid #1b263b;
+      }
+
+      footer p {
+        margin: 0;
+        font-weight: 500;
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+      }
+
+      .close-modal:hover {
+        color: #333;
       }
     </style>
   </head>
@@ -267,21 +320,21 @@
                 ><i class="fas fa-user"></i>Register</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="upload-documents.html" class="nav-link"
                 ><i class="fas fa-upload"></i>Upload Documents</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="job-posts.html" class="nav-link"
                 ><i class="fas fa-briefcase"></i>Job Posts</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="evaluate.html" class="nav-link"
                 ><i class="fas fa-star"></i>Evaluate Intern</a
               >
-            </li>
+            </li> -->
             <li>
               <a href="applications.html" class="nav-link"
                 ><i class="fas fa-paper-plane"></i>Applications</a
@@ -323,8 +376,22 @@
         </header>
 
         <div class="dashboard-container">
-          <div class="register-container">
-            <h3>Company Registration Form</h3>
+          <div class="dashboard-card" onclick="showRegistrationModal()">
+            <h3><i class="fas fa-user-plus"></i> Register Company</h3>
+            <p>Register your company to start posting internship opportunities.</p>
+          </div>
+          
+          <div class="dashboard-card" onclick="showUploadModal()">
+            <h3><i class="fas fa-upload"></i> Upload Documents</h3>
+            <p>Upload required documents for company verification.</p>
+          </div>
+        </div>
+
+        <!-- Registration Modal -->
+        <div id="registrationModal" class="modal">
+          <div class="modal-content">
+            <button class="close-modal" onclick="closeRegistrationModal()">&times;</button>
+            <h3>Company Registration</h3>
             <form id="registerForm">
               <label for="companyName">Company Name</label>
               <input type="text" id="companyName" name="companyName" required>
@@ -342,6 +409,32 @@
               <textarea id="companyDescription" name="companyDescription" rows="5" required></textarea>
               
               <button type="submit">Register Company</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Upload Documents Modal -->
+        <div id="uploadModal" class="modal">
+          <div class="modal-content">
+            <button class="close-modal" onclick="closeUploadModal()">&times;</button>
+            <h3>Upload Documents</h3>
+            <form id="uploadForm">
+              <div class="form-group">
+                <label for="companyRegistration">Company Registration Document</label>
+                <input type="file" id="companyRegistration" accept=".pdf,.doc,.docx" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="taxDocument">Tax Registration Document</label>
+                <input type="file" id="taxDocument" accept=".pdf,.doc,.docx" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="insuranceDocument">Insurance Document</label>
+                <input type="file" id="insuranceDocument" accept=".pdf,.doc,.docx" required>
+              </div>
+              
+              <button type="submit">Upload Documents</button>
             </form>
           </div>
         </div>
@@ -375,9 +468,49 @@
         }, 5000);
       }
 
+      function showRegistrationModal() {
+        document.getElementById('registrationModal').style.display = 'flex';
+      }
+
+      function closeRegistrationModal() {
+        document.getElementById('registrationModal').style.display = 'none';
+      }
+
+      function showUploadModal() {
+        document.getElementById('uploadModal').style.display = 'flex';
+      }
+
+      function closeUploadModal() {
+        document.getElementById('uploadModal').style.display = 'none';
+      }
+
+      // Close modals when clicking outside
+      window.onclick = function(event) {
+        const registrationModal = document.getElementById('registrationModal');
+        const uploadModal = document.getElementById('uploadModal');
+        
+        if (event.target === registrationModal) {
+          closeRegistrationModal();
+        }
+        if (event.target === uploadModal) {
+          closeUploadModal();
+        }
+      }
+
+      // Handle registration form submission
       document.getElementById('registerForm').addEventListener('submit', function(e) {
         e.preventDefault();
+        // Add your registration logic here
         showNotification('Registration successful!', 'success');
+        closeRegistrationModal();
+      });
+
+      // Handle upload form submission
+      document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        // Add your upload logic here
+        showNotification('Documents uploaded successfully!', 'success');
+        closeUploadModal();
       });
 
       // Add notification badge functionality
