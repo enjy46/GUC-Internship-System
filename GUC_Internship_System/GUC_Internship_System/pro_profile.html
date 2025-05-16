@@ -585,6 +585,24 @@
       font-weight: 500;
       min-width: 120px;
     }
+
+    .status-badge {
+      transition: all 0.3s ease;
+    }
+    
+    .status-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    button {
+      transition: all 0.3s ease;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
   </style>
 </head>
 <body>
@@ -818,29 +836,42 @@
 
     <!-- Sidebar Section for Earned Certificates -->
     <div class="sidebar-container">
+          <button onclick="openRequirementsModal()" style="width: 100%; margin-bottom: 1.5rem; background-color: #0d1b2a; color: white; padding: 0.8rem 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: center; gap: 0.5rem; border: none; cursor: pointer; transition: all 0.3s ease;">
+            <i class="fas fa-video"></i> Internship Requirements
+          </button>
           <div class="section-title"><i class="fas fa-certificate"></i> Earned Certificates</div>
           <ul class="certificate-list">
-        <li>Data Science Expert – Coursera, June 2023</li>
-        <li>Software Development Basics – Udemy, August 2023</li>
-        <li>Cloud Computing Fundamentals – Google, September 2023</li>
-      </ul>
-        </div>
-      </div>
-    </main>
-  </div>
-
-  <!-- Modal for Editing Fields -->
-  <div class="modal" id="editModal">
-    <div class="modal-content">
-      <h3>Edit Profile Information</h3>
-      <input type="text" id="editInput" placeholder="Enter new value" />
-      <button onclick="saveEdit()" style="margin-top: 1rem;">Save</button>
+            <li>Data Science Expert – Coursera, June 2023</li>
+            <li>Software Development Basics – Udemy, August 2023</li>
+            <li>Cloud Computing Fundamentals – Google, September 2023</li>
+          </ul>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
-  </footer>
+  <!-- Requirements Modal -->
+  <div class="modal" id="requirementsModal" style="display: none;">
+    <div class="modal-content" style="max-width: 800px; width: 90%; padding: 2rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h3 style="margin: 0; color: #0d1b2a; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fas fa-video"></i> Internship Requirements
+        </h3>
+        <button onclick="closeRequirementsModal()" style="background: none; border: none; color: #666; cursor: pointer; font-size: 1.5rem; padding: 0.5rem;">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <div style="position: relative; padding-top: 56.25%; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        <iframe 
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 12px;"
+          src="https://www.youtube.com/embed/bUGL-DBV7lg" 
+          title="Internship Requirements Video" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
 
   <script>
     let currentField;
@@ -976,9 +1007,26 @@
       document.getElementById(`type-edit-${id}`).classList.remove('show');
     }
 
+    function contactAdvisor() {
+      window.location.href = "mailto:academic.advisor@guc.edu.eg?subject=Internship%20Requirements%20Inquiry&body=Dear%20Academic%20Advisor%2C%0A%0AI%20would%20like%20to%20inquire%20about%20my%20internship%20requirements.%0A%0ABest%20regards%2C";
+    }
+
+    function openRequirementsModal() {
+      document.getElementById('requirementsModal').style.display = 'flex';
+    }
+
+    function closeRequirementsModal() {
+      document.getElementById('requirementsModal').style.display = 'none';
+    }
+
     window.onclick = function(event) {
-      if (event.target === document.getElementById('editModal')) {
-        document.getElementById('editModal').style.display = 'none';
+      const requirementsModal = document.getElementById('requirementsModal');
+      const editModal = document.getElementById('editModal');
+      if (event.target === requirementsModal) {
+        closeRequirementsModal();
+      }
+      if (event.target === editModal) {
+        editModal.style.display = 'none';
       }
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');
