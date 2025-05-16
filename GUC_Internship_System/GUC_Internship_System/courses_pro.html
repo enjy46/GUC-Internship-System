@@ -11,124 +11,61 @@
   <style>
     .main-header h1 {
       color: white;
-      padding: 1rex;
+      padding: 0.3rem o.6rem;
     }
-    .dashboard-container {
-      display: grid;
-      gap: 2rem;
-      padding: 1rem;
-    }
-    .sidebar {
-      background: #0d1b2a;
-      color: white;
-      width: 250px;
-      min-height: 100vh;
-      padding: 0;
-      transition: all 0.3s ease;
-      position: fixed;
-      left: 0;
-      top: 0;
-    }
-    .sidebar-nav {
-      padding: 0.5rem;
-    }
-    .sidebar-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .sidebar-nav .nav-link {
+    .grid-buttons {
       display: flex;
-      align-items: center;
-      padding: 0.75rem 1rem;
-      color: rgba(255, 255, 255, 0.8);
-      text-decoration: none;
-      border-radius: 8px;
-      margin-bottom: 0.25rem;
-      transition: all 0.3s ease;
-      font-weight: 600;
+      justify-content: flex-start;
+      gap: 10px;
     }
-    .sidebar-nav .nav-link i {
-      margin-right: 0.8rem;
-      font-size: 1.1rem;
-      width: 20px;
-      text-align: center;
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
     }
-    .sidebar-nav .nav-link:hover {
-      background: rgba(255, 255, 255, 0.1);
+    .btn-add {
+      background-color: #4CAF50;
       color: white;
     }
-    .sidebar-nav .nav-link.active {
-      background: rgba(255, 255, 255, 0.1);
+    .btn-save {
+      background-color: #2196F3;
       color: white;
-      font-weight: 600;
+    }
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
+    }
+    .dashboard-btn:hover::after {
+      content: none !important;
     }
     .sidebar-header {
-      padding: 1.5rem 1rem;
+      padding: 2rem 1rem;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     }
+
     .sidebar-header h2 {
       margin: 0;
       font-size: 1.6rem;
       font-weight: 600;
       color: white;
     }
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: white;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      z-index: 1;
-      margin-top: 10px;
-    }
-    .dropdown-content a {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-    }
-    .dropdown-content a:hover {
-      background-color: #f8f9fa;
-    }
-    .dropdown-content.show {
-      display: block;
-    }
-    .profile-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-    .icon-link {
-      color: white;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-    }
-    .main-header {
-      background-color: #0d1b2a;
-      color: #ffffff;
-      padding: 2.6rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
+
     .semester-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 2rem;
       margin-bottom: 2rem;
     }
+
     @media (max-width: 1200px) {
       .semester-grid {
         grid-template-columns: 1fr;
       }
     }
+
     .semester-card {
       background: white;
       border-radius: 16px;
@@ -136,6 +73,7 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       border: 1px solid #eef2f7;
     }
+
     .semester-header {
       display: flex;
       justify-content: space-between;
@@ -144,16 +82,19 @@
       padding-bottom: 0.5rem;
       border-bottom: 2px solid #eef2f7;
     }
+
     .semester-title {
       font-size: 1.4rem;
       font-weight: 600;
       color: #0d1b2a;
     }
+
     .course-list {
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
+
     .course-item {
       display: flex;
       align-items: center;
@@ -163,35 +104,42 @@
       transition: all 0.3s ease;
       border: 1px solid #e0e0e0;
     }
+
     .course-item:hover {
       transform: translateX(5px);
       border-color: #1976d2;
       background: #f5f9ff;
     }
+
     .course-checkbox {
       width: 20px;
       height: 20px;
       margin-right: 1rem;
       accent-color: #1976d2;
     }
+
     .course-info {
       flex: 1;
     }
+
     .course-code {
       font-weight: 600;
       color: #1976d2;
       font-size: 0.9rem;
     }
+
     .course-name {
       color: #333;
       font-size: 0.95rem;
       margin-top: 0.2rem;
     }
+
     .course-status {
       font-size: 0.8rem;
       color: #4CAF50;
       margin-top: 0.2rem;
     }
+
     .save-section {
       position: sticky;
       bottom: 20px;
@@ -204,6 +152,7 @@
       z-index: 100;
       margin-top: 2rem;
     }
+
     .save-button {
       background: linear-gradient(135deg, #1976d2, #1565c0);
       color: white;
@@ -218,10 +167,12 @@
       gap: 0.5rem;
       transition: all 0.3s ease;
     }
+
     .save-button:hover {
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
     }
+
     .feedback {
       position: fixed;
       top: 20px;
@@ -235,16 +186,24 @@
       transform: translateX(120%);
       transition: transform 0.3s ease;
     }
+
     .feedback.show {
       transform: translateX(0);
     }
+
     .feedback.error {
       background: #f44336;
     }
-    .main-content {
-      margin-left: 250px;
-      min-height: 100vh;
-      background: #f8f9fa;
+
+    .sidebar-nav .nav-link:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .sidebar-nav .nav-link.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      font-weight: 600;
     }
   </style>
 </head>
@@ -272,7 +231,7 @@
     <main class="main-content">
       <header class="main-header">
         <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
-          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Your Courses</h1>
+          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;"> Your Courses  </h1>
           
           <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
             <!-- Notification Icon -->
@@ -307,13 +266,59 @@
         </header>
       </header>
 
+
       <section class="dashboard-container">
         <div class="helpful-courses-section">
           <h2><i class="fas fa-star"></i> Courses That Helped in Internship</h2>
           <p class="section-description">Select the courses that you found particularly helpful during your internship experience.</p>
           
-          <div class="semester-grid" id="semesterGrid">
-            <!-- Semester cards will be dynamically added here -->
+          <div class="semester-grid" id="semesterGrid" data-debug="semester-container">
+            <div class="semester-card">
+              <h3>Spring 2024</h3>
+              <div class="course-list">
+                <div class="course-item">
+                  <input type="checkbox" class="course-checkbox" id="FINC505">
+                  <div class="course-info">
+                    <div class="course-code">FINC505</div>
+                    <div class="course-name">Corporate Finance for Business Informatics</div>
+                    <div class="course-status">Active</div>
+                  </div>
+                </div>
+                <div class="course-item">
+                  <input type="checkbox" class="course-checkbox" id="CTRL505">
+                  <div class="course-info">
+                    <div class="course-code">CTRL505</div>
+                    <div class="course-name">Auditing</div>
+                    <div class="course-status">Active</div>
+                  </div>
+                </div>
+                <div class="course-item">
+                  <input type="checkbox" class="course-checkbox" id="CSEN507">
+                  <div class="course-info">
+                    <div class="course-code">CSEN507</div>
+                    <div class="course-name">Theory of Computation for BINF</div>
+                    <div class="course-status">Active</div>
+                  </div>
+                </div>
+                <div class="course-item">
+                  <input type="checkbox" class="course-checkbox" id="MGMT501">
+                  <div class="course-info">
+                    <div class="course-code">MGMT501</div>
+                    <div class="course-name">Business Ethics</div>
+                    <div class="course-status">Active</div>
+                  </div>
+                </div>
+                <div class="course-item">
+                  <input type="checkbox" class="course-checkbox" id="BINF506">
+                  <div class="course-info">
+                    <div class="course-code">BINF506</div>
+                    <div class="course-name">Research Methodology for BINF</div>
+                    <div class="course-status">Active</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
 
           <div class="save-section">
@@ -341,8 +346,6 @@
         dropdown.style.display = "none";
       }
     }
-
-    // Close dropdown when clicking outside
     document.addEventListener('click', function(event) {
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');
@@ -351,11 +354,193 @@
         dropdown.style.display = "none";
       }
     });
-
-    // Prevent dropdown from closing when clicking inside it
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('DOM Content Loaded');
+      // Prevent dropdown from closing when clicking inside it
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+
+      // Course data structure with 5 courses per semester
+      const coursesBySemester = {
+        "64": {
+          title: "Winter 2024",
+          courses: [
+            { code: "INSY714", name: "IT Project Management", status: "Active" },
+            { code: "CTRL606", name: "Taxation", status: "Active" },
+            { code: "OPER602", name: "Operations II", status: "Active" },
+            { code: "BINF609", name: "Enterprise System Applications", status: "Active" },
+            { code: "CSEN603", name: "Software Engineering", status: "Active" }
+          ]
+        },
+        "62": {
+          title: "Spring 2024",
+          courses: [
+            { code: "FINC505", name: "Corporate Finance for Business Informatics", status: "Active" },
+            { code: "CTRL505", name: "Auditing", status: "Active" },
+            { code: "CSEN507", name: "Theory of Computation for BINF", status: "Active" },
+            { code: "MGMT501", name: "Business Ethics", status: "Active" },
+            { code: "BINF506", name: "Research Methodology for BINF", status: "Active" }
+          ]
+        },
+        "61": {
+          title: "Winter 2023",
+          courses: [
+            { code: "BINF405", name: "Information and Communication Architecture II", status: "Active" },
+            { code: "HROB203", name: "Human Resources Management for BI", status: "Active" },
+            { code: "CSEN401", name: "Computer Programming Lab", status: "Active" },
+            { code: "BINF406", name: "Digital Transformation", status: "Active" },
+            { code: "RPW401", name: "Research Paper Writing (A2)", status: "Active" }
+          ]
+        },
+        "59": {
+          title: "Spring 2023",
+          courses: [
+            { code: "CPS402", name: "Communication & Presentation Skills (A2)", status: "Active" },
+            { code: "BINF302", name: "Enterprise Systems I", status: "Active" },
+            { code: "CSIS301", name: "Data Structures & Algorithms", status: "Active" },
+            { code: "BINF303", name: "Information & Communication Architecture I", status: "Active" },
+            { code: "MATH305", name: "Mathematics for Business Informatics III", status: "Active" }
+          ]
+        },
+        "58": {
+          title: "Winter 2022",
+          courses: [
+            { code: "CSEN202", name: "Introduction to Computer Programming", status: "Active" },
+            { code: "Math204", name: "Mathematics for business informatics II", status: "Active" },
+            { code: "LAWS201", name: "Principles of Law", status: "Active" },
+            { code: "DE202", name: "Basic German 2", status: "Active" },
+            { code: "AS102", name: "English for Academic Purposes (A1)", status: "Active" }
+          ]
+        }
+      };
+
+      // Load saved selected courses from localStorage
+      let selectedCourses = [];
+      try {
+        selectedCourses = JSON.parse(localStorage.getItem('helpfulCourses')) || [];
+        console.log('Loaded selected courses:', selectedCourses);
+      } catch (e) {
+        console.error('Error loading saved courses:', e);
+      }
+
+      // Function to create a semester card
+      function createSemesterCard(seasonId, seasonData) {
+        console.log('Creating semester card for:', seasonId, seasonData);
+        const card = document.createElement('div');
+        card.className = 'semester-card';
+
+        const header = document.createElement('div');
+        header.className = 'semester-header';
+        header.innerHTML = `<span class="semester-title">Season: ${seasonId} - ${seasonData.title}</span>`;
+
+        const courseList = document.createElement('div');
+        courseList.className = 'course-list';
+
+        seasonData.courses.forEach(course => {
+          const courseItem = document.createElement('div');
+          courseItem.className = 'course-item';
+
+          const isSelected = selectedCourses.includes(course.code);
+
+          courseItem.innerHTML = `
+            <input type="checkbox" class="course-checkbox" id="${course.code}" 
+                   ${isSelected ? 'checked' : ''}>
+            <div class="course-info">
+              <div class="course-code">${course.code}</div>
+              <div class="course-name">${course.name}</div>
+              <div class="course-status">${course.status}</div>
+            </div>
+          `;
+
+          const checkbox = courseItem.querySelector('input[type="checkbox"]');
+          checkbox.addEventListener('change', () => {
+            if (checkbox.checked) {
+              if (!selectedCourses.includes(course.code)) {
+                selectedCourses.push(course.code);
+                console.log('Course selected:', course.code);
+              }
+            } else {
+              selectedCourses = selectedCourses.filter(code => code !== course.code);
+              console.log('Course deselected:', course.code);
+            }
+          });
+
+          courseList.appendChild(courseItem);
+        });
+
+        card.appendChild(header);
+        card.appendChild(courseList);
+        return card;
+      }
+
+      // Initialize the page
+      function initializePage() {
+        console.log('Initializing page...');
+        const semesterGrid = document.getElementById('semesterGrid');
+        if (!semesterGrid) {
+          console.error('Semester grid not found!');
+          return;
+        }
+
+        // Clear existing content
+        semesterGrid.innerHTML = '';
+        console.log('Cleared semester grid');
+
+        // Add semester cards in reverse chronological order
+        const sortedSeasons = Object.keys(coursesBySemester).sort((a, b) => b - a);
+        sortedSeasons.forEach(seasonId => {
+          const card = createSemesterCard(seasonId, coursesBySemester[seasonId]);
+          semesterGrid.appendChild(card);
+          console.log('Added card for season:', seasonId);
+        });
+      }
+
+      // Save selected courses
+      window.saveSelectedCourses = function() {
+        console.log('Saving courses:', selectedCourses);
+        try {
+          localStorage.setItem('helpfulCourses', JSON.stringify(selectedCourses));
+          showFeedback('Courses saved successfully!', 'success');
+          console.log('Courses saved successfully');
+        } catch (e) {
+          console.error('Error saving courses:', e);
+          showFeedback('Error saving courses. Please try again.', 'error');
+        }
+      };
+
+      // Feedback message function
+      function showFeedback(message, type) {
+        console.log('Showing feedback:', message, type);
+        const existingFeedback = document.querySelector('.feedback');
+        if (existingFeedback) {
+          existingFeedback.remove();
+        }
+
+        const feedbackDiv = document.createElement('div');
+        feedbackDiv.textContent = message;
+        feedbackDiv.className = `feedback ${type}`;
+        document.body.appendChild(feedbackDiv);
+
+        // Trigger reflow
+        feedbackDiv.offsetHeight;
+
+        // Show feedback
+        feedbackDiv.classList.add('show');
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+          feedbackDiv.classList.remove('show');
+          setTimeout(() => feedbackDiv.remove(), 300);
+        }, 3000);
+      }
+
+      // Initialize the page
+      initializePage();
+    });
+
+    
   </script>
 </body>
 </html>

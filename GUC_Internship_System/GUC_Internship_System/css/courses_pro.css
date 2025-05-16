@@ -1,0 +1,493 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f8fc;
+    color: #333;
+    overflow-x: hidden;
+  }
+  
+  .app-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar.collapsed {
+    transform: translateX(-250px);
+  }
+  
+  .sidebar-header {
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+  }
+  
+  .sidebar-header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  
+  .sidebar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    cursor: pointer;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-nav li {
+    margin: 0;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .nav-link i {
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .nav-link:hover {
+    background-color: #2c3e50;
+    transform: translateX(5px);
+  }
+  
+  .nav-link.active {
+    background-color: #001f3f;
+    border-left: 4px solid #4CAF50;
+    font-weight: 600;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    flex: 1;
+    background-color: #f4f8fc;
+    padding-bottom: 2rem;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .main-content.collapsed {
+    margin-left: 0;
+  }
+  
+  .main-header {
+    background-color: #0d1b2a;
+    color: #ffffff; /* Changed to pure white */
+    padding: 1.5rem; /* Reduced padding for less prominence */
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .main-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .courses-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  
+  .courses-section, .helpful-courses-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    height: auto;
+    min-height: 350px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .courses-section {
+    background: white;
+  }
+  
+  .helpful-courses-section {
+    background: white;
+  }
+  
+  h2 {
+    color: #0d1b2a;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+  }
+  
+  #majorCoursesDropdown {
+    flex: 1;
+    min-height: 250px;
+    margin-bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  #majorCoursesDropdown:hover {
+    border-color: #1976d2;
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.1);
+  }
+  
+  #majorCoursesDropdown:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  }
+  
+  #selectableCourses {
+    flex: 1;
+    min-height: 200px;
+    max-height: 200px;
+    margin: 1rem 0;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    overflow-y: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: #fff;
+  }
+  
+  #selectableCourses li {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    transition: background-color 0.2s ease;
+  }
+  
+  #selectableCourses li:last-child {
+    border-bottom: none;
+  }
+  
+  #selectableCourses li:hover {
+    background-color: #f8f9fa;
+  }
+  
+  #selectableCourses input[type="checkbox"] {
+    margin-right: 1rem;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #1976d2;
+  }
+  
+  #selectableCourses label {
+    cursor: pointer;
+    flex: 1;
+    font-weight: 500;
+  }
+  
+  .form-group {
+    margin: 0.5rem 0;
+  }
+  
+  .form-group input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-group input[type="text"]:hover {
+    border-color: #1976d2;
+  }
+  
+  .form-group input[type="text"]:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
+  }
+  
+  .grid-buttons {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  
+  .dashboard-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 180px;
+  }
+  
+  .dashboard-btn i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .btn-add {
+    background: linear-gradient(135deg, #1976d2, #1565c0);
+  }
+  
+  .btn-add:hover {
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(25, 118, 210, 0.2);
+  }
+  
+  .btn-save {
+    background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  }
+  
+  .btn-save:hover {
+    background: linear-gradient(135deg, #1b5e20, #003d00);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(46, 125, 50, 0.2);
+  }
+  
+  .course-message {
+    color: #d32f2f;
+    font-weight: 500;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    transition: all 0.3s ease;
+  }
+  
+  footer {
+    background-color: #0d1b2a;
+    color: #ffffff; /* Changed to white */
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .feedback {
+    position: fixed;
+    top: 20px;
+    right: -400px;
+    max-width: 320px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    transition: right 0.4s ease-in-out;
+    animation: shake 0.3s ease-in-out;
+  }
+  
+  .feedback.show {
+    right: 20px;
+  }
+  
+  .success {
+    background-color: #388e3c;
+  }
+  
+  .error {
+    background-color: #c62828;
+  }
+  
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+  
+  @media (max-width: 1200px) {
+    .courses-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .courses-section, .helpful-courses-section {
+      min-height: 300px;
+    }
+    
+    #majorCoursesDropdown {
+      min-height: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-250px);
+    }
+    .sidebar.collapsed {
+      transform: translateX(0);
+    }
+    .sidebar-toggle {
+      display: block;
+    }
+    .main-content {
+      margin-left: 0;
+    }
+    .main-content.collapsed {
+      margin-left: 250px;
+    }
+    .dashboard-container {
+      margin: 1rem;
+      padding: 1rem;
+    }
+    .courses-section, .helpful-courses-section {
+      padding: 1.2rem;
+      min-height: 280px;
+    }
+    .grid-buttons {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .dashboard-btn {
+      width: 100%;
+    }
+    h2 {
+      font-size: 1.5rem;
+    }
+    #majorCoursesDropdown {
+      min-height: 180px;
+    }
+    #selectableCourses {
+      min-height: 150px;
+      max-height: 150px;
+    }
+    .feedback {
+      max-width: 90%;
+      font-size: 1rem;
+      padding: 12px 20px;
+    }
+    .dashboard-btn:hover::after {
+      display: none;
+    }
+  }
+  
+  .section-description {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  
+  .selection-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #e3f2fd;
+    border-radius: 8px;
+    color: #1976d2;
+    font-size: 0.9rem;
+  }
+  
+  .selection-info i {
+    font-size: 1.1rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  h2 i {
+    margin-right: 0.5rem;
+    color: #1976d2;
+  }
+  
+  .card {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #1976d2, #1565c0);
+    opacity: 0.8;
+  }
+  
+  .helpful-courses-section.card::before {
+    background: linear-gradient(to bottom, #2e7d32, #1b5e20);
+  }
+  
+  @media (max-width: 768px) {
+    .section-description {
+      font-size: 0.95rem;
+    }
+    
+    .selection-info {
+      font-size: 0.85rem;
+    }
+  }
