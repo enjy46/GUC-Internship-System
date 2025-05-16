@@ -4,37 +4,150 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCAD Dashboard</title>
-  <link rel="stylesheet" href="../css/Scadnew_dashboard.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/student_base.css" />
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
 
+  
   <script src="https://unpkg.com/lucide@0.263.0/dist/umd/lucide.js"></script>
   
+  <style>
+    .sidebar-header h2 {
+      color: white;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .nav-link {
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 500;
+    }
+    .nav-link i {
+      color: white;
+      font-size: 1.2rem;
+    }
+    /* Statistics grid layout */
+    .statistics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    /* Card styles */
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      padding: 2rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .stat-card h4 {
+      color: #333;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-card p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+      color: #0d1b2a;
+    }
+    
+    /* Trend indicators */
+    .trend-up {
+      color: #4CAF50;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-down {
+      color: #f44336;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    .trend-neutral {
+      color: #ff9800;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    
+    /* Progress bar */
+    .progress-container {
+      background-color: #e9ecef;
+      border-radius: 8px;
+      height: 8px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: #0d1b2a;
+      border-radius: 8px;
+    }
+    
+    /* Export button container */
+    .export-container {
+      text-align: center;
+      margin: 2rem 0;
+    }
+    
+    .primary-button {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .primary-button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+    
+    .primary-button i {
+      font-size: 1.1rem;
+    }
+  </style>
 </head>
 <body>
   
-  <div class="dashboard-container">
+  <div class="app-container">
     <!-- Sidebar -->
-    <aside class="sidebar collapsed">
-      <button class="toggle-sidebar-btn">
-        <i data-lucide="menu" class="icon"></i>
-      </button>
-      <h2 class="sidebar-title">SCAD System</h2>
-      <ul class="sidebar-menu">
-         <li><a href="#" class="sidebar-link"><i data-lucide="home" class="icon"></i> <span class="link-text">Dashboard</span></a></li>
-        <li><a href="company_applications.html" class="sidebar-link"><i data-lucide="briefcase" class="icon"></i> <span class="link-text">Company Applications</span></a></li>
-         <li><a href="available_internships.html" class="sidebar-link"class="nav-link active"><i class="fas fa-briefcase"></i> <span class="link-text">Available Internships</span></a></li>
-          <li><a href="cycle_date.html" class="sidebar-link"><i data-lucide="calendar" class="icon"></i> <span class="link-text">Internship Cycle</span></a></li>
-           <li><a href="student_list.html" class="sidebar-link"><i data-lucide="briefcase" class="icon"></i> <span class="link-text"> Student List</span></a></li>
-         <li>
-  <a href="#" class="sidebar-link" id="openCycleModal">
-    <i data-lucide="calendar" class="icon"></i>
-    <span class="link-text">Set Cycle Date</span>
-  </a>
-</li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="user" class="icon"></i> <span class="link-text">Profile</span></a></li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="settings" class="icon"></i> <span class="link-text">Settings</span></a></li>
-      </ul>
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>SCAD<br>Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="Scadnew_dashboard.html" class="nav-link active"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="company_applications.html" class="nav-link"><i class="fas fa-briefcase"></i>Company Applications</a></li>
+          <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
+          <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
+          <li><a href="cycle_date.html" class="nav-link" id="openCycleModal"><i class="fas fa-calendar"></i>Set Cycle Date</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Submitted Reports</a></li>
+        </ul>
+      </nav>
     </aside>
 
     <!-- Main Content -->
@@ -45,7 +158,7 @@
 
       <main class="container">
         <div class="overview-section">
-          <h2 class="section-title">Welcome to the SCAD Dashboard</h2>
+           <h2 class="section-title">SCAD Dashboard</h2> 
 
 <!-- Filters -->
       <div class="card">
@@ -77,9 +190,29 @@
 <div class="statistics-grid">
   <!-- Total Students Card -->
   <div class="stat-card">
+    <h4>Total Applications</h4>
+    <p id="totalApplicationsCount">150</p>
+    <div class="trend-up">
+      <i class="fas fa-arrow-up"></i> 12% from last month
+    </div>
+  </div>
+  
+  <!-- Active Internships -->
+  <div class="stat-card">
+    <h4>Active Internships</h4>
+    <p id="activeInternshipsCount">45</p>
+    <div class="trend-up">
+      <i class="fas fa-arrow-up"></i> 8% from last month
+    </div>
+  </div>
+  
+  <!-- Total Students -->
+  <div class="stat-card">
     <h4>Total Students</h4>
-    <p id="totalStudentsCount">450</p>
-    <p class="trend-up"><i class="fas fa-arrow-up"></i> 5% from last year</p>
+    <p id="totalStudentsCount">300</p>
+    <div class="trend-neutral">
+      <i class="fas fa-minus"></i> No change
+    </div>
   </div>
   
   <!-- Internship Placement Rate -->
@@ -122,9 +255,9 @@
 </div>
  <!-- Charts Section -->
       <div class="card">
-        <h3>Internship Trends</h3>
+        <h3><i class="fas fa-chart-line"></i> Application Trends</h3>
         <div class="chart-container">
-          <canvas id="internshipTrendsChart"></canvas>
+          <canvas id="applicationTrendsChart"></canvas>
         </div>
       </div>
 
@@ -148,13 +281,12 @@
 
       <!-- Most Used Courses -->
       <div class="card">
-        <h3>Most Used Courses in Internships</h3>
+        <h3><i class="fas fa-list"></i> Most Used Courses</h3>
         <ul id="mostUsedCoursesList">
-          <li>Data Structures and Algorithms - 78% of students reported using</li>
-          <li>Database Systems - 65% of students reported using</li>
-          <li>Software Engineering - 62% of students reported using</li>
-          <li>Web Development - 58% of students reported using</li>
-          <li>Human Computer Interaction - 45% of students reported using</li>
+          <li>Web Development <span>45 students</span></li>
+          <li>Data Science <span>38 students</span></li>
+          <li>Mobile Development <span>32 students</span></li>
+          <li>UI/UX Design <span>28 students</span></li>
         </ul>
       </div>
 
@@ -186,24 +318,24 @@
     
     // Initialize charts
     function initializeCharts() {
-      // Internship Trends Chart
-      const trendsCtx = document.getElementById('internshipTrendsChart').getContext('2d');
+      // Application Trends Chart
+      const trendsCtx = document.getElementById('applicationTrendsChart').getContext('2d');
       const trendsChart = new Chart(trendsCtx, {
         type: 'line',
         data: {
           labels: ['2019', '2020', '2021', '2022', '2023', '2024'],
           datasets: [
             {
-              label: 'Internship Placements',
-              data: [320, 350, 380, 410, 430, 450],
+              label: 'Applications',
+              data: [120, 150, 180, 210, 230, 250],
               borderColor: 'rgba(13, 27, 42, 1)',
               backgroundColor: 'rgba(13, 27, 42, 0.1)',
               tension: 0.4,
               fill: true
             },
             {
-              label: 'Reports Submitted',
-              data: [290, 320, 340, 370, 390, 395],
+              label: 'Internships',
+              data: [40, 45, 50, 55, 60, 65],
               borderColor: 'rgba(65, 105, 225, 1)',
               backgroundColor: 'rgba(65, 105, 225, 0.1)',
               tension: 0.4,
@@ -217,7 +349,7 @@
           plugins: {
             title: {
               display: true,
-              text: 'Internship Placement and Report Submission Trends'
+              text: 'Application and Internship Trends'
             }
           },
           scales: {
@@ -225,7 +357,7 @@
               beginAtZero: true,
               title: {
                 display: true,
-                text: 'Number of Students'
+                text: 'Number of Applications/Internships'
               }
             },
             x: {
@@ -338,19 +470,27 @@
       setTimeout(() => {
         // Update statistics based on filters (mock data)
         if (major === "Computer Science") {
+          document.getElementById('totalApplicationsCount').textContent = '198';
+          document.getElementById('activeInternshipsCount').textContent = '50';
           document.getElementById('totalStudentsCount').textContent = '215';
           document.getElementById('placementRateCount').textContent = '92%';
           document.getElementById('reportsSubmittedCount').textContent = '198';
         } else if (major === "Engineering") {
+          document.getElementById('totalApplicationsCount').textContent = '115';
+          document.getElementById('activeInternshipsCount').textContent = '30';
           document.getElementById('totalStudentsCount').textContent = '135';
           document.getElementById('placementRateCount').textContent = '85%';
           document.getElementById('reportsSubmittedCount').textContent = '115';
         } else if (major === "Business") {
+          document.getElementById('totalApplicationsCount').textContent = '82';
+          document.getElementById('activeInternshipsCount').textContent = '25';
           document.getElementById('totalStudentsCount').textContent = '100';
           document.getElementById('placementRateCount').textContent = '80%';
           document.getElementById('reportsSubmittedCount').textContent = '82';
         } else {
-          document.getElementById('totalStudentsCount').textContent = '450';
+          document.getElementById('totalApplicationsCount').textContent = '150';
+          document.getElementById('activeInternshipsCount').textContent = '45';
+          document.getElementById('totalStudentsCount').textContent = '300';
           document.getElementById('placementRateCount').textContent = '87%';
           document.getElementById('reportsSubmittedCount').textContent = '395';
         }
@@ -386,21 +526,23 @@
       doc.text("Key Statistics", 10, 40);
       
       doc.setFontSize(12);
-      doc.text(`Total Students: ${document.getElementById('totalStudentsCount').textContent}`, 10, 50);
-      doc.text(`Placement Rate: ${document.getElementById('placementRateCount').textContent}`, 10, 60);
-      doc.text(`Average Duration: ${document.getElementById('avgDurationCount').textContent}`, 10, 70);
-      doc.text(`Reports Submitted: ${document.getElementById('reportsSubmittedCount').textContent}`, 10, 80);
-      doc.text(`Reports Accepted: ${document.getElementById('reportsAcceptedCount').textContent}`, 10, 90);
-      doc.text(`Average Review Time: ${document.getElementById('avgReviewTimeCount').textContent}`, 10, 100);
+      doc.text(`Total Applications: ${document.getElementById('totalApplicationsCount').textContent}`, 10, 50);
+      doc.text(`Active Internships: ${document.getElementById('activeInternshipsCount').textContent}`, 10, 60);
+      doc.text(`Total Students: ${document.getElementById('totalStudentsCount').textContent}`, 10, 70);
+      doc.text(`Placement Rate: ${document.getElementById('placementRateCount').textContent}`, 10, 80);
+      doc.text(`Average Duration: ${document.getElementById('avgDurationCount').textContent}`, 10, 90);
+      doc.text(`Reports Submitted: ${document.getElementById('reportsSubmittedCount').textContent}`, 10, 100);
+      doc.text(`Reports Accepted: ${document.getElementById('reportsAcceptedCount').textContent}`, 10, 110);
+      doc.text(`Average Review Time: ${document.getElementById('avgReviewTimeCount').textContent}`, 10, 120);
       
       // Add most used courses
       doc.setFontSize(14);
-      doc.text("Most Used Courses in Internships", 10, 120);
+      doc.text("Most Used Courses in Internships", 10, 140);
       
       doc.setFontSize(12);
       const courses = document.querySelectorAll('#mostUsedCoursesList li');
       courses.forEach((course, index) => {
-        doc.text(`- ${course.textContent}`, 15, 130 + (index * 10));
+        doc.text(`- ${course.textContent}`, 15, 150 + (index * 10));
       });
       
       // Save the PDF
