@@ -3,31 +3,450 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reports</title>
- 
+  <title>Reports - GUC Internship System</title>
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/student_base.css" />
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../css/reports.css" />
-    
+  <style>
+    /* Only keep styles specific to reports page that aren't in the base CSS files */
+    .reports-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+    }
+
+    .search-filter-container {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .dashboard-container {
+      display: grid;
+      gap: 2rem;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
+    }
+
+    .card h3 {
+      color: #0d1b2a;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    select {
+      padding: 0.75rem 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: #333;
+      background-color: white;
+      min-width: 200px;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: #0d1b2a;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+    }
+
+    #reportsList {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #reportsList li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      transition: all 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+
+    #reportsList li:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .report-info {
+      flex: 1;
+      margin-right: 1rem;
+    }
+
+    .report-title {
+      color: #0d1b2a;
+      font-weight: 500;
+      cursor: pointer;
+      transition: color 0.3s ease;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .status-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-shrink: 0;
+    }
+
+    .status {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .status.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status.flagged {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .status.rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .status.accepted {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .clarification-btn {
+      background: none;
+      border: none;
+      color: #0d1b2a;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .instruction-text {
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .header-icons {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .sidebar-header h2 span {
+      color: white;
+    }
+
+    .primary-button {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .primary-button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    #evaluationReportsList {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0 0;
+    }
+
+    #evaluationReportsList li {
+      padding: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      margin-bottom: 0.5rem;
+    }
+
+    #evaluationReportsList li:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 768px) {
+      .search-filter-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-filter-container select {
+        width: 100%;
+      }
+
+      #reportsList li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .status-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #0d1b2a;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      resize: vertical;
+      min-height: 100px;
+      margin: 1rem 0;
+    }
+
+    textarea:focus {
+      border-color: #0d1b2a;
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button.primary-button {
+      background-color: #0d1b2a;
+      color: white;
+    }
+
+    button.primary-button:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 27, 42, 0.2);
+    }
+
+    button.secondary-button {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    button.secondary-button:hover {
+      background-color: #d0d0d0;
+    }
+
+    .modal .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .modal .close-modal:hover,
+    .modal .close-modal:focus,
+    .modal .close-modal:active {
+      color: #0d1b2a !important;
+      background: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  </style>
 </head>
 <body>
   <div class="app-container">
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
       <div class="sidebar-header">
-        <h2>Internship Portal</h2>
+        <h2>SCAD<br>Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="#" class="nav-link"><i class="fas fa-home"></i> Dashboard</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-briefcase"></i> Available Internships</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-paper-plane"></i> Applications</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-history"></i> Past & Present Internships</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-chalkboard-teacher"></i> Workshops</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-calendar-check"></i> Appointments & Calls</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-users"></i> View All Students</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-clipboard-list"></i> Online Assessments</a></li>
-          <li><a href="#" class="nav-link"><i class="fas fa-certificate"></i> Earned Certificates</a></li>
-          <li><a href="#" class="nav-link active"><i class="fas fa-file-alt"></i> Submitted Reports</a></li>
+          <li><a href="Scadnew_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="company_applications.html" class="nav-link"><i class="fas fa-briefcase"></i>Company Applications</a></li>
+          <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
+          <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
+          <li><a href="#" class="nav-link" id="openCycleModal"><i class="fas fa-calendar"></i>Set Cycle Date</a></li>
+          <li><a href="#" class="nav-link active"><i class="fas fa-file-alt"></i>Submitted Reports</a></li>
         </ul>
       </nav>
     </aside>
@@ -35,6 +454,24 @@
     <main class="main-content">
       <header class="main-header">
         <h1>SCAD Reports Admin</h1>
+        <div class="header-icons">
+          <!-- Notification Icon -->
+          <a href="notifications.html" class="icon-link">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span class="notification-badge">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <section class="dashboard-container">
@@ -63,7 +500,7 @@
         <section class="card">
           <h3><i class="fas fa-chart-bar"></i> Evaluation Reports</h3>
           <p class="instruction-text">Click on an evaluation report below to view its details.</p>
-          <button onclick="fetchEvaluationReports()">Load Evaluation Reports</button>
+          <button class="primary-button" onclick="fetchEvaluationReports()">Load Evaluation Reports</button>
           <ul id="evaluationReportsList"></ul>
         </section>
       </section>
@@ -121,11 +558,14 @@
   <!-- Modal for Adding Clarifications -->
   <div id="clarificationModal" class="modal">
     <div class="modal-content">
-      <h3>Submit Clarification</h3>
+      <div class="modal-header">
+        <h2><i class="fas fa-comment-dots"></i> Submit Clarification</h2>
+        <button class="close-modal" onclick="closeClarificationModal()">&times;</button>
+      </div>
       <p><strong>Report Title:</strong> <span id="clarificationReportTitle"></span></p>
       <textarea id="clarificationText" placeholder="Enter your clarification here..." rows="5"></textarea>
       <div class="button-group">
-        <button onclick="submitClarification()">Submit Clarification</button>
+        <button class="primary-button" onclick="submitClarification()">Submit Clarification</button>
         <button class="secondary-button" onclick="closeClarificationModal()">Cancel</button>
       </div>
     </div>
@@ -265,37 +705,36 @@
     }
 
     function displayReports(reports) {
-  const reportsList = document.getElementById('reportsList');
-  reportsList.innerHTML = '';
+      const reportsList = document.getElementById('reportsList');
+      reportsList.innerHTML = '';
 
-  if (!reports || reports.length === 0) {
-    const li = document.createElement('li');
-    li.textContent = 'No reports found.';
-    reportsList.appendChild(li);
-    return;
-  }
+      if (!reports || reports.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'No reports found.';
+        reportsList.appendChild(li);
+        return;
+      }
 
-  reports.forEach(report => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <div class="report-info">
-        <span class="report-title" onclick="showReportDetails('${report.id}')">
-          ${report.title} (Student: ${report.student.name})
-        </span>
-      </div>
-      <div class="status-container">
-        <span class="status ${report.status}">
-          ${report.status}
-        </span>
-        ${report.status === 'flagged' || report.status === 'rejected' ? 
-          `<button class="clarification-btn" onclick="openClarificationModal('${report.id}')" aria-label="Add clarification to this report">
-            <i class="fas fa-comment-dots"></i>
-          </button>` : ''}
-      </div>
-    `;
-    reportsList.appendChild(li);
-  });
-
+      reports.forEach(report => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <div class="report-info">
+            <span class="report-title" onclick="showReportDetails('${report.id}')">
+              ${report.title} (Student: ${report.student.name})
+            </span>
+          </div>
+          <div class="status-container">
+            <span class="status ${report.status}">
+              ${report.status}
+            </span>
+            ${report.status === 'flagged' || report.status === 'rejected' ? 
+              `<button class="clarification-btn" onclick="openClarificationModal('${report.id}')" aria-label="Add clarification to this report">
+                <i class="fas fa-comment-dots"></i>
+              </button>` : ''}
+          </div>
+        `;
+        reportsList.appendChild(li);
+      });
     }
 
     function showReportDetails(reportId) {
@@ -443,6 +882,29 @@
 
     // Load reports on page load
     document.addEventListener('DOMContentLoaded', fetchAllReports);
+
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
   </script>
 </body>
 </html>

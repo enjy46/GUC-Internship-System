@@ -173,18 +173,21 @@
     
     .form-group {
       margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
     }
     
     .form-group label {
       display: block;
-      margin-bottom: 0.5rem;
       font-weight: 500;
       color: #0d1b2a;
+      margin-bottom: 0;
     }
     
-    .form-group select,
-    .form-group input {
-      width: 100%;
+    .form-group select {
+      flex: 1;
       padding: 0.75rem;
       border: 1px solid #ddd;
       border-radius: 6px;
@@ -192,8 +195,7 @@
       transition: border-color 0.3s ease;
     }
     
-    .form-group select:focus,
-    .form-group input:focus {
+    .form-group select:focus {
       border-color: #0d1b2a;
       outline: none;
     }
@@ -207,6 +209,7 @@
       cursor: pointer;
       font-weight: 600;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
     
     .primary-button:hover {
@@ -389,6 +392,41 @@
         width: 100%;
       }
     }
+
+    /* Toast Notification styles */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: -400px;
+      max-width: 320px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      z-index: 2000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: right 0.4s ease-in-out;
+      animation: shake 0.3s ease-in-out;
+    }
+
+    .toast-notification.show {
+      right: 20px;
+    }
+
+    .toast-notification.success {
+      background-color: #388e3c;
+    }
+
+    .toast-notification.error {
+      background-color: #c62828;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
   </style>
 </head>
 <body>
@@ -412,16 +450,16 @@
         <h1>Faculty Dashboard</h1>
         <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 1.5rem;">
           <!-- Notification Icon -->
-          <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+          <!-- <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
               <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
                     border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
                     align-items: center; justify-content: center;">3</span>
             </i>
-          </a>
+          </a> -->
           
           <!-- Profile Icon with Dropdown -->
-          <div style="position: relative; display: inline-block;">
+          <!-- <div style="position: relative; display: inline-block;">
             <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
               <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
             </a>
@@ -433,7 +471,7 @@
               <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
                  display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
-          </div>
+          </div> -->
         </div>
       </header>
 
@@ -441,13 +479,15 @@
       <section class="card">
         <h3>All Students</h3>
         <div class="form-group">
-          <label for="statusFilter">Filter by Internship Status:</label>
-          <select id="statusFilter" onchange="filterStudentsByStatus()">
-            <option value="">All Statuses</option>
-            <option value="current intern">Current Intern</option>
-            <option value="internship complete">Internship Complete</option>
-            <option value="not started">Not Started</option>
-          </select>
+          <div style="flex: 1;">
+            <label for="statusFilter">Filter by Internship Status:</label>
+            <select id="statusFilter">
+              <option value="">All Statuses</option>
+              <option value="current intern">Current Intern</option>
+              <option value="internship complete">Internship Complete</option>
+              <option value="not started">Not Started</option>
+            </select>
+          </div>
           <button class="primary-button" onclick="fetchAllStudents()">Load Students</button>
         </div>
         <ul id="studentsList"></ul>
@@ -457,19 +497,21 @@
       <section class="card">
         <h3>All Submitted Reports</h3>
         <div class="form-group">
-          <select id="filterByMajor">
-            <option value="">All Majors</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Business">Business</option>
-          </select>
-          <select id="filterByStatus">
-            <option value="">All Statuses</option>
-            <option value="pending">Pending</option>
-            <option value="flagged">Flagged</option>
-            <option value="rejected">Rejected</option>
-            <option value="accepted">Accepted</option>
-          </select>
+          <div style="flex: 1; display: flex; gap: 1rem;">
+            <select id="filterByMajor">
+              <option value="">All Majors</option>
+              <option value="Computer Science">Computer Science</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Business">Business</option>
+            </select>
+            <select id="filterByStatus">
+              <option value="">All Statuses</option>
+              <option value="pending">Pending</option>
+              <option value="flagged">Flagged</option>
+              <option value="rejected">Rejected</option>
+              <option value="accepted">Accepted</option>
+            </select>
+          </div>
           <button class="primary-button" onclick="fetchAllReports()">Load Reports</button>
         </div>
         <ul id="reportsList"></ul>
@@ -582,16 +624,40 @@
       console.log("Submitting clarification for:", selectedReport.title);
       const clarificationText = document.getElementById("clarificationText").value.trim();
       if (!clarificationText) {
-        alert("Please enter a clarification before submitting.");
+        showNotification("Please enter a clarification before submitting.", "error");
         return;
       }
 
       // Save the clarification (replace with actual API or database logic)
       console.log(`Clarification for report "${selectedReport.title}": ${clarificationText}`);
-      alert(`Clarification submitted for report "${selectedReport.title}".`);
+
+      // Show success notification
+      showNotification(`Clarification submitted for report "${selectedReport.title}".`, "success");
 
       // Close the modal
       closeClarificationModal();
+    }
+
+    function showNotification(message, type) {
+      const notificationDiv = document.createElement('div');
+      notificationDiv.textContent = message;
+      notificationDiv.className = `toast-notification ${type}`;
+      notificationDiv.setAttribute('role', 'alert');
+      document.body.appendChild(notificationDiv);
+
+      setTimeout(() => {
+        notificationDiv.classList.add('show');
+      }, 100);
+
+      notificationDiv.addEventListener('click', () => {
+        notificationDiv.classList.remove('show');
+        setTimeout(() => notificationDiv.remove(), 300);
+      });
+
+      setTimeout(() => {
+        notificationDiv.classList.remove('show');
+        setTimeout(() => notificationDiv.remove(), 300);
+      }, 5000);
     }
 
     // Function to fetch evaluation reports (mock example)
@@ -740,22 +806,18 @@
     // Function to fetch all students (mock example)
     function fetchAllStudents() {
       console.log("Fetching all students...");
+      const statusFilter = document.getElementById("statusFilter").value;
+      console.log("Selected status filter:", statusFilter);
+      
       const students = [
         { name: "Alice Johnson", id: "1001", major: "Computer Science", status: "current intern" },
         { name: "Bob Smith", id: "1002", major: "Engineering", status: "internship complete" },
         { name: "Charlie Davis", id: "1003", major: "Business", status: "not started" },
+        { name: "David Wilson", id: "1004", major: "Computer Science", status: "current intern" },
+        { name: "Eva Brown", id: "1005", major: "Engineering", status: "not started" },
       ];
-      displayStudents(students);
-    }
-
-    // Function to filter students by status
-    function filterStudentsByStatus() {
-      const statusFilter = document.getElementById("statusFilter").value;
-      console.log("Filtering students by status:", statusFilter);
       
-      // In a real application, you would fetch filtered data from the server
-      // For this example, we'll just call fetchAllStudents and filter the results
-      fetchAllStudents();
+      displayStudents(students);
     }
 
     // Function to display students
@@ -768,6 +830,16 @@
       const filteredStudents = statusFilter ? 
         students.filter(student => student.status === statusFilter) : 
         students;
+      
+      if (filteredStudents.length === 0) {
+        const li = document.createElement("li");
+        li.textContent = "No students found with the selected status.";
+        li.style.textAlign = "center";
+        li.style.padding = "2rem";
+        li.style.color = "#666";
+        studentsList.appendChild(li);
+        return;
+      }
       
       filteredStudents.forEach(student => {
         const li = document.createElement("li");
