@@ -305,7 +305,7 @@
 
     .save-notes-btn {
         padding: 0.75rem 1.5rem;
-        background-color: #01579b;
+        background-color: #0d1b2a;
         color: white;
         border: none;
         border-radius: 8px;
@@ -319,7 +319,7 @@
     }
 
     .save-notes-btn:hover {
-        background-color: #013c6e;
+        background-color: #1b263b;
         transform: translateY(-2px);
     }
 
@@ -327,31 +327,165 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: #4CAF50;
-        color: white;
         padding: 1rem 2rem;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         display: none;
         z-index: 1000;
         font-size: 14px;
         font-weight: 500;
         animation: fadeIn 0.3s ease-in;
+        color: white;
     }
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .notification.success {
+        background-color: #4CAF50;
+        border-left: 4px solid #45a049;
+    }
+
+    .notification.error {
+        background-color: #ef4444;
+        border-left: 4px solid #dc2626;
+    }
+
+    .notification.info {
+        background-color: #0d1b2a;
+        border-left: 4px solid #1b263b;
     }
 
     .notification.show {
         display: block;
+    }
+
+    /* Chat Section Styles */
+    .chat-section {
+        margin: 2rem 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .chat-header {
+        background: #0d1b2a;
+        color: white;
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .chat-header h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+    }
+
+    .chat-participants {
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: white;
+    }
+
+    .chat-messages {
+        height: 300px;
+        overflow-y: auto;
+        padding: 1rem;
+        background: #f8f9fa;
+    }
+
+    .message {
+        margin-bottom: 1rem;
+        max-width: 80%;
+    }
+
+    .message.sent {
+        margin-left: auto;
+    }
+
+    .message-content {
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        position: relative;
+        word-wrap: break-word;
+    }
+
+    .message.received .message-content {
+        background: #e9ecef;
+        color: #0d1b2a;
+        border-bottom-left-radius: 4px;
+    }
+
+    .message.sent .message-content {
+        background: #0d1b2a;
+        color: white;
+        border-bottom-right-radius: 4px;
+    }
+
+    .message-meta {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 0.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .message.sent .message-meta {
+        justify-content: flex-end;
+    }
+
+    .chat-input-container {
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        background: white;
+    }
+
+    .chat-input {
+        flex: 1;
+        padding: 0.8rem;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        font-family: 'Inter', sans-serif;
+        resize: none;
+        height: 45px;
+        transition: border-color 0.3s ease;
+    }
+
+    .chat-input:focus {
+        outline: none;
+        border-color: #0d1b2a;
+    }
+
+    .send-message-btn {
+        padding: 0.8rem 1.5rem;
+        background: #0d1b2a;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .send-message-btn:hover {
+        background: #1b263b;
+        transform: translateY(-1px);
+    }
+
+    .send-message-btn:active {
+        transform: translateY(0);
     }
 
     /* Update certificate modal styles */
@@ -395,7 +529,7 @@
         top: 10px;
         right: 44px;
         padding: 6px 12px;
-        background-color: #01579b;
+        background-color: #0d1b2a;
         color: white;
         border: none;
         border-radius: 4px;
@@ -408,7 +542,7 @@
     }
 
     .download-certificate-btn:hover {
-        background-color: #013c6e;
+        background-color: #1b263b;
     }
 
     /* Remove the certificate download section */
@@ -420,7 +554,7 @@
     .action-btn.register-btn {
         padding: 10px 24px;
         font-size: 16px;
-        background-color: #01579b;
+        background-color: #4CAF50;
         color: white;
         border: none;
         border-radius: 4px;
@@ -436,7 +570,7 @@
     }
 
     .action-btn.register-btn:hover {
-        background-color: #013c6e;
+        background-color: #45a049;
         transform: translateY(-2px);
     }
 
@@ -457,6 +591,194 @@
 
     .workshop-status {
         margin-bottom: 0;
+    }
+
+    /* Message Notification Styles */
+    .message-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        z-index: 1100;
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.3s ease;
+        border-left: 4px solid #45a049;
+    }
+
+    .message-notification.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .message-notification i {
+        font-size: 1.2rem;
+        color: white;
+    }
+
+    .message-notification-content {
+        display: flex;
+        flex-direction: column;
+        color: white;
+    }
+
+    .message-notification-author {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: white;
+    }
+
+    .message-notification-text {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        color: white;
+    }
+
+    /* Video Mode Buttons */
+    .mode-btn {
+        padding: 0.5rem 1rem;
+        background: #0d1b2a;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .mode-btn:hover:not(:disabled) {
+        background: #1b263b;
+    }
+
+    /* Submit Feedback Button */
+    .submit-btn {
+        background: #0d1b2a;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background: #1b263b;
+        transform: translateY(-2px);
+    }
+
+    .certificate-modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+    }
+
+    .certificate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .certificate-body {
+      position: relative;
+    }
+
+    .certificate-template {
+      background: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2px solid #0d1b2a;
+    }
+
+    .certificate-inner {
+      background: white;
+      padding: 2rem;
+      border: 4px solid #0d1b2a;
+      text-align: center;
+    }
+
+    .certificate-inner h1 {
+      font-size: 2rem;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+    }
+
+    .certificate-inner h2 {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 0.8rem;
+    }
+
+    .certificate-inner h3 {
+      font-size: 1.8rem;
+      color: #0d1b2a;
+      margin-bottom: 0.8rem;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .certificate-inner h4 {
+      font-size: 1.3rem;
+      color: #0d1b2a;
+      margin: 0.8rem 0;
+    }
+
+    .certificate-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 2rem;
+      padding: 0 1.5rem;
+    }
+
+    .signature, .platform-name {
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .signature-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #0d1b2a;
+      margin-bottom: 0.4rem;
+    }
+
+    .platform-signature {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.4rem;
+      color: #0d1b2a;
+      margin-bottom: 0.4rem;
+    }
+
+    .signature-line {
+      width: 100%;
+      height: 2px;
+      background-color: #0d1b2a;
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .signature p, .platform-name p {
+      font-size: 0.8rem;
+      color: #666;
+      margin: 0;
     }
   </style>
 </head>
@@ -579,6 +901,43 @@
             </button>
         </div>
       </div>
+      
+      <!-- Chat Section -->
+      <div class="chat-section">
+        <div class="chat-header">
+            <h4><i class="fas fa-comments"></i> Workshop Chat</h4>
+            <div class="chat-participants">
+                <i class="fas fa-users"></i>
+                <span id="participantCount">24 participants</span>
+            </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will be dynamically added here -->
+            <div class="message received">
+                <div class="message-content">
+                    Welcome to the workshop! Feel free to ask questions or share your thoughts.
+                </div>
+                <div class="message-meta">
+                    <span class="message-author">Workshop Host</span>
+                    <span class="message-time">10:00 AM</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <textarea 
+                class="chat-input" 
+                placeholder="Type your message..."
+                id="chatInput"
+                rows="1"
+                onkeydown="if(event.keyCode === 13 && !event.shiftKey) { event.preventDefault(); sendMessage(); }"
+            ></textarea>
+            <button class="send-message-btn" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+                Send
+            </button>
+        </div>
+      </div>
+
       <div class="feedback-section">
         <h4><i class="fas fa-star"></i> Workshop Feedback</h4>
         <div class="rating-container">
@@ -605,35 +964,38 @@
 
   <!-- Certificate Modal -->
   <div id="certificateModal" class="modal hidden">
-    <div class="modal-content certificate-modal">
-        <button class="close-btn" onclick="closeCertificate()">&times;</button>
-        <button class="download-certificate-btn" onclick="downloadCertificate()">
-            <i class="fas fa-download"></i> Download
+    <div class="certificate-modal-content">
+      <div class="certificate-header">
+        <h2 id="certificateTitle"></h2>
+        <button onclick="closeCertificateModal()" class="close-btn">
+          <i class="fas fa-times"></i>
         </button>
-        <div class="certificate-content">
-            <div class="cert">
-                <div class="cert-border">
-                    <div class="cert-inner">
-                        <div class="cert-header">
-                            <img src="assets/guc_logo.png" alt="GUC Logo" class="cert-logo">
-                            <h1>Certificate of Achievement</h1>
-                        </div>
-                        <div class="cert-body">
-                            <p class="cert-text">This is to certify that</p>
-                            <h2>Malak Abuelkhier</h2>
-                            <p class="cert-text">has successfully completed the workshop</p>
-                            <h3 id="certificateTitle"></h3>
-                            <p class="cert-date" id="certificateDate"></p>
-                        </div>
-                        <div class="signature">
-                            <div class="signature-line"></div>
-                            <div class="signature-text">SCAD Career Development Office</div>
-                            <div class="signature-line"></div>
-                        </div>
-                    </div>
-                </div>
+      </div>
+      <div class="certificate-body">
+        <div class="certificate-template">
+          <div class="certificate-inner">
+            <h1>Certificate of Completion</h1>
+            <h2>This is to certify that</h2>
+            <h3>Malak Abuelkhier</h3>
+            <p>has successfully completed the workshop</p>
+            <h4 id="courseName"></h4>
+            <p id="certDate"></p>
+            <div class="certificate-footer">
+              <div class="signature">
+                <div class="signature-text">Dr. James Smith</div>
+                <div class="signature-line"></div>
+                <p>Workshop Instructor</p>
+              </div>
+              <div class="platform-name">
+                <div class="platform-signature">Sarah Johnson</div>
+                <div class="signature-line"></div>
+                <p>SCAD Career Development Office</p>
+                <p>Representative</p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
   </div>
 
@@ -641,9 +1003,18 @@
     <span id="notificationText"></span>
   </div>
 
+  <!-- After the notification div -->
+  <div id="messageNotification" class="message-notification">
+    <i class="fas fa-comment-dots"></i>
+    <div class="message-notification-content">
+        <span class="message-notification-author">New Message</span>
+        <span class="message-notification-text" id="messageNotificationText"></span>
+    </div>
+  </div>
+
   <script src="js/workshops.js"></script>
   <script>
-    function showNotification(message) {
+    function showNotification(message, type = 'info') {
         const notification = document.getElementById('notification');
         const notificationText = document.getElementById('notificationText');
         
@@ -651,6 +1022,12 @@
         if (notification.timeoutId) {
             clearTimeout(notification.timeoutId);
         }
+        
+        // Remove existing classes
+        notification.classList.remove('success', 'error', 'info');
+        
+        // Add appropriate class based on type
+        notification.classList.add(type);
         
         // Update message and show notification
         notificationText.textContent = message;
@@ -665,11 +1042,11 @@
     function saveNotes() {
         const notes = document.getElementById('notesTextarea').value;
         if (!notes.trim()) {
-            showNotification('Please enter some notes before saving! 📝');
+            showNotification('Please enter some notes before saving! 📝', 'error');
             return;
         }
         // Here you would typically save the notes to a database
-        showNotification('Notes saved successfully! 📝');
+        showNotification('Notes saved successfully! 📝', 'success');
     }
 
     function submitFeedback() {
@@ -677,17 +1054,17 @@
         const feedback = document.getElementById('feedback').value;
         
         if (!rating) {
-            showNotification('Please select a rating before submitting! ⭐');
+            showNotification('Please select a rating before submitting! ⭐', 'error');
             return;
         }
         
         if (!feedback.trim()) {
-            showNotification('Please provide some feedback before submitting! 💭');
+            showNotification('Please provide some feedback before submitting! 💭', 'error');
             return;
         }
         
         // Here you would typically save the feedback to a database
-        showNotification('Thank you for your feedback! 🙏');
+        showNotification('Thank you for your feedback! 🙏', 'success');
         
         // Clear the form
         document.getElementById('rating').value = '';
@@ -717,6 +1094,144 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
         event.stopPropagation();
     });
+
+    // Chat Functionality
+    function sendMessage() {
+      const input = document.getElementById('chatInput');
+      const message = input.value.trim();
+      
+      if (message) {
+        const chatMessages = document.getElementById('chatMessages');
+        const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        
+        const messageHTML = `
+          <div class="message sent">
+            <div class="message-content">
+              ${message}
+            </div>
+            <div class="message-meta">
+              <span class="message-author">You</span>
+              <span class="message-time">${currentTime}</span>
+            </div>
+          </div>
+        `;
+        
+        chatMessages.insertAdjacentHTML('beforeend', messageHTML);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        input.value = '';
+        
+        // Show notification for sent message
+        showMessageNotification('You', message);
+        
+        // Simulate response after a short delay
+        setTimeout(() => {
+          const responseHTML = `
+            <div class="message received">
+              <div class="message-content">
+                Thank you for your message! The workshop host will respond shortly.
+              </div>
+              <div class="message-meta">
+                <span class="message-author">Workshop Assistant</span>
+                <span class="message-time">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              </div>
+            </div>
+          `;
+          chatMessages.insertAdjacentHTML('beforeend', responseHTML);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          
+          // Show notification for response
+          showMessageNotification('Workshop Assistant', 'Thank you for your message! The workshop host will respond shortly.');
+          
+          // Update participant count randomly
+          updateParticipantCount();
+        }, 1000);
+      }
+    }
+
+    // Auto-resize chat input
+    const chatInput = document.getElementById('chatInput');
+    chatInput.addEventListener('input', function() {
+      this.style.height = '45px';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    // Update participant count randomly
+    function updateParticipantCount() {
+      const count = Math.floor(Math.random() * 10) + 20; // Random number between 20-30
+      document.getElementById('participantCount').textContent = `${count} participants`;
+    }
+
+    // Initial participant count update
+    updateParticipantCount();
+
+    // Auto-scroll chat to bottom on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatMessages = document.getElementById('chatMessages');
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    // Show message notification
+    function showMessageNotification(author, text) {
+      const notification = document.getElementById('messageNotification');
+      document.querySelector('.message-notification-author').textContent = author;
+      document.getElementById('messageNotificationText').textContent = text;
+      
+      // Show notification
+      notification.classList.add('show');
+      
+      // Hide notification after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    function showCertificate() {
+      const statusBadge = document.getElementById('workshopStatus');
+      
+      // Check if registered (status badge text is "Registered")
+      if (statusBadge.textContent.trim() === "Registered") {
+        const modal = document.getElementById('certificateModal');
+        const title = document.getElementById('workshopTitle').textContent;
+        const date = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+        
+        document.getElementById('certificateTitle').textContent = title;
+        document.getElementById('courseName').textContent = title;
+        document.getElementById('certDate').textContent = date;
+        
+        modal.classList.remove('hidden');
+      } else {
+        showNotification('Please register for the workshop first to view the certificate! 📝', 'error');
+      }
+    }
+
+    function registerWorkshop() {
+      const statusBadge = document.getElementById('workshopStatus');
+      const registerBtn = document.querySelector('.register-btn');
+      
+      if (statusBadge.textContent === "Registered") {
+        showNotification('You are already registered for this workshop! 📚', 'info');
+        return;
+      }
+      
+      // Update status and button
+      statusBadge.textContent = "Registered";
+      registerBtn.innerHTML = '<i class="fas fa-check"></i> Registered';
+      registerBtn.style.backgroundColor = '#4CAF50';
+      
+      showNotification('Successfully registered for the workshop! 🎉', 'success');
+    }
+
+    function closeCertificateModal() {
+      document.getElementById('certificateModal').classList.add('hidden');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('certificateModal');
+      if (event.target === modal) {
+        closeCertificateModal();
+      }
+    };
   </script>
 </body>
 </html>
