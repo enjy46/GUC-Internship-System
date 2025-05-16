@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshops - Internship Portal</title>
+  <link rel="stylesheet" href="student/css/student_base.css" />
+  <link rel="stylesheet" href="student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f8fc;
+      color: #333;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color: #2c3e50;
+      transform: translateX(5px);
+    }
+
+    .nav-link.active {
+      background-color: #001f3f;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+      width: 100%;
+    }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+      width: 100%;
+      max-width: 1500px;
+      height: 131.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .pro-badge {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pro-badge img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .pro-badge span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
+      margin-top: 1px;
+      text-align: center;
+      max-width: 150px;
+    }
+
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .card h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .workshop-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2c3e50;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 0.75rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1.5rem;
+      background-color: #01579b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: auto;
+      min-width: 120px;
+    }
+
+    .action-btn:hover {
+      background-color: #013c6e;
+      transform: translateY(-2px);
+    }
+    .action-btn.danger {
+  background-color: #ff4d4f; /* red */
+  color: white;
+  border: none;
+}
+
+.action-btn.danger:hover {
+  background-color: #e63946; /* darker red on hover */
+}
+
+    .action-btn.delete-btn {
+      background-color: #f44336;
+    }
+
+    .action-btn.delete-btn:hover {
+      background-color: #d32f2f;
+    }
+
+    .workshop-list {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .workshop-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .workshop-card h3 {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+    }
+
+    .workshop-card p {
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .workshop-card .status {
+      font-weight: 500;
+      color: #4CAF50;
+    }
+
+    .workshop-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: flex-end;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .icon-btn.edit-btn {
+      color: #01579b;
+    }
+
+    .icon-btn.delete-btn {
+      color: #f44336;
+    }
+
+    .icon-btn:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: slideIn 0.3s ease-out;
+    }
+    .modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px; /* optional spacing between buttons */
+  margin-top: 20px; /* optional */
+}
+
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #0d1b2a;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #f44336;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 1000;
+      font-size: 14px;
+      font-weight: 500;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .notification.show {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .dashboard-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      .workshop-actions {
+        justify-content: flex-start;
+      }
+      .modal-content {
+        width: 95%;
+        max-height: 70vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="workshops.html" class="nav-link active"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
+          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Workshops</h1>
+        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+          <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                    border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                    align-items: center; justify-content: center;">3</span>
+            </i>
+          </a>
+          <div style="position: relative; display: inline-block;">
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                 border-radius: 8px; z-index: 1000; margin-top: 10px;">
+              <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: center;">
+            <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+            <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+          </div>
+        </div>
+      </header>
+
+      <section class="dashboard-container">
+        <!-- Workshop Management Card -->
+        <div class="card">
+          <h2><i class="fas fa-chalkboard-teacher"></i> Manage Workshops</h2>
+          <form id="workshopForm" class="workshop-form">
+            <div class="form-group">
+              <label for="workshopName">Workshop Name:</label>
+              <input type="text" id="workshopName" required>
+            </div>
+            <div class="form-group">
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" required>
+            </div>
+            <div class="form-group">
+              <label for="startTime">Start Time:</label>
+              <input type="time" id="startTime" required>
+            </div>
+            <div class="form-group">
+              <label for="endDate">End Date:</label>
+              <input type="date" id="endDate" required>
+            </div>
+            <div class="form-group">
+              <label for="endTime">End Time:</label>
+              <input type="time" id="endTime" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea id="description" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="speakerBio">Speaker Bio:</label>
+              <textarea id="speakerBio" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="agenda">Agenda:</label>
+              <textarea id="agenda" required></textarea>
+            </div>
+            <div class="form-group">
+              <input type="hidden" id="workshopId">
+              <button type="submit" class="action-btn" id="saveWorkshopBtn">Save</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Upcoming Workshops Card -->
+        <div class="card">
+          <h2><i class="fas fa-chalkboard-teacher"></i> Upcoming Workshops</h2>
+          <div id="workshopList" class="workshop-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeDeleteModal()">×</button>
+      <h3>Confirm Deletion</h3>
+      <p>Are you sure you want to delete this workshop?</p>
+      <div class="modal-buttons">
+        <button class="action-btn" onclick="confirmDelete()">Yes</button>
+        <button class="action-btn danger" onclick="closeDeleteModal()">No</button>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Workshop Modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeEditModal()">×</button>
+      <h3>Edit Workshop</h3>
+      <form id="editWorkshopForm" class="workshop-form">
+        <div class="form-group">
+          <label for="editWorkshopName">Workshop Name:</label>
+          <input type="text" id="editWorkshopName" required>
+        </div>
+        <div class="form-group">
+          <label for="editStartDate">Start Date:</label>
+          <input type="date" id="editStartDate" required>
+        </div>
+        <div class="form-group">
+          <label for="editStartTime">Start Time:</label>
+          <input type="time" id="editStartTime" required>
+        </div>
+        <div class="form-group">
+          <label for="editEndDate">End Date:</label>
+          <input type="date" id="editEndDate" required>
+        </div>
+        <div class="form-group">
+          <label for="editEndTime">End Time:</label>
+          <input type="time" id="editEndTime" required>
+        </div>
+        <div class="form-group">
+          <label for="editDescription">Description:</label>
+          <textarea id="editDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editSpeakerBio">Speaker Bio:</label>
+          <textarea id="editSpeakerBio" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="editAgenda">Agenda:</label>
+          <textarea id="editAgenda" required></textarea>
+        </div>
+        <input type="hidden" id="editWorkshopId">
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="action-btn" id="updateWorkshopBtn">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="notification" class="notification">
+    <span id="notificationText"></span>
+  </div>
+
+  <script>
+    let workshops = [];
+    let editingWorkshopId = null;
+
+    // Load sample workshops (for demo purposes)
+    function loadSampleWorkshops() {
+      workshops = [
+        { id: 1, name: "Career Planning 101", startDate: "2025-05-20", startTime: "14:00", endDate: "2025-05-20", endTime: "16:00", description: "Learn the basics of career planning.", speakerBio: "John Doe, Career Expert with 10+ years experience.", agenda: "1. Introduction\n2. Goal Setting\n3. Q&A" },
+        { id: 2, name: "Resume Building Workshop", startDate: "2025-05-25", startTime: "10:00", endDate: "2025-05-25", endTime: "12:00", description: "Master the art of crafting a perfect resume.", speakerBio: "Jane Smith, HR Specialist.", agenda: "1. Resume Structure\n2. Tips & Tricks\n3. Review Session" }
+      ];
+      renderWorkshops();
+    }
+
+    // Render workshops
+    function renderWorkshops() {
+      const workshopList = document.getElementById('workshopList');
+      workshopList.innerHTML = '';
+      const now = new Date();
+      const upcomingWorkshops = workshops.filter(w => new Date(`${w.startDate}T${w.startTime}`) > now);
+
+      upcomingWorkshops.forEach(workshop => {
+        const card = document.createElement('div');
+        card.className = 'workshop-card';
+        card.innerHTML = `
+          <h3>${workshop.name}</h3>
+          <p><strong>Date:</strong> ${workshop.startDate} ${workshop.startTime} - ${workshop.endDate} ${workshop.endTime}</p>
+          <p><strong>Description:</strong> ${workshop.description}</p>
+          <p><strong>Speaker:</strong> ${workshop.speakerBio}</p>
+          <p><strong>Agenda:</strong> ${workshop.agenda}</p>
+          <div class="workshop-actions">
+            <button class="icon-btn edit-btn" onclick="editWorkshop(${workshop.id})" title="Edit">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="icon-btn delete-btn" onclick="showDeleteModal(${workshop.id})" title="Delete">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </div>
+        `;
+        workshopList.appendChild(card);
+      });
+    }
+
+    // Show notification
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      if (notification.timeoutId) clearTimeout(notification.timeoutId);
+      
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      notification.timeoutId = setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // Save or create workshop
+    document.getElementById('workshopForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const workshop = {
+        id: Date.now(),
+        name: document.getElementById('workshopName').value,
+        startDate: document.getElementById('startDate').value,
+        startTime: document.getElementById('startTime').value,
+        endDate: document.getElementById('endDate').value,
+        endTime: document.getElementById('endTime').value,
+        description: document.getElementById('description').value,
+        speakerBio: document.getElementById('speakerBio').value,
+        agenda: document.getElementById('agenda').value
+      };
+
+      workshops.push(workshop);
+      showNotification('Workshop created successfully!');
+      this.reset();
+      renderWorkshops();
+    });
+
+    // Edit workshop (open popup)
+    function editWorkshop(id) {
+      editingWorkshopId = id;
+      const workshop = workshops.find(w => w.id === id);
+      document.getElementById('editWorkshopName').value = workshop.name;
+      document.getElementById('editStartDate').value = workshop.startDate;
+      document.getElementById('editStartTime').value = workshop.startTime;
+      document.getElementById('editEndDate').value = workshop.endDate;
+      document.getElementById('editEndTime').value = workshop.endTime;
+      document.getElementById('editDescription').value = workshop.description;
+      document.getElementById('editSpeakerBio').value = workshop.speakerBio;
+      document.getElementById('editAgenda').value = workshop.agenda;
+      document.getElementById('editWorkshopId').value = workshop.id;
+      document.getElementById('editModal').style.display = 'flex';
+    }
+
+    // Update workshop
+    document.getElementById('editWorkshopForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const workshop = {
+        id: parseInt(document.getElementById('editWorkshopId').value),
+        name: document.getElementById('editWorkshopName').value,
+        startDate: document.getElementById('editStartDate').value,
+        startTime: document.getElementById('editStartTime').value,
+        endDate: document.getElementById('editEndDate').value,
+        endTime: document.getElementById('editEndTime').value,
+        description: document.getElementById('editDescription').value,
+        speakerBio: document.getElementById('editSpeakerBio').value,
+        agenda: document.getElementById('editAgenda').value
+      };
+
+      const index = workshops.findIndex(w => w.id === workshop.id);
+      workshops[index] = workshop;
+      showNotification('Changes saved successfully!');
+      closeEditModal();
+      renderWorkshops();
+    });
+
+    // Show delete confirmation modal
+    function showDeleteModal(id) {
+      editingWorkshopId = id;
+      document.getElementById('deleteModal').style.display = 'flex';
+    }
+
+    // Confirm delete
+    function confirmDelete() {
+      if (editingWorkshopId) {
+        workshops = workshops.filter(w => w.id !== editingWorkshopId);
+        showNotification('Workshop deleted successfully!');
+        closeDeleteModal();
+        renderWorkshops();
+      }
+    }
+
+    // Close delete modal
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').style.display = 'none';
+      editingWorkshopId = null;
+    }
+
+    // Close edit modal
+    function closeEditModal() {
+      document.getElementById('editModal').style.display = 'none';
+      document.getElementById('editWorkshopForm').reset();
+      editingWorkshopId = null;
+    }
+
+    // Toggle dropdown
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+
+    // Initialize
+    window.addEventListener('load', loadSampleWorkshops);
+  </script>
+</body>
+</html>

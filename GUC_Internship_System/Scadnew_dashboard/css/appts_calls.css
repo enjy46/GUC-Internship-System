@@ -1,0 +1,450 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f4f8fc;
+    color: #333;
+    margin: 0;
+    overflow-x: hidden;
+  }
+  
+  .app-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .sidebar-header {
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .sidebar-header h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  .nav-link i {
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .nav-link:hover {
+    background-color: #2c3e50;
+    transform: translateX(5px);
+  }
+  
+  .nav-link.active {
+    background-color: #001f3f;
+    border-left: 4px solid #4CAF50;
+    font-weight: 600;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    flex: 1;
+    background-color: #f4f8fc;
+    padding-bottom: 2rem;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  
+  .main-header {
+    background-color: #0d1b2a;
+    color: #ffffff;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+  
+  .main-header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .pro-badge {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .pro-badge img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .pro-badge span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: white;
+    margin-top: 1px;
+    text-align: center;
+    max-width: 150px;
+  }
+  
+  .dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h2 {
+    color: #0d1b2a;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #0d1b2a;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #0d1b2a;
+    outline: none;
+  }
+  
+  .form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+  
+  .btn {
+    background-color: #0d1b2a;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #1b263b;
+    transform: translateY(-2px);
+  }
+  
+  .btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .appointment-status {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 4px;
+    display: none;
+  }
+  
+  .appointment-status.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    display: block;
+  }
+  
+  .appointment-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    display: block;
+  }
+  
+  .video-call-section {
+    margin-top: 2rem;
+  }
+  
+  .video-call-container {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+  }
+  
+  .video-call-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .video-call-info p {
+    margin: 0.5rem 0;
+  }
+  
+  #startVideoCallBtn {
+    background-color: #28a745;
+    margin-top: 1rem;
+  }
+  
+  #startVideoCallBtn:hover {
+    background-color: #218838;
+  }
+  
+  #startVideoCallBtn:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
+  .video-call-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .video-call-controls .btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .video-call-controls .btn:hover {
+    background-color: #0066cc;
+  }
+  
+  .video-call-controls .btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .video-call-controls .btn.active {
+    background-color: #28a745;
+  }
+  
+  .video-call-controls .btn.danger {
+    background-color: #dc3545;
+  }
+  
+  .video-call-controls .icon {
+    font-size: 1.2em;
+  }
+  
+  .video-container {
+    margin: 20px 0;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+  
+  .video-box {
+    position: relative;
+    aspect-ratio: 16/9;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .video-box video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .video-label {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+  }
+  
+  .call-notifications {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+  }
+  
+  .call-notification {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  .notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #0d1b2a;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .appointment-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  
+  .accept-btn {
+    background-color: #28a745;
+  }
+  
+  .accept-btn:hover {
+    background-color: #218838;
+  }
+  
+  .reject-btn {
+    background-color: #dc3545;
+  }
+  
+  .reject-btn:hover {
+    background-color: #c82333;
+  }
+  
+  footer {
+    background-color: #0d1b2a;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: translateX(-250px);
+    }
+    
+    .main-content {
+      margin-left: 0;
+    }
+    
+    .dashboard-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .video-call-controls {
+      flex-direction: column;
+    }
+    
+    .video-call-controls .btn {
+      width: 100%;
+    }
+    
+    .appointment-actions {
+      flex-direction: column;
+    }
+    
+    .appointment-actions .btn {
+      width: 100%;
+    }
+  }
+  

@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Appointments - Internship Portal</title>
-  <link rel="stylesheet" href="student/css/student_base.css" />
-  <link rel="stylesheet" href="student/css/courses.css" />
+  <title>SCAD Appointments Dashboard - GUC Internship System</title>
+  <link rel="stylesheet" href="advisor/css/advisor_base.css" />
+  <link rel="stylesheet" href="advisor/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="../css/appts_calls.css">
+  <script src="../js/appts_calls.js" defer></script>
   <style>
     :root {
       --primary-color: #0d1b2a;
@@ -23,35 +24,35 @@
     }
 
     .main-content {
-  margin-left: 250px;
-  flex: 1;
-  background-color: #f4f8fc;
-  padding-bottom: 2rem;
-  transition: margin-left 0.3s ease-in-out;
-  width: 100%;
-}
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+      width: 100%;
+    }
 
-.main-header {
-  background-color: #0d1b2a;
-  color: #ffffff;
-  padding: 1.5rem;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  position: relative;
-  width: 100%;
-  max-width: 1500px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+      width: 100%;
+      max-width: 1500px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-.main-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #ffffff;
-}
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
 
     .dashboard-container {
       max-width: 1200px;
@@ -627,7 +628,7 @@
       border-color: #2196F3;
     }
 
-    .toast.scad {
+    .toast.student {
       background: #f8f9fa;
       border-color: #0d1b2a;
     }
@@ -644,7 +645,7 @@
       color: #2196F3;
     }
 
-    .toast.scad i {
+    .toast.student i {
       color: #0d1b2a;
     }
 
@@ -1131,31 +1132,28 @@
   <div class="app-container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>Internship Portal</h2>
+        <h2>Advisor Dashboard</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
-          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
-          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
-          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
-          <li><a href="appointments.html" class="nav-link active"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
-          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="advisor_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="student_profiles.html" class="nav-link"><i class="fas fa-users"></i>Student Profiles</a></li>
+          <li><a href="advisor_appointments.html" class="nav-link active"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
+          <li><a href="advisor_reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="advisor_workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
+          <li><a href="advisor_resources.html" class="nav-link"><i class="fas fa-book"></i>Resources</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Career Guidance Appointments</h1>
+        <h1>Advisor Appointments Dashboard</h1>
         <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
             <!-- Online Status -->
         
             <!-- Notification Icon -->
-            <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+            <a href="advisor_notifications.html" style="color: white; text-decoration: none; position: relative;">
                 <i class="fas fa-bell" style="font-size: 1.4rem;">
                     <span class="notification-badge">3</span>
                 </i>
@@ -1169,25 +1167,34 @@
                 <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
                      background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
                      border-radius: 8px; z-index: 1000; margin-top: 10px;">
-                    <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                    <a href="advisor_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
                        display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
                     <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
                        display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
             </div>
-            <!-- Pro Badge -->
+            <!-- Advisor Badge -->
             <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
+                <img src="assets/advisor_badge.png" alt="Advisor Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Career Advisor</span>
             </div>
         </div>
       </header>
 
       <section class="dashboard-container">
-        <!-- Request Appointment Section -->
+        <!-- Schedule Appointment Section -->
         <div class="card">
-            <h2><i class="fas fa-calendar-plus"></i> Request Appointment</h2>
+            <h2><i class="fas fa-calendar-plus"></i> Schedule Appointment</h2>
             <form id="appointmentForm">
+                <div class="form-group">
+                    <label for="studentSelect">Student:</label>
+                    <select id="studentSelect" name="student" required>
+                        <option value="">Select a student</option>
+                        <option value="john_doe">John Doe</option>
+                        <option value="jane_smith">Jane Smith</option>
+                        <option value="alex_brown">Alex Brown</option>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="appointmentDate">Date:</label>
                     <input type="date" id="appointmentDate" name="date" required>
@@ -1207,10 +1214,10 @@
                 </div>
                 <div class="form-group">
                     <label for="appointmentNotes">Additional Notes:</label>
-                    <textarea id="appointmentNotes" name="notes" placeholder="Please provide any additional details about your request"></textarea>
+                    <textarea id="appointmentNotes" name="notes" placeholder="Please provide any additional details about the appointment"></textarea>
                 </div>
-                <button type="submit" class="btn" id="requestAppointmentBtn">
-                    <i class="fas fa-paper-plane"></i> Request Appointment
+                <button type="submit" class="btn" id="scheduleAppointmentBtn">
+                    <i class="fas fa-calendar-plus"></i> Schedule Appointment
                 </button>
             </form>
         </div>
@@ -1227,7 +1234,7 @@
                     </div>
                     <div class="appointment-details">
                         <h3>Career Guidance Session</h3>
-                        <p><i class="fas fa-user"></i> With: Career Advisor</p>
+                        <p><i class="fas fa-user"></i> With: John Doe</p>
                         <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
                         <div class="appointment-status">
                             <div class="advisor-status">
@@ -1235,7 +1242,7 @@
                                 <span class="status-text">Online</span>
                             </div>
                             <button class="btn join-call-btn" onclick="showVideoCall()">
-                                <i class="fas fa-video"></i> Join Video Call
+                                <i class="fas fa-video"></i> Start Video Call
                             </button>
                         </div>
                     </div>
@@ -1254,7 +1261,7 @@
                 <div class="video-box main-video">
                     <video id="remoteVideo" autoplay playsinline></video>
                     <div class="video-overlay">
-                        <span class="participant-name">Career Advisor</span>
+                        <span class="participant-name">Student</span>
                         <div class="connection-status">
                             <span class="status-dot"></span> Excellent Connection
                         </div>
@@ -1303,11 +1310,11 @@
     <div class="modal-content">
       <div class="incoming-call-header">
         <h3>Incoming Video Call</h3>
-        <p>Career Advisor is calling you</p>
+        <p>John Doe is calling you</p>
       </div>
       <div class="caller-info">
-        <p class="caller-name">Career Advisor</p>
-        <p class="caller-title">Academic Support Team</p>
+        <p class="caller-name">John Doe</p>
+        <p class="caller-title">Student</p>
       </div>
       <div class="call-actions">
         <button class="accept-call-btn" onclick="acceptCall()">
@@ -1339,7 +1346,6 @@
     // Function to initialize video call
     async function initializeVideoCall() {
         try {
-            // Only initialize local stream if we're the caller or if we've accepted the call
             if (!isInCall || callAccepted) {
                 localStream = await navigator.mediaDevices.getUserMedia({
                     video: true,
@@ -1349,11 +1355,9 @@
                 const localVideo = document.getElementById('localVideo');
                 localVideo.srcObject = localStream;
 
-                // Don't show remote video initially
                 const remoteVideo = document.getElementById('remoteVideo');
                 remoteVideo.style.display = 'none';
                 
-                // Start call timer
                 startCallTimer();
                 
                 isInCall = true;
@@ -1396,7 +1400,6 @@
             isAudioMuted = !isAudioMuted;
             audioTracks.forEach(track => track.enabled = !isAudioMuted);
             
-            // Update button UI
             btn.innerHTML = `
                 <i class="fas fa-${isAudioMuted ? 'microphone-slash' : 'microphone'}"></i>
                 <span>${isAudioMuted ? 'Unmute' : 'Mute'}</span>
@@ -1415,7 +1418,6 @@
             isVideoStopped = !isVideoStopped;
             videoTracks.forEach(track => track.enabled = !isVideoStopped);
             
-            // Update button UI
             btn.innerHTML = `
                 <i class="fas fa-video${isVideoStopped ? '-slash' : ''}"></i>
                 <span>${isVideoStopped ? 'Start Video' : 'Stop Video'}</span>
@@ -1438,7 +1440,6 @@
                 const localVideo = document.getElementById('localVideo');
                 localVideo.srcObject = screenStream;
                 
-                // Handle screen sharing stop
                 screenStream.getVideoTracks()[0].onended = () => {
                     stopScreenSharing();
                 };
@@ -1484,11 +1485,22 @@
         }
     }
 
-    // Function to show video call section (updated)
+    // Function to show video call section
     function showVideoCall() {
         document.getElementById('videoCallSection').style.display = 'block';
         document.getElementById('videoCallSection').scrollIntoView({ behavior: 'smooth' });
         initializeVideoCall();
+        setTimeout(() => {
+            showNotification('call', 'Student joined the call');
+            const remoteVideo = document.getElementById('remoteVideo');
+            remoteVideo.style.display = 'block';
+        }, 2000);
+
+        setTimeout(() => {
+            if (isInCall) {
+                studentLeaveCall();
+            }
+        }, 5000);
     }
 
     // Add event listeners to video control buttons
@@ -1552,7 +1564,7 @@
             </div>
             <div class="appointment-details">
                 <h3>${appointmentData.reason.replace('_', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h3>
-                <p><i class="fas fa-user"></i> With: Career Advisor</p>
+                <p><i class="fas fa-user"></i> With: ${appointmentData.student.replace('_', ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</p>
                 <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
                 <div class="appointment-status">
                     <div class="advisor-status">
@@ -1560,16 +1572,14 @@
                         <span class="status-text">Online</span>
                     </div>
                     <button class="btn join-call-btn" onclick="showVideoCall()">
-                        <i class="fas fa-video"></i> Join Video Call
+                        <i class="fas fa-video"></i> Start Video Call
                     </button>
                 </div>
             </div>
         `;
 
-        // Add animation class
         appointmentCard.classList.add('fade-in');
         
-        // Insert at the beginning of the grid
         if (appointmentsGrid.firstChild) {
             appointmentsGrid.insertBefore(appointmentCard, appointmentsGrid.firstChild);
         } else {
@@ -1582,9 +1592,9 @@
         const toast = document.createElement('div');
         toast.className = `toast ${type}`;
         
-        if (type === 'scad') {
+        if (type === 'student') {
             toast.innerHTML = `
-                <i class="fas fa-user-tie"></i>
+                <i class="fas fa-user"></i>
                 <div class="toast-content">
                     <div>${message}</div>
                     ${actions ? `
@@ -1608,7 +1618,6 @@
 
         document.getElementById('toastContainer').appendChild(toast);
 
-        // Remove toast after 5 seconds if it's not a SCAD action toast
         if (!actions) {
             setTimeout(() => {
                 toast.style.animation = 'slideOut 0.3s ease-out forwards';
@@ -1623,12 +1632,11 @@
     // Handle appointment response
     function handleAppointment(accepted) {
         const response = accepted ? 'accepted' : 'rejected';
-        const toast = document.querySelector('.toast.scad');
+        const toast = document.querySelector('.toast.student');
         if (toast) {
             toast.remove();
-            showToast(`Appointment ${response}`, 'info');
+            showToast(`Student ${response} the appointment`, 'info');
 
-            // If accepted, add to upcoming appointments
             if (accepted && currentAppointmentData) {
                 addUpcomingAppointment(currentAppointmentData);
             }
@@ -1639,23 +1647,20 @@
     document.getElementById('appointmentForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get form data
         const formData = {
+            student: this.querySelector('#studentSelect').value,
             date: this.querySelector('#appointmentDate').value,
             time: this.querySelector('#appointmentTime').value,
             reason: this.querySelector('#appointmentReason').value,
             notes: this.querySelector('#appointmentNotes').value
         };
 
-        // Store the current appointment data
         currentAppointmentData = formData;
         
-        // Show initial success notification
-        showToast('Appointment requested successfully! Waiting for confirmation.');
+        showToast('Appointment scheduled successfully! Waiting for student confirmation.');
         
-        // Show SCAD response notification after 2 seconds
         setTimeout(() => {
-            showToast('New appointment request received', 'scad', true);
+            showToast('Student received your appointment request', 'student', true);
         }, 2000);
         
         this.reset();
@@ -1697,7 +1702,6 @@
         statusDot.style.background = online ? '#4CAF50' : '#666';
         statusText.textContent = online ? 'Online' : 'Offline';
         
-        // Show notification for status change
         if (isInCall) {
             showNotification('status', `You are now ${online ? 'online' : 'offline'}`);
         }
@@ -1706,9 +1710,8 @@
     // Function to show incoming call
     function showIncomingCall() {
         document.getElementById('incomingCallModal').style.display = 'flex';
-        showNotification('call', 'Incoming call from Career Advisor');
+        showNotification('call', 'Incoming call from John Doe');
         
-        // Play ringtone sound
         const audio = new Audio('assets/ringtone.mp3');
         audio.loop = true;
         audio.play();
@@ -1719,8 +1722,6 @@
     window.addEventListener('load', () => {
         setTimeout(() => {
             const ringtone = showIncomingCall();
-            
-            // Store ringtone in a variable accessible to accept/reject functions
             window.currentRingtone = ringtone;
         }, 3000);
     });
@@ -1736,18 +1737,11 @@
         callAccepted = true;
         showVideoCall();
         showNotification('call', 'Call started');
-
-        // Career advisor leaves after exactly 5 seconds
-        setTimeout(() => {
-            if (isInCall) {
-                advisorLeaveCall();
-            }
-        }, 5000);
     }
 
-    // New function for advisor leaving
-    function advisorLeaveCall() {
-        showNotification('leave', 'Career Advisor left');
+    // New function for student leaving
+    function studentLeaveCall() {
+        showNotification('leave', 'Student left');
         cleanupCall();
     }
 
@@ -1761,14 +1755,6 @@
         document.getElementById('incomingCallModal').style.display = 'none';
         callAccepted = false;
         showNotification('call', 'Call rejected');
-    }
-
-    // Function to handle when other party leaves
-    function handlePartyLeave() {
-        if (isInCall) {
-            showNotification('leave', 'Career Advisor left');
-            endCall();
-        }
     }
 
     // Simulate online status changes (for demo)
@@ -1792,7 +1778,6 @@
 
     // Update notification display function
     function showNotification(type, message) {
-        // Create container if it doesn't exist
         let container = document.getElementById('notification-container');
         if (!container) {
             container = document.createElement('div');
@@ -1830,22 +1815,18 @@
             </div>
         `;
         
-        // Add to container
         container.appendChild(notification);
         
-        // Remove notification after delay
         setTimeout(() => {
             notification.classList.add('removing');
             setTimeout(() => {
                 notification.remove();
-                // Remove container if empty
                 if (container.children.length === 0) {
                     container.remove();
                 }
             }, 600);
         }, 5000);
 
-        // Limit maximum notifications
         const maxNotifications = 3;
         while (container.children.length > maxNotifications) {
             container.firstChild.classList.add('removing');
@@ -1858,7 +1839,7 @@
     }
 
     // Update the online status simulation
-    function updateAdvisorStatus(online) {
+    function updateStudentStatus(online) {
         const statusIndicators = document.querySelectorAll('.advisor-status, .caller-avatar-container, .caller-status');
         const statusTexts = document.querySelectorAll('.status-text');
         
@@ -1870,24 +1851,22 @@
             text.textContent = online ? 'Online' : 'Offline';
         });
 
-        // Show notification for status change
         if (isInCall) {
-            showNotification('status', `Career Advisor is now ${online ? 'online' : 'offline'}`);
+            showNotification('status', `Student is now ${online ? 'online' : 'offline'}`);
         }
     }
 
-    // Simulate advisor online status changes
+    // Simulate student online status changes
     setInterval(() => {
         const isOnline = Math.random() > 0.3;
-        updateAdvisorStatus(isOnline);
+        updateStudentStatus(isOnline);
     }, 5000);
 
-    // Initialize advisor status as online
-    updateAdvisorStatus(true);
+    // Initialize student status as online
+    updateStudentStatus(true);
 
     // New function to handle call cleanup
     function cleanupCall() {
-        // Stop all streams
         if (localStream) {
             localStream.getTracks().forEach(track => track.stop());
         }
@@ -1895,13 +1874,10 @@
             remoteStream.getTracks().forEach(track => track.stop());
         }
         
-        // Stop timer
         stopCallTimer();
         
-        // Hide video call section
         document.getElementById('videoCallSection').style.display = 'none';
         
-        // Reset variables
         localStream = null;
         remoteStream = null;
         isAudioMuted = false;
