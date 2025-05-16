@@ -191,8 +191,42 @@
       <section class="dashboard-container">
         <div class="notifications-section card">
           <h2>Your Notifications</h2>
-          <div id="notificationsList">
-            <p>Your notifications will be displayed here.</p>
+          <div id="notificationsList" style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- Internship Cycle Notification -->
+            <div class="notification-item" style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #2196F3; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                <h3 style="margin: 0; color: #0d1b2a; font-size: 1.1rem;">New Internship Cycle Beginning</h3>
+                <span style="color: #666; font-size: 0.9rem;">2 hours ago</span>
+              </div>
+              <p style="margin: 0; color: #444; line-height: 1.5;">The new internship cycle for Summer 2024 is starting soon. Get ready to apply for exciting opportunities!</p>
+              <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                <a href="internship_portal.html" style="text-decoration: none; color: #2196F3; font-weight: 500; font-size: 0.9rem;">View Available Internships</a>
+              </div>
+            </div>
+
+            <!-- Report Status Notification -->
+            <div class="notification-item" style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #4CAF50; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                <h3 style="margin: 0; color: #0d1b2a; font-size: 1.1rem;">Internship Report Status Update</h3>
+                <span style="color: #666; font-size: 0.9rem;">1 day ago</span>
+              </div>
+              <p style="margin: 0; color: #444; line-height: 1.5;">Your internship report for Google has been reviewed and approved. Great work!</p>
+              <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                <a href="reports_pro.html" style="text-decoration: none; color: #4CAF50; font-weight: 500; font-size: 0.9rem;">View Report Details</a>
+              </div>
+            </div>
+
+            <!-- Workshop Notification -->
+            <div class="notification-item" style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #FF9800; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+              <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
+                <h3 style="margin: 0; color: #0d1b2a; font-size: 1.1rem;">Upcoming Workshop Reminder</h3>
+                <span style="color: #666; font-size: 0.9rem;">3 days ago</span>
+              </div>
+              <p style="margin: 0; color: #444; line-height: 1.5;">Reminder: You have a "Technical Interview Preparation" workshop tomorrow at 2:00 PM.</p>
+              <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                <a href="workshops.html" style="text-decoration: none; color: #FF9800; font-weight: 500; font-size: 0.9rem;">Workshop Details</a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

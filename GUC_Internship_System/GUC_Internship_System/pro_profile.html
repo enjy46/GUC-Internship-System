@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="student/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
   <style>
     .main-header h1 {
       color: white;
@@ -193,22 +195,182 @@
     }
 
     .certificate-list {
-      list-style: none;
-      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
     }
 
-    .certificate-list li {
-      padding: 0.8rem;
+    .certificate-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+      background: white;
       border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      margin-bottom: 0.8rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      text-align: left;
+    }
+
+    .certificate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-color: #4CAF50;
+    }
+
+    .certificate-btn i {
+      font-size: 1.5rem;
+      color: #4CAF50;
+      margin-bottom: 0.5rem;
+    }
+
+    .certificate-btn span {
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 0.25rem;
+    }
+
+    .certificate-btn:hover span {
+      color: #4CAF50;
+    }
+
+    .certificate-btn small {
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .certificate-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 800px;
+      position: relative;
+    }
+
+    .certificate-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      padding: 0.5rem;
+    }
+
+    .certificate-body {
+      position: relative;
+    }
+
+    .certificate-template {
+      background: #f8f9fa;
+      padding: 2rem;
+      border-radius: 12px;
+      border: 2px solid #0d1b2a;
+    }
+
+    .certificate-inner {
+      background: white;
+      padding: 3rem;
+      border: 5px solid #0d1b2a;
+      text-align: center;
+    }
+
+    .certificate-inner h1 {
+      font-size: 2.5rem;
+      color: #0d1b2a;
+      margin-bottom: 2rem;
+    }
+
+    .certificate-inner h2 {
+      font-size: 1.2rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .certificate-inner h3 {
+      font-size: 2rem;
+      color: #0d1b2a;
+      margin-bottom: 1rem;
+      font-family: 'Brush Script MT', cursive;
+    }
+
+    .certificate-inner h4 {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      margin: 1rem 0;
+    }
+
+    .certificate-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 3rem;
+      padding: 0 2rem;
+    }
+
+    .signature, .platform-name {
+      text-align: center;
+      min-width: 200px;
+    }
+
+    .signature-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: #0d1b2a;
+      margin-bottom: 0.5rem;
+    }
+
+    .platform-signature {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      color: #0d1b2a;
+      margin-bottom: 0.5rem;
+    }
+
+    .signature-line {
+      width: 100%;
+      height: 2px;
+      background-color: #0d1b2a;
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .signature p, .platform-name p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+    }
+
+    .download-btn {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: #0d1b2a;
+      color: white;
+      padding: 0.8rem;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .certificate-list li:hover {
-      border-color: #0d1b2a;
+    .download-btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
     footer {
@@ -701,6 +863,140 @@
     .explore-courses-btn:hover i.fa-arrow-right {
       transform: translateX(4px);
     }
+
+    .notification-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+    }
+
+    .notification-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .notification-toast i {
+      font-size: 1.2rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    .download-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+
+    .view-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      color: #2c3e50;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .view-btn i {
+      font-size: 0.9rem;
+      color: #4CAF50;
+      transition: all 0.3s ease;
+    }
+
+    .view-btn:hover {
+      background: #4CAF50;
+      border-color: #4CAF50;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+    }
+
+    .view-btn:hover i {
+      color: white;
+    }
+
+    .cert-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .cert-date {
+      font-size: 0.9rem;
+      color: #666;
+      background: #f0f2f5;
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+    }
+
+    .card-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .card-item:hover {
+      transform: translateY(-2px);
+      border-color: #4CAF50;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .cert-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cert-title {
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 1.1rem;
+    }
+
+    .cert-platform {
+      font-size: 0.9rem;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .cert-platform::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #4CAF50;
+      border-radius: 50%;
+    }
   </style>
 </head>
 <body>
@@ -939,11 +1235,91 @@
             <i class="fas fa-video"></i> Internship Requirements
           </button>
           <div class="section-title"><i class="fas fa-certificate"></i> Earned Certificates</div>
-          <ul class="certificate-list">
-            <li>Data Science Expert – Coursera, June 2023</li>
-            <li>Software Development Basics – Udemy, August 2023</li>
-            <li>Cloud Computing Fundamentals – Google, September 2023</li>
-          </ul>
+          <div class="card" id="certificatesCard">
+            <div class="card-header">My Certificates</div>
+            <div class="card-content">
+              <div class="card-item">
+                <div class="cert-info">
+                  <span class="cert-title">Data Science Expert</span>
+                  <span class="cert-platform">Coursera</span>
+                </div>
+                <div class="cert-actions">
+                  <span class="cert-date">June 2023</span>
+                  <button class="view-btn" onclick="showCertificate('data-science')">
+                    <i class="fas fa-eye"></i>
+                    <span>Preview</span>
+                  </button>
+                </div>
+              </div>
+              <div class="card-item">
+                <div class="cert-info">
+                  <span class="cert-title">Software Development Basics</span>
+                  <span class="cert-platform">Udemy</span>
+                </div>
+                <div class="cert-actions">
+                  <span class="cert-date">August 2023</span>
+                  <button class="view-btn" onclick="showCertificate('software-dev')">
+                    <i class="fas fa-eye"></i>
+                    <span>Preview</span>
+                  </button>
+                </div>
+              </div>
+              <div class="card-item">
+                <div class="cert-info">
+                  <span class="cert-title">Cloud Computing Fundamentals</span>
+                  <span class="cert-platform">Google</span>
+                </div>
+                <div class="cert-actions">
+                  <span class="cert-date">September 2023</span>
+                  <button class="view-btn" onclick="showCertificate('cloud-computing')">
+                    <i class="fas fa-eye"></i>
+                    <span>Preview</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate Modal -->
+          <div id="certificateModal" class="modal">
+            <div class="certificate-modal-content">
+              <div class="certificate-header">
+                <h2 id="certificateTitle"></h2>
+                <button onclick="closeCertificateModal()" class="close-btn">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <div class="certificate-body">
+                <div class="certificate-template">
+                  <div class="certificate-inner">
+                    <h1>Certificate of Completion</h1>
+                    <h2>This is to certify that</h2>
+                    <h3>Malak Abuelkhier</h3>
+                    <p>has successfully completed the course</p>
+                    <h4 id="courseName"></h4>
+                    <p id="certDate"></p>
+                    <div class="certificate-footer">
+                      <div class="signature">
+                        <div class="signature-text">Dr. James Smith</div>
+                        <div class="signature-line"></div>
+                        <p>Course Instructor</p>
+                      </div>
+                      <div class="platform-name">
+                        <div id="platformSignature" class="platform-signature">Sarah Johnson</div>
+                        <div class="signature-line"></div>
+                        <p id="platformName">Platform</p>
+                        <p>Representative</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button onclick="downloadCertificate()" class="download-btn">
+                  <i class="fas fa-download"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div class="section-title" style="margin-top: 2rem;"><i class="fas fa-chart-bar"></i> Assessment Scores</div>
           <div class="card" id="assessmentScoresCard">
             <div class="card-header">Online Score Assessments</div>
@@ -1038,6 +1414,12 @@
     </div>
   </div>
 
+  <div id="downloadNotification" class="notification-toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="notificationText">Certificate downloaded successfully!</span>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     let currentField;
     let experienceCount = 1;
@@ -1256,6 +1638,98 @@
     document.addEventListener('DOMContentLoaded', function() {
       loadAssessmentScores();
     });
+
+    function showCertificate(certId) {
+      const certificateData = {
+        'data-science': {
+          title: 'Data Science Expert',
+          platform: 'Coursera',
+          date: 'June 2023',
+          representative: 'Sarah Johnson'
+        },
+        'software-dev': {
+          title: 'Software Development Basics',
+          platform: 'Udemy',
+          date: 'August 2023',
+          representative: 'Michael Chen'
+        },
+        'cloud-computing': {
+          title: 'Cloud Computing Fundamentals',
+          platform: 'Google',
+          date: 'September 2023',
+          representative: 'Emily Davis'
+        }
+      };
+
+      const cert = certificateData[certId];
+      document.getElementById('certificateTitle').textContent = cert.title;
+      document.getElementById('courseName').textContent = cert.title;
+      document.getElementById('certDate').textContent = cert.date;
+      document.getElementById('platformName').textContent = cert.platform;
+      document.getElementById('platformSignature').textContent = cert.representative;
+      document.getElementById('certificateModal').style.display = 'flex';
+    }
+
+    function closeCertificateModal() {
+      document.getElementById('certificateModal').style.display = 'none';
+    }
+
+    function showNotification(message, success = true) {
+      const notification = document.getElementById('downloadNotification');
+      const icon = notification.querySelector('i');
+      const text = document.getElementById('notificationText');
+      
+      // Update notification style and content
+      notification.style.backgroundColor = success ? '#4CAF50' : '#f44336';
+      icon.className = success ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+      text.textContent = message;
+      
+      // Show notification
+      notification.classList.add('show');
+      
+      // Hide after 3 seconds
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    function downloadCertificate() {
+      const downloadBtn = document.querySelector('.download-btn');
+      const downloadIcon = downloadBtn.querySelector('i');
+      
+      // Disable button and show loading state
+      downloadBtn.disabled = true;
+      downloadIcon.className = 'fas fa-spinner loading-spinner';
+
+      // Get the certificate container
+      const certificate = document.querySelector('.certificate-template');
+      
+      // Configure PDF options
+      const options = {
+        margin: 1,
+        filename: `${document.getElementById('certificateTitle').textContent.replace(/\s+/g, '_')}_Certificate.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+      };
+
+      // Generate PDF
+      html2pdf().set(options).from(certificate).save().then(() => {
+        // Show success notification
+        showNotification('Certificate downloaded successfully!');
+        
+        // Reset button state
+        downloadBtn.disabled = false;
+        downloadIcon.className = 'fas fa-download';
+      }).catch(error => {
+        // Show error notification
+        showNotification('Failed to download certificate. Please try again.', false);
+        
+        // Reset button state
+        downloadBtn.disabled = false;
+        downloadIcon.className = 'fas fa-download';
+      });
+    }
   </script>
 </body>
 </html>
