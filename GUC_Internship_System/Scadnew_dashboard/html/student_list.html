@@ -205,7 +205,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background-color 0.2s ease;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
     }
 
     .students-list li:last-child {
@@ -214,6 +216,32 @@
 
     .students-list li:hover {
       background-color: #f8f9fa;
+      transform: translateX(5px);
+    }
+
+    .students-list li::after {
+      content: '\f054';  /* Font Awesome chevron-right icon */
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
+      color: #666;
+      margin-left: 1rem;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .students-list li:hover::after {
+      opacity: 1;
+    }
+
+    .students-list li .student-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .students-list li .student-info i {
+      color: #0d1b2a;
+      font-size: 1.2rem;
     }
 
     .students-list li span.status {
@@ -275,6 +303,120 @@
         text-align: center;
       }
     }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 700px;
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+      color: #0d1b2a;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .modal-header h2 i {
+      color: #1e88e5;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+      padding: 0.5rem;
+      transition: color 0.2s ease;
+    }
+
+    .close-modal:hover {
+      color: #dc3545;  /* Red color on hover */
+    }
+
+    .student-profile {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .profile-section {
+      background-color: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 8px;
+      border-left: 4px solid #1e88e5;
+    }
+
+    .profile-section h3 {
+      color: #0d1b2a;
+      margin: 0 0 1rem 0;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .profile-section h3 i {
+      color: #1e88e5;
+    }
+
+    .profile-item {
+      margin-bottom: 1.25rem;
+    }
+
+    .profile-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .profile-item label {
+      display: block;
+      font-weight: 500;
+      color: #666;
+      margin-bottom: 0.25rem;
+      font-size: 0.9rem;
+    }
+
+    .profile-item span {
+      color: #0d1b2a;
+      font-size: 1.1rem;
+      display: block;
+      padding: 0.5rem 0;  /* Remove horizontal padding */
+    }
+
+    @media (max-width: 768px) {
+      .student-profile {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -313,7 +455,7 @@
                 <option value="internship complete">Internship Complete</option>
                 <option value="not started">Not Started</option>
               </select>
-              <button onclick="fetchAllStudents()" class="btn">Load Students</button>
+              <button onclick="fetchAllStudents()" class="btn load-all-btn" style="display: none;">Load All Students</button>
             </div>
           </div>
           <ul id="studentsList" class="students-list"></ul>
@@ -325,6 +467,47 @@
   <footer>
     <p>© 2025 GUC Internship System. All rights reserved.</p>
   </footer>
+
+  <div id="studentProfileModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-user-graduate"></i> Student Profile</h2>
+        <button class="close-modal" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="student-profile">
+        <div class="profile-section">
+          <h3><i class="fas fa-id-card"></i> Basic Information</h3>
+          <div class="profile-item">
+            <label>Student ID</label>
+            <span id="profileId"></span>
+          </div>
+          <div class="profile-item">
+            <label>Name</label>
+            <span id="profileName"></span>
+          </div>
+          <div class="profile-item">
+            <label>Status</label>
+            <span id="profileStatus"></span>
+          </div>
+        </div>
+        <div class="profile-section">
+          <h3><i class="fas fa-graduation-cap"></i> Academic Information</h3>
+          <div class="profile-item">
+            <label>Email</label>
+            <span id="profileEmail"></span>
+          </div>
+          <div class="profile-item">
+            <label>Major</label>
+            <span id="profileMajor"></span>
+          </div>
+          <div class="profile-item">
+            <label>GPA</label>
+            <span id="profileGpa"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     function renderStudents(students) {
@@ -341,32 +524,47 @@
       students.forEach(student => {
         const li = document.createElement('li');
         li.innerHTML = `
-          <span>${student.name} (${student.id})</span>
+          <div class="student-info">
+            <i class="fas fa-user-graduate"></i>
+            <span>${student.name} (${student.id})</span>
+          </div>
           <span class="status ${student.status.toLowerCase().replace(' ', '-')}">
             ${student.status}
           </span>
         `;
+        li.onclick = () => showStudentProfile(student);
         studentsList.appendChild(li);
       });
     }
 
     function fetchAllStudents() {
+      // Hide the Load All button when loading all students
+      document.querySelector('.load-all-btn').style.display = 'none';
+      
+      // Reset the filter dropdown to "All Statuses"
+      document.getElementById('statusFilter').value = '';
+      
       // Simulated fetch (replace with your actual fetch logic)
       const students = [
-        { id: 'S001', name: 'John Doe', status: 'Current Intern' },
-        { id: 'S002', name: 'Jane Smith', status: 'Internship Complete' },
-        { id: 'S003', name: 'Alex Brown', status: 'Not Started' }
+        { id: '1001', name: 'John Doe', status: 'Current Intern' },
+        { id: '1002', name: 'Jane Smith', status: 'Internship Complete' },
+        { id: '1003', name: 'Alex Brown', status: 'Not Started' }
       ];
       renderStudents(students);
     }
 
     function filterStudentsByStatus() {
       const status = document.getElementById('statusFilter').value;
+      const loadAllBtn = document.querySelector('.load-all-btn');
+      
+      // Show/hide the Load All button based on whether a filter is applied
+      loadAllBtn.style.display = status ? 'block' : 'none';
+      
       // Simulated fetch with filter (replace with your actual fetch logic)
       const allStudents = [
-        { id: 'S001', name: 'John Doe', status: 'Current Intern' },
-        { id: 'S002', name: 'Jane Smith', status: 'Internship Complete' },
-        { id: 'S003', name: 'Alex Brown', status: 'Not Started' }
+        { id: '1001', name: 'John Doe', status: 'Current Intern' },
+        { id: '1002', name: 'Jane Smith', status: 'Internship Complete' },
+        { id: '1003', name: 'Alex Brown', status: 'Not Started' }
       ];
       const filteredStudents = status
         ? allStudents.filter(student => student.status.toLowerCase() === status.toLowerCase())
@@ -374,8 +572,46 @@
       renderStudents(filteredStudents);
     }
 
-    // Load students on page load
-    document.addEventListener('DOMContentLoaded', fetchAllStudents);
+    function showStudentProfile(student) {
+      // In a real application, you would fetch the complete student data here
+      // For now, we'll use the basic data we have and add some mock data
+      const studentData = {
+        ...student,
+        email: `${student.name.toLowerCase().replace(' ', '.')}@guc.edu.eg`,
+        major: 'Computer Science',
+        gpa: '3.8'
+      };
+
+      document.getElementById('profileId').textContent = studentData.id;
+      document.getElementById('profileName').textContent = studentData.name;
+      document.getElementById('profileStatus').textContent = studentData.status;
+      document.getElementById('profileEmail').textContent = studentData.email;
+      document.getElementById('profileMajor').textContent = studentData.major;
+      document.getElementById('profileGpa').textContent = studentData.gpa;
+
+      const modal = document.getElementById('studentProfileModal');
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('studentProfileModal');
+      modal.style.display = 'none';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('studentProfileModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+
+    // Update the initial state when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchAllStudents();
+      // Hide the Load All button initially
+      document.querySelector('.load-all-btn').style.display = 'none';
+    });
   </script>
 </body>
 </html>
