@@ -223,6 +223,88 @@
     .dropdown-content a:hover {
       background-color: #f8f9fa;
     }
+
+    .statistics-container {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .statistics-container h3 {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .statistics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .stat-card h4 {
+      color: #0d1b2a;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+      color: #0d1b2a;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .stat-card ul {
+      text-align: left;
+      padding-left: 1rem;
+      margin: 0;
+    }
+
+    .stat-card ul li {
+      background: none;
+      border: none;
+      padding: 0.3rem 0;
+      margin-bottom: 0.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-card ul li:hover {
+      background: none;
+      cursor: default;
+    }
+
+    .company-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #666;
+    }
+
+    .company-rating i {
+      color: #ffc107;
+    }
   </style>
 </head>
 <body>
@@ -271,156 +353,95 @@
         </div>
       </header>
 
-      <main class="container">
-        <div class="overview-section">
-           <h2 class="section-title">SCAD Dashboard</h2> 
-
-<!-- Filters -->
-      <div class="card">
-        <h3>Filter Statistics</h3>
-        <div class="filters">
-          <select id="academicYearFilter">
-            <option value="">All Academic Years</option>
-            <option value="2024-2025">2024-2025</option>
-            <option value="2023-2024">2023-2024</option>
-            <option value="2022-2023">2022-2023</option>
-          </select>
-          <select id="majorFilter">
-            <option value="">All Majors</option>
-            <option value="Computer Science">Computer Science</option>
-            <option value="Engineering">Engineering</option>
-            <option value="Business">Business</option>
-          </select>
-          <select id="semesterFilter">
-            <option value="">All Semesters</option>
-            <option value="Fall">Fall</option>
-            <option value="Spring">Spring</option>
-            <option value="Summer">Summer</option>
-          </select>
-          <button class="primary-button" onclick="applyFilters()">Apply Filters</button>
-        </div>
-      </div>
-
-          <!-- Statistics Overview -->
-<div class="statistics-grid">
-  <!-- Total Students Card -->
-  <div class="stat-card">
-    <h4>Total Applications</h4>
-    <p id="totalApplicationsCount">150</p>
-    <div class="trend-up">
-      <i class="fas fa-arrow-up"></i> 12% from last month
-    </div>
-  </div>
-  
-  <!-- Active Internships -->
-  <div class="stat-card">
-    <h4>Active Internships</h4>
-    <p id="activeInternshipsCount">45</p>
-    <div class="trend-up">
-      <i class="fas fa-arrow-up"></i> 8% from last month
-    </div>
-  </div>
-  
-  <!-- Total Students -->
-  <div class="stat-card">
-    <h4>Total Students</h4>
-    <p id="totalStudentsCount">300</p>
-    <div class="trend-neutral">
-      <i class="fas fa-minus"></i> No change
-    </div>
-  </div>
-  
-  <!-- Internship Placement Rate -->
-  <div class="stat-card">
-    <h4>Internship Placement Rate</h4>
-    <p id="placementRateCount">87%</p>
-    <p class="trend-up"><i class="fas fa-arrow-up"></i> 3% from last year</p>
-    <div class="progress-container">
-      <div class="progress-bar" style="width: 87%"></div>
-    </div>
-  </div>
-  
-  <!-- Average Internship Duration -->
-  <div class="stat-card">
-    <h4>Average Internship Duration</h4>
-    <p id="avgDurationCount">4.2 months</p>
-    <p class="trend-up"><i class="fas fa-arrow-up"></i> 0.5 months from last year</p>
-  </div>
-  
-  <!-- Reports Submitted -->
-  <div class="stat-card">
-    <h4>Reports Submitted</h4>
-    <p id="reportsSubmittedCount">395</p>
-    <p class="trend-up"><i class="fas fa-arrow-up"></i> 12% from last year</p>
-  </div>
-  
-  <!-- Reports Accepted -->
-  <div class="stat-card">
-    <h4>Reports Accepted</h4>
-    <p id="reportsAcceptedCount">350</p>
-    <p class="trend-neutral"><i class="fas fa-arrows-alt-h"></i> Similar to last year</p>
-  </div>
-  
-  <!-- Average Review Time -->
-  <div class="stat-card">
-    <h4>Average Review Time</h4>
-    <p id="avgReviewTimeCount">4.5 days</p>
-    <p class="trend-down"><i class="fas fa-arrow-down"></i> 1.2 days from last year</p>
-  </div>
-</div>
- <!-- Charts Section -->
-      <div class="card">
-        <h3><i class="fas fa-chart-line"></i> Application Trends</h3>
-        <div class="chart-container">
-          <canvas id="applicationTrendsChart"></canvas>
-        </div>
-      </div>
-
-      <div class="statistics-grid">
-        <!-- Top Companies -->
-        <div class="card">
-          <h3>Top Companies</h3>
-          <div class="chart-container">
-            <canvas id="topCompaniesChart"></canvas>
+      <main class="main-content">
+        <header class="main-header">
+          <h1>SCAD Dashboard</h1>
+          <div class="header-icons">
+            <!-- Notification Icon -->
+            <a href="Scad_notifications.html" class="icon-link">
+              <i class="fas fa-bell" style="font-size: 1.4rem;">
+                <span class="notification-badge">3</span>
+              </i>
+            </a>
+            
+            <!-- Profile Icon with Dropdown -->
+            <div class="profile-dropdown">
+              <a onclick="toggleDropdown()" class="icon-link">
+                <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+              </a>
+              <div id="profileDropdown" class="dropdown-content">
+                <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              </div>
+            </div>
           </div>
-        </div>
-        
-        <!-- Major Distribution -->
-        <div class="card">
-          <h3>Major Distribution</h3>
-          <div class="chart-container">
-            <canvas id="majorDistributionChart"></canvas>
+        </header>
+
+        <section class="dashboard-container">
+          <!-- Statistics Section -->
+          <div class="statistics-container">
+            <h3>Real-time Statistics</h3>
+            <div class="statistics-grid">
+              <!-- Report Status by Cycle -->
+              <div class="stat-card">
+                <h4>Reports by Status</h4>
+                <p id="acceptedCount">0</p>
+                <span class="stat-label">Accepted Reports</span>
+                <p id="rejectedCount">0</p>
+                <span class="stat-label">Rejected Reports</span>
+                <p id="flaggedCount">0</p>
+                <span class="stat-label">Flagged Reports</span>
+                <p id="currentCycle">Spring 2025</p>
+                <span class="stat-label">Current Cycle</span>
+              </div>
+
+              <!-- Review Time -->
+              <div class="stat-card">
+                <h4>Review Performance</h4>
+                <p id="avgReviewTime">0 days</p>
+                <span class="stat-label">Average Review Time</span>
+                <p id="fastestReview">0 days</p>
+                <span class="stat-label">Fastest Review</span>
+                <p id="longestReview">0 days</p>
+                <span class="stat-label">Longest Review</span>
+              </div>
+
+              <!-- Top Courses -->
+              <div class="stat-card">
+                <h4>Top Courses</h4>
+                <ul id="topCourses">
+                  <!-- Will be populated dynamically -->
+                </ul>
+              </div>
+
+              <!-- Top Rated Companies -->
+              <div class="stat-card">
+                <h4>Top Rated Companies</h4>
+                <ul id="topRatedCompanies">
+                  <!-- Will be populated dynamically -->
+                </ul>
+              </div>
+
+              <!-- Most Active Companies -->
+              <div class="stat-card">
+                <h4>Most Active Companies</h4>
+                <ul id="mostActiveCompanies">
+                  <!-- Will be populated dynamically -->
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <!-- Most Used Courses -->
-      <div class="card">
-        <h3><i class="fas fa-list"></i> Most Used Courses</h3>
-        <ul id="mostUsedCoursesList">
-          <li>Web Development <span>45 students</span></li>
-          <li>Data Science <span>38 students</span></li>
-          <li>Mobile Development <span>32 students</span></li>
-          <li>UI/UX Design <span>28 students</span></li>
-        </ul>
-      </div>
-
-      <!-- Export Button -->
-      <div class="export-container">
-        <button class="primary-button" onclick="exportStatisticsReport()">
-          <i class="fas fa-file-export"></i> Export Statistics Report (PDF)
-        </button>
-      </div>
-    </main>
-  </div>
-
-    
-        </div>
+          <!-- Export Button -->
+          <div class="export-container">
+            <button class="primary-button" onclick="exportStatistics()">
+              <i class="fas fa-file-export"></i> Export Statistics
+            </button>
+          </div>
+        </section>
       </main>
     </div>
   </div>
-  <div class="navigation-section">
-<!-- Include Chart.js and jsPDF -->
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>
@@ -688,6 +709,86 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+    function updateStatistics() {
+      // Update report status counts
+      const statusCounts = {
+        accepted: 45,
+        rejected: 12,
+        flagged: 8
+      };
+
+      document.getElementById('acceptedCount').textContent = statusCounts.accepted;
+      document.getElementById('rejectedCount').textContent = statusCounts.rejected;
+      document.getElementById('flaggedCount').textContent = statusCounts.flagged;
+
+      // Update review time metrics
+      document.getElementById('avgReviewTime').textContent = '3.5 days';
+      document.getElementById('fastestReview').textContent = '1 day';
+      document.getElementById('longestReview').textContent = '7 days';
+
+      // Update current cycle
+      document.getElementById('currentCycle').textContent = 'Spring 2025';
+
+      // Update top courses
+      const topCourses = [
+        { name: 'Software Engineering', count: 45 },
+        { name: 'Data Science', count: 38 },
+        { name: 'Web Development', count: 32 }
+      ];
+
+      const topCoursesHtml = topCourses.map(course => `
+        <li>
+          <span>${course.name}</span>
+          <span>${course.count}</span>
+        </li>
+      `).join('');
+
+      document.getElementById('topCourses').innerHTML = topCoursesHtml;
+
+      // Update top rated companies
+      const topRatedCompanies = [
+        { name: 'TechCorp', rating: 4.8 },
+        { name: 'BuildIt', rating: 4.7 },
+        { name: 'BizWorld', rating: 4.6 }
+      ];
+
+      const topRatedCompaniesHtml = topRatedCompanies.map(company => `
+        <li>
+          <span>${company.name}</span>
+          <span class="company-rating">
+            <i class="fas fa-star"></i>
+            ${company.rating}
+          </span>
+        </li>
+      `).join('');
+
+      document.getElementById('topRatedCompanies').innerHTML = topRatedCompaniesHtml;
+
+      // Update most active companies
+      const mostActiveCompanies = [
+        { name: 'TechCorp', internships: 25 },
+        { name: 'BuildIt', internships: 20 },
+        { name: 'BizWorld', internships: 18 }
+      ];
+
+      const mostActiveCompaniesHtml = mostActiveCompanies.map(company => `
+        <li>
+          <span>${company.name}</span>
+          <span>${company.internships}</span>
+        </li>
+      `).join('');
+
+      document.getElementById('mostActiveCompanies').innerHTML = mostActiveCompaniesHtml;
+    }
+
+    function exportStatistics() {
+      // Implement export functionality
+      alert('Statistics exported successfully!');
+    }
+
+    // Call updateStatistics when the page loads
+    document.addEventListener('DOMContentLoaded', updateStatistics);
   </script>
    <script src="../js/Scadnew_dashboard.js"></script>
   <script>
