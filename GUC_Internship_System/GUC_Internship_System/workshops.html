@@ -1039,14 +1039,17 @@
         }, 3000);
     }
 
+    function deleteReport() {
+        showNotification('Report deleted successfully!', 'error');
+    }
+
     function saveNotes() {
         const notes = document.getElementById('notesTextarea').value;
         if (!notes.trim()) {
-            showNotification('Please enter some notes before saving! 📝', 'error');
+            showNotification('Please enter some notes before saving!', 'error');
             return;
         }
-        // Here you would typically save the notes to a database
-        showNotification('Notes saved successfully! 📝', 'success');
+        showNotification('Notes saved successfully!', 'success');
     }
 
     function submitFeedback() {
@@ -1054,17 +1057,16 @@
         const feedback = document.getElementById('feedback').value;
         
         if (!rating) {
-            showNotification('Please select a rating before submitting! ⭐', 'error');
+            showNotification('Please select a rating before submitting!', 'error');
             return;
         }
         
         if (!feedback.trim()) {
-            showNotification('Please provide some feedback before submitting! 💭', 'error');
+            showNotification('Please provide some feedback before submitting!', 'error');
             return;
         }
         
-        // Here you would typically save the feedback to a database
-        showNotification('Thank you for your feedback! 🙏', 'success');
+        showNotification('Thank you for your feedback!', 'success');
         
         // Clear the form
         document.getElementById('rating').value = '';
@@ -1187,38 +1189,20 @@
 
     function showCertificate() {
       const statusBadge = document.getElementById('workshopStatus');
-      
-      // Check if registered (status badge text is "Registered")
-      if (statusBadge.textContent.trim() === "Registered") {
-        const modal = document.getElementById('certificateModal');
-        const title = document.getElementById('workshopTitle').textContent;
-        const date = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-        
-        document.getElementById('certificateTitle').textContent = title;
-        document.getElementById('courseName').textContent = title;
-        document.getElementById('certDate').textContent = date;
-        
-        modal.classList.remove('hidden');
-      } else {
+      if (statusBadge.textContent === 'Not Registered') {
         showNotification('Please register for the workshop first to view the certificate! 📝', 'error');
-      }
-    }
-
-    function registerWorkshop() {
-      const statusBadge = document.getElementById('workshopStatus');
-      const registerBtn = document.querySelector('.register-btn');
-      
-      if (statusBadge.textContent === "Registered") {
-        showNotification('You are already registered for this workshop! 📚', 'info');
         return;
       }
       
-      // Update status and button
-      statusBadge.textContent = "Registered";
-      registerBtn.innerHTML = '<i class="fas fa-check"></i> Registered';
-      registerBtn.style.backgroundColor = '#4CAF50';
+      const modal = document.getElementById('certificateModal');
+      const title = document.getElementById('workshopTitle').textContent;
+      const date = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
       
-      showNotification('Successfully registered for the workshop! 🎉', 'success');
+      document.getElementById('certificateTitle').textContent = title;
+      document.getElementById('courseName').textContent = title;
+      document.getElementById('certDate').textContent = date;
+      
+      modal.classList.remove('hidden');
     }
 
     function closeCertificateModal() {
