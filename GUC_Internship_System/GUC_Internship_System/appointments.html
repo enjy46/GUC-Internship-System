@@ -39,8 +39,8 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   position: relative;
   width: 100%;
-  max-width: 1500px; /* Adjust as needed */
-  height: 131.2px;
+  max-width: 1500px;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -223,8 +223,10 @@
 
     .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      height: 60vh;
     }
 
     .video-box {
@@ -232,7 +234,14 @@
       border-radius: 16px;
       overflow: hidden;
       background: #000;
-      aspect-ratio: 16/9;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      height: 100%;
+    }
+
+    .video-box.main-video,
+    .video-box.self-video {
+      height: 60vh;
     }
 
     .video-box video {
@@ -498,41 +507,6 @@
       100% { transform: scale(1); opacity: 1; }
     }
 
-    .video-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-      height: 60vh;
-    }
-
-    .video-box {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-    }
-
-    .video-box:hover {
-      transform: scale(1.02);
-    }
-
-    .video-box.main-video {
-      height: 100%;
-    }
-
-    .video-box.self-video {
-      height: calc(60vh - 1.5rem);
-    }
-
-    .video-box video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     .video-overlay {
       position: absolute;
       bottom: 0;
@@ -736,6 +710,421 @@
         min-width: 120px;
       }
     }
+
+    /* Add these new styles */
+    .online-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 100px;
+      margin-right: 1rem;
+    }
+
+    .online-status .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    }
+
+    .online-status .status-text {
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      backdrop-filter: blur(8px);
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 24px;
+      padding: 2.5rem;
+      width: 400px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .incoming-call-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #1a1a1a;
+      border-bottom: 1px solid #eef2f7;
+      padding-bottom: 1.5rem;
+    }
+
+    .incoming-call-header h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+      color: #1a1a1a;
+    }
+
+    .incoming-call-header p {
+      margin: 0.5rem 0 0 0;
+      color: #666;
+      font-size: 1rem;
+    }
+
+    .caller-info {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+    }
+
+    .caller-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin: 0;
+    }
+
+    .caller-title {
+      font-size: 0.95rem;
+      color: #666;
+      margin: 0.5rem 0 0 0;
+    }
+
+    .call-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .accept-call-btn,
+    .reject-call-btn {
+      flex: 1;
+      padding: 1rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .accept-call-btn {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .reject-call-btn {
+      background: #f44336;
+      color: white;
+    }
+
+    .accept-call-btn:hover,
+    .reject-call-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
+    .fa-pulse {
+      animation: pulse 1s infinite;
+    }
+
+    /* Add notification styles */
+    .notification-badge {
+      background: #ef4444;
+      color: white;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      min-width: 20px;
+      height: 20px;
+      border: 2px solid #0d1b2a;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .notification-item {
+      background: white;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      animation: slideIn 0.3s ease;
+    }
+
+    .notification-item i {
+      font-size: 1.2rem;
+    }
+
+    .notification-item.call {
+      border-left: 4px solid #4CAF50;
+    }
+
+    .notification-item.leave {
+      border-left: 4px solid #f44336;
+    }
+
+    .notification-item.status {
+      border-left: 4px solid #2196F3;
+    }
+
+    .advisor-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: rgba(76, 175, 80, 0.1);
+      border-radius: 100px;
+      margin-right: 1rem;
+    }
+
+    .status-indicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4CAF50;
+      position: relative;
+    }
+
+    .status-indicator::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: inherit;
+      opacity: 0.4;
+      animation: pulse 2s infinite;
+    }
+
+    .caller-avatar-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+
+    .online-indicator {
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      width: 12px;
+      height: 12px;
+      background: #4CAF50;
+      border: 2px solid white;
+      border-radius: 50%;
+    }
+
+    .caller-status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #4CAF50;
+    }
+
+    .caller-status .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #4CAF50;
+      border-radius: 50%;
+    }
+
+    .offline {
+      .status-indicator,
+      .online-indicator,
+      .status-dot {
+        background: #666;
+      }
+
+      .advisor-status {
+        background: rgba(102, 102, 102, 0.1);
+      }
+
+      .caller-status {
+        color: #666;
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(2); opacity: 0; }
+      100% { transform: scale(1); opacity: 0.4; }
+    }
+
+    /* Add styles for leaving animation */
+    .leaving-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      animation: fadeIn 0.3s ease;
+      z-index: 10;
+    }
+
+    .leaving-message i {
+      font-size: 1.2rem;
+      color: #f44336;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -30%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    /* Standardized Notification Styles */
+    #notification-container {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .notification {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12),
+                  0 2px 4px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 320px;
+      pointer-events: auto;
+      transform-origin: right;
+      border-left: 4px solid;
+      animation: notifyPop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .notification.removing {
+      animation: notifyOut 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    .notification.call {
+      border-left-color: #4CAF50;
+    }
+
+    .notification.leave {
+      border-left-color: #f44336;
+    }
+
+    .notification.status {
+      border-left-color: #2196F3;
+    }
+
+    .notification i {
+      font-size: 20px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification.call i {
+      color: #4CAF50;
+    }
+
+    .notification.leave i {
+      color: #f44336;
+    }
+
+    .notification.status i {
+      color: #2196F3;
+    }
+
+    .notification-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .notification-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 2px;
+      color: #1a1a1a;
+    }
+
+    .notification-message {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @keyframes notifyPop {
+      0% {
+        transform: translateX(120%) scale(0.9);
+        opacity: 0;
+      }
+      70% {
+        transform: translateX(-5%) scale(1.02);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes notifyOut {
+      0% {
+        transform: translateX(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateX(120%) scale(0.9);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -763,12 +1152,12 @@
       <header class="main-header">
         <h1>Career Guidance Appointments</h1>
         <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+            <!-- Online Status -->
+        
             <!-- Notification Icon -->
             <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
                 <i class="fas fa-bell" style="font-size: 1.4rem;">
-                    <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
-                          border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
-                          align-items: center; justify-content: center;">3</span>
+                    <span class="notification-badge">3</span>
                 </i>
             </a>
             
@@ -841,7 +1230,10 @@
                         <p><i class="fas fa-user"></i> With: Career Advisor</p>
                         <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
                         <div class="appointment-status">
-                            <span class="status-badge upcoming">Upcoming</span>
+                            <div class="advisor-status">
+                                <span class="status-indicator"></span>
+                                <span class="status-text">Online</span>
+                            </div>
                             <button class="btn join-call-btn" onclick="showVideoCall()">
                                 <i class="fas fa-video"></i> Join Video Call
                             </button>
@@ -889,10 +1281,6 @@
                     <i class="fas fa-desktop"></i>
                     <span>Share Screen</span>
                 </button>
-                <button class="control-btn" id="chatBtn">
-                    <i class="fas fa-comments"></i>
-                    <span>Chat</span>
-                </button>
                 <button class="control-btn end-call" id="endCallBtn">
                     <i class="fas fa-phone-slash"></i>
                     <span>End Call</span>
@@ -910,17 +1298,204 @@
     <p>© 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
-  <!-- Notification Container -->
-  <div id="notificationContainer" class="notification-container" style="display: none;">
-    <p id="notificationMessage"></p>
+  <!-- Update incoming call modal -->
+  <div id="incomingCallModal" class="modal" style="display: none;">
+    <div class="modal-content">
+      <div class="incoming-call-header">
+        <h3>Incoming Video Call</h3>
+        <p>Career Advisor is calling you</p>
+      </div>
+      <div class="caller-info">
+        <p class="caller-name">Career Advisor</p>
+        <p class="caller-title">Academic Support Team</p>
+      </div>
+      <div class="call-actions">
+        <button class="accept-call-btn" onclick="acceptCall()">
+          <i class="fas fa-phone"></i> Accept
+        </button>
+        <button class="reject-call-btn" onclick="rejectCall()">
+          <i class="fas fa-phone-slash"></i> Reject
+        </button>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Function to show video call section
+    // Video Call Variables
+    let localStream = null;
+    let remoteStream = null;
+    let isAudioMuted = false;
+    let isVideoStopped = false;
+    let isScreenSharing = false;
+    let callDurationInterval = null;
+    let callStartTime = null;
+
+    // Add these new variables
+    let isOnline = true;
+    let isInCall = false;
+    let otherPartyOnline = false;
+    let callAccepted = false;
+
+    // Function to initialize video call
+    async function initializeVideoCall() {
+        try {
+            // Only initialize local stream if we're the caller or if we've accepted the call
+            if (!isInCall || callAccepted) {
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: true,
+                    audio: true
+                });
+                
+                const localVideo = document.getElementById('localVideo');
+                localVideo.srcObject = localStream;
+
+                // Don't show remote video initially
+                const remoteVideo = document.getElementById('remoteVideo');
+                remoteVideo.style.display = 'none';
+                
+                // Start call timer
+                startCallTimer();
+                
+                isInCall = true;
+                showToast('Video call started', 'success');
+            }
+        } catch (error) {
+            console.error('Error accessing media devices:', error);
+            showToast('Failed to access camera or microphone. Please check permissions.', 'error');
+        }
+    }
+
+    // Function to start call timer
+    function startCallTimer() {
+        callStartTime = new Date();
+        const durationElement = document.getElementById('callDuration');
+        
+        callDurationInterval = setInterval(() => {
+            const now = new Date();
+            const diff = now - callStartTime;
+            const minutes = Math.floor(diff / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            durationElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+
+    // Function to stop call timer
+    function stopCallTimer() {
+        if (callDurationInterval) {
+            clearInterval(callDurationInterval);
+            callDurationInterval = null;
+        }
+    }
+
+    // Function to toggle audio
+    function toggleAudio() {
+        if (localStream) {
+            const audioTracks = localStream.getAudioTracks();
+            const btn = document.getElementById('toggleAudioBtn');
+            
+            isAudioMuted = !isAudioMuted;
+            audioTracks.forEach(track => track.enabled = !isAudioMuted);
+            
+            // Update button UI
+            btn.innerHTML = `
+                <i class="fas fa-${isAudioMuted ? 'microphone-slash' : 'microphone'}"></i>
+                <span>${isAudioMuted ? 'Unmute' : 'Mute'}</span>
+            `;
+            
+            showToast(`Microphone ${isAudioMuted ? 'muted' : 'unmuted'}`, 'info');
+        }
+    }
+
+    // Function to toggle video
+    function toggleVideo() {
+        if (localStream) {
+            const videoTracks = localStream.getVideoTracks();
+            const btn = document.getElementById('toggleVideoBtn');
+            
+            isVideoStopped = !isVideoStopped;
+            videoTracks.forEach(track => track.enabled = !isVideoStopped);
+            
+            // Update button UI
+            btn.innerHTML = `
+                <i class="fas fa-video${isVideoStopped ? '-slash' : ''}"></i>
+                <span>${isVideoStopped ? 'Start Video' : 'Stop Video'}</span>
+            `;
+            
+            showToast(`Camera ${isVideoStopped ? 'turned off' : 'turned on'}`, 'info');
+        }
+    }
+
+    // Function to toggle screen sharing
+    async function toggleScreenSharing() {
+        const btn = document.getElementById('shareScreenBtn');
+        
+        try {
+            if (!isScreenSharing) {
+                const screenStream = await navigator.mediaDevices.getDisplayMedia({
+                    video: true
+                });
+                
+                const localVideo = document.getElementById('localVideo');
+                localVideo.srcObject = screenStream;
+                
+                // Handle screen sharing stop
+                screenStream.getVideoTracks()[0].onended = () => {
+                    stopScreenSharing();
+                };
+                
+                isScreenSharing = true;
+                btn.innerHTML = `
+                    <i class="fas fa-desktop"></i>
+                    <span>Stop Sharing</span>
+                `;
+                
+                showToast('Screen sharing started', 'success');
+            } else {
+                stopScreenSharing();
+            }
+        } catch (error) {
+            console.error('Error sharing screen:', error);
+            showToast('Failed to start screen sharing', 'error');
+        }
+    }
+
+    // Function to stop screen sharing
+    function stopScreenSharing() {
+        if (localStream) {
+            const localVideo = document.getElementById('localVideo');
+            localVideo.srcObject = localStream;
+            
+            const btn = document.getElementById('shareScreenBtn');
+            btn.innerHTML = `
+                <i class="fas fa-desktop"></i>
+                <span>Share Screen</span>
+            `;
+            
+            isScreenSharing = false;
+            showToast('Screen sharing stopped', 'info');
+        }
+    }
+
+    // Function to end call
+    function endCall() {
+        if (isInCall) {
+            showNotification('call', 'Call ended');
+            cleanupCall();
+        }
+    }
+
+    // Function to show video call section (updated)
     function showVideoCall() {
         document.getElementById('videoCallSection').style.display = 'block';
         document.getElementById('videoCallSection').scrollIntoView({ behavior: 'smooth' });
+        initializeVideoCall();
     }
+
+    // Add event listeners to video control buttons
+    document.getElementById('toggleAudioBtn').addEventListener('click', toggleAudio);
+    document.getElementById('toggleVideoBtn').addEventListener('click', toggleVideo);
+    document.getElementById('shareScreenBtn').addEventListener('click', toggleScreenSharing);
+    document.getElementById('endCallBtn').addEventListener('click', endCall);
 
     // Function to toggle profile dropdown
     function toggleDropdown() {
@@ -980,7 +1555,10 @@
                 <p><i class="fas fa-user"></i> With: Career Advisor</p>
                 <p><i class="fas fa-clock"></i> Duration: 30 minutes</p>
                 <div class="appointment-status">
-                    <span class="status-badge upcoming">Upcoming</span>
+                    <div class="advisor-status">
+                        <span class="status-indicator"></span>
+                        <span class="status-text">Online</span>
+                    </div>
                     <button class="btn join-call-btn" onclick="showVideoCall()">
                         <i class="fas fa-video"></i> Join Video Call
                     </button>
@@ -1048,7 +1626,7 @@
         const toast = document.querySelector('.toast.scad');
         if (toast) {
             toast.remove();
-            showToast(`Appointment ${response} by SCAD Advisor`, 'info');
+            showToast(`Appointment ${response}`, 'info');
 
             // If accepted, add to upcoming appointments
             if (accepted && currentAppointmentData) {
@@ -1077,7 +1655,7 @@
         
         // Show SCAD response notification after 2 seconds
         setTimeout(() => {
-            showToast('New appointment request received from Student', 'scad', true);
+            showToast('New appointment request received', 'scad', true);
         }, 2000);
         
         this.reset();
@@ -1109,6 +1687,229 @@
         }
     `;
     document.head.appendChild(style);
+
+    // Function to update online status
+    function updateOnlineStatus(online) {
+        const statusDot = document.querySelector('.online-status .status-dot');
+        const statusText = document.querySelector('.online-status .status-text');
+        
+        isOnline = online;
+        statusDot.style.background = online ? '#4CAF50' : '#666';
+        statusText.textContent = online ? 'Online' : 'Offline';
+        
+        // Show notification for status change
+        if (isInCall) {
+            showNotification('status', `You are now ${online ? 'online' : 'offline'}`);
+        }
+    }
+
+    // Function to show incoming call
+    function showIncomingCall() {
+        document.getElementById('incomingCallModal').style.display = 'flex';
+        showNotification('call', 'Incoming call from Career Advisor');
+        
+        // Play ringtone sound
+        const audio = new Audio('assets/ringtone.mp3');
+        audio.loop = true;
+        audio.play();
+        return audio;
+    }
+
+    // Simulate incoming call after page load
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const ringtone = showIncomingCall();
+            
+            // Store ringtone in a variable accessible to accept/reject functions
+            window.currentRingtone = ringtone;
+        }, 3000);
+    });
+
+    // Update accept call function
+    function acceptCall() {
+        if (window.currentRingtone) {
+            window.currentRingtone.pause();
+            window.currentRingtone = null;
+        }
+        
+        document.getElementById('incomingCallModal').style.display = 'none';
+        callAccepted = true;
+        showVideoCall();
+        showNotification('call', 'Call started');
+
+        // Career advisor leaves after exactly 5 seconds
+        setTimeout(() => {
+            if (isInCall) {
+                advisorLeaveCall();
+            }
+        }, 5000);
+    }
+
+    // New function for advisor leaving
+    function advisorLeaveCall() {
+        showNotification('leave', 'Career Advisor left');
+        cleanupCall();
+    }
+
+    // Update reject call function
+    function rejectCall() {
+        if (window.currentRingtone) {
+            window.currentRingtone.pause();
+            window.currentRingtone = null;
+        }
+        
+        document.getElementById('incomingCallModal').style.display = 'none';
+        callAccepted = false;
+        showNotification('call', 'Call rejected');
+    }
+
+    // Function to handle when other party leaves
+    function handlePartyLeave() {
+        if (isInCall) {
+            showNotification('leave', 'Career Advisor left');
+            endCall();
+        }
+    }
+
+    // Simulate online status changes (for demo)
+    setInterval(() => {
+        otherPartyOnline = Math.random() > 0.3;
+        const advisorStatus = document.querySelector('.appointment-card .status-badge');
+        if (advisorStatus) {
+            advisorStatus.textContent = otherPartyOnline ? 'Online' : 'Offline';
+            advisorStatus.style.background = otherPartyOnline ? 'rgba(76, 175, 80, 0.1)' : 'rgba(158, 158, 158, 0.1)';
+            advisorStatus.style.color = otherPartyOnline ? '#4CAF50' : '#666';
+        }
+    }, 5000);
+
+    // Handle page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        updateOnlineStatus(!document.hidden);
+    });
+
+    // Initialize online status
+    updateOnlineStatus(true);
+
+    // Update notification display function
+    function showNotification(type, message) {
+        // Create container if it doesn't exist
+        let container = document.getElementById('notification-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'notification-container';
+            document.body.appendChild(container);
+        }
+
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        let icon, title;
+        switch(type) {
+            case 'call':
+                icon = 'fa-phone-alt';
+                title = 'Call Status';
+                break;
+            case 'leave':
+                icon = 'fa-sign-out-alt';
+                title = 'Participant Left';
+                break;
+            case 'status':
+                icon = 'fa-info-circle';
+                title = 'Status Update';
+                break;
+            default:
+                icon = 'fa-info-circle';
+                title = 'Notification';
+        }
+        
+        notification.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <div class="notification-content">
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+            </div>
+        `;
+        
+        // Add to container
+        container.appendChild(notification);
+        
+        // Remove notification after delay
+        setTimeout(() => {
+            notification.classList.add('removing');
+            setTimeout(() => {
+                notification.remove();
+                // Remove container if empty
+                if (container.children.length === 0) {
+                    container.remove();
+                }
+            }, 600);
+        }, 5000);
+
+        // Limit maximum notifications
+        const maxNotifications = 3;
+        while (container.children.length > maxNotifications) {
+            container.firstChild.classList.add('removing');
+            setTimeout(() => {
+                if (container.firstChild) {
+                    container.removeChild(container.firstChild);
+                }
+            }, 100);
+        }
+    }
+
+    // Update the online status simulation
+    function updateAdvisorStatus(online) {
+        const statusIndicators = document.querySelectorAll('.advisor-status, .caller-avatar-container, .caller-status');
+        const statusTexts = document.querySelectorAll('.status-text');
+        
+        statusIndicators.forEach(indicator => {
+            indicator.classList.toggle('offline', !online);
+        });
+        
+        statusTexts.forEach(text => {
+            text.textContent = online ? 'Online' : 'Offline';
+        });
+
+        // Show notification for status change
+        if (isInCall) {
+            showNotification('status', `Career Advisor is now ${online ? 'online' : 'offline'}`);
+        }
+    }
+
+    // Simulate advisor online status changes
+    setInterval(() => {
+        const isOnline = Math.random() > 0.3;
+        updateAdvisorStatus(isOnline);
+    }, 5000);
+
+    // Initialize advisor status as online
+    updateAdvisorStatus(true);
+
+    // New function to handle call cleanup
+    function cleanupCall() {
+        // Stop all streams
+        if (localStream) {
+            localStream.getTracks().forEach(track => track.stop());
+        }
+        if (remoteStream) {
+            remoteStream.getTracks().forEach(track => track.stop());
+        }
+        
+        // Stop timer
+        stopCallTimer();
+        
+        // Hide video call section
+        document.getElementById('videoCallSection').style.display = 'none';
+        
+        // Reset variables
+        localStream = null;
+        remoteStream = null;
+        isAudioMuted = false;
+        isVideoStopped = false;
+        isScreenSharing = false;
+        isInCall = false;
+        callAccepted = false;
+    }
   </script>
 </body>
 </html>

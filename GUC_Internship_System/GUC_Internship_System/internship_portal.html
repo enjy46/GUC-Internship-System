@@ -12,7 +12,7 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      background: linear-gradient(to bottom, #e8f1f8, #ffffff);
       color: #333;
     }
 
@@ -28,37 +28,44 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .section-title {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #0d1b2a;
-      margin-bottom: 1.5rem;
-      text-align: center;
+      padding: 0 1rem;
     }
 
     .filters {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 2rem;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
     }
 
     .filters input,
     .filters select {
       flex: 1;
-      padding: 0.8rem;
+      min-width: 200px;
+      padding: 0.8rem 1.2rem;
       border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 1rem;
-      background-color: #f9f9f9;
+      border: 2px solid #e0e0e0;
+      font-size: 0.95rem;
+      background-color: #f8f9fa;
+      transition: all 0.3s ease;
+      color: #2c3e50;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #001f3f;
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+      outline: none;
+    }
+
+    .filters input::placeholder {
+      color: #94a3b8;
     }
 
     .internship-list {
@@ -68,44 +75,213 @@
     }
 
     .card {
-      background-color: #f1f8ff;
-      border: 1px solid #cce0ff;
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      background-color: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      padding: 1.8rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .card h4 {
-      margin: 0 0 0.5rem;
-      color: #0d1b2a;
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: #001f3f;
+      border-radius: 4px 0 0 4px;
     }
 
-    .card p {
-      margin: 0.25rem 0;
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.2rem;
+    }
+
+    .job-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #1a202c;
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .company-name {
+      color: #001f3f;
+      font-weight: 500;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .company-name i {
+      font-size: 1rem;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .view-details-btn, .apply-btn {
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
       font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .view-details-btn {
+      background-color: #f0f4f8;
+      color: #001f3f;
+      border: 1px solid #001f3f;
+    }
+
+    .view-details-btn:hover {
+      background-color: #001f3f;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 31, 63, 0.2);
     }
 
     .apply-btn {
-      margin-top: 1rem;
-      background-color: #0d1b2a;
+      background-color: #4CAF50;
       color: white;
       border: none;
-      padding: 0.8rem;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
     }
 
     .apply-btn:hover {
-      background-color: #1b263b;
+      background-color: #45a049;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+    }
+
+    .job-quick-info {
+      display: flex;
+      gap: 2.5rem;
+      margin: 1.2rem 0;
+      flex-wrap: wrap;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: #4a5568;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .info-item:hover {
+      background: #f0fdf4;
+      transform: translateY(-2px);
+    }
+
+    .info-item i {
+      color: #001f3f;
+      font-size: 1.1rem;
+    }
+
+    .job-details {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .job-details.show {
+      display: block;
+      animation: slideDown 0.4s ease;
+    }
+
+    .details-section {
+      margin-bottom: 1.5rem;
+      padding: 1.2rem;
+      background: #f8f9fa;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .details-section:hover {
+      background: #f0f4f8;
+      transform: translateX(4px);
+    }
+
+    .details-section h5 {
+      color: #1a202c;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .details-section h5 i {
+      color: #001f3f;
+      font-size: 1rem;
+    }
+
+    .details-section p {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .skill-tag {
+      background-color: #f0f4f8;
+      color: #001f3f;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      border: 1px solid #001f3f;
+    }
+
+    .skill-tag:hover {
+      background-color: #001f3f;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 8px rgba(0, 31, 63, 0.2);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .modal {
@@ -234,12 +410,12 @@
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      background: #0d1b2a;
+      background: #001f3f;
       color: white;
     }
 
     #submitApplication:hover {
-      background: #1b263b;
+      background: #00294d;
       transform: translateY(-2px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
@@ -254,7 +430,7 @@
     footer {
       text-align: center;
       padding: 1rem;
-      background-color: #0d1b2a;
+      background-color: #001f3f;
       color: white;
       position: relative;
       bottom: 0;
@@ -265,6 +441,7 @@
       padding: 2rem 1rem;
       text-align: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      background-color: #001f3f;
     }
 
     .sidebar-header h2 {
@@ -275,7 +452,7 @@
     }
 
     .main-header {
-      background-color: #0d1b2a;
+      background-color: #001f3f;
       color: #ffffff;
       padding: 1.5rem;
       text-align: center;
@@ -383,6 +560,39 @@
       text-align: center;
       max-width: 150px;
     }
+
+    .sidebar {
+      background-color: #001f3f;
+      color: white;
+      width: 250px;
+      height: 100vh;
+      position: fixed;
+      left: 0;
+      top: 0;
+      overflow-y: auto;
+      z-index: 100;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+
+    .nav-link i {
+      width: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -407,7 +617,7 @@
     </aside>
 
     <main class="main-content">
-      <header class="main-header" style="background-color: #0d1b2a; color: #ffffff; padding: 4rem 5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative; width: 100%;">
+      <header class="main-header" style="background-color: #001f3f; color: #ffffff; padding: 4rem 5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative; width: 100%;">
         <h1 style="margin: 0; font-size: 2rem; font-weight: 600; color: #ffffff;">Available Internships</h1>
         
         <div class="header-icons" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 1.5rem;">
@@ -558,15 +768,60 @@
 
       listContainer.innerHTML = filtered.map((intern, index) => `
         <div class="card">
-          <h4>${intern.title}</h4>
-          <p><strong>Company:</strong> ${intern.company}</p>
-          <p><strong>Duration:</strong> ${intern.duration}</p>
-          <p><strong>Industry:</strong> ${intern.industry}</p>
-          <p><strong>${intern.paid ? "Paid" : "Unpaid"}</strong></p>
-          ${intern.paid ? `<p><strong>Salary:</strong> ${intern.salary}</p>` : ''}
-          <p><strong>Skills Required:</strong> ${intern.skills}</p>
-          <p><strong>Description:</strong> ${intern.description}</p>
-          <button class="apply-btn" onclick="openModal(${index})">Apply</button>
+          <div class="card-header">
+            <div>
+              <h3 class="job-title">${intern.title}</h3>
+              <span class="company-name">${intern.company}</span>
+            </div>
+            <div class="card-actions">
+              <button class="view-details-btn" onclick="toggleDetails(${index})">
+                <i class="fas fa-info-circle"></i>
+                View Details
+              </button>
+              <button class="apply-btn" onclick="openModal(${index})">
+                <i class="fas fa-paper-plane"></i>
+                Apply Now
+              </button>
+            </div>
+          </div>
+
+          <div class="job-quick-info">
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              ${intern.duration}
+            </div>
+            <div class="info-item">
+              <i class="fas fa-industry"></i>
+              ${intern.industry}
+            </div>
+            <div class="info-item">
+              <i class="fas fa-money-bill-wave"></i>
+              ${intern.paid ? intern.salary : 'Unpaid'}
+            </div>
+          </div>
+
+          <div class="job-details" id="details-${index}">
+            <div class="details-section">
+              <h5>Job Description</h5>
+              <p>${intern.description}</p>
+            </div>
+            
+            <div class="details-section">
+              <h5>Required Skills</h5>
+              <div class="skills-list">
+                ${intern.skills.split(',').map(skill => 
+                  `<span class="skill-tag">${skill.trim()}</span>`
+                ).join('')}
+              </div>
+            </div>
+
+            <div class="details-section">
+              <h5>Additional Information</h5>
+              <p>Location: Cairo, Egypt</p>
+              <p>Start Date: Immediate</p>
+              <p>Application Deadline: Open until filled</p>
+            </div>
+          </div>
         </div>
       `).join("");
     }
@@ -617,7 +872,31 @@
     durationFilter.addEventListener("change", displayInternships);
     paymentFilter.addEventListener("change", displayInternships);
 
-    displayInternships();
+    function toggleDetails(index) {
+      const detailsSection = document.getElementById(`details-${index}`);
+      const allDetails = document.querySelectorAll('.job-details');
+      
+      // Close other open details sections
+      allDetails.forEach(detail => {
+        if (detail !== detailsSection && detail.classList.contains('show')) {
+          detail.classList.remove('show');
+        }
+      });
+      
+      // Toggle current details section
+      detailsSection.classList.toggle('show');
+      
+      // Update button text
+      const button = event.currentTarget;
+      const icon = button.querySelector('i');
+      if (detailsSection.classList.contains('show')) {
+        icon.className = 'fas fa-chevron-up';
+        button.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Details';
+      } else {
+        icon.className = 'fas fa-info-circle';
+        button.innerHTML = '<i class="fas fa-info-circle"></i> View Details';
+      }
+    }
 
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
@@ -640,6 +919,8 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+    displayInternships();
   </script>
 </body>
 </html>
