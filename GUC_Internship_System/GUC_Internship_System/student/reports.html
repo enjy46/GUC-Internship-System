@@ -9,125 +9,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
-    .main-header {
-      background-color: #0d1b2a;
-      color: #ffffff;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      position: relative;
-      width: 1200.4px;
-      height: 131.2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
     .main-header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: white;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      z-index: 1;
-      margin-top: 10px;
-    }
-
-    .dropdown-content a {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #f8f9fa;
-    }
-
-    .dropdown-content.show {
-      display: block;
-    }
-
-    .profile-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .icon-link {
-      color: white;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-    }
-
-    .header-icons {
-      position: absolute;
-      right: 120px;
-      top: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .notification-icon {
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      transition: all 0.3s ease;
-      width: 35px;
-      height: 35px;
-    }
-
-    .notification-icon:hover {
-      background: rgba(255, 255, 255, 0.2);
-    }
-
-    .notification-icon i {
-      font-size: 1.2rem;
       color: white;
     }
-
-    .notification-badge {
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      background-color: #ff4444;
-      color: white;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      font-size: 0.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 2px solid #0d1b2a;
-    }
-
-    .profile-dropdown:hover .dropdown-content {
-      display: block;
-    }
-
     .grid-buttons {
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       gap: 10px;
+      margin-top: 20px;
     }
     .dashboard-btn {
       padding: 10px 20px;
@@ -135,21 +24,27 @@
       border-radius: 4px;
       cursor: pointer;
       font-weight: bold;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
-    .btn-add {
+    .btn-create {
       background-color: #4CAF50;
       color: white;
     }
-    .btn-save {
+    .btn-update {
       background-color: #2196F3;
       color: white;
     }
-    .btn-add:hover, .btn-save:hover {
-      opacity: 0.8;
+    .btn-delete {
+      background-color: #f44336;
+      color: white;
     }
-    .dashboard-btn:hover::after {
-      content: none !important;
+    .btn-view {
+      background-color: #757575;
+      color: white;
+    }
+    .dashboard-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
     }
     .sidebar-header {
       padding: 2rem 1rem;
@@ -161,21 +56,6 @@
       font-size: 1.6rem;
       font-weight: 600;
       color: white;
-    }
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-    .card {
-      background-color: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 2rem;
-      margin-bottom: 2rem;
     }
     .reports-container {
       display: grid;
@@ -248,6 +128,47 @@
       font-size: 0.85rem;
       color: #757575;
     }
+    @media (max-width: 1200px) {
+      .reports-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
     .report-actions {
       display: flex;
       gap: 0.5rem;
@@ -273,37 +194,20 @@
       background-color: #f44336;
       color: white;
     }
-    .feedback {
+    .save-feedback {
       position: fixed;
       top: 20px;
       right: 20px;
+      background: #4CAF50;
+      color: white;
       padding: 1rem 2rem;
       border-radius: 8px;
-      color: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       display: none;
       z-index: 1000;
-      animation: slideIn 0.3s ease;
     }
-    .feedback.success {
-      background: #4CAF50;
-    }
-    .feedback.error {
-      background: #f44336;
-    }
-    .feedback.info {
-      background: #2196F3;
-    }
-    @keyframes slideIn {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
+    
+    /* Popup styles */
     .report-popup {
       display: none;
       position: fixed;
@@ -360,10 +264,156 @@
       line-height: 1.6;
       color: #444;
     }
-    @media (max-width: 1200px) {
-      .reports-container {
-        grid-template-columns: 1fr;
+    .feedback {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: none;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    }
+    .feedback.success {
+      background: #4CAF50;
+    }
+    .feedback.error {
+      background: #f44336;
+    }
+    .feedback.info {
+      background: #2196F3;
+    }
+    .feedback.warning {
+      background: #ff9800;
+      border-left: 4px solid #f57c00;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
       }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    .notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        display: none;
+        z-index: 1000;
+        font-size: 14px;
+        font-weight: 500;
+        animation: fadeIn 0.3s ease-in;
+        color: white;
+    }
+
+    .notification.success {
+        background-color: #4CAF50;
+        border-left: 4px solid #45a049;
+    }
+
+    .notification.error {
+        background-color: #ef4444;
+        border-left: 4px solid #dc2626;
+    }
+
+    .notification.info {
+        background-color: #0d1b2a;
+        border-left: 4px solid #1b263b;
+    }
+
+    .notification.show {
+        display: block;
+    }
+
+    @keyframes fadeIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    /* Delete Confirmation Modal styles */
+    .delete-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .delete-modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      position: relative;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .delete-modal-content h3 {
+      color: #ef4444;
+      margin-bottom: 1rem;
+    }
+
+    .delete-modal-content p {
+      margin-bottom: 2rem;
+      color: #4b5563;
+    }
+
+    .delete-modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .delete-modal-btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .btn-cancel {
+      background: #e5e7eb;
+      color: #4b5563;
+    }
+
+    .btn-confirm-delete {
+      background: #ef4444;
+      color: white;
+    }
+
+    .delete-modal-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-cancel:hover {
+      background: #d1d5db;
+    }
+
+    .btn-confirm-delete:hover {
+      background: #dc2626;
     }
   </style>
 </head>
@@ -387,25 +437,35 @@
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Your Reports</h1>
-        <div class="header-icons">
-          <!-- Notification Icon -->
-          <a href="notifications.html" class="notification-icon">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge">3</span>
-          </a>
+        <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Your Reports</h1>
           
-          <!-- Profile Icon with Dropdown -->
-          <div class="profile-dropdown">
-            <a onclick="toggleDropdown()" class="icon-link">
-              <i class="fas fa-user-circle"></i>
+          <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+            <!-- Notification Icon -->
+            <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+              <i class="fas fa-bell" style="font-size: 1.4rem;">
+                <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                      border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                      align-items: center; justify-content: center;">3</span>
+              </i>
             </a>
-            <div id="profileDropdown" class="dropdown-content">
-              <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
-              <a href="../login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
-            </div>
+            
+            <!-- Profile Icon with Dropdown -->
+            <div style="position: relative; display: inline-block;">
+              <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+                <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+              </a>
+              <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                   background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                   border-radius: 8px; z-index: 1; margin-top: 10px;">
+                <a href="profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                   display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+                <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                   display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            
           </div>
         </div>
+      </header>
       </header>
 
       <div class="reports-container">
@@ -430,12 +490,13 @@
             </div>
             <div class="grid-buttons">
               <button type="button" class="dashboard-btn btn-create" onclick="saveReport()">Save Report</button>
+              <button type="button" class="dashboard-btn btn-update" onclick="submitReport()">Submit Report</button>
             </div>
           </form>
         </div>
 
         <div class="previous-reports-section">
-          <h2><i class="fas fa-history"></i> Previously Submitted Reports</h2>
+          <h2><i class="fas fa-history"></i> Previously Saved Reports</h2>
           <div id="previousReports">
             <div class="report-card" onclick="viewReport(1)">
               <h3>First Month Progress Report</h3>
@@ -474,11 +535,10 @@
         </div>
       </div>
 
-      <!-- Feedback Messages -->
-      <div id="saveFeedback" class="feedback success">Report saved successfully!</div>
-      <div id="editFeedback" class="feedback info">Report loaded for editing</div>
-      <div id="deleteFeedback" class="feedback error">Report deleted successfully</div>
-      <div id="createFeedback" class="feedback success">New report created successfully!</div>
+      <!-- Replace all feedback divs with a single notification div -->
+      <div id="notification" class="notification">
+        <span id="notificationText"></span>
+      </div>
 
       <!-- Report View Popup -->
       <div id="reportPopup" class="report-popup">
@@ -507,6 +567,294 @@
   </footer>
 
   <script>
+    function showNotification(message, type = 'info') {
+      const notification = document.getElementById('notification');
+      const notificationText = document.getElementById('notificationText');
+      
+      // Clear any existing timeouts
+      if (notification.timeoutId) {
+        clearTimeout(notification.timeoutId);
+      }
+      
+      // Remove existing classes
+      notification.classList.remove('success', 'error', 'info');
+      
+      // Add appropriate class based on type
+      notification.classList.add(type);
+      
+      // Update message and show notification
+      notificationText.textContent = message;
+      notification.classList.add('show');
+      
+      // Set timeout to hide notification
+      notification.timeoutId = setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    function saveReport() {
+      try {
+        const companyName = document.getElementById('companyName').value;
+        const reportTitle = document.getElementById('reportTitle').value;
+        const reportIntro = document.getElementById('reportIntro').value;
+        const reportBody = document.getElementById('reportBody').value;
+
+        if (!companyName || !reportTitle || !reportIntro || !reportBody) {
+          showNotification('Please fill in all fields before saving!', 'error');
+          return;
+        }
+
+        // Get existing reports or initialize empty array
+        let reports = [];
+        try {
+          reports = JSON.parse(localStorage.getItem('reports')) || [];
+        } catch (e) {
+          reports = [];
+        }
+
+        const editingId = document.getElementById('reportForm').dataset.editingId;
+        
+        if (editingId) {
+          // Update existing report
+          const index = reports.findIndex(r => r.id === parseInt(editingId));
+          if (index !== -1) {
+            reports[index] = {
+              ...reports[index],
+              title: reportTitle,
+              company: companyName,
+              intro: reportIntro,
+              body: reportBody,
+              lastUpdated: 'Just now'
+            };
+            showNotification('Report updated successfully!', 'success');
+          }
+          delete document.getElementById('reportForm').dataset.editingId;
+        } else {
+          // Create new report
+          const newReport = {
+            id: Date.now(),
+            title: reportTitle,
+            company: companyName,
+            intro: reportIntro,
+            body: reportBody,
+            date: new Date().toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric', 
+              year: 'numeric' 
+            }),
+            lastUpdated: 'Just now'
+          };
+          reports.unshift(newReport);
+          showNotification('Report saved successfully!', 'success');
+        }
+
+        // Verify localStorage is available
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem('reports', JSON.stringify(reports));
+          // Verify the save was successful
+          const savedReports = localStorage.getItem('reports');
+          if (!savedReports) {
+            throw new Error('Failed to save to localStorage');
+          }
+        } else {
+          throw new Error('localStorage is not available');
+        }
+
+        loadReports(); // Refresh the display
+        document.getElementById('reportForm').reset();
+      } catch (error) {
+        console.error('Error saving report:', error);
+        showNotification('Error saving report. Please try again.', 'error');
+      }
+    }
+
+    function submitReport() {
+      const companyName = document.getElementById('companyName').value;
+      const reportTitle = document.getElementById('reportTitle').value;
+      const reportIntro = document.getElementById('reportIntro').value;
+      const reportBody = document.getElementById('reportBody').value;
+
+      // Check if any field is empty
+      if (!companyName || !reportTitle || !reportIntro || !reportBody) {
+        const emptyFields = [];
+        if (!companyName) emptyFields.push('Company Name');
+        if (!reportTitle) emptyFields.push('Report Title');
+        if (!reportIntro) emptyFields.push('Introduction');
+        if (!reportBody) emptyFields.push('Report Body');
+
+        showNotification('Please fill in all fields before submitting!', 'error');
+        return;
+      }
+
+      // Show success feedback
+      showNotification('Report submitted successfully!', 'success');
+      
+      // Clear the form after successful submission
+      document.getElementById('reportForm').reset();
+    }
+
+    // Initialize default reports if localStorage is empty
+    function initializeDefaultReports() {
+      if (!localStorage.getItem('reports')) {
+        const defaultReports = [
+          {
+            id: 1,
+            title: 'First Month Progress Report',
+            company: 'Tech Solutions Inc.',
+            intro: 'Tech Solutions Inc. has completed its first month of operations, achieving significant milestones in its early stages. This report provides an overview of the key activities, progress, and challenges faced during the initial month of the project.',
+            body: 'During the first month, Tech Solutions Inc. focused on setting up the infrastructure, finalizing project scopes, and establishing key partnerships. The team successfully completed the onboarding of initial clients and is in the process of fine-tuning project deliverables to ensure timely execution.',
+            date: 'Jan 15, 2024',
+            lastUpdated: '2 days ago'
+          },
+          {
+            id: 2,
+            title: 'Final Internship Report',
+            company: 'Innovation Labs',
+            intro: 'Innovation Labs has provided an invaluable platform for hands-on learning during my internship period. This final report summarizes my experiences, the skills I gained, and the key projects I contributed to, showcasing the valuable insights I acquired throughout my internship.',
+            body: 'Throughout my internship, I was actively involved in various aspects of product development and market research, assisting the team in conceptualizing innovative solutions. My role included collaborating on design prototypes, analyzing data trends, and participating in brainstorming sessions that helped shape the company\'s strategy. Additionally, I gained a deeper understanding of the tech industry and how cross-functional teams work together to bring ideas to life, contributing to the company\'s ongoing success.',
+            date: 'Mar 20, 2024',
+            lastUpdated: '1 week ago'
+          }
+        ];
+        localStorage.setItem('reports', JSON.stringify(defaultReports));
+      }
+    }
+
+    // Load reports from localStorage
+    function loadReports() {
+      try {
+        const reports = JSON.parse(localStorage.getItem('reports')) || [];
+        const previousReports = document.getElementById('previousReports');
+        previousReports.innerHTML = ''; // Clear existing reports
+
+        reports.forEach(report => {
+          const reportCard = document.createElement('div');
+          reportCard.className = 'report-card';
+          reportCard.onclick = () => viewReport(report.id);
+          
+          reportCard.innerHTML = `
+            <h3>${report.title}</h3>
+            <p>Company: ${report.company}</p>
+            <div class="report-meta">
+              <span>Saved: ${report.date}</span>
+              <span><i class="fas fa-clock"></i> ${report.lastUpdated}</span>
+            </div>
+            <div class="report-actions">
+              <button class="action-btn btn-edit" onclick="event.stopPropagation(); editReport(${report.id});">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="action-btn btn-delete" onclick="event.stopPropagation(); deleteReport(${report.id});">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          `;
+          previousReports.appendChild(reportCard);
+        });
+      } catch (error) {
+        console.error('Error loading reports:', error);
+        showNotification('Error loading reports. Please try again.', 'error');
+      }
+    }
+
+    // Initialize the page with error handling
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        // Check if localStorage is available
+        if (typeof localStorage === 'undefined') {
+          throw new Error('localStorage is not available');
+        }
+
+        initializeDefaultReports();
+        loadReports();
+
+        // Verify reports were loaded
+        const reports = localStorage.getItem('reports');
+        if (!reports) {
+          throw new Error('Failed to load reports from localStorage');
+        }
+      } catch (error) {
+        console.error('Error initializing reports:', error);
+        showNotification('Error loading reports. Please refresh the page.', 'error');
+      }
+    });
+
+    function deleteReport(reportId) {
+      try {
+        let reports = JSON.parse(localStorage.getItem('reports')) || [];
+        // Convert reportId to number since it comes as string from the HTML
+        reportId = parseInt(reportId);
+        // Filter out the report with the matching ID
+        reports = reports.filter(report => report.id !== reportId);
+        // Save the updated reports array back to localStorage
+        localStorage.setItem('reports', JSON.stringify(reports));
+        // Refresh the display
+        loadReports();
+        showNotification('Report deleted successfully!', 'error');
+      } catch (error) {
+        console.error('Error deleting report:', error);
+        showNotification('Error deleting report. Please try again.', 'error');
+      }
+    }
+
+    function editReport(reportId) {
+      event.stopPropagation();
+      const reports = JSON.parse(localStorage.getItem('reports')) || [];
+      const report = reports.find(r => r.id === reportId);
+      
+      if (report) {
+        document.getElementById('companyName').value = report.company;
+        document.getElementById('reportTitle').value = report.title;
+        document.getElementById('reportIntro').value = report.intro;
+        document.getElementById('reportBody').value = report.body;
+        
+        // Store the report ID being edited
+        document.getElementById('reportForm').dataset.editingId = reportId;
+        
+        showNotification('Report loaded for editing', 'info');
+        document.querySelector('.report-form-section').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function viewReport(reportId) {
+      try {
+        const reports = JSON.parse(localStorage.getItem('reports')) || [];
+        // Convert reportId to number since it comes as string from the HTML
+        reportId = parseInt(reportId);
+        // Find the report with the matching ID
+        const report = reports.find(r => r.id === reportId);
+        
+        if (report) {
+          document.getElementById('popupTitle').textContent = report.title;
+          document.getElementById('popupCompany').textContent = `Company: ${report.company}`;
+          document.getElementById('popupIntro').textContent = report.intro;
+          document.getElementById('popupBody').textContent = report.body;
+          document.getElementById('popupMeta').innerHTML = `
+            <span>Saved: ${report.date}</span>
+            <span><i class="fas fa-clock"></i> ${report.lastUpdated}</span>
+          `;
+          
+          document.getElementById('reportPopup').style.display = 'flex';
+        } else {
+          showNotification('Report not found', 'error');
+        }
+      } catch (error) {
+        console.error('Error viewing report:', error);
+        showNotification('Error viewing report. Please try again.', 'error');
+      }
+    }
+
+    // Close popup when clicking outside
+    document.getElementById('reportPopup').addEventListener('click', function(event) {
+      if (event.target === this) {
+        this.style.display = 'none';
+      }
+    });
+
+    // Close popup when clicking the close button
+    document.querySelector('.popup-close').addEventListener('click', function() {
+      document.getElementById('reportPopup').style.display = 'none';
+    });
+
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
       if (dropdown.style.display === "none" || dropdown.style.display === "") {
@@ -516,6 +864,7 @@
       }
     }
 
+    // Close dropdown when clicking outside
     document.addEventListener('click', function(event) {
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');
@@ -525,96 +874,10 @@
       }
     });
 
+    // Prevent dropdown from closing when clicking inside it
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
-
-    function showFeedback(id, message) {
-      const feedback = document.getElementById(id);
-      feedback.textContent = message;
-      feedback.style.display = 'block';
-      setTimeout(() => {
-        feedback.style.display = 'none';
-      }, 3000);
-    }
-
-    function viewReport(reportId) {
-      console.log('Viewing report:', reportId);
-      
-      document.getElementById('popupTitle').textContent = 'First Month Progress Report';
-      document.getElementById('popupCompany').textContent = 'Company: Tech Solutions Inc.';
-      document.getElementById('popupIntro').textContent = 'During my first month at Tech Solutions Inc., I have been actively involved in the development team working on their flagship product. This internship has provided me with valuable hands-on experience in software development and team collaboration.';
-      document.getElementById('popupBody').textContent = 'Throughout this month, I have accomplished several key tasks:\n\n1. Implemented new features in the user dashboard\n2. Collaborated with senior developers on code reviews\n3. Participated in daily stand-up meetings\n4. Learned and applied new technologies including React and Node.js\n\nThe experience has been incredibly rewarding, and I have gained significant insights into professional software development practices.';
-      document.getElementById('popupMeta').innerHTML = `
-        <span>Submitted: Jan 15, 2024</span>
-        <span><i class="fas fa-clock"></i> Last updated: 2 days ago</span>
-      `;
-      
-      document.getElementById('reportPopup').style.display = 'flex';
-    }
-
-    function closeReportPopup() {
-      document.getElementById('reportPopup').style.display = 'none';
-    }
-
-    document.getElementById('reportPopup').addEventListener('click', function(event) {
-      if (event.target === this) {
-        closeReportPopup();
-      }
-    });
-
-    function editReport(reportId) {
-      console.log('Editing report:', reportId);
-      
-      document.getElementById('companyName').value = 'Tech Solutions Inc.';
-      document.getElementById('reportTitle').value = 'First Month Progress Report';
-      document.getElementById('reportIntro').value = 'During my first month at Tech Solutions Inc., I have been actively involved in the development team working on their flagship product. This internship has provided me with valuable hands-on experience in software development and team collaboration.';
-      document.getElementById('reportBody').value = 'Throughout this month, I have accomplished several key tasks:\n\n1. Implemented new features in the user dashboard\n2. Collaborated with senior developers on code reviews\n3. Participated in daily stand-up meetings\n4. Learned and applied new technologies including React and Node.js\n\nThe experience has been incredibly rewarding, and I have gained significant insights into professional software development practices.';
-      
-      showFeedback('editFeedback', 'Report loaded for editing');
-      document.querySelector('.report-form-section').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    function deleteReport(reportId) {
-      if (confirm('Are you sure you want to delete this report?')) {
-        const reportCard = event.target.closest('.report-card');
-        if (reportCard) {
-          reportCard.remove();
-          showFeedback('deleteFeedback', 'Report deleted successfully');
-        }
-      }
-    }
-
-    function saveReport() {
-      const companyName = document.getElementById('companyName').value;
-      const reportTitle = document.getElementById('reportTitle').value;
-      
-      const previousReports = document.getElementById('previousReports');
-      const newReport = document.createElement('div');
-      newReport.className = 'report-card';
-      const reportId = Date.now();
-      newReport.onclick = () => viewReport(reportId);
-      newReport.innerHTML = `
-        <h3>${reportTitle}</h3>
-        <p>Company: ${companyName}</p>
-        <div class="report-meta">
-          <span>Submitted: ${new Date().toLocaleDateString()}</span>
-          <span><i class="fas fa-clock"></i> Just now</span>
-        </div>
-        <div class="report-actions">
-          <button class="action-btn btn-edit" onclick="editReport(${reportId}); event.stopPropagation();">
-            <i class="fas fa-edit"></i> Edit
-          </button>
-          <button class="action-btn btn-delete" onclick="deleteReport(${reportId}); event.stopPropagation();">
-            <i class="fas fa-trash"></i> Delete
-          </button>
-        </div>
-      `;
-      previousReports.insertBefore(newReport, previousReports.firstChild);
-      
-      showFeedback('saveFeedback', 'Report saved successfully!');
-      document.getElementById('reportForm').reset();
-    }
   </script>
 </body>
 </html>
