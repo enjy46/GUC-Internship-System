@@ -1,4 +1,96 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Add modal styles
+  const style = document.createElement('style');
+  style.textContent = `
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+    }
+
+    .modal-content {
+      position: relative;
+      background-color: white;
+      margin: 15% auto;
+      padding: 2rem;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .close-btn:hover {
+      color: #333;
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+
+    .status-accepted {
+      background-color: #dcfce7;
+      color: #166534;
+    }
+
+    .status-rejected {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .action-btn.accept {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .action-btn.accept:hover {
+      background-color: #45a049;
+    }
+
+    .action-btn.reject {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .action-btn.reject:hover {
+      background-color: #c82333;
+    }
+  `;
+  document.head.appendChild(style);
+
   const companies = [
     {
       name: "Innovatech",

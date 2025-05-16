@@ -6,6 +6,11 @@ const jobIdInput = document.getElementById('jobId');
 const alertNotification = document.getElementById('alertNotification');
 const paidUnpaidSelect = document.getElementById('paidUnpaid');
 const salaryFields = document.querySelectorAll('.salary-field');
+const searchInput = document.getElementById('searchInput');
+const filterSelect = document.getElementById('filterSelect');
+
+// Get current company name (this would come from your authentication system)
+const currentCompany = "Your Company"; // Replace with actual company name from auth
 
 // Initialize with dummy data if no data exists in localStorage
 let jobPosts = JSON.parse(localStorage.getItem('jobPosts')) || [
@@ -15,7 +20,8 @@ let jobPosts = JSON.parse(localStorage.getItem('jobPosts')) || [
     duration: "3",
     paidUnpaid: "paid",
     salary: "1000",
-    skillsRequired: "JavaScript, React, Node.js, HTML, CSS"
+    skillsRequired: "JavaScript, React, Node.js, HTML, CSS",
+    company: currentCompany
   },
   {
     title: "Marketing Intern",
@@ -23,7 +29,8 @@ let jobPosts = JSON.parse(localStorage.getItem('jobPosts')) || [
     duration: "2",
     paidUnpaid: "unpaid",
     salary: "",
-    skillsRequired: "Social Media Marketing, Content Creation, Analytics"
+    skillsRequired: "Social Media Marketing, Content Creation, Analytics",
+    company: currentCompany
   },
   {
     title: "Data Science Intern",
@@ -61,40 +68,70 @@ paidUnpaidSelect.addEventListener('change', function() {
   });
 });
 
-function renderJobPosts() {
-  // Clear the table body
-  if (jobPostsTableBody) {
-    jobPostsTableBody.innerHTML = '';
+// Add search and filter functionality
+function filterAndSearchJobPosts() {
+  const searchTerm = searchInput.value.toLowerCase();
+  const filterValue = filterSelect.value;
+  
+  return jobPosts.filter(post => {
+    // Only show posts from current company
+    if (post.company !== currentCompany) return false;
     
-    // Add each job post to the table
-    jobPosts.forEach((post, index) => {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td title="${post.title}">${post.title}</td>
-        <td title="${post.description}">${post.description}</td>
-        <td title="${post.duration} months">${post.duration} months</td>
-        <td title="${post.paidUnpaid === 'paid' ? 'Paid' : 'Unpaid'}">${post.paidUnpaid === 'paid' ? 'Paid' : 'Unpaid'}</td>
-        <td title="${post.paidUnpaid === 'paid' ? `$${post.salary}/month` : '-'}">${post.paidUnpaid === 'paid' ? `$${post.salary}/month` : '-'}</td>
-        <td title="${post.skillsRequired}">${post.skillsRequired}</td>
-        <td>
-          <button class="action-btn edit-btn" data-index="${index}">Edit</button>
-          <button class="action-btn delete-btn" data-index="${index}">Delete</button>
-        </td>
-      `;
-      jobPostsTableBody.appendChild(tr);
-    });
+    // Apply search filter
+    const matchesSearch = post.title.toLowerCase().includes(searchTerm) ||
+                         post.description.toLowerCase().includes(searchTerm) ||
+                         post.skillsRequired.toLowerCase().includes(searchTerm);
+    
+    // Apply status filter
+    const matchesFilter = filterValue === 'all' || post.paidUnpaid === filterValue;
+    
+    return matchesSearch && matchesFilter;
+  });
+}
 
-    // If no job posts, show a message
-    if (jobPosts.length === 0) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td colspan="7" style="padding: 1rem; text-align: center; border-bottom: 1px solid #eee;">
-          No job posts available. Create your first job post above.
-        </td>
-      `;
-      jobPostsTableBody.appendChild(tr);
-    }
+// Update renderJobPosts function to use filtered results
+function renderJobPosts() {
+  const jobPostsList = document.getElementById('jobPostsList');
+  jobPostsList.innerHTML = ''; // Clear the list
+  
+  const filteredPosts = filterAndSearchJobPosts();
+  
+  if (filteredPosts.length === 0) {
+    const noResults = document.createElement('div');
+    noResults.className = 'no-results';
+    noResults.innerHTML = `
+      <p style="text-align: center; color: #666; padding: 2rem;">
+        No job posts found matching your search criteria.
+      </p>
+    `;
+    jobPostsList.appendChild(noResults);
+    return;
   }
+  
+  filteredPosts.forEach((post, index) => {
+    const card = document.createElement('div');
+    card.className = 'job-post-card';
+    card.innerHTML = `
+      <div class="card-header">
+        <h4>${post.title}</h4>
+        <span class="company-name">${post.company}</span>
+      </div>
+      <p><strong>Description:</strong> ${post.description}</p>
+      <p><strong>Duration:</strong> ${post.duration} months</p>
+      <p><strong>Type:</strong> ${post.paidUnpaid === 'paid' ? 'Paid' : 'Unpaid'}</p>
+      ${post.paidUnpaid === 'paid' ? `<p><strong>Salary:</strong> $${post.salary}/month</p>` : ''}
+      <p><strong>Required Skills:</strong> ${post.skillsRequired}</p>
+      <div class="actions">
+        <button class="edit-btn" onclick="editJobPost(${index})">
+          <i class="fas fa-edit"></i> Edit
+        </button>
+        <button class="delete-btn" onclick="deleteJobPost(${index})">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </div>
+    `;
+    jobPostsList.appendChild(card);
+  });
 }
 
 function clearForm() {
@@ -136,6 +173,18 @@ function showAlert(message, type) {
   }, 5000);
 }
 
+// Add event listeners for search and filter
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('searchInput');
+  const filterSelect = document.getElementById('filterSelect');
+  
+  searchInput.addEventListener('input', renderJobPosts);
+  filterSelect.addEventListener('change', renderJobPosts);
+  
+  // Initial render
+  renderJobPosts();
+});
+
 // Form submission handler
 jobPostForm.addEventListener('submit', function(event) {
   event.preventDefault();
@@ -167,6 +216,7 @@ jobPostForm.addEventListener('submit', function(event) {
     paidUnpaid,
     salary: paidUnpaid === 'paid' ? salary : '',
     skillsRequired,
+    company: currentCompany // Add company name to the job post
   };
 
   const jobId = jobIdInput.value;

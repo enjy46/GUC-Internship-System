@@ -45,6 +45,30 @@ const evaluationReports = [
   },
 ];
 
+// Internship Reports Management
+let internshipReports = JSON.parse(localStorage.getItem('internshipReports')) || [
+  {
+    id: 1,
+    studentName: "John Doe",
+    company: "Tech Corp",
+    reportTitle: "Summer Internship Report",
+    status: "pending",
+    submissionDate: "2024-03-15",
+    content: "Detailed internship experience and learnings...",
+    comments: ""
+  },
+  {
+    id: 2,
+    studentName: "Jane Smith",
+    company: "Data Analytics Inc",
+    reportTitle: "Data Science Internship Report",
+    status: "accepted",
+    submissionDate: "2024-03-10",
+    content: "Analysis of machine learning models...",
+    comments: "Excellent work on the project"
+  }
+];
+
 // Function to fetch and display all students
 function fetchAllStudents() {
   displayStudents(allStudents);
@@ -192,42 +216,153 @@ function closeEvaluationReportModal() {
   document.getElementById("evaluationReportModal").style.display = "none";
 }
 
-// Function to open the report status modal
-function openReportStatusModal(report) {
-  document.getElementById("reportTitle").textContent = report.title;
-  document.getElementById("reportStudent").textContent = report.student;
-  document.getElementById("updateStatus").value = report.status;
-  document.getElementById("reportStatusModal").style.display = "block";
-
-  // Store the current report in a global variable for updating
-  window.currentReport = report;
+// Function to filter and search reports
+function filterAndSearchReports() {
+  const searchTerm = document.getElementById('reportSearchInput').value.toLowerCase();
+  const statusFilter = document.getElementById('reportStatusFilter').value;
+  
+  return internshipReports.filter(report => {
+    const matchesSearch = report.studentName.toLowerCase().includes(searchTerm) ||
+                         report.company.toLowerCase().includes(searchTerm) ||
+                         report.reportTitle.toLowerCase().includes(searchTerm);
+    
+    const matchesStatus = statusFilter === 'all' || report.status === statusFilter;
+    
+    return matchesSearch && matchesStatus;
+  });
 }
 
-// Function to close the report status modal
-function closeReportStatusModal() {
-  document.getElementById("reportStatusModal").style.display = "none";
-  window.currentReport = null;
+// Function to render reports
+function renderReports() {
+  const reportsList = document.getElementById('reportsList');
+  reportsList.innerHTML = '';
+  
+  const filteredReports = filterAndSearchReports();
+  
+  if (filteredReports.length === 0) {
+    reportsList.innerHTML = `
+      <div class="no-results" style="text-align: center; padding: 2rem; color: #666;">
+        No reports found matching your search criteria.
+      </div>
+    `;
+    return;
+  }
+  
+  filteredReports.forEach(report => {
+    const reportCard = document.createElement('div');
+    reportCard.className = 'report-card';
+    reportCard.style.cssText = `
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-left: 4px solid ${getStatusColor(report.status)};
+    `;
+    
+    reportCard.innerHTML = `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <div>
+          <h4 style="margin: 0 0 0.5rem; color: #0d1b2a; font-size: 1.2rem;">${report.reportTitle}</h4>
+          <p style="margin: 0; color: #666;">${report.studentName} - ${report.company}</p>
+        </div>
+        <span class="status-badge" style="
+          padding: 0.5rem 1rem;
+          border-radius: 20px;
+          font-size: 0.9rem;
+          font-weight: 500;
+          background-color: ${getStatusColor(report.status)};
+          color: white;
+        ">${report.status.charAt(0).toUpperCase() + report.status.slice(1)}</span>
+      </div>
+      <p style="margin: 0.5rem 0; color: #444;">${report.content.substring(0, 150)}...</p>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+        <span style="color: #666; font-size: 0.9rem;">Submitted: ${report.submissionDate}</span>
+        <button onclick="openReportStatusModal(${report.id})" style="
+          padding: 0.5rem 1rem;
+          border-radius: 6px;
+          border: none;
+          background-color: #0d1b2a;
+          color: white;
+          cursor: pointer;
+          font-size: 0.9rem;
+        ">Update Status</button>
+      </div>
+    `;
+    
+    reportsList.appendChild(reportCard);
+  });
 }
 
-// Function to update the report status
-function updateReportStatus() {
-  const newStatus = document.getElementById("updateStatus").value;
-
-  if (window.currentReport) {
-    // Update the status in the allReports array
-    window.currentReport.status = newStatus;
-
-    // Refresh the reports list
-    fetchAllReports();
-
-    // Close the modal
-    closeReportStatusModal();
-
-    alert("Report status updated successfully!");
-  } else {
-    alert("No report selected for updating.");
+// Function to get status color
+function getStatusColor(status) {
+  switch (status) {
+    case 'accepted':
+      return '#4CAF50';
+    case 'rejected':
+      return '#dc3545';
+    case 'flagged':
+      return '#ffc107';
+    default:
+      return '#6c757d';
   }
 }
+
+// Function to open report status modal
+function openReportStatusModal(reportId) {
+  const report = internshipReports.find(r => r.id === reportId);
+  if (!report) return;
+  
+  document.getElementById('reportStatus').value = report.status;
+  document.getElementById('statusComment').value = report.comments || '';
+  
+  const modal = document.getElementById('reportStatusModal');
+  modal.style.display = 'block';
+  
+  // Update form submission handler
+  const form = document.getElementById('reportStatusForm');
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    
+    const newStatus = document.getElementById('reportStatus').value;
+    const comments = document.getElementById('statusComment').value;
+    
+    // Update report
+    report.status = newStatus;
+    report.comments = comments;
+    
+    // Save to localStorage
+    localStorage.setItem('internshipReports', JSON.stringify(internshipReports));
+    
+    // Update display
+    renderReports();
+    
+    // Close modal
+    closeReportStatusModal();
+    
+    // Show notification
+    showNotification(`Report status updated to ${newStatus}`, 'success');
+  };
+}
+
+// Function to close report status modal
+function closeReportStatusModal() {
+  document.getElementById('reportStatusModal').style.display = 'none';
+}
+
+// Add event listeners for search and filter
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.getElementById('reportSearchInput');
+  const statusFilter = document.getElementById('reportStatusFilter');
+  
+  if (searchInput && statusFilter) {
+    searchInput.addEventListener('input', renderReports);
+    statusFilter.addEventListener('change', renderReports);
+    
+    // Initial render
+    renderReports();
+  }
+});
 
 // Attach the filterReports function to the filter dropdowns
 document.getElementById("filterByMajor").addEventListener("change", filterReports);

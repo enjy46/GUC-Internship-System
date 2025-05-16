@@ -908,6 +908,9 @@
             </div>
             <div class="report-actions">
               <span class="status-badge ${report.status}">${report.status}</span>
+              <button class="clarification-btn" onclick="openClarificationModal('${report.id}', event)" title="Add Clarification">
+                <i class="fas fa-comment-dots"></i>
+              </button>
               <button class="download-btn" onclick="downloadReportAsPDF('${report.id}')">
                 <i class="fas fa-file-pdf"></i> PDF
               </button>
@@ -916,7 +919,7 @@
         `;
         
         card.onclick = (e) => {
-          if (!e.target.closest('.download-btn')) {
+          if (!e.target.closest('.clarification-btn') && !e.target.closest('.download-btn')) {
             showReportDetails(report.id);
           }
         };
@@ -1038,14 +1041,18 @@
 
     let currentReportId = null;
 
-    function openClarificationModal(reportId) {
+    function openClarificationModal(reportId, event) {
+      if (event) {
+        event.stopPropagation(); // Prevent the card click event from triggering
+      }
+      
       const report = allReports.find(r => r.id === reportId);
       if (!report) return;
 
       currentReportId = reportId;
       document.getElementById('clarificationReportTitle').textContent = report.title;
       document.getElementById('clarificationText').value = '';
-      document.getElementById('clarificationError').style.display = 'none'; // Hide error on open
+      document.getElementById('clarificationError').style.display = 'none';
       document.getElementById('clarificationModal').style.display = 'flex';
     }
 

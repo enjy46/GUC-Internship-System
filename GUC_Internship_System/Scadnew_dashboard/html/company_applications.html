@@ -399,36 +399,28 @@
       </header>
 
       <main class="applications-container">
+        <div class="header-actions">
+          <h2>Company Applications</h2>
+          <button id="downloadBtn" class="action-btn">
+            <i class="fas fa-download"></i> Export
+          </button>
+        </div>
+
         <div class="search-filters">
           <div class="search-container">
-            <input 
-              type="text" 
-              id="searchInput" 
-              placeholder="Search by Company Name"
-            >
+            <input type="text" id="searchInput" placeholder="Search companies...">
           </div>
           <div class="filters">
             <select id="industryFilter">
               <option value="all">All Industries</option>
               <option value="Technology">Technology</option>
               <option value="Finance">Finance</option>
-              <option value="Healthcare">Healthcare</option>
-              <option value="Education">Education</option>
-            </select>
-            <select id="statusFilter">
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="approved">Approved</option>
-              <option value="rejected">Rejected</option>
             </select>
           </div>
-          <button type="button" id="downloadBtn" class="download-btn">
-            <i class="fas fa-file-export"></i> Export Applications
-          </button>
         </div>
 
-        <div class="applications-grid" id="companyList">
-          <!-- Company cards will be dynamically rendered here -->
+        <div id="companyList" class="applications-grid">
+          <!-- Companies will be rendered here -->
         </div>
       </main>
     </div>
