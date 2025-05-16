@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Available Internships | SCAD System</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <!-- Add Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     * {
@@ -126,11 +125,14 @@
       text-align: center;
     }
 
+    .filters-container {
+      margin-bottom: 1.5rem;
+    }
+
     .filters {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
-      margin-bottom: 1.5rem;
     }
 
     .filters input,
@@ -148,6 +150,31 @@
     .filters select:focus {
       border-color: #0d1b2a;
       outline: none;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    .load-all-btn {
+      background: linear-gradient(90deg, #1e88e5, #42a5f5);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem; /* Reduced padding for smaller size */
+      border-radius: 20px; /* Slightly smaller radius for a compact look */
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem; /* Reduced font size */
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(30, 136, 229, 0.3);
+    }
+
+    .load-all-btn:hover {
+      background: linear-gradient(90deg, #1565c0, #1976d2);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(30, 136, 229, 0.5); /* Added glow effect on hover */
     }
 
     .internship-list {
@@ -176,30 +203,57 @@
       border-radius: 10px 0 0 10px;
     }
 
-    .card h4 {
-      margin: 0 0 0.5rem;
-      color: #0d1b2a;
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .card p {
+    .card h4 {
+      margin: 0;
+      color: #0d1b2a;
+      cursor: pointer;
+    }
+
+    .card h4:hover {
+      color: #1b263b;
+      text-decoration: underline;
+    }
+
+    .internship-details {
+      display: none;
+      flex-direction: column;
+      padding-top: 0.5rem;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 0.3s ease, max-height 0.3s ease;
+    }
+
+    .internship-details[style*="display: flex"] {
+      opacity: 1;
+      max-height: 250px;
+    }
+
+    .internship-details p {
       margin: 0.25rem 0;
       font-size: 0.95rem;
     }
 
-    .apply-btn {
-      margin-top: 1rem;
-      background-color: #0d1b2a;
+    .view-details-btn {
+      background-color: #1e88e5;
       color: white;
       border: none;
-      padding: 0.6rem 1.2rem;
+      padding: 0.5rem 1rem;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      font-size: 0.85rem;
       transition: all 0.3s ease;
     }
 
-    .apply-btn:hover {
-      background-color: #1b263b;
+    .view-details-btn:hover {
+      background-color: #1565c0;
       transform: translateY(-2px);
     }
 
@@ -221,7 +275,7 @@
       padding: 2rem;
       border-radius: 12px;
       width: 90%;
-      max-width: 400px;
+      max-width: 600px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
       text-align: center;
     }
@@ -286,6 +340,14 @@
       .filters select {
         width: 100%;
       }
+
+      .button-container {
+        justify-content: center;
+      }
+
+      .internship-details {
+        max-height: 400px;
+      }
     }
   </style>
 </head>
@@ -313,25 +375,28 @@
     <main class="container">
       <div class="section-title">Explore Internship Opportunities</div>
 
-      <div class="filters">
-        <input type="text" id="searchInput" placeholder="Search by job title or company name">
-        <select id="industryFilter">
-          <option value="">All Industries</option>
-          <option value="Engineering">Engineering</option>
-          <option value="Pharmacy">Pharmacy</option>
-          <option value="Business">Business</option>
-        </select>
-        <select id="durationFilter">
-          <option value="">All Durations</option>
-          <option value="1 Month">1 Month</option>
-          <option value="3 Months">3 Months</option>
-          <option value="6 Months">6 Months</option>
-        </select>
-        <select id="paymentFilter">
-          <option value="">Paid or Unpaid</option>
-          <option value="Paid">Paid</option>
-          <option value="Unpaid">Unpaid</option>
-        </select>
+      <div class="filters-container">
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search by job title or company name">
+          <select id="industryFilter">
+            <option value="">All Industries</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Pharmacy">Pharmacy</option>
+            <option value="Business">Business</option>
+          </select>
+          <select id="durationFilter">
+            <option value="">All Durations</option>
+            <option value="1 Month">1 Month</option>
+            <option value="3 Months">3 Months</option>
+            <option value="6 Months">6 Months</option>
+          </select>
+          <select id="paymentFilter">
+            <option value="">Paid or Unpaid</option>
+            <option value="Paid">Paid</option>
+            <option value="Unpaid">Unpaid</option>
+          </select>
+        </div>
+        <div class="button-container"></div>
       </div>
 
       <div id="internshipList" class="internship-list"></div>
@@ -404,35 +469,75 @@
 
       listContainer.innerHTML = filtered.map((intern, index) => `
         <div class="card">
-          <h4>${intern.title}</h4>
+          <div class="card-header">
+            <h4 onclick="showInternshipDetails(${index})">${intern.title}</h4>
+            <button class="view-details-btn" onclick="toggleDetails(this)">View Details</button>
+          </div>
+          <div class="internship-details" style="display: none;">
+            <p><strong>Company:</strong> ${intern.company}</p>
+            <p><strong>Duration:</strong> ${intern.duration}</p>
+            <p><strong>Type:</strong> ${intern.paid ? "Paid" : "Unpaid"}</p>
+            ${intern.paid ? `<p><strong>Expected Salary:</strong> ${intern.salary}</p>` : ''}
+            <p><strong>Skills Required:</strong> ${intern.skills}</p>
+            <p><strong>Job Description:</strong> ${intern.description}</p>
+          </div>
+        </div>
+      `).join("");
+
+      // Show "Load All Internships" button if filters are applied
+      const buttonContainer = document.querySelector('.button-container');
+      const loadAllBtn = document.getElementById('loadAllInternshipsBtn');
+      if ((keyword !== '' || industry !== '' || duration !== '' || paid !== '') && !loadAllBtn) {
+        const btn = document.createElement('button');
+        btn.id = 'loadAllInternshipsBtn';
+        btn.className = 'load-all-btn';
+        btn.textContent = 'Load All Internships';
+        btn.onclick = () => {
+          searchInput.value = '';
+          industryFilter.value = '';
+          durationFilter.value = '';
+          paymentFilter.value = '';
+          displayInternships();
+        };
+        buttonContainer.appendChild(btn);
+      } else if (loadAllBtn && (keyword === '' && industry === '' && duration === '' && paid === '')) {
+        loadAllBtn.remove();
+      }
+    }
+
+    function toggleDetails(button) {
+      const detailsDiv = button.parentElement.nextElementSibling;
+      const isVisible = detailsDiv.style.display === 'flex';
+
+      detailsDiv.style.display = isVisible ? 'none' : 'flex';
+      button.textContent = isVisible ? 'View Details' : 'Hide Details';
+    }
+
+    function showInternshipDetails(index) {
+      const intern = internships[index];
+      const modalContent = modal.querySelector(".modal-content");
+      
+      modalContent.innerHTML = `
+        <h3>Internship Details</h3>
+        <div class="internship-details">
+          <p><strong>Title:</strong> ${intern.title}</p>
           <p><strong>Company:</strong> ${intern.company}</p>
           <p><strong>Duration:</strong> ${intern.duration}</p>
           <p><strong>Industry:</strong> ${intern.industry}</p>
-          <p><strong>${intern.paid ? "Paid" : "Unpaid"}</strong></p>
-          ${intern.paid ? `<p><strong>Salary:</strong> ${intern.salary}</p>` : ''}
+          <p><strong>Type:</strong> ${intern.paid ? "Paid" : "Unpaid"}</p>
+          ${intern.paid ? `<p><strong>Expected Salary:</strong> ${intern.salary}</p>` : ''}
           <p><strong>Skills Required:</strong> ${intern.skills}</p>
-          <p><strong>Description:</strong> ${intern.description}</p>
-          <button class="apply-btn" onclick="openModal(${index})">Apply</button>
+          <p><strong>Job Description:</strong> ${intern.description}</p>
         </div>
-      `).join("");
-    }
-
-    function openModal(index) {
-      selectedInternship = internships[index];
+        <button onclick="closeModal()">Close</button>
+      `;
+      
       modal.style.display = "flex";
-      successMessage.textContent = "";
     }
 
-    submitBtn.addEventListener("click", () => {
-      const file = document.getElementById("documentUpload").files[0];
-      if (!file) {
-        successMessage.textContent = "Please upload a document before applying.";
-        successMessage.style.color = "red";
-        return;
-      }
-      successMessage.style.color = "green";
-      successMessage.textContent = `Application submitted for ${selectedInternship.title} at ${selectedInternship.company}!`;
-    });
+    function closeModal() {
+      modal.style.display = "none";
+    }
 
     window.onclick = function(event) {
       if (event.target === modal) {
@@ -447,7 +552,6 @@
 
     displayInternships();
 
-    // Sidebar toggle functionality
     document.querySelector('.toggle-sidebar-btn').addEventListener('click', () => {
       const sidebar = document.querySelector('.sidebar');
       sidebar.classList.toggle('collapsed');

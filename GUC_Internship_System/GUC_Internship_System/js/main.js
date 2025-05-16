@@ -8,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
   // Test credentials (replace with actual authentication)
   const credentials = {
     'company@example.com': { password: 'pass123', role: 'company' },
-    'student@example.com': { password: 'pass123', role: 'student' },
+    'enjy.mowafy@example.com': { password: 'pass123', role: 'student' },
     'scad@example.com': { password: 'pass123', role: 'scad' },
     'faculty@example.com': { password: 'pass123', role: 'faculty' },
     'malakabuelkhier@example.com': { password: 'pass123', role: 'student' },

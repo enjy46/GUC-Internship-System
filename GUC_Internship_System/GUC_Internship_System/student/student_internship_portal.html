@@ -90,9 +90,22 @@
       background-color: #0d1b2a;
       color: white;
       border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
+      padding: 0.8rem;
+      border-radius: 12px;
       cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .apply-btn:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .modal {
@@ -110,42 +123,125 @@
 
     .modal-content {
       background: white;
-      padding: 2rem;
+      padding: 1.5rem;
       border-radius: 12px;
       width: 90%;
-      max-width: 500px;
+      max-width: 420px;
+      height: auto;
+      min-height: 500px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      position: relative;
     }
 
     .modal-content h3 {
       color: #0d1b2a;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       font-size: 1.4rem;
+      padding-right: 30px;
     }
 
-    .modal-content input[type="file"] {
+    .upload-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .upload-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .upload-item label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #0d1b2a;
+    }
+
+    .upload-item small {
+      display: block;
+      margin-top: 0.2rem;
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .upload-item input[type="file"] {
       width: 100%;
       padding: 0.8rem;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
-      margin-bottom: 1.5rem;
+      background-color: #f8f9fa;
+      cursor: pointer;
     }
 
-    .modal-content button {
+    .upload-item input[type="file"]:hover {
+      border-color: #0d1b2a;
+    }
+
+    .upload-item textarea {
       width: 100%;
       padding: 0.8rem;
-      background-color: #0d1b2a;
-      color: white;
-      border: none;
+      border: 1px solid #e0e0e0;
       border-radius: 8px;
+      background-color: #f8f9fa;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      resize: none;
+      height: 100px;
+    }
+
+    .upload-item textarea:focus {
+      outline: none;
+      border-color: #0d1b2a;
+      box-shadow: 0 0 0 2px rgba(13, 27, 42, 0.1);
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 32px;
+      font-weight: 300;
+      color: #0d1b2a;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+
+    .modal-close:hover {
+      color: #1b263b;
+      background-color: rgba(13, 27, 42, 0.1);
+      transform: scale(1.1);
+    }
+
+    #submitApplication {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 12px;
       font-size: 0.95rem;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: #0d1b2a;
+      color: white;
     }
 
-    .modal-content button:hover {
-      background-color: #1b263b;
+    #submitApplication:hover {
+      background: #1b263b;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .success-message {
@@ -375,9 +471,31 @@
 
   <div class="modal" id="applyModal">
     <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
       <h3>Upload Documents</h3>
-      <input type="file" id="documentUpload" />
-      <button id="submitApplication">Apply</button>
+      <div class="upload-section">
+        <div class="upload-item">
+          <label for="cvUpload">CV/Resume (Required)</label>
+          <input type="file" id="cvUpload" accept=".pdf,.doc,.docx" />
+          <small>Upload your CV with detailed information about your experience and skills</small>
+        </div>
+        <div class="upload-item">
+          <label for="coverLetterUpload">Cover Letter</label>
+          <input type="file" id="coverLetterUpload" accept=".pdf,.doc,.docx" />
+          <small>Explain why you're interested in this position</small>
+        </div>
+        <div class="upload-item">
+          <label for="certificatesUpload">Certificates & Additional Documents</label>
+          <input type="file" id="certificatesUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple />
+          <small>Upload any relevant certificates or documents that showcase your qualifications</small>
+        </div>
+        <div class="upload-item">
+          <label for="additionalInfo">Additional Information</label>
+          <textarea id="additionalInfo" rows="4" placeholder="Enter any additional information you'd like to share with the employer..."></textarea>
+          <small>Optional: Share any other relevant information about yourself or your interest in this position</small>
+        </div>
+      </div>
+      <button id="submitApplication">Submit Application</button>
       <div class="success-message" id="successMessage"></div>
     </div>
   </div>
@@ -459,19 +577,37 @@
     }
 
     submitBtn.addEventListener("click", () => {
-      const file = document.getElementById("documentUpload").files[0];
-      if (!file) {
-        successMessage.textContent = "Please upload a document before applying.";
+      const cvFile = document.getElementById("cvUpload").files[0];
+      if (!cvFile) {
+        successMessage.textContent = "Please upload your CV/Resume before applying.";
         successMessage.style.color = "red";
         return;
       }
+
+      const coverLetter = document.getElementById("coverLetterUpload").files[0];
+      const certificates = document.getElementById("certificatesUpload").files;
+      const additionalInfo = document.getElementById("additionalInfo").value;
+
+      // Here you would typically send these files to your backend
+      console.log('Application submitted with:', {
+        cv: cvFile,
+        coverLetter: coverLetter,
+        certificates: certificates,
+        additionalInfo: additionalInfo
+      });
+
       successMessage.style.color = "green";
       successMessage.textContent = `Application submitted for ${selectedInternship.title} at ${selectedInternship.company}!`;
+      setTimeout(closeModal, 2000);
     });
+
+    function closeModal() {
+      modal.style.display = "none";
+    }
 
     window.onclick = function(event) {
       if (event.target === modal) {
-        modal.style.display = "none";
+        closeModal();
       }
     };
 

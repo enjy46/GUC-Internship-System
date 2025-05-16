@@ -9,6 +9,96 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
+    /* Reset and base styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f4f8fc;
+      color: #333;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar styles */
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color: #2c3e50;
+      transform: translateX(5px);
+    }
+
+    .nav-link.active {
+      background-color: #001f3f;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
+    /* Main content */
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
     .main-header {
       background-color: #0d1b2a;
       color: #ffffff;
@@ -30,48 +120,6 @@
       color: #ffffff;
     }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 100%;
-      background-color: white;
-      min-width: 160px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      z-index: 1;
-      margin-top: 10px;
-    }
-
-    .dropdown-content a {
-      color: #333;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      font-size: 0.9rem;
-      transition: background-color 0.3s;
-    }
-
-    .dropdown-content a:hover {
-      background-color: #f8f9fa;
-    }
-
-    .dropdown-content.show {
-      display: block;
-    }
-
-    .profile-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .icon-link {
-      color: white;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-    }
-
     .header-icons {
       position: absolute;
       right: 120px;
@@ -80,6 +128,11 @@
       display: flex;
       align-items: center;
       gap: 2rem;
+    }
+
+    .notification-icon, .profile-dropdown {
+      width: 35px;
+      height: 35px;
     }
 
     .notification-icon {
@@ -91,8 +144,6 @@
       background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       transition: all 0.3s ease;
-      width: 35px;
-      height: 35px;
     }
 
     .notification-icon:hover {
@@ -120,48 +171,57 @@
       border: 2px solid #0d1b2a;
     }
 
-    .profile-dropdown:hover .dropdown-content {
-      display: block;
+    .profile-dropdown {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
     }
 
-    .grid-buttons {
+    .profile-dropdown:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .profile-dropdown i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 120%;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      min-width: 150px;
+      overflow: hidden;
+    }
+
+    .dropdown-content a {
       display: flex;
-      justify-content: flex-start;
-      gap: 10px;
+      align-items: center;
+      padding: 0.8rem 1rem;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.3s;
     }
-    .dashboard-btn {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+
+    .dropdown-content a i {
+      margin-right: 0.5rem;
+      font-size: 1rem;
+      color: #333;
     }
-    .btn-add {
-      background-color: #4CAF50;
-      color: white;
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
     }
-    .btn-save {
-      background-color: #2196F3;
-      color: white;
-    }
-    .btn-add:hover, .btn-save:hover {
-      opacity: 0.8;
-    }
-    .dashboard-btn:hover::after {
-      content: none !important;
-    }
-    .sidebar-header {
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .sidebar-header h2 {
-      margin: 0;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: white;
-    }
+
     .dashboard-container {
       max-width: 1200px;
       margin: 2rem auto;
@@ -170,6 +230,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
+
     .card {
       background-color: #fff;
       border-radius: 12px;
@@ -177,6 +238,47 @@
       padding: 2rem;
       margin-bottom: 2rem;
     }
+
+    h2 {
+      color: #0d1b2a;
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .filters input,
+    .filters select {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #001f3f;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+    }
+
+    .internship-list {
+      display: grid;
+      gap: 1.5rem;
+    }
+
     .internship-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -188,6 +290,7 @@
       min-height: 400px;
       border-radius: 12px;
     }
+
     .internship-card {
       width: 100%;
       background: white;
@@ -198,11 +301,43 @@
       transition: all 0.3s ease;
       border: 1px solid #0d1b2a;
     }
+
     .internship-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 25px rgba(13, 27, 42, 0.15);
       border-color: #0d1b2a;
     }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+    }
+
+    .company-title {
+      font-size: 1.5rem;
+      color: #0d1b2a;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .download-icon {
+      color: #4a5568;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      background: rgba(13, 27, 42, 0.05);
+    }
+
+    .download-icon:hover {
+      color: #0d1b2a;
+      background: rgba(13, 27, 42, 0.1);
+      transform: scale(1.1);
+    }
+
     .status-badge {
       display: inline-block;
       padding: 0.5rem 1rem;
@@ -213,14 +348,17 @@
       letter-spacing: 0.5px;
       margin-bottom: 1.5rem;
     }
+
     .status-completed {
       background: #dcfce7;
       color: #166534;
     }
+
     .status-flagged {
       background: #fef3c7;
       color: #92400e;
     }
+
     .info-row {
       display: flex;
       justify-content: space-between;
@@ -228,21 +366,25 @@
       padding: 0.8rem 0;
       border-bottom: 1px dashed rgba(13, 27, 42, 0.1);
     }
+
     .info-label {
       color: #64748b;
       font-size: 0.9rem;
     }
+
     .info-value {
       color: #0f172a;
       font-weight: 500;
       font-size: 0.95rem;
     }
+
     .card-actions {
       margin-top: 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.8rem;
     }
+
     .action-btn {
       width: 100%;
       padding: 0.8rem;
@@ -257,54 +399,242 @@
       justify-content: center;
       gap: 0.5rem;
     }
+
     .action-btn.primary {
       background: #0d1b2a;
       color: white;
     }
+
     .action-btn.secondary {
       background: rgba(13, 27, 42, 0.05);
       color: #0d1b2a;
     }
+
     .action-btn:hover {
       transform: translateY(-2px);
     }
+
     .action-btn.primary:hover {
       background: #1b263b;
     }
+
     .action-btn.secondary:hover {
       background: rgba(13, 27, 42, 0.1);
     }
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
+
+    .notification {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #388e3c;
+      font-weight: 500;
     }
-    .filters input,
-    .filters select {
+
+    footer {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 0.85rem;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 420px;
+      height: auto;
+      min-height: 500px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .modal-content h3 {
+      color: #0d1b2a;
+      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+      padding-right: 30px;
+    }
+
+    .upload-item {
+      margin-bottom: 1.2rem;
+    }
+
+    .upload-item textarea {
+      width: 100%;
+      padding: 0.8rem;
       border: 1px solid #e0e0e0;
       border-radius: 8px;
+      background-color: #f8f9fa;
       font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      resize: none;
+      height: 100px;
     }
-    .filters input:focus,
-    .filters select:focus {
-      border-color: #001f3f;
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+
+    .upload-item label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 500;
+      color: #0d1b2a;
     }
+
+    .upload-item small {
+      display: block;
+      margin-top: 0.2rem;
+      color: #666;
+      font-size: 0.8rem;
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      font-size: 32px;
+      font-weight: 300;
+      color: #0d1b2a;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+      padding: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+      z-index: 2;
+    }
+
+    .modal-close:hover {
+      color: #1b263b;
+      background-color: rgba(13, 27, 42, 0.1);
+      transform: scale(1.1);
+    }
+
+    .success-message {
+      color: #4CAF50;
+      font-weight: 500;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .feedback {
+      position: fixed;
+      top: 20px;
+      right: -400px;
+      max-width: 320px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      z-index: 1000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: right 0.4s ease-in-out;
+    }
+
+    .feedback.show {
+      right: 20px;
+    }
+
+    .success {
+      background-color: #388e3c;
+    }
+
+    .error {
+      background-color: #c62828;
+    }
+
     @media (max-width: 1200px) {
       .internship-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
+
     @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-250px);
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .dashboard-container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+      .filters {
+        grid-template-columns: 1fr;
+      }
+      .feedback {
+        max-width: 90%;
+        font-size: 1rem;
+        padding: 12px 20px;
+      }
       .internship-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    /* Add styles for star rating */
+    .star-rating {
+      display: flex;
+      gap: 0.5rem;
+      margin: 0.5rem 0;
+    }
+
+    .star {
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .star.active {
+      color: #ffd700;
+    }
+
+    .star:hover,
+    .star:hover ~ .star {
+      color: #ffd700;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+    }
+
+    /* Add styles for modal close button */
+    .modal-close:hover {
+      color: #1b263b;
+      background-color: rgba(13, 27, 42, 0.1);
+      transform: scale(1.1);
+    }
+
+    .success-message {
+      color: #4CAF50;
+      font-weight: 500;
+      margin-top: 1rem;
+      text-align: center;
     }
   </style>
 </head>
@@ -463,8 +793,286 @@
     <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
+  <!-- Evaluation Modal -->
+  <div id="evaluationModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeEvaluationModal()">&times;</span>
+      <h3>Company Evaluation</h3>
+      <label>How would you rate the internship?</label>
+      <div class="star-rating" id="starRating">
+        <span class="star" data-rating="1">★</span>
+        <span class="star" data-rating="2">★</span>
+        <span class="star" data-rating="3">★</span>
+        <span class="star" data-rating="4">★</span>
+        <span class="star" data-rating="5">★</span>
+      </div>
+      <label>Would you recommend this company to others?</label>
+      <select id="recommendSelect">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+      <label>Additional Comments</label>
+      <textarea id="evaluationComments" style="height:100px;"></textarea>
+      <button onclick="submitEvaluation()">Submit Evaluation</button>
+    </div>
+  </div>
+
+  <!-- Comments Modal -->
+  <div id="commentsModal" class="modal">
+    <div class="comments-modal-content">
+      <button class="close-btn" onclick="closeCommentsModal()">×</button>
+      <h3>Report Comments</h3>
+      <div class="comments-content">
+        <p>Your report has been flagged for the following reasons:</p>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Insufficient detail in the internship description</li>
+          <li>Missing supervisor's feedback</li>
+        </ul>
+        <div style="margin-top: 1.5rem;">
+          <h4>Would you like to appeal this decision?</h4>
+          <textarea id="appealText" placeholder="Enter your appeal message..." style="width: 100%; margin: 1rem 0; padding: 0.5rem; min-height: 100px;"></textarea>
+          <button class="action-btn primary" onclick="submitAppeal()">Submit Appeal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/internship_history.js"></script>
   <script>
+    const internships = [
+      {
+        title: "Front-End Developer Intern",
+        company: "TechNova",
+        date: "2025-03-15",
+        status: "completed",
+        evaluation: false,
+        reportSubmitted: true,
+        flagged: true
+      },
+      {
+        title: "Marketing Intern",
+        company: "Brandify",
+        date: "2025-04-01",
+        status: "current",
+        evaluation: false,
+        reportSubmitted: false,
+        flagged: false
+      },
+      {
+        title: "Software Engineer Intern",
+        company: "Google",
+        date: "2024-12-15",
+        status: "completed",
+        evaluation: true,
+        reportSubmitted: true,
+        flagged: false
+      }
+    ];
+
+    const historyList = document.getElementById("historyList");
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const dateFilter = document.getElementById("dateFilter");
+
+    function renderInternships() {
+      const keyword = searchInput.value.toLowerCase();
+      const status = statusFilter.value;
+      const date = dateFilter.value;
+      
+      const filtered = internships.filter(intern => {
+        return (
+          (keyword === '' || intern.title.toLowerCase().includes(keyword) || intern.company.toLowerCase().includes(keyword)) &&
+          (status === '' || intern.status === status) &&
+          (date === '' || intern.date === date)
+        );
+      });
+      
+      // Create a grid with placeholder cards if needed
+      const totalCards = 3; // Always show 3 cards
+      const html = [];
+      
+      for (let i = 0; i < totalCards; i++) {
+        if (i < filtered.length) {
+          const intern = filtered[i];
+          html.push(`
+            <div class="internship-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="company-title">${intern.company}</h3>
+                  <span class="status-badge ${intern.status === 'completed' ? 'status-completed' : 'status-flagged'}">
+                    ${intern.status.charAt(0).toUpperCase() + intern.status.slice(1)}
+                  </span>
+                </div>
+                <i class="fas fa-download download-icon" onclick="downloadInternshipReport(${i + 1})" title="Download Report"></i>
+              </div>
+              <div class="card-content">
+                <div class="info-row">
+                  <span class="info-label">Position</span>
+                  <span class="info-value">${intern.title}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value">${new Date(intern.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">${intern.flagged ? 'Flagged' : (intern.evaluation ? 'Evaluated' : 'Pending Evaluation')}</span>
+                </div>
+              </div>
+              <div class="card-actions">
+                ${intern.flagged ? `
+                  <button class="action-btn primary" onclick="viewComments(${i + 1})">
+                    <i class="fas fa-comments"></i> View Comments
+                  </button>
+                ` : ''}
+                ${!intern.evaluation ? `
+                  <button class="action-btn primary" onclick="openEvaluationModal(${i + 1})">
+                    <i class="fas fa-star"></i> Evaluate
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          `);
+        } else {
+          // Add empty placeholder card to maintain grid structure
+          html.push(`
+            <div class="internship-card" style="visibility: hidden;"></div>
+          `);
+        }
+      }
+      
+      historyList.innerHTML = html.join('');
+    }
+
+    // Function to handle report downloads
+    function downloadInternshipReport(id) {
+      // Create a dummy PDF file for demonstration
+      const blob = new Blob(['Internship Report Content'], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `internship-report-${id}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      showFeedback('Report downloaded successfully!', 'success');
+    }
+
+    // Add event listeners for search and filters
+    searchInput.addEventListener("input", renderInternships);
+    statusFilter.addEventListener("change", renderInternships);
+    dateFilter.addEventListener("change", renderInternships);
+
+    // Initial render
+    renderInternships();
+
+    // Function to handle evaluation modal
+    function openEvaluationModal(id) {
+      document.getElementById('evaluationModal').style.display = 'flex';
+      currentInternshipId = id;
+    }
+
+    // Function to handle comments view
+    function viewComments(id) {
+      document.getElementById('commentsModal').style.display = 'flex';
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function(event) {
+      const modals = document.getElementsByClassName('modal');
+      for (let modal of modals) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      }
+    }
+
+    function closeCommentsModal() {
+      document.getElementById('commentsModal').style.display = 'none';
+    }
+
+    function submitAppeal() {
+      const appealText = document.getElementById('appealText').value;
+      if (appealText.trim()) {
+        showFeedback('Appeal submitted successfully!', 'success');
+        closeCommentsModal();
+      } else {
+        showFeedback('Please enter an appeal message', 'error');
+      }
+    }
+
+    // Add star rating functionality
+    let currentRating = 0;
+    const starRating = document.getElementById('starRating');
+    const stars = starRating.getElementsByClassName('star');
+
+    // Initialize star rating
+    Array.from(stars).forEach(star => {
+      star.addEventListener('click', function() {
+        const rating = this.getAttribute('data-rating');
+        setRating(rating);
+      });
+    });
+
+    function setRating(rating) {
+      currentRating = rating;
+      Array.from(stars).forEach(star => {
+        const starRating = star.getAttribute('data-rating');
+        star.classList.toggle('active', starRating <= currentRating);
+      });
+    }
+
+    function closeEvaluationModal() {
+      document.getElementById('evaluationModal').style.display = 'none';
+      // Reset the form
+      currentRating = 0;
+      setRating(0);
+      document.getElementById('recommendSelect').value = 'yes';
+      document.getElementById('evaluationComments').value = '';
+    }
+
+    function submitEvaluation() {
+      if (currentRating === 0) {
+        showFeedback('Please select a rating', 'error');
+        return;
+      }
+
+      const evaluation = {
+        rating: currentRating,
+        recommend: document.getElementById('recommendSelect').value,
+        comments: document.getElementById('evaluationComments').value
+      };
+
+      // Here you would typically send this data to your backend
+      console.log('Evaluation submitted:', evaluation);
+      showFeedback('Evaluation submitted successfully!', 'success');
+      closeEvaluationModal();
+    }
+
+    function showFeedback(message, type) {
+      const feedbackDiv = document.createElement('div');
+      feedbackDiv.textContent = message;
+      feedbackDiv.className = `feedback ${type}`;
+      feedbackDiv.setAttribute('role', 'alert');
+      document.body.appendChild(feedbackDiv);
+
+      setTimeout(() => {
+        feedbackDiv.classList.add('show');
+      }, 100);
+
+      feedbackDiv.addEventListener('click', () => {
+        feedbackDiv.classList.remove('show');
+        setTimeout(() => feedbackDiv.remove(), 300);
+      });
+
+      setTimeout(() => {
+        feedbackDiv.classList.remove('show');
+        setTimeout(() => feedbackDiv.remove(), 300);
+      }, 5000);
+    }
+
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
       if (dropdown.style.display === "none" || dropdown.style.display === "") {
@@ -487,16 +1095,6 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
-
-    function viewComments(id) {
-      // Implement view comments functionality
-      console.log('View comments for internship:', id);
-    }
-
-    function openEvaluationModal(id) {
-      // Implement evaluation modal functionality
-      console.log('Open evaluation modal for internship:', id);
-    }
   </script>
 </body>
 </html>
