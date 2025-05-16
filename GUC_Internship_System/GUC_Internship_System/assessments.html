@@ -10,26 +10,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="css/assessments.css">
     <style>
-        .main-header {
-            background-color: #0d1b2a;
-            color: #ffffff;
-            padding: 1.5rem;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            position: relative;
-            width: 1200.4px;
-            height: 131.2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .main-content {
+  margin-left: 250px;
+  flex: 1;
+  background-color: #f4f8fc;
+  padding-bottom: 2rem;
+  transition: margin-left 0.3s ease-in-out;
+  width: 100%;
+}
 
-        .main-header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #ffffff;
-        }
+.main-header {
+  background-color: #0d1b2a;
+  color: #ffffff;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  width: 100%;
+  max-width: 1500px; /* Adjust as needed */
+  height: 131.2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
 
         /* Add dropdown styles */
         .dropdown-content {
@@ -671,25 +682,8 @@
         function submitQuiz(event) {
             event.preventDefault();
             
-            // Calculate score (this is just a sample calculation)
-            const form = document.getElementById('quizForm');
-            const answers = {
-                q1: 'a', // correct answer for question 1
-                q2: 'b'  // correct answer for question 2
-            };
-            
-            let score = 0;
-            let totalQuestions = Object.keys(answers).length;
-            
-            for (let question in answers) {
-                const selectedAnswer = form.elements[question].value;
-                if (selectedAnswer === answers[question]) {
-                    score++;
-                }
-            }
-            
-            // Calculate percentage
-            const percentage = Math.round((score / totalQuestions) * 100);
+            // Always set score to 100%
+            const percentage = 100;
             
             // Close quiz modal
             closeQuizModal();
@@ -700,7 +694,26 @@
 
         function showScorePopup(score) {
             document.getElementById('finalScore').textContent = score;
-            document.getElementById('scorePopup').style.display = 'block';
+            const scorePopup = document.getElementById('scorePopup');
+            
+            // Update the score popup content to include congratulatory message
+            scorePopup.querySelector('h2').innerHTML = `
+                <i class="fas fa-trophy" style="color: #FFD700; font-size: 2rem;"></i><br>
+                Congratulations! Perfect Score!
+            `;
+            
+            // Add congratulatory message
+            const scoreResult = scorePopup.querySelector('.score-result');
+            scoreResult.innerHTML = `
+                <div style="color: #4CAF50; font-size: 3rem; margin-bottom: 1rem;">
+                    Score: <span id="finalScore">100</span>%
+                </div>
+                <div style="color: #666; font-size: 1.1rem; margin-bottom: 1rem;">
+                    Outstanding performance! You've mastered this assessment.
+                </div>
+            `;
+            
+            scorePopup.style.display = 'block';
         }
 
         function closeScorePopup() {
@@ -711,19 +724,29 @@
             const score = document.getElementById('finalScore').textContent;
             const showOnProfile = document.getElementById('scoreVisibility').checked;
             
+            if (showOnProfile) {
+                const modalTitle = document.querySelector('#quiz-modal h2').textContent;
+                const newScore = {
+                    title: modalTitle,
+                    score: score,
+                    showOnProfile: true,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Get existing scores or initialize empty array
+                let scores = JSON.parse(localStorage.getItem('assessmentScores') || '[]');
+                
+                // Add new score
+                scores.push(newScore);
+                
+                // Save back to localStorage
+                localStorage.setItem('assessmentScores', JSON.stringify(scores));
+            }
+            
             // Show notification
             const notification = document.createElement('div');
             notification.className = 'notification';
             notification.textContent = 'Score saved successfully!';
-            notification.style.position = 'fixed';
-            notification.style.top = '20px';
-            notification.style.right = '20px';
-            notification.style.backgroundColor = '#4CAF50';
-            notification.style.color = 'white';
-            notification.style.padding = '1rem';
-            notification.style.borderRadius = '4px';
-            notification.style.zIndex = '1000';
-            
             document.body.appendChild(notification);
             
             // Remove notification after 3 seconds
