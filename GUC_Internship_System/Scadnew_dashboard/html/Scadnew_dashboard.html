@@ -679,8 +679,7 @@
       </main>
     </div>
   </div>
-  <div class="navigation-section">
-<!-- Include Chart.js and jsPDF -->
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="js/modules/pdfGenerator.js"></script>
@@ -916,6 +915,86 @@
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+    function updateStatistics() {
+      // Update report status counts
+      const statusCounts = {
+        accepted: 45,
+        rejected: 12,
+        flagged: 8
+      };
+
+      document.getElementById('acceptedCount').textContent = statusCounts.accepted;
+      document.getElementById('rejectedCount').textContent = statusCounts.rejected;
+      document.getElementById('flaggedCount').textContent = statusCounts.flagged;
+
+      // Update review time metrics
+      document.getElementById('avgReviewTime').textContent = '3.5 days';
+      document.getElementById('fastestReview').textContent = '1 day';
+      document.getElementById('longestReview').textContent = '7 days';
+
+      // Update current cycle
+      document.getElementById('currentCycle').textContent = 'Spring 2025';
+
+      // Update top courses
+      const topCourses = [
+        { name: 'Software Engineering', count: 45 },
+        { name: 'Data Science', count: 38 },
+        { name: 'Web Development', count: 32 }
+      ];
+
+      const topCoursesHtml = topCourses.map(course => `
+        <li>
+          <span>${course.name}</span>
+          <span>${course.count}</span>
+        </li>
+      `).join('');
+
+      document.getElementById('topCourses').innerHTML = topCoursesHtml;
+
+      // Update top rated companies
+      const topRatedCompanies = [
+        { name: 'TechCorp', rating: 4.8 },
+        { name: 'BuildIt', rating: 4.7 },
+        { name: 'BizWorld', rating: 4.6 }
+      ];
+
+      const topRatedCompaniesHtml = topRatedCompanies.map(company => `
+        <li>
+          <span>${company.name}</span>
+          <span class="company-rating">
+            <i class="fas fa-star"></i>
+            ${company.rating}
+          </span>
+        </li>
+      `).join('');
+
+      document.getElementById('topRatedCompanies').innerHTML = topRatedCompaniesHtml;
+
+      // Update most active companies
+      const mostActiveCompanies = [
+        { name: 'TechCorp', internships: 25 },
+        { name: 'BuildIt', internships: 20 },
+        { name: 'BizWorld', internships: 18 }
+      ];
+
+      const mostActiveCompaniesHtml = mostActiveCompanies.map(company => `
+        <li>
+          <span>${company.name}</span>
+          <span>${company.internships}</span>
+        </li>
+      `).join('');
+
+      document.getElementById('mostActiveCompanies').innerHTML = mostActiveCompaniesHtml;
+    }
+
+    function exportStatistics() {
+      // Implement export functionality
+      alert('Statistics exported successfully!');
+    }
+
+    // Call updateStatistics when the page loads
+    document.addEventListener('DOMContentLoaded', updateStatistics);
   </script>
    <script src="../js/Scadnew_dashboard.js"></script>
   <script>
