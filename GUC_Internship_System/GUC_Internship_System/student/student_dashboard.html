@@ -44,20 +44,23 @@
       box-shadow: 0 0 0 4px rgba(0, 31, 63, 0.1);
     }
     .search-form button {
-      padding: 1rem 2rem;
+      padding: 0.5rem 1rem;
       background-color: #0d1b2a;
       color: white;
+      width: 150px;
       border: none;
-      border-radius: 12px;
-      font-size: 1rem;
+      border-radius: 3px;
+      font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      position: center;
     }
+    
     .search-form button:hover {
       background-color: #1b263b;
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
     .suggested-jobs {
       background: white;
@@ -86,6 +89,7 @@
       border-radius: 12px;
       border: 2px solid #e0e0e0;
       transition: all 0.3s ease;
+      margin-bottom: 1rem;
     }
     .job-card:hover {
       transform: translateY(-2px);
@@ -121,6 +125,7 @@
       color: #444;
       font-size: 0.95rem;
       line-height: 1.5;
+      margin-bottom: 1rem;
     }
     .job-card .match-reason {
       margin-top: 1rem;
@@ -129,6 +134,16 @@
       color: #4CAF50;
       font-size: 0.9rem;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .job-card .match-reason i {
+      color: #4CAF50;
+    }
+    .job-card .company i,
+    .job-card .location i {
+      color: #666;
     }
     .sidebar-header {
       padding: 2rem 1rem;
@@ -140,6 +155,42 @@
       font-size: 1.6rem;
       font-weight: 600;
       color: white;
+    }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+    .dropdown-content.show {
+      display: block;
+    }
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -154,27 +205,52 @@
           <li><a href="student_dashboard.html" class="nav-link active"><i class="fas fa-home"></i>Dashboard</a></li>
           <li><a href="profile.html" class="nav-link"><i class="fas fa-user"></i>Profile</a></li>
           <li><a href="../internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Internships</a></li>
-          <!-- <li><a href="evaluations.html" class="nav-link"><i class="fas fa-star"></i>Evaluations</a></li> -->
           <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
           <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
           <li><a href="internship_history.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="notifications.html" class="nav-link"><i class="fas fa-bell"></i>Notifications</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Student Dashboard</h1>
+        <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+          <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Student Dashboard</h1>
+          
+          <div style="position: absolute; top: 15px; right: 20px; display: flex; align-items: center; gap: 1.5rem;">
+            <!-- Notification Icon -->
+            <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
+              <i class="fas fa-bell" style="font-size: 1.4rem;">
+                <span id="notificationBadge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                      border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                      align-items: center; justify-content: center;">3</span>
+              </i>
+            </a>
+            
+            <!-- Profile Icon with Dropdown -->
+            <div style="position: relative; display: inline-block;">
+              <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+                <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+              </a>
+              <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                   background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                   border-radius: 8px; z-index: 1; margin-top: 10px;">
+                <a href="profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                   display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+                <a href="../login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                   display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+              </div>
+            </div>
+          </div>
+        </header>
       </header>
 
       <section class="dashboard-container">
         <div class="search-section">
           <form class="search-form" onsubmit="searchJobs(); return false;">
             <input type="text" id="jobSearchInput" placeholder="Search by job title or company">
-            <input type="text" id="locationSearchInput" placeholder="Search by location">
-            <button type="submit">Search</button>
-          </form>
+            <button type="button" onclick="searchJobs()">Search</button>
+        </form>
         </div>
 
         <div class="suggested-jobs">
@@ -186,11 +262,33 @@
       </section>
     </main>
   </div>
-
   <footer>
     <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
   <script src="js/student_dashboard.js"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  </script>
 </body>
 </html>
