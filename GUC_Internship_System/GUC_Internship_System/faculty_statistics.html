@@ -267,6 +267,41 @@
       border-radius: 8px;
     }
     
+    /* Toast Notification styles */
+    .toast-notification {
+      position: fixed;
+      top: 20px;
+      right: -400px;
+      max-width: 320px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      z-index: 2000;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+      transition: right 0.4s ease-in-out;
+      animation: shake 0.3s ease-in-out;
+    }
+
+    .toast-notification.show {
+      right: 20px;
+    }
+
+    .toast-notification.success {
+      background-color: #388e3c;
+    }
+
+    .toast-notification.error {
+      background-color: #c62828;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+    
     /* Responsive */
     @media (max-width: 768px) {
       .sidebar {
@@ -327,6 +362,20 @@
       <header class="main-header">
         <h1>SCAD System</h1>
         <p class="subheading">Faculty Statistics</p>
+        <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 1.5rem;">
+          <!-- Profile Icon with Dropdown -->
+          <div style="position: relative; display: inline-block;">
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                 border-radius: 8px; z-index: 1; margin-top: 10px;">
+              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <!-- Filters -->
@@ -455,6 +504,27 @@
   <script src="js/modules/pdfGenerator.js"></script>
   
   <script>
+    // Add this function for the profile dropdown
+    function toggleDropdown() {
+      const dropdown = document.getElementById("profileDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      const dropdown = document.getElementById("profileDropdown");
+      const profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown")?.addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+
     // Initialize charts when the page loads
     window.onload = function() {
       initializeCharts();
@@ -676,6 +746,32 @@
       }, 500);
     }
     
+    // Function to show notification
+    function showNotification(message, type = 'success') {
+      const notification = document.createElement('div');
+      notification.className = `toast-notification ${type}`;
+      notification.textContent = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.classList.add('show');
+      }, 100);
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 400);
+      }, 5000);
+
+      notification.addEventListener('click', () => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notification.remove();
+        }, 400);
+      });
+    }
+
     // Export statistics as PDF
     function exportStatisticsReport() {
       console.log("Generating statistics report...");
@@ -725,7 +821,8 @@
       // Save the PDF
       doc.save("Faculty-Statistics-Report.pdf");
       
-      alert("Statistics report has been generated and downloaded.");
+      // Show notification instead of alert
+      showNotification("Statistics report has been generated and downloaded successfully!", "success");
     }
   </script>
 </body>
