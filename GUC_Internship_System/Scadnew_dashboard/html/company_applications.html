@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Company Applications Overview</title>
-  <link rel="stylesheet" href="../css/company_applications.css">
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/student_base.css" />
+  <link rel="stylesheet" href="../../GUC_Internship_System/student/css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://unpkg.com/lucide@0.263.0/dist/umd/lucide.js"></script>
@@ -80,10 +81,8 @@
 
     .main-content {
       margin-left: 250px;
-      flex: 1;
+      padding: 2rem;
       background-color: #f4f8fc;
-      padding-bottom: 2rem;
-      transition: margin-left 0.3s ease-in-out;
     }
 
     .main-header {
@@ -164,6 +163,199 @@
     .dropdown-content a:hover {
       background-color: #f8f9fa;
     }
+
+    .applications-container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .header-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .search-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .search-container {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-container input:focus {
+      outline: none;
+      border-color: #0d1b2a;
+      box-shadow: 0 0 0 3px rgba(13, 27, 42, 0.1);
+    }
+
+    .filters {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .filters select {
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 200px;
+    }
+
+    .filters select:focus {
+      outline: none;
+      border-color: #0d1b2a;
+      box-shadow: 0 0 0 3px rgba(13, 27, 42, 0.1);
+    }
+
+    .applications-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .company-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .company-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .company-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .company-logo {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .company-info h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1a202c;
+      font-weight: 600;
+    }
+
+    .company-details {
+      margin: 1rem 0;
+      color: #4a5568;
+    }
+
+    .company-details p {
+      margin: 0.5rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .company-details i {
+      color: #0d1b2a;
+      width: 20px;
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-pending {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+
+    .status-approved {
+      background-color: #DBEAFE;
+      color: #1E40AF;
+    }
+
+    .status-rejected {
+      background-color: #FEE2E2;
+      color: #991B1B;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .action-btn {
+      padding: 0.75rem 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .view-details {
+      background-color: #0d1b2a;
+      color: white;
+    }
+
+    .view-details:hover {
+      background-color: #1b263b;
+    }
+
+    .download-btn {
+      background-color: #0d1b2a;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .download-btn:hover {
+      background-color: #1b263b;
+      transform: translateY(-2px);
+    }
+
+    .download-btn i {
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
@@ -186,66 +378,60 @@
       </nav>
     </aside>
 
-    <main class="main-content">
+    <div class="main-content">
       <header class="main-header">
         <h1>Company Applications Overview</h1>
         <div class="header-icons">
-          <!-- Notification Icon -->
           <a href="Scad_notifications.html" class="icon-link">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
               <span class="notification-badge">3</span>
             </i>
           </a>
-          
-          <!-- Profile Icon with Dropdown -->
           <div class="profile-dropdown">
             <a onclick="toggleDropdown()" class="icon-link">
               <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
             </a>
             <div id="profileDropdown" class="dropdown-content">
-              <a href="advisor_profile.html"><i class="fas fa-user"></i> My Profile</a>
               <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
           </div>
         </div>
       </header>
 
-      <main class="container">
-        <div class="overview-section">
-          <h2 class="section-title">Company Applications Overview</h2>
-          <div class="search-card">
-            <div class="search-controls">
-              <div class="search-wrapper">
-                <i data-lucide="search" class="search-icon"></i>
-                <input 
-                  type="text" 
-                  id="searchInput" 
-                  placeholder="Search by Company Name"
-                  class="search-input"
-                >
-              </div>
-              <div class="filter-wrapper">
-                <i data-lucide="filter" class="filter-icon"></i>
-                <select id="industryFilter" class="industry-filter">
-                  <option value="all">All Industries</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Healthcare">Healthcare</option>
-                  <option value="Education">Education</option>
-                </select>
-              </div>
-              <button type="button" id="downloadBtn" class="download-btn">
-                <i data-lucide="download" class="download-icon"></i>
-                Download Applications as PDF
-              </button>
-            </div>
+      <main class="applications-container">
+        <div class="search-filters">
+          <div class="search-container">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Search by Company Name"
+            >
           </div>
-          <section class="company-list" id="companyList">
-            <!-- Company cards will be dynamically rendered here -->
-          </section>
+          <div class="filters">
+            <select id="industryFilter">
+              <option value="all">All Industries</option>
+              <option value="Technology">Technology</option>
+              <option value="Finance">Finance</option>
+              <option value="Healthcare">Healthcare</option>
+              <option value="Education">Education</option>
+            </select>
+            <select id="statusFilter">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+          <button type="button" id="downloadBtn" class="download-btn">
+            <i class="fas fa-file-export"></i> Export Applications
+          </button>
+        </div>
+
+        <div class="applications-grid" id="companyList">
+          <!-- Company cards will be dynamically rendered here -->
         </div>
       </main>
-    </main>
+    </div>
   </div>
 
   <footer>
@@ -257,30 +443,21 @@
     // Initialize Lucide icons
     lucide.createIcons();
 
-    // Function to toggle profile dropdown
     function toggleDropdown() {
-      var dropdown = document.getElementById("profileDropdown");
-      if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-      } else {
-        dropdown.style.display = "none";
-      }
+      document.getElementById("profileDropdown").classList.toggle("show");
     }
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      var dropdown = document.getElementById("profileDropdown");
-      var profileIcon = event.target.closest('.fa-user-circle');
-      
-      if (!profileIcon && dropdown.style.display === "block") {
-        dropdown.style.display = "none";
+    window.onclick = function(event) {
+      if (!event.target.matches('.icon-link')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
       }
-    });
-
-    // Prevent dropdown from closing when clicking inside it
-    document.getElementById("profileDropdown").addEventListener('click', function(event) {
-      event.stopPropagation();
-    });
+    }
   </script>
 </body>
 </html>
