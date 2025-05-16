@@ -107,80 +107,46 @@ function loadSuggestedJobs() {
 }
 
 function searchJobs() {
-  const jobListContainer = document.getElementById("jobListContainer");
-  const keyword = document.getElementById("jobSearchInput").value.toLowerCase();
-  const location = document.getElementById("locationSearchInput").value.toLowerCase();
+  const searchInput = document.getElementById('jobSearchInput');
+  const searchTerm = searchInput.value.toLowerCase();
+  const jobListContainer = document.getElementById('jobListContainer');
+  
+  // Filter jobs based on search term
+  const filteredJobs = internships.filter(job => 
+    job.title.toLowerCase().includes(searchTerm) ||
+    job.company.toLowerCase().includes(searchTerm) ||
+    job.description.toLowerCase().includes(searchTerm)
+  );
+  
+  // Clear existing content
+  jobListContainer.innerHTML = '';
 
-  // Mock job data
-  const jobs = [
-    {
-      title: "Senior Cloud Infrastructure Engineer",
-      company: "Arrow Electronics, Inc.",
-      rating: 3.4,
-      location: "Cairo, Egypt",
-      description: "You will play a key role in cloud architecture, automation, and operational excellence. While AWS is the primary platform, experience with Azure is a strong plus."
-    },
-    {
-      title: "Senior Data Intelligence Engineer",
-      company: "Arrow Electronics, Inc.",
-      rating: 3.4,
-      location: "Cairo, Egypt",
-      description: "The Senior Data Intelligence Engineer will be a key contributor to the Data Intelligence team, responsible for leading the analysis, visualization, and interpretation of complex data."
-    }
-  ];
-
-  // Filter jobs based on keyword and location
-  const filteredJobs = jobs.filter(job => {
-    const matchesKeyword = job.title.toLowerCase().includes(keyword) || 
-                          job.company.toLowerCase().includes(keyword);
-    const matchesLocation = location === "" || 
-                           job.location.toLowerCase().includes(location);
-    return matchesKeyword && matchesLocation;
-  });
-
-  // Clear previous results
-  jobListContainer.innerHTML = "";
-
+  // If no results, show a styled "no results" card
   if (filteredJobs.length === 0) {
-    jobListContainer.innerHTML = `
-      <div class="job-card">
-        <p>No jobs found matching your criteria.</p>
-      </div>
+    const noResultsCard = document.createElement('div');
+    noResultsCard.className = 'job-card no-results';
+    noResultsCard.innerHTML = `
+      <p>No jobs found matching your criteria.</p>
     `;
+    jobListContainer.appendChild(noResultsCard);
     return;
   }
 
-  // Render job cards
+  // Add filtered job cards
   filteredJobs.forEach(job => {
-    const jobCard = document.createElement("div");
-    jobCard.className = "job-card";
-
-    const title = document.createElement("h3");
-    title.textContent = job.title;
-    jobCard.appendChild(title);
-
-    const company = document.createElement("div");
-    company.className = "company";
-    company.innerHTML = `
-      <i class="fas fa-building"></i>
-      ${job.company}
-      <span class="rating">${job.rating} ★</span>
+    const jobCard = document.createElement('div');
+    jobCard.className = 'job-card';
+    jobCard.innerHTML = `
+      <h3>${job.title}</h3>
+      <div class="company">
+        <span>${job.company}</span>
+        <span class="rating">${job.rating} ★</span>
+      </div>
+      <div class="location">
+        <span>${job.location}</span>
+      </div>
+      <p class="description">${job.description}</p>
     `;
-    jobCard.appendChild(company);
-
-    const location = document.createElement("div");
-    location.className = "location";
-    location.innerHTML = `
-      <i class="fas fa-map-marker-alt"></i>
-      ${job.location}
-    `;
-    jobCard.appendChild(location);
-
-    const description = document.createElement("p");
-    description.className = "description";
-    description.textContent = job.description;
-    jobCard.appendChild(description);
-
     jobListContainer.appendChild(jobCard);
   });
 }
@@ -230,42 +196,6 @@ function renderJobs() {
 
   // Add each job card
   internships.forEach(job => {
-    const jobCard = document.createElement('div');
-    jobCard.className = 'job-card';
-    jobCard.innerHTML = `
-      <h3>${job.title}</h3>
-      <div class="company">
-        <span>${job.company}</span>
-        <span class="rating">${job.rating} ★</span>
-      </div>
-      <div class="location">
-        <span>${job.location}</span>
-      </div>
-      <p class="description">${job.description}</p>
-    `;
-    jobListContainer.appendChild(jobCard);
-  });
-}
-
-// Function to search jobs
-function searchJobs() {
-  const searchInput = document.getElementById('jobSearchInput');
-  const searchTerm = searchInput.value.toLowerCase();
-  
-  const filteredJobs = internships.filter(job => 
-    job.title.toLowerCase().includes(searchTerm) ||
-    job.company.toLowerCase().includes(searchTerm) ||
-    job.description.toLowerCase().includes(searchTerm)
-  );
-  
-  const jobListContainer = document.getElementById('jobListContainer');
-  if (!jobListContainer) return;
-
-  // Clear existing content
-  jobListContainer.innerHTML = '';
-
-  // Add filtered job cards
-  filteredJobs.forEach(job => {
     const jobCard = document.createElement('div');
     jobCard.className = 'job-card';
     jobCard.innerHTML = `

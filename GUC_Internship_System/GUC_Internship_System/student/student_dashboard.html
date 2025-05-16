@@ -48,8 +48,9 @@
       background-color: #0d1b2a;
       color: white;
       width: 150px;
+      height: 32.8px;
       border: none;
-      border-radius: 3px;
+      border-radius: 0;
       font-size: 0.875rem;
       font-weight: 600;
       cursor: pointer;
@@ -89,7 +90,6 @@
       border-radius: 12px;
       border: 2px solid #e0e0e0;
       transition: all 0.3s ease;
-      margin-bottom: 1rem;
     }
     .job-card:hover {
       transform: translateY(-2px);
@@ -125,7 +125,6 @@
       color: #444;
       font-size: 0.95rem;
       line-height: 1.5;
-      margin-bottom: 1rem;
     }
     .job-card .match-reason {
       margin-top: 1rem;
@@ -144,6 +143,17 @@
     .job-card .company i,
     .job-card .location i {
       color: #666;
+    }
+    .job-card.no-results {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 200px;
+    }
+    .job-card.no-results p {
+      color: #666;
+      font-size: 1.1rem;
+      margin: 0;
     }
     .sidebar-header {
       padding: 2rem 1rem;
@@ -217,11 +227,11 @@
         <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
           <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Student Dashboard</h1>
           
-          <div style="position: absolute; top: 15px; right: 20px; display: flex; align-items: center; gap: 1.5rem;">
+          <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
             <!-- Notification Icon -->
             <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
               <i class="fas fa-bell" style="font-size: 1.4rem;">
-                <span id="notificationBadge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
                       border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
                       align-items: center; justify-content: center;">3</span>
               </i>
@@ -250,7 +260,7 @@
           <form class="search-form" onsubmit="searchJobs(); return false;">
             <input type="text" id="jobSearchInput" placeholder="Search by job title or company">
             <button type="button" onclick="searchJobs()">Search</button>
-        </form>
+          </form>
         </div>
 
         <div class="suggested-jobs">

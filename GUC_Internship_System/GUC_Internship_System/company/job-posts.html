@@ -3,85 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Posts - Internship Portal</title>
+    <title>Job Posts | SCAD System</title>
     <link rel="stylesheet" href="../student/css/student_base.css">
     <link rel="stylesheet" href="../student/css/courses.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../css/company.css">
     <style>
-      body {
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-        background: linear-gradient(to bottom, #e3f2fd, #ffffff);
-        color: #333;
+      /* Dashboard specific styles */
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
       }
-      
-      /* Sidebar styles */
-      .app-container {
-        display: flex;
-        min-height: 100vh;
+
+      .dashboard-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
       }
-      
-      .sidebar {
-        width: 250px;
-        background-color: #0d1b2a;
-        color: white;
-        padding: 1rem 0;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+
+      .dashboard-card:hover {
+        transform: translateY(-5px);
       }
-      
-      .sidebar-header {
-        padding: 0 1rem 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-      
-      .sidebar-nav ul {
-        list-style: none;
-        padding: 0;
-        margin: 1rem 0;
-      }
-      
-      .sidebar-nav .nav-link {
+
+      .dashboard-card h3 {
+        color: #0d1b2a;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
         display: flex;
         align-items: center;
-        padding: 0.75rem 1rem;
-        color: white;
-        text-decoration: none;
-        transition: 0.3s ease;
+        gap: 0.5rem;
       }
-      
-      .sidebar-nav .nav-link:hover,
-      .sidebar-nav .nav-link.active {
-        background-color: rgba(255,255,255,0.1);
+
+      .dashboard-card h3 i {
+        color: #2c3e50;
       }
-      
-      .sidebar-nav .nav-link i {
-        margin-right: 10px;
-        width: 20px;
-        text-align: center;
-      }
-      
-      /* Main content styles */
-      .main-content {
-        flex: 1;
-        padding: 1rem;
-      }
-      
-      .main-header {
-        background-color: #0d1b2a;
-        color: white;
-        padding: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        margin-bottom: 2rem;
-      }
-      
-      .main-header h1 {
-        margin: 0;
-      }
-      
-      /* Job posts container styles */
+
+      /* Job posts specific styles */
       .job-posts-container {
         background: white;
         border-radius: 12px;
@@ -89,43 +52,48 @@
         padding: 2rem;
         max-width: 800px;
         margin: 0 auto;
+        grid-column: 1 / -1;
       }
-      
-      .job-posts-container h2 {
+
+      .job-posts-container h3 {
         font-size: 1.5rem;
         color: #0d1b2a;
         text-align: center;
         margin-bottom: 1.5rem;
       }
-      
-      .job-posts-container h3 {
-        font-size: 1.2rem;
-        color: #0d1b2a;
-        margin-top: 2rem;
-        margin-bottom: 1rem;
-      }
-      
+
       #jobPostForm {
         display: grid;
         gap: 1rem;
       }
-      
+
       #jobPostForm label {
+        display: block;
         font-weight: 600;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.5rem;
+        color: #0d1b2a;
       }
-      
+
       #jobPostForm input,
       #jobPostForm textarea,
       #jobPostForm select {
+        width: 100%;
         padding: 0.75rem;
         border-radius: 8px;
         border: 1px solid #ccc;
         font-size: 1rem;
-        width: 100%;
         font-family: 'Inter', sans-serif;
+        transition: all 0.3s ease;
       }
-      
+
+      #jobPostForm input:focus,
+      #jobPostForm textarea:focus,
+      #jobPostForm select:focus {
+        border-color: #0d1b2a;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+      }
+
       #jobPostForm button {
         background-color: #0d1b2a;
         color: white;
@@ -133,86 +101,78 @@
         padding: 0.75rem 1rem;
         border-radius: 6px;
         font-size: 1rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 1rem;
+        transition: all 0.3s ease;
       }
-      
+
       #jobPostForm button:hover {
         background-color: #2c3e50;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       }
-      
+
       /* Table styles */
       #jobPostsTable {
         width: 100%;
         border-collapse: collapse;
         margin-top: 1rem;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       }
-      
+
       #jobPostsTable th,
       #jobPostsTable td {
-        padding: 0.75rem;
+        padding: 1rem;
         text-align: left;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #eee;
       }
-      
+
       #jobPostsTable th {
-        background-color: #f2f2f2;
+        background-color: #f8f9fa;
         font-weight: 600;
+        color: #0d1b2a;
       }
-      
+
       #jobPostsTable tr:hover {
-        background-color: #f9f9f9;
+        background-color: #f8f9fa;
       }
-      
+
       /* Action buttons in table */
       #jobPostsTable .action-btn {
         background-color: #0d1b2a;
         color: white;
         border: none;
-        padding: 0.4rem 0.75rem;
-        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
         font-size: 0.9rem;
+        font-weight: 500;
         cursor: pointer;
         margin-right: 0.5rem;
         min-width: 60px;
         text-align: center;
         display: inline-block;
+        transition: all 0.3s ease;
       }
-      
+
+      #jobPostsTable .action-btn:hover {
+        background-color: #2c3e50;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
       #jobPostsTable .delete-btn {
         background-color: #c62828;
       }
-      
-      /* Alert notification styles */
-      .alert-notification {
-        padding: 1rem;
-        margin-top: 1rem;
-        border-radius: 6px;
-        font-weight: 500;
-        display: none;
-        animation: fadeIn 0.5s ease-in-out;
-      }
-      
-      .alert-success {
-        background-color: #dff0d8;
-        color: #3c763d;
-        border: 1px solid #d6e9c6;
-      }
-      
-      .alert-error {
-        background-color: #f2dede;
-        color: #a94442;
-        border: 1px solid #ebccd1;
-      }
-      
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+
+      #jobPostsTable .delete-btn:hover {
+        background-color: #b71c1c;
       }
 
-      /* Notification styles */
-      .notification {
+      /* Toast Notification styles */
+      .toast-notification {
         position: fixed;
         top: 20px;
         right: -400px;
@@ -228,15 +188,15 @@
         animation: shake 0.3s ease-in-out;
       }
 
-      .notification.show {
+      .toast-notification.show {
         right: 20px;
       }
 
-      .notification.success {
+      .toast-notification.success {
         background-color: #388e3c;
       }
 
-      .notification.error {
+      .toast-notification.error {
         background-color: #c62828;
       }
 
@@ -249,7 +209,6 @@
   </head>
   <body>
     <div class="app-container">
-      <!-- Sidebar Navigation -->
       <aside class="sidebar">
         <div class="sidebar-header">
           <h2>Company Portal</h2>
@@ -291,13 +250,11 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
-            
             <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
         </nav>
       </aside>
 
-      <!-- Main Content -->
       <main class="main-content">
         <header class="main-header">
           <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
@@ -321,67 +278,67 @@
             </div>
           </header>
         </header>
-        <section class="job-posts-container">
-          <h2>Manage Job Posts</h2>
-          <form id="jobPostForm">
-            <label for="jobTitle">Job Title:</label>
-            <input type="text" id="jobTitle" name="jobTitle" required />
 
-            <label for="jobDescription">Job Description:</label>
-            <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
+        <div class="dashboard-container">
+          <div class="job-posts-container">
+            <h3>Manage Job Posts</h3>
+            <form id="jobPostForm">
+              <label for="jobTitle">Job Title:</label>
+              <input type="text" id="jobTitle" name="jobTitle" required />
 
-            <label for="requirements">Requirements:</label>
-            <textarea id="requirements" name="requirements" rows="3" required></textarea>
+              <label for="jobDescription">Job Description:</label>
+              <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
 
-            <label for="duration">Internship Duration (months):</label>
-            <input type="number" id="duration" name="duration" min="1" max="12" required />
+              <label for="requirements">Requirements:</label>
+              <textarea id="requirements" name="requirements" rows="3" required></textarea>
 
-            <label for="startDate">Start Date:</label>
-            <input type="date" id="startDate" name="startDate" required />
+              <label for="duration">Internship Duration (months):</label>
+              <input type="number" id="duration" name="duration" min="1" max="12" required />
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" required />
+              <label for="startDate">Start Date:</label>
+              <input type="date" id="startDate" name="startDate" required />
 
-            <label for="stipend">Monthly Stipend:</label>
-            <input type="number" id="stipend" name="stipend" min="0" required />
+              <label for="location">Location:</label>
+              <input type="text" id="location" name="location" required />
 
-            <button type="submit">Post Job</button>
-          </form>
+              <label for="stipend">Monthly Stipend:</label>
+              <input type="number" id="stipend" name="stipend" min="0" required />
 
-          <h3>Current Job Posts</h3>
-          <table id="jobPostsTable">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Duration</th>
-                <th>Start Date</th>
-                <th>Location</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Job posts will be dynamically added here -->
-            </tbody>
-          </table>
-          <div id="alertMessage" class="alert-notification"></div>
-        </section>
+              <button type="submit">Post Job</button>
+            </form>
+
+            <h3>Current Job Posts</h3>
+            <table id="jobPostsTable">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Duration</th>
+                  <th>Start Date</th>
+                  <th>Location</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Job posts will be dynamically added here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         <footer>
           <p>&copy; 2024 GUC Internship System. All rights reserved.</p>
         </footer>
       </main>
     </div>
+
     <script src="../js/job-posts.js"></script>
     <script>
       function showNotification(message, type) {
         const notificationDiv = document.createElement('div');
         notificationDiv.textContent = message;
-        notificationDiv.className = `notification ${type}`;
+        notificationDiv.className = `toast-notification ${type}`;
         notificationDiv.setAttribute('role', 'alert');
         document.body.appendChild(notificationDiv);
-
-        // Force a reflow to ensure the animation works
-        notificationDiv.offsetHeight;
 
         setTimeout(() => {
           notificationDiv.classList.add('show');
@@ -398,25 +355,12 @@
         }, 5000);
       }
 
-      // Wait for the DOM to be fully loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        const jobPostForm = document.getElementById('jobPostForm');
-        if (jobPostForm) {
-          jobPostForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(this);
-            
-            // Show success notification
-            showNotification('Job posted successfully!', 'success');
-            
-            // Optional: Redirect after a short delay
-            setTimeout(() => {
-              window.location.href = 'company_dashboard.html';
-            }, 2000);
-          });
-        }
+      document.getElementById('jobPostForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        showNotification('Job posted successfully!', 'success');
+        setTimeout(() => {
+          window.location.href = 'company_dashboard.html';
+        }, 2000);
       });
     </script>
   </body>

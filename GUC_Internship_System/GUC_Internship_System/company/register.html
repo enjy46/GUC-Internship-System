@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Registration - Internship Portal</title>
+    <title>Company Registration | SCAD System</title>
     <link rel="stylesheet" href="../student/css/student_base.css">
     <link rel="stylesheet" href="../student/css/courses.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -94,7 +94,41 @@
         margin: 0;
       }
       
-      /* Register form styles */
+      /* Dashboard specific styles */
+      .dashboard-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+      }
+
+      .dashboard-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        padding: 1.5rem;
+        transition: transform 0.3s ease;
+      }
+
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .dashboard-card h3 {
+        color: #0d1b2a;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .dashboard-card h3 i {
+        color: #2c3e50;
+      }
+
+      /* Register specific styles */
       .register-container {
         background: white;
         border-radius: 12px;
@@ -102,34 +136,47 @@
         padding: 2rem;
         max-width: 800px;
         margin: 0 auto;
+        grid-column: 1 / -1;
       }
-      
-      .register-container h2 {
+
+      .register-container h3 {
         font-size: 1.5rem;
         color: #0d1b2a;
         text-align: center;
         margin-bottom: 1.5rem;
       }
-      
+
       #registerForm {
         display: grid;
         gap: 1rem;
       }
-      
+
       #registerForm label {
+        display: block;
         font-weight: 600;
-        margin-bottom: 0.3rem;
+        margin-bottom: 0.5rem;
+        color: #0d1b2a;
       }
-      
+
       #registerForm input,
       #registerForm textarea {
+        width: 100%;
         padding: 0.75rem;
         border-radius: 8px;
         border: 1px solid #ccc;
         font-size: 1rem;
-        width: 100%;
+        margin-bottom: 1rem;
+        font-family: 'Inter', sans-serif;
+        transition: all 0.3s ease;
       }
-      
+
+      #registerForm input:focus,
+      #registerForm textarea:focus {
+        border-color: #0d1b2a;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+      }
+
       #registerForm button {
         background-color: #0d1b2a;
         color: white;
@@ -137,17 +184,19 @@
         padding: 0.75rem 1rem;
         border-radius: 6px;
         font-size: 1rem;
+        font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 1rem;
+        transition: all 0.3s ease;
       }
-      
+
       #registerForm button:hover {
         background-color: #2c3e50;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       }
-      
-      /* Feedback notification styles */
-      .feedback {
+
+      /* Toast Notification styles */
+      .toast-notification {
         position: fixed;
         top: 20px;
         right: -400px;
@@ -159,68 +208,19 @@
         font-size: 1.1rem;
         z-index: 2000;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-        transition: right 0.4s ease-in-out, opacity 0.3s ease-in-out;
-        animation: shake 0.3s ease-in-out;
-      }
-
-      .feedback.show {
-        right: 20px;
-      }
-
-      .feedback.success {
-        background-color: #388e3c;
-      }
-
-      .feedback.error {
-        background-color: #c62828;
-      }
-
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        25% {
-          transform: translateX(-5px);
-        }
-        75% {
-          transform: translateX(5px);
-        }
-      }
-      
-      .message {
-        margin-top: 1rem;
-        font-size: 0.9rem;
-        color: green;
-        font-weight: 500;
-      }
-
-      /* Add notification styles */
-      .notification {
-        position: fixed;
-        top: 20px;
-        right: -400px;
-        max-width: 320px;
-        padding: 14px 28px;
-        border-radius: 8px;
-        color: white;
-        font-weight: 600;
-        font-size: 1.1rem;
-        z-index: 1000;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
         transition: right 0.4s ease-in-out;
         animation: shake 0.3s ease-in-out;
       }
 
-      .notification.show {
+      .toast-notification.show {
         right: 20px;
       }
 
-      .success {
+      .toast-notification.success {
         background-color: #388e3c;
       }
 
-      .error {
+      .toast-notification.error {
         background-color: #c62828;
       }
 
@@ -228,6 +228,13 @@
         0%, 100% { transform: translateX(0); }
         25% { transform: translateX(-5px); }
         75% { transform: translateX(5px); }
+      }
+
+      .message {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        color: green;
+        font-weight: 500;
       }
     </style>
   </head>
@@ -275,8 +282,6 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
-            
-            </li>
             <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
         </nav>
@@ -306,47 +311,31 @@
             </div>
           </header>
         </header>
-        <section class="register-container">
-          <h2>Register Your Company</h2>
-          <form id="registerForm" enctype="multipart/form-data">
-            <label for="companyName">Company Name:</label>
-            <input type="text" id="companyName" name="companyName" required />
 
-            <label for="companyEmail">Company Email:</label>
-            <input
-              type="email"
-              id="companyEmail"
-              name="companyEmail"
-              required
-            />
+        <div class="dashboard-container">
+          <div class="register-container">
+            <h3>Register Your Company</h3>
+            <form id="registerForm" enctype="multipart/form-data">
+              <label for="companyName">Company Name:</label>
+              <input type="text" id="companyName" name="companyName" required />
 
-            <label for="companyPhone">Phone Number:</label>
-            <input type="tel" id="companyPhone" name="companyPhone" required />
+              <label for="companyEmail">Company Email:</label>
+              <input type="email" id="companyEmail" name="companyEmail" required />
 
-            <label for="companyAddress">Address:</label>
-            <textarea
-              id="companyAddress"
-              name="companyAddress"
-              required
-            ></textarea>
+              <label for="companyPhone">Phone Number:</label>
+              <input type="tel" id="companyPhone" name="companyPhone" required />
 
-            <label for="companyLogo">Upload Company Logo:</label>
-            <input
-              type="file"
-              id="companyLogo"
-              name="companyLogo"
-              accept="image/*"
-              required
-            />
+              <label for="companyAddress">Address:</label>
+              <textarea id="companyAddress" name="companyAddress" required></textarea>
 
-            <button type="submit">Register</button>
-            <!-- Message will appear here -->
-            <p
-              id="registerMessage"
-              class="message"
-            ></p>
-          </form>
-        </section>
+              <label for="companyLogo">Upload Company Logo:</label>
+              <input type="file" id="companyLogo" name="companyLogo" accept="image/*" required />
+
+              <button type="submit">Register</button>
+              <p id="registerMessage" class="message"></p>
+            </form>
+          </div>
+        </div>
 
         <footer>
           <p>&copy; 2024 GUC Internship System. All rights reserved.</p>
@@ -358,7 +347,7 @@
       function showNotification(message, type) {
         const notificationDiv = document.createElement('div');
         notificationDiv.textContent = message;
-        notificationDiv.className = `notification ${type}`;
+        notificationDiv.className = `toast-notification ${type}`;
         notificationDiv.setAttribute('role', 'alert');
         document.body.appendChild(notificationDiv);
 
@@ -379,13 +368,7 @@
 
       document.getElementById('registerForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Your existing form validation and submission logic here
-        
-        // Show success notification
         showNotification('Registration successful!', 'success');
-        
-        // Optional: Redirect after a short delay
         setTimeout(() => {
           window.location.href = 'company_dashboard.html';
         }, 2000);
