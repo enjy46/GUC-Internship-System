@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Upload Documents | SCAD System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Documents - Internship Portal</title>
+    <link rel="stylesheet" href="../student/css/student_base.css">
+    <link rel="stylesheet" href="../student/css/courses.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/company.css">
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -306,6 +306,12 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
+            <li>
+              <a href="company-notifications.html" class="nav-link"
+                ><i class="fas fa-graduation-cap"></i>Notifications</a
+              >
+            </li>
+            <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
         </nav>
       </aside>
@@ -313,26 +319,63 @@
       <!-- Main Content -->
       <main class="main-content">
         <header class="main-header">
-          <h1>SCAD System</h1>
-          <p class="subheading">Upload Documents</p>
+          <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+            <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Upload Documents</h1>
+            
+            <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+              <!-- Notification Icon -->
+              <a href="company-notifications.html" style="color: white; text-decoration: none; position: relative;">
+                <i class="fas fa-bell" style="font-size: 1.4rem;">
+                  <span id="notificationBadge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                        border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                        align-items: center; justify-content: center;">0</span>
+                </i>
+              </a>
+              
+              <!-- Company Badge -->
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="../assets/company_badge.png" alt="Company Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Verified Company</span>
+              </div>
+            </div>
+          </header>
         </header>
         <section class="upload-container">
-          <h2>Upload Verification Documents</h2>
+          <h2>Upload Required Documents</h2>
           <form id="uploadForm" enctype="multipart/form-data">
-            <label for="documentUpload">Select Documents to Upload:</label>
+            <label for="documentType">Document Type:</label>
+            <select id="documentType" name="documentType" required>
+              <option value="">Select Document Type</option>
+              <option value="contract">Internship Contract</option>
+              <option value="insurance">Insurance Document</option>
+              <option value="other">Other Document</option>
+            </select>
+
+            <label for="documentFile">Upload Document:</label>
             <input
               type="file"
-              id="documentUpload"
-              name="documents"
-              multiple
+              id="documentFile"
+              name="documentFile"
+              accept=".pdf,.doc,.docx"
               required
             />
 
-            <button type="button" id="uploadBtn">Upload</button>
-            <!-- Message will appear here -->
-            <p id="uploadStatus" class="message"></p>
+            <label for="documentDescription">Description:</label>
+            <textarea
+              id="documentDescription"
+              name="documentDescription"
+              rows="4"
+              required
+            ></textarea>
+
+            <button type="submit">Upload Document</button>
+            <p id="uploadMessage" class="message"></p>
           </form>
         </section>
+
+        <footer>
+          <p>&copy; 2024 GUC Internship System. All rights reserved.</p>
+        </footer>
       </main>
     </div>
     
@@ -379,6 +422,6 @@
       </div>
     </div>
     
-    <script src="js/upload-documents.js"></script>
+    <script src="../js/upload-documents.js"></script>
   </body>
 </html>

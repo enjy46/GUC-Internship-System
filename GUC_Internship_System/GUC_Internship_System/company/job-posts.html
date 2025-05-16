@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Manage Job Posts | SCAD System</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Posts - Internship Portal</title>
+    <link rel="stylesheet" href="../student/css/student_base.css">
+    <link rel="stylesheet" href="../student/css/courses.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/company.css">
     <style>
       body {
         font-family: 'Inter', sans-serif;
@@ -256,6 +256,12 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
+            <li>
+              <a href="company-notifications.html" class="nav-link"
+                ><i class="fas fa-graduation-cap"></i>Notifications</a
+              >
+            </li>
+            <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
         </nav>
       </aside>
@@ -263,67 +269,77 @@
       <!-- Main Content -->
       <main class="main-content">
         <header class="main-header">
-          <h1>SCAD System</h1>
-          <p class="subheading">Manage Job Posts</p>
+          <header style="background-color: #0d1b2a; color: #ffffff; padding: 1.5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative;">
+            <h1 style="margin: 0; font-size: 1.8rem; font-weight: 600; color: #ffffff;">Job Posts</h1>
+            
+            <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+              <!-- Notification Icon -->
+              <a href="company-notifications.html" style="color: white; text-decoration: none; position: relative;">
+                <i class="fas fa-bell" style="font-size: 1.4rem;">
+                  <span id="notificationBadge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                        border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                        align-items: center; justify-content: center;">0</span>
+                </i>
+              </a>
+              
+              <!-- Company Badge -->
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <img src="../assets/company_badge.png" alt="Company Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Verified Company</span>
+              </div>
+            </div>
+          </header>
         </header>
         <section class="job-posts-container">
-          <h2>Manage Internship Job Posts</h2>
+          <h2>Manage Job Posts</h2>
           <form id="jobPostForm">
-            <input type="hidden" id="jobId" />
             <label for="jobTitle">Job Title:</label>
-            <input type="text" id="jobTitle" required />
+            <input type="text" id="jobTitle" name="jobTitle" required />
 
             <label for="jobDescription">Job Description:</label>
-            <textarea id="jobDescription" rows="4" required></textarea>
+            <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
 
-            <label for="jobDuration">Duration (e.g., 3 months):</label>
-            <input type="text" id="jobDuration" required />
+            <label for="requirements">Requirements:</label>
+            <textarea id="requirements" name="requirements" rows="3" required></textarea>
 
-            <label for="paidUnpaid">Paid or Unpaid:</label>
-            <select id="paidUnpaid" required>
-              <option value="">Select</option>
-              <option value="paid">Paid</option>
-              <option value="unpaid">Unpaid</option>
-            </select>
+            <label for="duration">Internship Duration (months):</label>
+            <input type="number" id="duration" name="duration" min="1" max="12" required />
 
-            <label for="salary">Expected Salary (if paid):</label>
-            <input type="number" id="salary" min="0" step="any" />
+            <label for="startDate">Start Date:</label>
+            <input type="date" id="startDate" name="startDate" required />
 
-            <label for="skillsRequired">Skills Required:</label>
-            <input type="text" id="skillsRequired" required />
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required />
 
-            <label for="JobDescription">Job Description:</label>
-            <input type="text" id="JobDescription" required />
+            <label for="stipend">Monthly Stipend:</label>
+            <input type="number" id="stipend" name="stipend" min="0" required />
 
-            <button type="submit" id="submitBtn">Create Job Post</button>
-            <button type="button" id="cancelBtn" style="display: none">
-              Cancel
-            </button>
-            
-            <!-- Alert notification -->
-            <div id="alertNotification" class="alert-notification"></div>
+            <button type="submit">Post Job</button>
           </form>
 
-          <h3>Existing Job Posts</h3>
+          <h3>Current Job Posts</h3>
           <table id="jobPostsTable">
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Description</th>
                 <th>Duration</th>
-                <th>Paid/Unpaid</th>
-                <th>Salary</th>
-                <th>Skills</th>
+                <th>Start Date</th>
+                <th>Location</th>
                 <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              <!-- Job posts will be populated here -->
+              <!-- Job posts will be dynamically added here -->
             </tbody>
           </table>
+          <div id="alertMessage" class="alert-notification"></div>
         </section>
+
+        <footer>
+          <p>&copy; 2024 GUC Internship System. All rights reserved.</p>
+        </footer>
       </main>
     </div>
-    <script src="js/job-posts.js"></script>
+    <script src="../js/job-posts.js"></script>
   </body>
 </html>

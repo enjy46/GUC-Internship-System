@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notifications - Internship Portal</title>
+  <link rel="stylesheet" href="../student/css/student_base.css" />
+  <link rel="stylesheet" href="../student/css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../css/notifications_pro.css">
+  <style>
+    .main-header h1 {
+      color: white;
+    }
+    .grid-buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-save {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
+    }
+    .dashboard-btn:hover::after {
+      content: none !important;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+    .notification-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+    .notification-item:hover {
+      background-color: #f5f5f5;
+    }
+    .notification-item.unread {
+      background-color: #f0f7ff;
+    }
+    .notification-item.unread:hover {
+      background-color: #e6f2ff;
+    }
+    .notification-icon {
+      margin-right: 1rem;
+      color: #2196F3;
+      font-size: 1.2rem;
+    }
+    .notification-content {
+      flex: 1;
+    }
+    .notification-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: #333;
+    }
+    .notification-content p {
+      margin: 0;
+      color: #666;
+    }
+    .notification-date {
+      font-size: 0.9rem;
+      color: #999;
+      margin-top: 0.5rem;
+      display: block;
+    }
+    .notification-badge {
+      width: 8px;
+      height: 8px;
+      background-color: #2196F3;
+      border-radius: 50%;
+      margin-left: 1rem;
+    }
+    .application-actions {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-view, .btn-email {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s ease;
+    }
+    .btn-view {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-email {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-view:hover, .btn-email:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Company Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="company_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="register.html" class="nav-link"><i class="fas fa-user"></i>Register</a></li>
+          <li><a href="upload-documents.html" class="nav-link"><i class="fas fa-upload"></i>Upload Documents</a></li>
+          <li><a href="job-posts.html" class="nav-link"><i class="fas fa-briefcase"></i>Job Posts</a></li>
+          <li><a href="evaluate.html" class="nav-link"><i class="fas fa-star"></i>Evaluate Intern</a></li>
+          <li><a href="applications.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="currentinterns.html" class="nav-link"><i class="fas fa-graduation-cap"></i>Current Interns</a></li>
+          <li><a href="company-notifications.html" class="nav-link active">Notifications</a></li>
+          <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Notifications</h1>
+        <div class="company-badge">
+          <img src="../assets/company_badge.png" alt="Company Badge">
+          <span>Verified Company</span>
+        </div>
+      </header>
+
+      <section class="dashboard-container">
+        <div class="notifications-section card">
+          <h2>Your Notifications</h2>
+          <div id="notificationsList">
+            <!-- Notifications will be dynamically added here -->
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Sample notifications data
+    const notifications = [
+      {
+        type: 'registration',
+        title: 'Registration Confirmation',
+        message: 'Your company registration has been received and is being processed.',
+        date: new Date('2024-03-15T10:30:00'),
+        isRead: false,
+        priority: 'high'
+      },
+      {
+        type: 'document',
+        title: 'Documents Received',
+        message: 'We have received your uploaded documents. Our team will review them shortly.',
+        date: new Date('2024-03-15T11:45:00'),
+        isRead: false,
+        priority: 'medium'
+      },
+      {
+        type: 'new_application',
+        title: 'New Application Received',
+        message: 'John Doe has applied for the Frontend Developer Intern position.',
+        date: new Date('2024-03-15T14:20:00'),
+        isRead: false,
+        priority: 'high',
+        applicationDetails: {
+          studentName: 'John Doe',
+          position: 'Frontend Developer Intern',
+          studentEmail: 'john.doe@example.com',
+          applicationId: 'APP123'
+        }
+      },
+      {
+        type: 'new_application',
+        title: 'New Application Received',
+        message: 'Jane Smith has applied for the Backend Developer Intern position.',
+        date: new Date('2024-03-15T15:30:00'),
+        isRead: false,
+        priority: 'high',
+        applicationDetails: {
+          studentName: 'Jane Smith',
+          position: 'Backend Developer Intern',
+          studentEmail: 'jane.smith@example.com',
+          applicationId: 'APP124'
+        }
+      }
+    ];
+
+    function formatDate(date) {
+      return new Intl.DateTimeFormat('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }).format(date);
+    }
+
+    function updateNotificationBadge() {
+      const unreadCount = notifications.filter(notification => !notification.isRead).length;
+      const badge = document.getElementById('notificationBadge');
+      badge.textContent = unreadCount;
+      badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+    }
+
+    function markNotificationAsRead(notification) {
+      notification.isRead = true;
+      updateNotificationBadge();
+      displayNotifications();
+    }
+
+    function createNotificationElement(notification) {
+      const notificationDiv = document.createElement('div');
+      notificationDiv.className = `notification-item ${notification.isRead ? 'read' : 'unread'} ${notification.priority}`;
+      
+      let icon = 'fa-bell';
+      if (notification.type === 'registration') {
+        icon = 'fa-user-check';
+      } else if (notification.type === 'document') {
+        icon = 'fa-file-alt';
+      } else if (notification.type === 'new_application') {
+        icon = 'fa-user-plus';
+      }
+      
+      notificationDiv.innerHTML = `
+        <div class="notification-icon">
+          <i class="fas ${icon}"></i>
+        </div>
+        <div class="notification-content">
+          <h3>${notification.title}</h3>
+          <p>${notification.message}</p>
+          ${notification.type === 'new_application' ? 
+            `<div class="application-actions">
+              <button onclick="viewApplication('${notification.applicationDetails.applicationId}')" class="btn-view">View Application</button>
+              <button onclick="sendEmailToStudent('${notification.applicationDetails.studentEmail}', '${notification.applicationDetails.studentName}', '${notification.applicationDetails.position}')" class="btn-email">Send Email</button>
+            </div>` : ''}
+          <span class="notification-date">${formatDate(notification.date)}</span>
+        </div>
+        ${!notification.isRead ? '<div class="notification-badge"></div>' : ''}
+      `;
+
+      // Add click event to mark notification as read
+      notificationDiv.addEventListener('click', () => {
+        if (!notification.isRead) {
+          markNotificationAsRead(notification);
+        }
+      });
+      
+      return notificationDiv;
+    }
+
+    // Function to send application notification email
+    function sendApplicationNotificationEmail(companyEmail, applicationDetails) {
+      const subject = 'New Internship Application Received';
+      
+      const message = `
+        Dear Company Team,
+        
+        A new application has been received for your internship position:
+        
+        Position: ${applicationDetails.position}
+        Applicant: ${applicationDetails.studentName}
+        Application ID: ${applicationDetails.applicationId}
+        
+        You can review the application in your dashboard.
+        
+        Best regards,
+        GUC Internship System
+      `;
+      
+      // Create notification for the new application
+      const newNotification = {
+        type: 'new_application',
+        title: 'New Application Received',
+        message: `${applicationDetails.studentName} has applied for the ${applicationDetails.position} position.`,
+        date: new Date(),
+        isRead: false,
+        priority: 'high',
+        applicationDetails: applicationDetails
+      };
+      
+      notifications.unshift(newNotification);
+      displayNotifications();
+      
+      // In a real implementation, you would send the actual email here
+      console.log('Sending email to:', companyEmail);
+      console.log('Subject:', subject);
+      console.log('Message:', message);
+    }
+
+    // Function to handle new application
+    function handleNewApplication(applicationDetails) {
+      const companyEmail = 'company@example.com'; // This would come from your company data
+      sendApplicationNotificationEmail(companyEmail, applicationDetails);
+    }
+
+    // Function to view application details
+    function viewApplication(applicationId) {
+      // In a real implementation, this would redirect to the application details page
+      console.log('Viewing application:', applicationId);
+      window.location.href = `applications.html?id=${applicationId}`;
+    }
+
+    // Function to send email to student
+    function sendEmailToStudent(studentEmail, studentName, position) {
+      // In a real implementation, this would open an email composition window
+      console.log('Sending email to student:', studentEmail);
+      // You could implement a modal for composing the email here
+    }
+
+    function displayNotifications() {
+      const notificationsList = document.getElementById('notificationsList');
+      notificationsList.innerHTML = '';
+      
+      if (notifications.length === 0) {
+        notificationsList.innerHTML = '<p class="no-notifications">No notifications available.</p>';
+        return;
+      }
+      
+      notifications.forEach(notification => {
+        const notificationElement = createNotificationElement(notification);
+        notificationsList.appendChild(notificationElement);
+      });
+    }
+
+    window.onload = function() {
+      displayNotifications();
+      updateNotificationBadge();
+    };
+  </script>
+</body>
+</html> 

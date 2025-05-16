@@ -364,19 +364,18 @@
             <canvas id="majorDistributionChart"></canvas>
           </div>
         </div>
+
+        <!-- Success Rate by Major -->
+        <div class="card">
+          <h3>Success Rate by Major</h3>
+          <div class="chart-container">
+            <canvas id="successRateChart"></canvas>
+          </div>
+        </div>
       </div>
 
       <!-- Most Used Courses -->
-      <div class="card">
-        <h3>Most Used Courses in Internships</h3>
-        <ul id="mostUsedCoursesList">
-          <li>Data Structures and Algorithms - 78% of students reported using</li>
-          <li>Database Systems - 65% of students reported using</li>
-          <li>Software Engineering - 62% of students reported using</li>
-          <li>Web Development - 58% of students reported using</li>
-          <li>Human Computer Interaction - 45% of students reported using</li>
-        </ul>
-      </div>
+      
 
       <!-- Export Button -->
       <div class="export-container">
@@ -530,6 +529,53 @@
             },
             legend: {
               position: 'bottom'
+            }
+          }
+        }
+      });
+
+      // Success Rate by Major Chart
+      const successRateCtx = document.getElementById('successRateChart').getContext('2d');
+      const successRateChart = new Chart(successRateCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Computer Science', 'Engineering', 'Business'],
+          datasets: [{
+            label: 'Success Rate (%)',
+            data: [92, 85, 80],
+            backgroundColor: [
+              'rgba(13, 27, 42, 0.7)',
+              'rgba(65, 105, 225, 0.7)',
+              'rgba(46, 139, 87, 0.7)'
+            ],
+            borderColor: [
+              'rgba(13, 27, 42, 1)',
+              'rgba(65, 105, 225, 1)',
+              'rgba(46, 139, 87, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            title: {
+              display: true,
+              text: 'Internship Success Rate by Major'
+            },
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 100,
+              title: {
+                display: true,
+                text: 'Success Rate (%)'
+              }
             }
           }
         }
