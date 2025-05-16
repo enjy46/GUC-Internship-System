@@ -3,391 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Submitted Reports - Internship Portal</title>
+  <title>Reports</title>
+ 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #f4f8fc;
-      color: #333;
-      margin: 0;
-      overflow-x: hidden;
-    }
-
-    .app-container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
-      color: white;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
-      overflow-y: auto;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .sidebar-header {
-      padding: 2rem 1rem;
-      text-align: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .sidebar-header h2 {
-      margin: 0;
-      font-size: 1.6rem;
-      font-weight: 600;
-      color: white;
-    }
-
-    .sidebar-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      padding: 1.2rem 2rem;
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 500;
-      transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .nav-link i {
-      margin-right: 0.75rem;
-      width: 20px;
-      text-align: center;
-    }
-
-    .nav-link:hover {
-      background-color: #2c3e50;
-      transform: translateX(5px);
-    }
-
-    .nav-link.active {
-      background-color: #001f3f;
-      border-left: 4px solid #4CAF50;
-      font-weight: 600;
-    }
-
-    .main-content {
-      margin-left: 250px;
-      flex: 1;
-      background-color: #f4f8fc;
-      padding-bottom: 2rem;
-      transition: margin-left 0.3s ease-in-out;
-    }
-
-    .main-header {
-      background-color: #0d1b2a;
-      color: #ffffff;
-      padding: 1.5rem;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .main-header h1 {
-      margin: 0;
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #ffffff;
-    }
-
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .card {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      position: relative;
-      margin-bottom: 2rem;
-    }
-
-    .card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      width: 4px;
-      background-color: #1e88e5;
-      border-radius: 12px 0 0 12px;
-    }
-
-    .card h3 {
-      color: #0d1b2a;
-      margin-bottom: 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .search-filter-container {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      align-items: center;
-    }
-
-    .search-filter-container select {
-      flex: 1;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: border-color 0.3s ease;
-    }
-
-    .search-filter-container select:focus {
-      border-color: #0d1b2a;
-      outline: none;
-    }
-
-    button {
-      background-color: #0d1b2a;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #1b263b;
-      transform: translateY(-2px);
-    }
-
-    .search-filter-container button {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-    }
-
-    .clarification-btn {
-      background-color: #f39c12;
-      color: white;
-      border: 1px solid #e08e0b;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    .clarification-btn:hover {
-      background-color: #e08e0b;
-      transform: scale(1.05);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    ul li {
-      padding: 1rem;
-      border-bottom: 1px solid #ddd;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: background-color 0.2s ease;
-    }
-
-    ul li:last-child {
-      border-bottom: none;
-    }
-
-    ul li:hover {
-      background-color: #f8f9fa;
-    }
-
-    ul li .report-title {
-      color: #0d1b2a;
-      cursor: pointer;
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-
-    ul li .report-title:hover {
-      color: #1e88e5;
-    }
-
-    ul li .status {
-      padding: 0.25rem 0.75rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      font-weight: 500;
-    }
-
-    ul li .status.pending {
-      background-color: #fff3cd;
-      color: #856404;
-    }
-
-    ul li .status.flagged {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-
-    ul li .status.rejected {
-      background-color: #f5c6cb;
-      color: #c82333;
-    }
-
-    ul li .status.accepted {
-      background-color: #d4edda;
-      color: #155724;
-    }
-
-    .instruction-text {
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .modal-content h3 {
-      color: #0d1b2a;
-      margin-bottom: 1.5rem;
-      font-size: 1.5rem;
-    }
-
-    .modal-content p {
-      margin: 0.5rem 0;
-      font-size: 1rem;
-      color: #333;
-    }
-
-    .modal-content p strong {
-      color: #0d1b2a;
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .modal-content textarea {
-      width: 100%;
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      font-size: 1rem;
-      resize: vertical;
-    }
-
-    .modal-content .button-group {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
-
-    .modal-content button {
-      padding: 0.5rem 1rem;
-    }
-
-    .secondary-button {
-      background-color: #6c757d;
-    }
-
-    .secondary-button:hover {
-      background-color: #5a6268;
-      transform: translateY(-2px);
-    }
-
-    footer {
-      background-color: #0d1b2a;
-      color: #ffffff;
-      text-align: center;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-250px);
-      }
-
-      .main-content {
-        margin-left: 0;
-      }
-
-      .dashboard-container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
-
-      .search-filter-container {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-
-      .search-filter-container select,
-      .search-filter-container button {
-        width: 100%;
-      }
-
-      .details-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .modal-content {
-        width: 95%;
-        max-width: none;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/reports.css" />
+    
 </head>
 <body>
   <div class="app-container">
@@ -413,7 +34,7 @@
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Submitted Reports</h1>
+        <h1>SCAD Reports Admin</h1>
       </header>
 
       <section class="dashboard-container">
@@ -434,7 +55,6 @@
               <option value="rejected">Rejected</option>
               <option value="accepted">Accepted</option>
             </select>
-            <button onclick="fetchAllReports()">Load Reports</button>
           </div>
           <ul id="reportsList"></ul>
         </div>
@@ -466,15 +86,35 @@
   <!-- Modal for Viewing Detailed Evaluation Report -->
   <div id="evaluationReportModal" class="modal">
     <div class="modal-content">
-      <h3>Evaluation Report Details</h3>
-      <div class="details-grid">
-        <p><strong>Student Name:</strong> <span id="evalStudentName"></span></p>
-        <p><strong>Company Name:</strong> <span id="evalCompanyName"></span></p>
-        <p><strong>Main Supervisor:</strong> <span id="evalSupervisor"></span></p>
-        <p><strong>Start Date:</strong> <span id="evalStartDate"></span></p>
-        <p><strong>End Date:</strong> <span id="evalEndDate"></span></p>
+      <div class="modal-header">
+        <h2><i class="fas fa-chart-bar"></i> Evaluation Report Details</h2>
+        <button class="close-modal" onclick="closeEvaluationReportModal()">&times;</button>
       </div>
-      <button class="secondary-button" onclick="closeEvaluationReportModal()">Close</button>
+      <div class="student-profile">
+        <div class="profile-section">
+          <h3><i class="fas fa-info-circle"></i> Evaluation Information</h3>
+          <div class="profile-item">
+            <label>Student Name</label>
+            <span id="evalStudentName"></span>
+          </div>
+          <div class="profile-item">
+            <label>Company Name</label>
+            <span id="evalCompanyName"></span>
+          </div>
+          <div class="profile-item">
+            <label>Main Supervisor</label>
+            <span id="evalSupervisor"></span>
+          </div>
+          <div class="profile-item">
+            <label>Start Date</label>
+            <span id="evalStartDate"></span>
+          </div>
+          <div class="profile-item">
+            <label>End Date</label>
+            <span id="evalEndDate"></span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -491,6 +131,48 @@
     </div>
   </div>
 
+  <!-- Update the report details modal -->
+  <div id="reportDetailsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2><i class="fas fa-file-alt"></i> Internship Report Details</h2>
+        <button class="close-modal" onclick="closeReportDetailsModal()">&times;</button>
+      </div>
+      <div class="student-profile">
+        <div class="profile-section">
+          <h3><i class="fas fa-info-circle"></i> Report Information</h3>
+          <div class="profile-item">
+            <label>Report Title</label>
+            <span id="reportTitle"></span>
+          </div>
+          <div class="profile-item">
+            <label>Submission Date</label>
+            <span id="reportDate"></span>
+          </div>
+          <div class="profile-item">
+            <label>Status</label>
+            <span id="reportStatus"></span>
+          </div>
+        </div>
+        <div class="profile-section">
+          <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+          <div class="profile-item">
+            <label>Student Name</label>
+            <span id="reportStudentName"></span>
+          </div>
+          <div class="profile-item">
+            <label>Student ID</label>
+            <span id="reportStudentId"></span>
+          </div>
+          <div class="profile-item">
+            <label>Major</label>
+            <span id="reportStudentMajor"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer>
     <p>© 2025 GUC Internship System. All rights reserved.</p>
   </footer>
@@ -502,9 +184,48 @@
     // Dummy data for reports
     function fetchAllReports() {
       allReports = [
-        { id: "R001", title: "Progress Report 1", student: { id: "S001", name: "Alice", email: "alice@example.com", major: "Computer Science", status: "current intern", details: "Working at TechCorp" }, status: "pending" },
-        { id: "R002", title: "Final Report", student: { id: "S002", name: "Bob", email: "bob@example.com", major: "Engineering", status: "internship complete", details: "Completed internship at BuildIt" }, status: "accepted" },
-        { id: "R003", title: "Midterm Report", student: { id: "S003", name: "Charlie", email: "charlie@example.com", major: "Business", status: "not started", details: "Looking for opportunities" }, status: "flagged" }
+        { 
+          id: "R001", 
+          title: "Internship at TechCorp", 
+          student: { 
+            id: "1001", 
+            name: "Alice Johnson", 
+            email: "alice.johnson@example.com", 
+            major: "Computer Science", 
+            status: "current intern", 
+            details: "Working at TechCorp" 
+          }, 
+          status: "flagged",
+          date: "2025-05-01"
+        },
+        { 
+          id: "R002", 
+          title: "Internship at BuildIt", 
+          student: { 
+            id: "1002", 
+            name: "Bob Smith", 
+            email: "bob.smith@example.com", 
+            major: "Engineering", 
+            status: "internship complete", 
+            details: "Completed internship at BuildIt" 
+          }, 
+          status: "rejected",
+          date: "2025-04-15"
+        },
+        { 
+          id: "R003", 
+          title: "Internship at BizWorld", 
+          student: { 
+            id: "1003", 
+            name: "Charlie Davis", 
+            email: "charlie.davis@example.com", 
+            major: "Business", 
+            status: "not started", 
+            details: "Looking for opportunities" 
+          }, 
+          status: "accepted",
+          date: "2025-03-20"
+        }
       ];
 
       filterReports();
@@ -522,35 +243,84 @@
       });
 
       displayReports(filteredReports);
+      
+      // Show "Load All Reports" button only when filters are applied
+      const loadAllBtn = document.getElementById('loadAllReportsBtn');
+      if (major !== '' || status !== '') {
+        if (!loadAllBtn) {
+          const btn = document.createElement('button');
+          btn.id = 'loadAllReportsBtn';
+          btn.textContent = 'Load All Reports';
+          btn.onclick = () => {
+            document.getElementById('filterByMajor').value = '';
+            document.getElementById('filterByStatus').value = '';
+            fetchAllReports();
+            btn.remove();
+          };
+          document.querySelector('.search-filter-container').appendChild(btn);
+        }
+      } else if (loadAllBtn) {
+        loadAllBtn.remove();
+      }
     }
 
     function displayReports(reports) {
-      const reportsList = document.getElementById('reportsList');
-      reportsList.innerHTML = '';
+  const reportsList = document.getElementById('reportsList');
+  reportsList.innerHTML = '';
 
-      if (!reports || reports.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No reports found.';
-        reportsList.appendChild(li);
-        return;
-      }
+  if (!reports || reports.length === 0) {
+    const li = document.createElement('li');
+    li.textContent = 'No reports found.';
+    reportsList.appendChild(li);
+    return;
+  }
 
-      reports.forEach(report => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <span class="report-title" onclick="showStudentProfile('${report.student.id}')">
-            ${report.title} (Student: ${report.student.name})
-          </span>
-          <div>
-            <span class="status ${report.status}">
-              ${report.status}
-            </span>
-            ${report.status === 'flagged' || report.status === 'rejected' ? 
-              `<button class="clarification-btn" onclick="openClarificationModal('${report.id}')">Add Clarification</button>` : ''}
-          </div>
-        `;
-        reportsList.appendChild(li);
-      });
+  reports.forEach(report => {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <div class="report-info">
+        <span class="report-title" onclick="showReportDetails('${report.id}')">
+          ${report.title} (Student: ${report.student.name})
+        </span>
+      </div>
+      <div class="status-container">
+        <span class="status ${report.status}">
+          ${report.status}
+        </span>
+        ${report.status === 'flagged' || report.status === 'rejected' ? 
+          `<button class="clarification-btn" onclick="openClarificationModal('${report.id}')" aria-label="Add clarification to this report">
+            <i class="fas fa-comment-dots"></i>
+          </button>` : ''}
+      </div>
+    `;
+    reportsList.appendChild(li);
+  });
+
+    }
+
+    function showReportDetails(reportId) {
+      const report = allReports.find(r => r.id === reportId);
+      if (!report) return;
+
+      // Update modal content with report details
+      document.getElementById('reportTitle').textContent = report.title;
+      document.getElementById('reportDate').textContent = report.date;
+      
+      // Create status span with appropriate class
+      const statusSpan = document.getElementById('reportStatus');
+      statusSpan.textContent = report.status;
+      statusSpan.className = `status ${report.status}`;
+      
+      document.getElementById('reportStudentName').textContent = report.student.name;
+      document.getElementById('reportStudentId').textContent = report.student.id;
+      document.getElementById('reportStudentMajor').textContent = report.student.major;
+
+      // Show the modal
+      document.getElementById('reportDetailsModal').style.display = 'flex';
+    }
+
+    function closeReportDetailsModal() {
+      document.getElementById('reportDetailsModal').style.display = 'none';
     }
 
     function showStudentProfile(studentId) {
@@ -637,12 +407,14 @@
       const report = evaluationReports.find(r => r.id === reportId);
       if (!report) return;
 
+      // Update modal content with report details
       document.getElementById('evalStudentName').textContent = report.studentName;
       document.getElementById('evalCompanyName').textContent = report.companyName;
       document.getElementById('evalSupervisor').textContent = report.supervisor;
       document.getElementById('evalStartDate').textContent = report.startDate;
       document.getElementById('evalEndDate').textContent = report.endDate;
 
+      // Show the modal
       document.getElementById('evaluationReportModal').style.display = 'flex';
     }
 
@@ -655,7 +427,8 @@
       const modals = [
         document.getElementById('studentProfileModal'),
         document.getElementById('evaluationReportModal'),
-        document.getElementById('clarificationModal')
+        document.getElementById('clarificationModal'),
+        document.getElementById('reportDetailsModal')
       ];
       modals.forEach(modal => {
         if (event.target === modal) {
