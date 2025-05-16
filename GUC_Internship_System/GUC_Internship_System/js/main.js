@@ -32,10 +32,10 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         }
         break;
       case 'scad':
-        window.location.href = 'scad_dashboard.html';
+        window.location.href = '../Scadnew_dashboard/html/Scadnew_dashboard.html';
         break;
       case 'faculty':
-        window.location.href = 'faculty/faculty_dashboard.html';
+        window.location.href = 'faculty_dashboard.html';
         break;
       case 'pro':
         window.location.href = 'student/pro_dashboard.html';
