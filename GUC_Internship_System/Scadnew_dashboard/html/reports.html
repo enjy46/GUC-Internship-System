@@ -24,6 +24,7 @@
       margin-bottom: 1.5rem;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: flex-start;
     }
 
     .dashboard-container {
@@ -67,6 +68,11 @@
       border-color: #0d1b2a;
       outline: none;
       box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+    }
+
+    select:hover {
+      border-color: #0d1b2a;
+      cursor: pointer;
     }
 
     #reportsList {
@@ -125,8 +131,8 @@
     }
 
     .status.flagged {
-      background-color: #f8d7da;
-      color: #721c24;
+      background-color: #fff3cd;
+      color: #856404;
     }
 
     .status.rejected {
@@ -328,10 +334,11 @@
       background: white;
       padding: 2rem;
       border-radius: 16px;
-      max-width: 600px;
+      max-width: 800px;
       width: 90%;
       max-height: 90vh;
       overflow-y: auto;
+      position: relative;
     }
 
     .modal-header {
@@ -351,12 +358,20 @@
     }
 
     .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 10px;
       background: none;
       border: none;
       font-size: 1.5rem;
       color: #0d1b2a;
       cursor: pointer;
       padding: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .close-modal:hover {
+      color: #f44336;
     }
 
     textarea {
@@ -374,11 +389,12 @@
     textarea:focus {
       border-color: #0d1b2a;
       outline: none;
-      box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
+      box-shadow: none;
     }
 
     .button-group {
       display: flex;
+      justify-content: flex-end;
       gap: 1rem;
       margin-top: 1.5rem;
     }
@@ -405,30 +421,139 @@
     }
 
     button.secondary-button {
-      background-color: #e0e0e0;
+      background-color: rgb(206, 7, 7);
       color: #333;
     }
 
     button.secondary-button:hover {
-      background-color: #d0d0d0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(13, 27, 42, 0.2);
+      background-color: #d84444;
     }
 
-    .modal .close-modal {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: #0d1b2a;
-      cursor: pointer;
-      padding: 0.5rem;
+    .error-message {
+      color: #f44336;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      display: none;
     }
 
     .modal .close-modal:hover,
     .modal .close-modal:focus,
     .modal .close-modal:active {
-      color: #0d1b2a !important;
+      color: #f44336 !important;
       background: none !important;
       outline: none !important;
       box-shadow: none !important;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .report-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .report-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-color: #0d1b2a;
+    }
+
+    .report-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .report-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0d1b2a;
+      margin: 0;
+    }
+
+    .report-meta {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .report-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .report-meta i {
+      color: #0d1b2a;
+    }
+
+    .status-badge {
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .status-badge.pending {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-badge.flagged {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .status-badge.rejected {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .status-badge.accepted {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .detail-label {
+      font-size: 0.9rem;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .detail-value {
+      font-size: 1.1rem;
+      color: #0d1b2a;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -441,12 +566,13 @@
       <nav class="sidebar-nav">
         <ul>
           <li><a href="Scadnew_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="reports.html" class="nav-link active"><i class="fas fa-file-alt"></i>Reports</a></li>
           <li><a href="company_applications.html" class="nav-link"><i class="fas fa-briefcase"></i>Company Applications</a></li>
           <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
           <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
           <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
-          <li><a href="#" class="nav-link" id="openCycleModal"><i class="fas fa-calendar"></i>Set Cycle Date</a></li>
-          <li><a href="#" class="nav-link active"><i class="fas fa-file-alt"></i>Submitted Reports</a></li>
+          <li><a href="scad_workshops.html" class="nav-link" id="openCycleModal"><i class="fas fa-calendar"></i>Workshops</a></li>
+          <li><a href="appts_calls.html" class="nav-link"><i class="fas fa-file-alt"></i>Appointments & Calls</a></li>
         </ul>
       </nav>
     </aside>
@@ -500,7 +626,9 @@
         <section class="card">
           <h3><i class="fas fa-chart-bar"></i> Evaluation Reports</h3>
           <p class="instruction-text">Click on an evaluation report below to view its details.</p>
-          <button class="primary-button" onclick="fetchEvaluationReports()">Load Evaluation Reports</button>
+          <div class="button-container">
+            <button class="primary-button" id="toggleEvaluationReportsBtn">Load Evaluation Reports</button>
+          </div>
           <ul id="evaluationReportsList"></ul>
         </section>
       </section>
@@ -525,7 +653,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2><i class="fas fa-chart-bar"></i> Evaluation Report Details</h2>
-        <button class="close-modal" onclick="closeEvaluationReportModal()">&times;</button>
+        <button class="close-modal" onclick="closeEvaluationReportModal()">×</button>
       </div>
       <div class="student-profile">
         <div class="profile-section">
@@ -560,13 +688,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2><i class="fas fa-comment-dots"></i> Submit Clarification</h2>
-        <button class="close-modal" onclick="closeClarificationModal()">&times;</button>
+        <button class="close-modal" onclick="closeClarificationModal()">×</button>
       </div>
       <p><strong>Report Title:</strong> <span id="clarificationReportTitle"></span></p>
       <textarea id="clarificationText" placeholder="Enter your clarification here..." rows="5"></textarea>
+      <div class="error-message" id="clarificationError">Please enter a clarification before submitting.</div>
       <div class="button-group">
         <button class="primary-button" onclick="submitClarification()">Submit Clarification</button>
-        <button class="secondary-button" onclick="closeClarificationModal()">Cancel</button>
       </div>
     </div>
   </div>
@@ -576,7 +704,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2><i class="fas fa-file-alt"></i> Internship Report Details</h2>
-        <button class="close-modal" onclick="closeReportDetailsModal()">&times;</button>
+        <button class="close-modal" onclick="closeReportDetailsModal()">×</button>
       </div>
       <div class="student-profile">
         <div class="profile-section">
@@ -620,6 +748,7 @@
   <script>
     let allReports = [];
     let evaluationReports = [];
+    let isEvaluationLoaded = false;
 
     // Dummy data for reports
     function fetchAllReports() {
@@ -691,6 +820,8 @@
           const btn = document.createElement('button');
           btn.id = 'loadAllReportsBtn';
           btn.textContent = 'Load All Reports';
+          btn.className = 'primary-button';
+          btn.style.marginLeft = 'auto';
           btn.onclick = () => {
             document.getElementById('filterByMajor').value = '';
             document.getElementById('filterByStatus').value = '';
@@ -716,24 +847,25 @@
       }
 
       reports.forEach(report => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <div class="report-info">
-            <span class="report-title" onclick="showReportDetails('${report.id}')">
-              ${report.title} (Student: ${report.student.name})
-            </span>
-          </div>
-          <div class="status-container">
-            <span class="status ${report.status}">
-              ${report.status}
-            </span>
-            ${report.status === 'flagged' || report.status === 'rejected' ? 
-              `<button class="clarification-btn" onclick="openClarificationModal('${report.id}')" aria-label="Add clarification to this report">
-                <i class="fas fa-comment-dots"></i>
-              </button>` : ''}
+        const card = document.createElement('div');
+        card.className = 'report-card';
+        card.onclick = () => showReportDetails(report.id);
+        
+        card.innerHTML = `
+          <div class="report-header">
+            <div>
+              <h4 class="report-title">${report.title}</h4>
+              <div class="report-meta">
+                <span><i class="fas fa-user"></i> ${report.student.name}</span>
+                <span><i class="fas fa-graduation-cap"></i> ${report.student.major}</span>
+                <span><i class="fas fa-calendar"></i> ${report.date}</span>
+              </div>
+            </div>
+            <span class="status-badge ${report.status}">${report.status}</span>
           </div>
         `;
-        reportsList.appendChild(li);
+        
+        reportsList.appendChild(card);
       });
     }
 
@@ -741,20 +873,40 @@
       const report = allReports.find(r => r.id === reportId);
       if (!report) return;
 
-      // Update modal content with report details
-      document.getElementById('reportTitle').textContent = report.title;
-      document.getElementById('reportDate').textContent = report.date;
-      
-      // Create status span with appropriate class
-      const statusSpan = document.getElementById('reportStatus');
-      statusSpan.textContent = report.status;
-      statusSpan.className = `status ${report.status}`;
-      
-      document.getElementById('reportStudentName').textContent = report.student.name;
-      document.getElementById('reportStudentId').textContent = report.student.id;
-      document.getElementById('reportStudentMajor').textContent = report.student.major;
+      const modalContent = document.querySelector('#reportDetailsModal .modal-content');
+      modalContent.innerHTML = `
+        <div class="modal-header">
+          <h2><i class="fas fa-file-alt"></i> Internship Report Details</h2>
+          <button class="close-modal" onclick="closeReportDetailsModal()">×</button>
+        </div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Report Title</span>
+            <span class="detail-value">${report.title}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Submission Date</span>
+            <span class="detail-value">${report.date}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Status</span>
+            <span class="detail-value">${report.status.charAt(0).toUpperCase() + report.status.slice(1)}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Student Name</span>
+            <span class="detail-value">${report.student.name}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Student ID</span>
+            <span class="detail-value">${report.student.id}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Major</span>
+            <span class="detail-value">${report.student.major}</span>
+          </div>
+        </div>
+      `;
 
-      // Show the modal
       document.getElementById('reportDetailsModal').style.display = 'flex';
     }
 
@@ -789,13 +941,16 @@
       currentReportId = reportId;
       document.getElementById('clarificationReportTitle').textContent = report.title;
       document.getElementById('clarificationText').value = '';
+      document.getElementById('clarificationError').style.display = 'none'; // Hide error on open
       document.getElementById('clarificationModal').style.display = 'flex';
     }
 
     function submitClarification() {
       const clarificationText = document.getElementById('clarificationText').value;
-      if (!clarificationText) {
-        alert('Please enter a clarification before submitting.');
+      const errorElement = document.getElementById('clarificationError');
+
+      if (!clarificationText.trim()) {
+        errorElement.style.display = 'block';
         return;
       }
 
@@ -807,17 +962,30 @@
 
     function closeClarificationModal() {
       document.getElementById('clarificationModal').style.display = 'none';
+      document.getElementById('clarificationError').style.display = 'none'; // Clear error on close
       currentReportId = null;
     }
 
     // Evaluation Reports
-    function fetchEvaluationReports() {
-      evaluationReports = [
-        { id: "E001", studentName: "Alice", companyName: "TechCorp", supervisor: "Jane Doe", startDate: "2025-01-15", endDate: "2025-04-15" },
-        { id: "E002", studentName: "Bob", companyName: "BuildIt", supervisor: "John Smith", startDate: "2024-06-01", endDate: "2024-09-01" }
-      ];
+    function toggleEvaluationReports() {
+      const button = document.getElementById('toggleEvaluationReportsBtn');
+      const evalList = document.getElementById('evaluationReportsList');
 
-      displayEvaluationReports();
+      if (!isEvaluationLoaded) {
+        // Load evaluation reports
+        evaluationReports = [
+          { id: "E001", studentName: "Alice", companyName: "TechCorp", supervisor: "Jane Doe", startDate: "2025-01-15", endDate: "2025-04-15" },
+          { id: "E002", studentName: "Bob", companyName: "BuildIt", supervisor: "John Smith", startDate: "2024-06-01", endDate: "2024-09-01" }
+        ];
+        displayEvaluationReports();
+        button.textContent = 'Unload Evaluation Reports';
+        isEvaluationLoaded = true;
+      } else {
+        // Unload evaluation reports
+        evalList.innerHTML = '';
+        button.textContent = 'Load Evaluation Reports';
+        isEvaluationLoaded = false;
+      }
     }
 
     function displayEvaluationReports() {
@@ -832,13 +1000,24 @@
       }
 
       evaluationReports.forEach(report => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <span class="report-title" onclick="showEvaluationReport('${report.id}')">
-            ${report.studentName}'s Evaluation at ${report.companyName}
-          </span>
+        const card = document.createElement('div');
+        card.className = 'report-card';
+        card.onclick = () => showEvaluationReport(report.id);
+        
+        card.innerHTML = `
+          <div class="report-header">
+            <div>
+              <h4 class="report-title">${report.studentName}'s Evaluation</h4>
+              <div class="report-meta">
+                <span><i class="fas fa-building"></i> ${report.companyName}</span>
+                <span><i class="fas fa-user-tie"></i> ${report.supervisor}</span>
+                <span><i class="fas fa-calendar-alt"></i> ${report.startDate} - ${report.endDate}</span>
+              </div>
+            </div>
+          </div>
         `;
-        evalList.appendChild(li);
+        
+        evalList.appendChild(card);
       });
     }
 
@@ -846,14 +1025,36 @@
       const report = evaluationReports.find(r => r.id === reportId);
       if (!report) return;
 
-      // Update modal content with report details
-      document.getElementById('evalStudentName').textContent = report.studentName;
-      document.getElementById('evalCompanyName').textContent = report.companyName;
-      document.getElementById('evalSupervisor').textContent = report.supervisor;
-      document.getElementById('evalStartDate').textContent = report.startDate;
-      document.getElementById('evalEndDate').textContent = report.endDate;
+      const modalContent = document.querySelector('#evaluationReportModal .modal-content');
+      modalContent.innerHTML = `
+        <div class="modal-header">
+          <h2><i class="fas fa-chart-bar"></i> Evaluation Report Details</h2>
+          <button class="close-modal" onclick="closeEvaluationReportModal()">×</button>
+        </div>
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="detail-label">Student Name</span>
+            <span class="detail-value">${report.studentName}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Company Name</span>
+            <span class="detail-value">${report.companyName}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Main Supervisor</span>
+            <span class="detail-value">${report.supervisor}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Start Date</span>
+            <span class="detail-value">${report.startDate}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">End Date</span>
+            <span class="detail-value">${report.endDate}</span>
+          </div>
+        </div>
+      `;
 
-      // Show the modal
       document.getElementById('evaluationReportModal').style.display = 'flex';
     }
 
@@ -872,6 +1073,7 @@
       modals.forEach(modal => {
         if (event.target === modal) {
           modal.style.display = 'none';
+          document.getElementById('clarificationError').style.display = 'none'; // Clear error on outside click
         }
       });
     };
@@ -882,6 +1084,9 @@
 
     // Load reports on page load
     document.addEventListener('DOMContentLoaded', fetchAllReports);
+
+    // Add event listener for toggle evaluation reports button
+    document.getElementById('toggleEvaluationReportsBtn').addEventListener('click', toggleEvaluationReports);
 
     function toggleDropdown() {
       var dropdown = document.getElementById("profileDropdown");
