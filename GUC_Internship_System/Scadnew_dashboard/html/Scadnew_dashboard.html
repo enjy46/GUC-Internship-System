@@ -127,6 +127,85 @@
     .primary-button i {
       font-size: 1.1rem;
     }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .header-icons {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
   </style>
 </head>
 <body>
@@ -152,8 +231,26 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <header>
+      <header class="main-header">
         <h1>SCAD Dashboard</h1>
+        <div class="header-icons">
+          <!-- Notification Icon -->
+          <a href="Scad_notifications.html" class="icon-link">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span class="notification-badge">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <main class="container">
@@ -550,6 +647,29 @@
       
       alert("Statistics report has been generated and downloaded.");
     }
+
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
   </script>
    <script src="../js/Scadnew_dashboard.js"></script>
   <script>
