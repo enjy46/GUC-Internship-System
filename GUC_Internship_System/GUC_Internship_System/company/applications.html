@@ -216,6 +216,46 @@
       .modal-content button.reject-btn:hover {
         background-color: #b71c1c;
       }
+
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      /* Notification styles */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        max-width: 320px;
+        padding: 14px 28px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 2000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transition: right 0.4s ease-in-out;
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .notification.show {
+        right: 20px;
+      }
+
+      .notification.success {
+        background-color: #388e3c;
+      }
+
+      .notification.error {
+        background-color: #c62828;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
     </style>
   </head>
   <body>
@@ -262,11 +302,7 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
-            <li>
-              <a href="company-notifications.html" class="nav-link"
-                ><i class="fas fa-graduation-cap"></i>Notifications</a
-              >
-            </li>
+            
             <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
         </nav>
@@ -491,10 +527,57 @@
         .getElementById("filterApplicationsByPost")
         .addEventListener("change", updateApplicationsCount);
 
+      // Add notification function
+      function showNotification(message, type) {
+        const notificationDiv = document.createElement('div');
+        notificationDiv.textContent = message;
+        notificationDiv.className = `notification ${type}`;
+        notificationDiv.setAttribute('role', 'alert');
+        document.body.appendChild(notificationDiv);
+
+        // Force a reflow to ensure the animation works
+        notificationDiv.offsetHeight;
+
+        setTimeout(() => {
+          notificationDiv.classList.add('show');
+        }, 100);
+
+        notificationDiv.addEventListener('click', () => {
+          notificationDiv.classList.remove('show');
+          setTimeout(() => notificationDiv.remove(), 300);
+        });
+
+        setTimeout(() => {
+          notificationDiv.classList.remove('show');
+          setTimeout(() => notificationDiv.remove(), 300);
+        }, 5000);
+      }
+
       // Update applicant status
       function updateApplicantStatus(applicant, status) {
         applicant.status = status;
-        alert(`Applicant ${applicant.name} has been marked as ${status}.`);
+        
+        // Show appropriate notification based on status
+        let message = '';
+        switch(status) {
+          case 'finalized':
+            message = `Application for ${applicant.name} has been finalized!`;
+            break;
+          case 'accepted':
+            message = `Application for ${applicant.name} has been accepted!`;
+            break;
+          case 'rejected':
+            message = `Application for ${applicant.name} has been rejected.`;
+            break;
+          case 'current intern':
+            message = `${applicant.name} has been set as a current intern!`;
+            break;
+          case 'internship complete':
+            message = `Internship for ${applicant.name} has been marked as complete!`;
+            break;
+        }
+        
+        showNotification(message, status === 'rejected' ? 'error' : 'success');
         document.getElementById("applicantModal").style.display = "none";
 
         // Update the application in localStorage

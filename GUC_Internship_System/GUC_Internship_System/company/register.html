@@ -194,6 +194,41 @@
         color: green;
         font-weight: 500;
       }
+
+      /* Add notification styles */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        max-width: 320px;
+        padding: 14px 28px;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        font-size: 1.1rem;
+        z-index: 1000;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        transition: right 0.4s ease-in-out;
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .notification.show {
+        right: 20px;
+      }
+
+      .success {
+        background-color: #388e3c;
+      }
+
+      .error {
+        background-color: #c62828;
+      }
+
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+      }
     </style>
   </head>
   <body>
@@ -240,10 +275,7 @@
                 ><i class="fas fa-graduation-cap"></i>Current Interns</a
               >
             </li>
-            <li>
-              <a href="company-notifications.html" class="nav-link"
-                ><i class="fas fa-graduation-cap"></i>Notifications</a
-              >
+            
             </li>
             <li><a href="../index.html" class="nav-link"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
           </ul>
@@ -322,5 +354,42 @@
       </main>
     </div>
     <script src="../js/register.js"></script>
+    <script>
+      function showNotification(message, type) {
+        const notificationDiv = document.createElement('div');
+        notificationDiv.textContent = message;
+        notificationDiv.className = `notification ${type}`;
+        notificationDiv.setAttribute('role', 'alert');
+        document.body.appendChild(notificationDiv);
+
+        setTimeout(() => {
+          notificationDiv.classList.add('show');
+        }, 100);
+
+        notificationDiv.addEventListener('click', () => {
+          notificationDiv.classList.remove('show');
+          setTimeout(() => notificationDiv.remove(), 300);
+        });
+
+        setTimeout(() => {
+          notificationDiv.classList.remove('show');
+          setTimeout(() => notificationDiv.remove(), 300);
+        }, 5000);
+      }
+
+      document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Your existing form validation and submission logic here
+        
+        // Show success notification
+        showNotification('Registration successful!', 'success');
+        
+        // Optional: Redirect after a short delay
+        setTimeout(() => {
+          window.location.href = 'company_dashboard.html';
+        }, 2000);
+      });
+    </script>
   </body>
 </html>

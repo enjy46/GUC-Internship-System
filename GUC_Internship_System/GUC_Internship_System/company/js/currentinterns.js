@@ -197,9 +197,8 @@ function submitEvaluation(event) {
   });
   localStorage.setItem("internEvaluations", JSON.stringify(evaluations));
   
-  // Close the modal and show success message
+  // Close the modal
   closeEvaluationModal();
-  alert("Evaluation submitted successfully!");
   
   // Reset the form
   document.getElementById("evaluationForm").reset();
