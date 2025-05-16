@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Applications - Internship Portal</title>
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+      width: 1200.4px;
+      height: 131.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .header-icons {
+      position: absolute;
+      right: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .notification-icon {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 35px;
+      height: 35px;
+    }
+
+    .notification-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-icon i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0d1b2a;
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .grid-buttons {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+    .dashboard-btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-save {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-add:hover, .btn-save:hover {
+      opacity: 0.8;
+    }
+    .dashboard-btn:hover::after {
+      content: none !important;
+    }
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    .internship-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      padding: 2rem;
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      min-height: 400px;
+      border-radius: 12px;
+    }
+    .internship-card {
+      width: 100%;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(13, 27, 42, 0.08);
+      padding: 2rem;
+      position: relative;
+      transition: all 0.3s ease;
+      border: 1px solid #0d1b2a;
+    }
+    .internship-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(13, 27, 42, 0.15);
+      border-color: #0d1b2a;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+    .status-completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .status-flagged {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed rgba(13, 27, 42, 0.1);
+    }
+    .info-label {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    .info-value {
+      color: #0f172a;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .card-actions {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .action-btn {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .action-btn.primary {
+      background: #0d1b2a;
+      color: white;
+    }
+    .action-btn.secondary {
+      background: rgba(13, 27, 42, 0.05);
+      color: #0d1b2a;
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+    }
+    .action-btn.primary:hover {
+      background: #1b263b;
+    }
+    .action-btn.secondary:hover {
+      background: rgba(13, 27, 42, 0.1);
+    }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .filters input,
+    .filters select {
+      width: 100%;
+      padding: 0.85rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .filters input:focus,
+    .filters select:focus {
+      border-color: #001f3f;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 31, 63, 0.1);
+    }
+    @media (max-width: 1200px) {
+      .internship-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 768px) {
+      .internship-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="../internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="student_application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="student_internship_history.html" class="nav-link active"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Past & Present Internships</h1>
+        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+          <!-- Notification Icon -->
+          <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
+                    border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
+                    align-items: center; justify-content: center;">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div style="position: relative; display: inline-block;">
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
+                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+                 border-radius: 8px; z-index: 1; margin-top: 10px;">
+              <a href="profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
+              <a href="../login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="dashboard-container">
+        <div class="card">
+          <h2><i class="fas fa-paper-plane"></i> Your Past & Present Internships</h2>
+          <div class="filters">
+            <input type="text" id="searchInput" placeholder="Search by job title or company name" aria-label="Search applications">
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="">All Statuses</option>
+              <option value="current">Current</option>
+              <option value="completed">Completed</option>
+            </select>
+            <input type="date" id="dateFilter" aria-label="Filter by date">
+          </div>
+          <div id="historyList" class="internship-grid">
+            <!-- TechNova Card -->
+            <div class="internship-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="company-title">TechNova</h3>
+                  <span class="status-badge status-completed">Completed</span>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="info-row">
+                  <span class="info-label">Position</span>
+                  <span class="info-value">Front-End Developer Intern</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value">March 2025</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">Flagged</span>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="action-btn primary" onclick="viewComments(1)">
+                  <i class="fas fa-comments"></i> View Comments
+                </button>
+                <button class="action-btn primary" onclick="openEvaluationModal(1)">
+                  <i class="fas fa-star"></i> Evaluate
+                </button>
+              </div>
+            </div>
+
+            <!-- Brandify Card -->
+            <div class="internship-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="company-title">Brandify</h3>
+                  <span class="status-badge status-flagged">Current</span>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="info-row">
+                  <span class="info-label">Position</span>
+                  <span class="info-value">Marketing Intern</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value">April 2025</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">Pending Evaluation</span>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="action-btn primary" onclick="openEvaluationModal(2)">
+                  <i class="fas fa-star"></i> Evaluate
+                </button>
+              </div>
+            </div>
+
+            <!-- Google Card -->
+            <div class="internship-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="company-title">Google</h3>
+                  <span class="status-badge status-completed">Completed</span>
+                </div>
+              </div>
+              <div class="card-content">
+                <div class="info-row">
+                  <span class="info-label">Position</span>
+                  <span class="info-value">Software Engineer Intern</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Duration</span>
+                  <span class="info-value">December 2024</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Status</span>
+                  <span class="info-value">Evaluated</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
+
+  <script src="js/internship_history.js"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+
+    function viewComments(id) {
+      // Implement view comments functionality
+      console.log('View comments for internship:', id);
+    }
+
+    function openEvaluationModal(id) {
+      // Implement evaluation modal functionality
+      console.log('Open evaluation modal for internship:', id);
+    }
+  </script>
+</body>
+</html>

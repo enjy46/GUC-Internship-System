@@ -620,7 +620,8 @@
           <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
           <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
           <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <li><a href="certificates.html" class="nav-link"><i class="fas fa-certificate"></i>Earned Certificates</a></li>
+          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
         </ul>
       </nav>
     </aside>
@@ -873,6 +874,18 @@
     </div>
   </div>
 
+  <!-- Edit Modal -->
+  <div class="modal" id="editModal" style="display: none;">
+    <div class="modal-content">
+      <h3>Edit Field</h3>
+      <input type="text" id="editInput" style="width: 100%; padding: 0.8rem; margin: 1rem 0; border: 1px solid #e0e0e0; border-radius: 6px;">
+      <div style="display: flex; gap: 1rem;">
+        <button onclick="saveEdit()" style="flex: 1;">Save</button>
+        <button onclick="document.getElementById('editModal').style.display = 'none'" style="flex: 1; background-color: #dc3545;">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     let currentField;
     let experienceCount = 1;
@@ -881,10 +894,10 @@
       if (field === 'major' || field === 'semester') {
         showDropdown(field);
       } else {
-      currentField = field;
-      const fieldValue = document.getElementById(field).textContent;
-      document.getElementById('editInput').value = fieldValue;
-      document.getElementById('editModal').style.display = 'flex';
+        currentField = field;
+        const fieldValue = document.getElementById(field).textContent;
+        document.getElementById('editInput').value = fieldValue;
+        document.getElementById('editModal').style.display = 'flex';
       }
     }
 

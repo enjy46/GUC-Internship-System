@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Applications - Internship Portal</title>
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/courses.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+      width: 1200.4px;
+      height: 131.2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .header-icons {
+      position: absolute;
+      right: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .notification-icon {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 35px;
+      height: 35px;
+    }
+
+    .notification-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-icon i {
+      font-size: 1.2rem;
+      color: white;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0d1b2a;
+    }
+
+    .applications-container {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .applications-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .application-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .application-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .application-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .application-title h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      color: #1a202c;
+      font-weight: 600;
+    }
+
+    .company-name {
+      color: #4a5568;
+      font-size: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .status-badge {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .application-date {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+
+    .status-pending {
+      background-color: #FEF3C7;
+      color: #92400E;
+    }
+
+    .status-finalized {
+      background-color: #DBEAFE;
+      color: #1E40AF;
+    }
+
+    .status-accepted {
+      background-color: #D1FAE5;
+      color: #065F46;
+    }
+
+    .status-rejected {
+      background-color: #FEE2E2;
+      color: #991B1B;
+    }
+
+    @media (max-width: 1024px) {
+      .applications-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .application-card {
+        padding: 1.5rem;
+      }
+
+      .company-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+
+      .status-container {
+        text-align: center;
+        margin-top: 1rem;
+        padding-left: 0;
+      }
+
+      .company-logo {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h2>Internship Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="student_internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="student_application.html" class="nav-link active"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="student_internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Your Applications</h1>
+        <div class="header-icons">
+          <!-- Notification Icon -->
+          <a href="notifications.html" class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
+              <i class="fas fa-user-circle"></i>
+            </a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+              <a href="../login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Applications Container -->
+      <div class="applications-container">
+        <div class="applications-grid">
+          <!-- Application Card 1 -->
+          <div class="application-card">
+            <div class="application-header">
+              <div class="application-title">
+                <h3>Software Engineering Intern</h3>
+                <div class="company-name">Microsoft</div>
+              </div>
+              <span class="status-badge status-pending">Pending</span>
+            </div>
+            <div class="application-date">Applied on: January 15, 2024</div>
+          </div>
+
+          <!-- Application Card 2 -->
+          <div class="application-card">
+            <div class="application-header">
+              <div class="application-title">
+                <h3>Data Science Intern</h3>
+                <div class="company-name">Google</div>
+              </div>
+              <span class="status-badge status-finalized">Finalized</span>
+            </div>
+            <div class="application-date">Applied on: January 10, 2024</div>
+          </div>
+
+          <!-- Application Card 3 -->
+          <div class="application-card">
+            <div class="application-header">
+              <div class="application-title">
+                <h3>Cloud Engineering Intern</h3>
+                <div class="company-name">Amazon</div>
+              </div>
+              <span class="status-badge status-accepted">Accepted</span>
+            </div>
+            <div class="application-date">Applied on: January 5, 2024</div>
+          </div>
+
+          <!-- Application Card 4 -->
+          <div class="application-card">
+            <div class="application-header">
+              <div class="application-title">
+                <h3>Frontend Developer Intern</h3>
+                <div class="company-name">Meta</div>
+              </div>
+              <span class="status-badge status-rejected">Rejected</span>
+            </div>
+            <div class="application-date">Applied on: December 20, 2023</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  </script>
+</body>
+</html>

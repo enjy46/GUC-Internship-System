@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Internship Portal | SCAD System</title>
-  <link rel="stylesheet" href="student/css/student_base.css" />
-  <link rel="stylesheet" href="student/css/courses.css" />
+  <link rel="stylesheet" href="css/student_base.css" />
+  <link rel="stylesheet" href="css/courses.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
@@ -98,45 +98,61 @@
     .modal {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       background: rgba(0, 0, 0, 0.6);
       justify-content: center;
       align-items: center;
+      z-index: 1000;
     }
 
     .modal-content {
-      background: #fff;
+      background: white;
       padding: 2rem;
       border-radius: 12px;
       width: 90%;
-      max-width: 400px;
+      max-width: 500px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-      text-align: center;
     }
 
     .modal-content h3 {
-      margin-bottom: 1rem;
+      color: #0d1b2a;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
     }
 
     .modal-content input[type="file"] {
-      margin-bottom: 1rem;
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
     }
 
     .modal-content button {
-      margin-top: 0.5rem;
-      padding: 0.6rem 1.2rem;
-      border-radius: 8px;
-      border: none;
+      width: 100%;
+      padding: 0.8rem;
       background-color: #0d1b2a;
       color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-content button:hover {
+      background-color: #1b263b;
     }
 
     .success-message {
-      color: green;
-      font-weight: 600;
+      color: #4CAF50;
+      font-weight: 500;
       margin-top: 1rem;
+      text-align: center;
     }
 
     footer {
@@ -185,34 +201,50 @@
 
     .header-icons {
       position: absolute;
-      right: 20px;
+      right: 120px;
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
     }
 
-    .icon-link {
-      color: white;
-      text-decoration: none;
+    .notification-icon {
       position: relative;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      width: 35px;
+      height: 35px;
+    }
+
+    .notification-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-icon i {
+      font-size: 1.2rem;
+      color: white;
     }
 
     .notification-badge {
       position: absolute;
-      top: -8px;
-      right: -8px;
-      background-color: #ef4444;
+      top: -5px;
+      right: -5px;
+      background-color: #ff4444;
       color: white;
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       font-size: 0.75rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      border: 2px solid #0d1b2a;
     }
 
     .profile-dropdown {
@@ -281,55 +313,38 @@
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
-          <li><a href="internship_portal.html" class="nav-link active"><i class="fas fa-briefcase"></i>Available Internships</a></li>
-          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
-          <li><a href="workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
-          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
-          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="student_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="student_internship_portal.html" class="nav-link active"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="student_application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
+          <li><a href="student_internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="courses.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
         </ul>
       </nav>
     </aside>
 
     <main class="main-content">
-      <header class="main-header" style="background-color: #0d1b2a; color: #ffffff; padding: 4rem 5rem; text-align: center; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); position: relative; width: 100%;">
-        <h1 style="margin: 0; font-size: 2rem; font-weight: 600; color: #ffffff;">Available Internships</h1>
-        
-        <div class="header-icons" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 1.5rem;">
+      <header class="main-header">
+        <h1>Available Internships</h1>
+        <div class="header-icons">
           <!-- Notification Icon -->
-          <a href="notifications_pro.html" class="icon-link" style="color: white; text-decoration: none; position: relative;">
-            <i class="fas fa-bell" style="font-size: 1.5rem;">
-              <span class="notification-badge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center;">3</span>
-            </i>
+          <a href="notifications.html" class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
           </a>
           
           <!-- Profile Icon with Dropdown -->
-          <div style="position: relative; display: inline-block;">
-            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
-              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
+              <i class="fas fa-user-circle"></i>
             </a>
-            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
-                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
-                 border-radius: 8px; z-index: 1; margin-top: 10px;">
-              <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
-                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
-              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
-                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+              <a href="../login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
-          </div>
-      
-          <!-- Pro Badge -->
-          <div class="pro-badge-container" style="display: flex; flex-direction: column; align-items: center;">
-            <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-            <span class="pro-badge-text" style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
           </div>
         </div>
       </header>
-      
-      
 
       <div class="container">
         <div class="filters">
@@ -368,7 +383,7 @@
   </div>
 
   <footer>
-    <p>&copy; 2025 SCAD System. All rights reserved.</p>
+    <p>&copy; 2025 GUC Internship System. All rights reserved.</p>
   </footer>
 
   <script>

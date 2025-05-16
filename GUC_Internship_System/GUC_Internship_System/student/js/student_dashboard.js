@@ -45,7 +45,6 @@ function loadSuggestedJobs() {
 
   // Filter and sort jobs based on student profile
   const filteredJobs = jobs.filter(job => {
-    if (!studentProfile.interests) return true;
     const interests = studentProfile.interests.toLowerCase();
     return job.title.toLowerCase().includes(interests) || 
            job.description.toLowerCase().includes(interests);
@@ -102,51 +101,6 @@ function loadSuggestedJobs() {
     `;
     jobCard.appendChild(matchReason);
 
-    jobListContainer.appendChild(jobCard);
-  });
-}
-
-function searchJobs() {
-  const searchInput = document.getElementById('jobSearchInput');
-  const searchTerm = searchInput.value.toLowerCase();
-  const jobListContainer = document.getElementById('jobListContainer');
-  
-  // Filter jobs based on search term
-  const filteredJobs = internships.filter(job => 
-    job.title.toLowerCase().includes(searchTerm) ||
-    job.company.toLowerCase().includes(searchTerm) ||
-    job.description.toLowerCase().includes(searchTerm)
-  );
-  
-  // Clear existing content
-  jobListContainer.innerHTML = '';
-
-  // If no results, show a styled "no results" card
-  if (filteredJobs.length === 0) {
-    const noResultsCard = document.createElement('div');
-    noResultsCard.className = 'job-card no-results';
-    noResultsCard.innerHTML = `
-      <p>No jobs found matching your criteria.</p>
-    `;
-    jobListContainer.appendChild(noResultsCard);
-    return;
-  }
-
-  // Add filtered job cards
-  filteredJobs.forEach(job => {
-    const jobCard = document.createElement('div');
-    jobCard.className = 'job-card';
-    jobCard.innerHTML = `
-      <h3>${job.title}</h3>
-      <div class="company">
-        <span>${job.company}</span>
-        <span class="rating">${job.rating} ★</span>
-      </div>
-      <div class="location">
-        <span>${job.location}</span>
-      </div>
-      <p class="description">${job.description}</p>
-    `;
     jobListContainer.appendChild(jobCard);
   });
 }
