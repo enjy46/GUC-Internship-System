@@ -1469,6 +1469,18 @@
       document.getElementById("profileDropdown").addEventListener('click', function(event) {
         event.stopPropagation();
       });
+
+      // Add notification badge functionality
+      function updateNotificationBadge() {
+        const unreadCount = 3; // Hardcoded to 3 notifications
+        const badge = document.getElementById('notificationBadge');
+        badge.textContent = unreadCount;
+        badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+      }
+
+      window.onload = function() {
+        updateNotificationBadge();
+      };
     </script>
   </body>
 </html>

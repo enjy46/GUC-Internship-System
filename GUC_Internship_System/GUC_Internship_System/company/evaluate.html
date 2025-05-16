@@ -237,7 +237,7 @@
                 <i class="fas fa-bell" style="font-size: 1.4rem;">
                   <span id="notificationBadge" style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
                         border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
-                        align-items: center; justify-content: center;">0</span>
+                        align-items: center; justify-content: center;">3</span>
                 </i>
               </a>
               
@@ -322,6 +322,18 @@
           window.location.href = 'company_dashboard.html';
         }, 2000);
       });
+
+      // Add notification badge functionality
+      function updateNotificationBadge() {
+        const unreadCount = 3; // Hardcoded to 3 notifications
+        const badge = document.getElementById('notificationBadge');
+        badge.textContent = unreadCount;
+        badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+      }
+
+      window.onload = function() {
+        updateNotificationBadge();
+      };
     </script>
   </body>
 </html>

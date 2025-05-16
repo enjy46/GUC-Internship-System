@@ -514,8 +514,7 @@
 
       // Add notification badge functionality
       function updateNotificationBadge() {
-        // This would typically fetch the actual count from your backend
-        const unreadCount = 3; // Example count
+        const unreadCount = 3; // Hardcoded to 3 notifications
         const badge = document.getElementById('notificationBadge');
         badge.textContent = unreadCount;
         badge.style.display = unreadCount > 0 ? 'flex' : 'none';

@@ -245,7 +245,7 @@
     }
 
     function updateNotificationBadge() {
-      const unreadCount = notifications.filter(notification => !notification.isRead).length;
+      const unreadCount = 3; // Hardcoded to 3 notifications
       const badge = document.getElementById('notificationBadge');
       badge.textContent = unreadCount;
       badge.style.display = unreadCount > 0 ? 'flex' : 'none';
