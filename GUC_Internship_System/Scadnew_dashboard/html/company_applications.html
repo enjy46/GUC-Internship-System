@@ -6,29 +6,208 @@
   <title>Company Applications Overview</title>
   <link rel="stylesheet" href="../css/company_applications.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script src="https://unpkg.com/lucide@0.263.0/dist/umd/lucide.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <style>
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color:#555555;
+      transform: translateX(5px);
+    }
+
+
+    .nav-link.active {
+      background-color: #555555;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
+
+    .main-content {
+      margin-left: 250px;
+      flex: 1;
+      background-color: #f4f8fc;
+      padding-bottom: 2rem;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    .main-header {
+      background-color: #0d1b2a;
+      color: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .main-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .header-icons {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard-container">
-    <!-- Sidebar -->
-    <aside class="sidebar collapsed">
-      <button class="toggle-sidebar-btn">
-        <i data-lucide="menu" class="icon"></i>
-      </button>
-      <h2 class="sidebar-title">SCAD System</h2>
-      <ul class="sidebar-menu">
-      <li><a href="Scadnew_dashboard.html" class="sidebar-link"><i data-lucide="home" class="icon"></i> <span class="link-text">Dashboard</span></a></li>
-        <li><a href="company_applications.html" class="sidebar-link active"><i data-lucide="briefcase" class="icon"></i> <span class="link-text">Company Applications</span></a></li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="user" class="icon"></i> <span class="link-text">Profile</span></a></li>
-        <li><a href="#" class="sidebar-link"><i data-lucide="settings" class="icon"></i> <span class="link-text">Settings</span></a></li>
-      </ul>
+  <div class="app-container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>SCAD<br>Portal</h2>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="Scadnew_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="company_applications.html" class="nav-link active"><i class="fas fa-briefcase"></i>Company Applications</a></li>
+          <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
+          <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
+          <li><a href="scad_workshops.html" class="nav-link"><i class="fas fa-calendar"></i>Workshops</a></li>
+          <li><a href="appts_calls.html" class="nav-link"><i class="fas fa-file-alt"></i>Appointments & Calls</a></li>
+        </ul>
+      </nav>
     </aside>
 
-    <!-- Main Content -->
-    <div class="main-content">
-      <header>
+    <main class="main-content">
+      <header class="main-header">
         <h1>Company Applications Overview</h1>
+        <div class="header-icons">
+          <!-- Notification Icon -->
+          <a href="Scad_notifications.html" class="icon-link">
+            <i class="fas fa-bell" style="font-size: 1.4rem;">
+              <span class="notification-badge">3</span>
+            </i>
+          </a>
+          
+          <!-- Profile Icon with Dropdown -->
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            </a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="advisor_profile.html"><i class="fas fa-user"></i> My Profile</a>
+              <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+          </div>
+        </div>
       </header>
 
       <main class="container">
@@ -66,17 +245,42 @@
           </section>
         </div>
       </main>
-    </div>
+    </main>
   </div>
+
+  <footer>
+    <p>© 2025 GUC Internship System. All rights reserved.</p>
+  </footer>
 
   <script src="../js/company_applications.js"></script>
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
+
+    // Function to toggle profile dropdown
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      
+      if (!profileIcon && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
   </script>
 </body>
-
-<footer>
-    <p>© 2025 SCAD System. All rights reserved.</p>
-  </footer>
 </html>

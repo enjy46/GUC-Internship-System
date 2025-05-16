@@ -78,12 +78,12 @@
     }
 
     .nav-link:hover {
-      background-color: #2c3e50;
+      background-color:#555555;
       transform: translateX(5px);
     }
 
     .nav-link.active {
-      background-color: #001f3f;
+      background-color: #555555;
       border-left: 4px solid #4CAF50;
       font-weight: 600;
     }
@@ -94,7 +94,6 @@
       background-color: #f4f8fc;
       padding-bottom: 2rem;
       transition: margin-left 0.3s ease-in-out;
-      width: 100%;
     }
 
     .main-header {
@@ -104,12 +103,6 @@
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       position: relative;
-      width: 100%;
-      max-width: 1500px;
-      height: 131.2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .main-header h1 {
@@ -117,6 +110,69 @@
       font-size: 1.8rem;
       font-weight: 600;
       color: #ffffff;
+    }
+
+    .header-icons {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .icon-link {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: #ef4444;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      z-index: 1;
+      margin-top: 10px;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f8f9fa;
     }
 
     .pro-badge {
@@ -422,19 +478,18 @@
   <div class="app-container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>Internship Portal</h2>
+        <h2>SCAD<br>Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="pro_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
-          <li><a href="internship_portal.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
-          <li><a href="application.html" class="nav-link"><i class="fas fa-paper-plane"></i>Applications</a></li>
-          <li><a href="internship_history.html" class="nav-link"><i class="fas fa-history"></i>Past & Present Internships</a></li>
-          <li><a href="workshops.html" class="nav-link active"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
-          <li><a href="appointments.html" class="nav-link"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
-          <li><a href="assessments.html" class="nav-link"><i class="fas fa-clipboard-list"></i>Online Assessments</a></li>
-          <li><a href="reports_pro.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="courses_pro.html" class="nav-link"><i class="fas fa-book"></i>Courses</a></li>
+          <li><a href="Scadnew_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+          <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+          <li><a href="company_applications.html" class="nav-link"><i class="fas fa-briefcase"></i>Company Applications</a></li>
+          <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+          <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
+          <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
+          <li><a href="scad_workshops.html" class="nav-link active"><i class="fas fa-calendar"></i>Workshops</a></li>
+          <li><a href="appts_calls.html" class="nav-link"><i class="fas fa-file-alt"></i>Appointments & Calls</a></li>
         </ul>
       </nav>
     </aside>
@@ -442,30 +497,22 @@
     <main class="main-content">
       <header class="main-header">
         <h1>Workshops</h1>
-        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
-          <a href="notifications_pro.html" style="color: white; text-decoration: none; position: relative;">
+        <div class="header-icons">
+          <!-- Notification Icon -->
+          <a href="Scad_notifications.html" class="icon-link">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
-              <span style="position: absolute; top: -8px; right: -8px; background-color: #ef4444; color: white; 
-                    border-radius: 50%; width: 18px; height: 18px; font-size: 0.75rem; display: flex; 
-                    align-items: center; justify-content: center;">3</span>
+              <span class="notification-badge">3</span>
             </i>
           </a>
-          <div style="position: relative; display: inline-block;">
-            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
+          
+          <!-- Profile Icon with Dropdown -->
+          <div class="profile-dropdown">
+            <a onclick="toggleDropdown()" class="icon-link">
               <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
             </a>
-            <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
-                 background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
-                 border-radius: 8px; z-index: 1000; margin-top: 10px;">
-              <a href="pro_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
-                 display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
-              <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
-                 display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            <div id="profileDropdown" class="dropdown-content">
+              <a href="../../GUC_Internship_System/login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
-          </div>
-          <div style="display: flex; flex-direction: column; align-items: center;">
-            <img src="assets/pro_badge.png" alt="Pro Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-            <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Completed your 3+ months internship</span>
           </div>
         </div>
       </header>
@@ -749,7 +796,6 @@
       }
     }
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', function(event) {
       var dropdown = document.getElementById("profileDropdown");
       var profileIcon = event.target.closest('.fa-user-circle');

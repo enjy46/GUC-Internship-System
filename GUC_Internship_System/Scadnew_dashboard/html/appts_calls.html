@@ -23,6 +23,72 @@
       --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: linear-gradient(180deg, #0d1b2a 0%, #1b263b 100%);
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow-y: auto;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+     
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-link i {
+      margin-right: 0.75rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color:#555555;
+      transform: translateX(5px);
+    }
+
+    .nav-link.active {
+      background-color: #555555;
+      border-left: 4px solid #4CAF50;
+      font-weight: 600;
+    }
+
     .main-content {
       margin-left: 250px;
       flex: 1;
@@ -39,12 +105,6 @@
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       position: relative;
-      width: 100%;
-      max-width: 1500px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     .main-header h1 {
@@ -55,22 +115,24 @@
     }
 
     .dashboard-container {
+      display: grid;
+      gap: 2rem;
+      padding: 1rem;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem;
     }
 
     .card {
       background: white;
-      border-radius: 24px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      padding: 2.5rem;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       margin-bottom: 2rem;
     }
 
     .card h2 {
       color: var(--primary-color);
-      font-size: 1.8rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 2rem;
       display: flex;
@@ -80,10 +142,41 @@
       border-bottom: 2px solid #eef2f7;
     }
 
-    .card h2 i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      opacity: 0.9;
+    .header-controls {
+      position: absolute;
+      top: 50%;
+      right: 2rem;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-controls a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ef4444;
+      color: white;
+      border-radius: 12px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      min-width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #0d1b2a;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 
     /* Form Styling */
@@ -104,11 +197,11 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 1rem;
+      padding: 0.75rem 1rem;
       border: 2px solid #e0e0e0;
       border-radius: 12px;
-      font-size: 1rem;
-      transition: var(--transition-base);
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
       background-color: white;
       color: var(--text-primary);
     }
@@ -139,13 +232,13 @@
     .btn {
       background: var(--primary-color);
       color: white;
-      padding: 1rem 2rem;
+      padding: 0.75rem 1.5rem;
       border: none;
       border-radius: 12px;
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       cursor: pointer;
-      transition: var(--transition-base);
+      transition: all 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
@@ -353,7 +446,7 @@
       padding: 1.5rem;
       display: flex;
       gap: 2rem;
-      transition: var(--transition-base);
+      transition: all 0.3s ease;
       border: 1px solid #eef2f7;
     }
 
@@ -712,7 +805,6 @@
       }
     }
 
-    /* Add these new styles */
     .online-status {
       display: flex;
       align-items: center;
@@ -959,6 +1051,24 @@
       border-radius: 50%;
     }
 
+    .sidebar-header {
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .sidebar-header h2 {
+      margin: 0;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .sidebar-header h2 span {
+      color: white;
+    }
+
     .offline {
       .status-indicator,
       .online-indicator,
@@ -1132,16 +1242,18 @@
   <div class="app-container">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h2>Advisor Dashboard</h2>
+        <h2>SCAD<br>Portal</h2>
       </div>
       <nav class="sidebar-nav">
         <ul>
-          <li><a href="advisor_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
-          <li><a href="student_profiles.html" class="nav-link"><i class="fas fa-users"></i>Student Profiles</a></li>
-          <li><a href="advisor_appointments.html" class="nav-link active"><i class="fas fa-calendar-check"></i>Appointments & Calls</a></li>
-          <li><a href="advisor_reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
-          <li><a href="advisor_workshops.html" class="nav-link"><i class="fas fa-chalkboard-teacher"></i>Workshops</a></li>
-          <li><a href="advisor_resources.html" class="nav-link"><i class="fas fa-book"></i>Resources</a></li>
+            <li><a href="Scadnew_dashboard.html" class="nav-link"><i class="fas fa-home"></i>Dashboard</a></li>
+            <li><a href="reports.html" class="nav-link"><i class="fas fa-file-alt"></i>Reports</a></li>
+            <li><a href="company_applications.html" class="nav-link"><i class="fas fa-briefcase"></i>Company Applications</a></li>
+            <li><a href="available_internships.html" class="nav-link"><i class="fas fa-briefcase"></i>Available Internships</a></li>
+            <li><a href="cycle_date.html" class="nav-link"><i class="fas fa-calendar"></i>Internship Cycle</a></li>
+            <li><a href="student_list.html" class="nav-link"><i class="fas fa-users"></i>Student List</a></li>
+            <li><a href="scad_workshops.html" class="nav-link" id="openCycleModal"><i class="fas fa-calendar"></i>Workshops</a></li>
+            <li><a href="appts_calls.html" class="nav-link active"><i class="fas fa-file-alt"></i>Appointments & Calls</a></li>
         </ul>
       </nav>
     </aside>
@@ -1149,34 +1261,24 @@
     <main class="main-content">
       <header class="main-header">
         <h1>Advisor Appointments Dashboard</h1>
-        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
-            <!-- Online Status -->
-        
+        <div class="header-controls">
             <!-- Notification Icon -->
-            <a href="advisor_notifications.html" style="color: white; text-decoration: none; position: relative;">
-                <i class="fas fa-bell" style="font-size: 1.4rem;">
-                    <span class="notification-badge">3</span>
-                </i>
+            <a href="advisor_notifications.html" style="position: relative;">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
             </a>
             
             <!-- Profile Icon with Dropdown -->
-            <div style="position: relative; display: inline-block;">
-                <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
-                    <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            <div style="position: relative;">
+                <a onclick="toggleDropdown()" style="cursor: pointer;">
+                    <i class="fas fa-user-circle"></i>
                 </a>
                 <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
                      background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
                      border-radius: 8px; z-index: 1000; margin-top: 10px;">
-                    <a href="advisor_profile.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
-                       display: block; font-size: 0.9rem;"><i class="fas fa-user"></i> My Profile</a>
-                    <a href="login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
+                    <a href="../../GUC_Internship_System/login.html" style="color: #333; padding: 12px 16px; text-decoration: none; 
                        display: block; font-size: 0.9rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
                 </div>
-            </div>
-            <!-- Advisor Badge -->
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                <img src="assets/advisor_badge.png" alt="Advisor Badge" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
-                <span style="font-size: 0.9rem; font-weight: 500; color: white; margin-top: 1px; text-align: center; max-width: 150px;">Career Advisor</span>
             </div>
         </div>
       </header>
