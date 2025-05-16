@@ -94,16 +94,24 @@
         box-shadow: 0 0 0 4px rgba(13, 27, 42, 0.1);
       }
 
+      .form-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: flex-end;
+      }
+
       #jobPostForm button {
         background-color: #0d1b2a;
         color: white;
         border: none;
-        padding: 0.75rem 1rem;
+        padding: 0.75rem 1.5rem;
         border-radius: 6px;
         font-size: 1rem;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
+        min-width: 150px;
       }
 
       #jobPostForm button:hover {
@@ -112,63 +120,12 @@
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       }
 
-      /* Table styles */
-      #jobPostsTable {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        background: white;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      #cancelBtn {
+        background-color: #6c757d !important;
       }
 
-      #jobPostsTable th,
-      #jobPostsTable td {
-        padding: 1rem;
-        text-align: left;
-        border-bottom: 1px solid #eee;
-      }
-
-      #jobPostsTable th {
-        background-color: #f8f9fa;
-        font-weight: 600;
-        color: #0d1b2a;
-      }
-
-      #jobPostsTable tr:hover {
-        background-color: #f8f9fa;
-      }
-
-      /* Action buttons in table */
-      #jobPostsTable .action-btn {
-        background-color: #0d1b2a;
-        color: white;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        cursor: pointer;
-        margin-right: 0.5rem;
-        min-width: 60px;
-        text-align: center;
-        display: inline-block;
-        transition: all 0.3s ease;
-      }
-
-      #jobPostsTable .action-btn:hover {
-        background-color: #2c3e50;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      }
-
-      #jobPostsTable .delete-btn {
-        background-color: #c62828;
-      }
-
-      #jobPostsTable .delete-btn:hover {
-        background-color: #b71c1c;
+      #cancelBtn:hover {
+        background-color: #5a6268 !important;
       }
 
       /* Toast Notification styles */
@@ -204,6 +161,243 @@
         0%, 100% { transform: translateX(0); }
         25% { transform: translateX(-5px); }
         75% { transform: translateX(5px); }
+      }
+
+      /* Update job post card styles */
+      .job-post-card {
+        background-color: #f1f8ff;
+        border: 1px solid #cce0ff;
+        border-radius: 10px;
+        padding: 1.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        position: relative;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .job-post-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .job-post-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 4px;
+        background-color: #1e88e5;
+        border-radius: 10px 0 0 10px;
+      }
+
+      .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .card-header h4 {
+        margin: 0;
+        color: #0d1b2a;
+        font-size: 1.2rem;
+      }
+
+      .company-name {
+        color: #2c3e50;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .job-post-card p {
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+        color: #2c3e50;
+        line-height: 1.4;
+      }
+
+      .job-post-card .actions {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e0e0e0;
+        justify-content: flex-end;
+      }
+
+      .edit-btn, .delete-btn {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .edit-btn {
+        background-color: #0d1b2a;
+        color: white;
+      }
+
+      .delete-btn {
+        background-color: #dc3545;
+        color: white;
+      }
+
+      .edit-btn:hover, .delete-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        background-color: white;
+        margin: 2rem auto;
+        padding: 0;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+
+      .modal-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        color: #0d1b2a;
+        font-size: 1.5rem;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: #666;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+      }
+
+      .close-modal:hover {
+        color: #0d1b2a;
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+
+      .header-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .header-actions h3 {
+        margin: 0;
+      }
+
+      #createJobPostBtn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background-color: #0d1b2a;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      #createJobPostBtn:hover {
+        background-color: #2c3e50;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .form-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+        justify-content: flex-end;
+      }
+
+      .secondary-button {
+        background-color: #6c757d;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .secondary-button:hover {
+        background-color: #5a6268;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Delete confirmation modal styles */
+      #deleteConfirmModal .modal-content {
+        text-align: center;
+      }
+
+      #deleteConfirmModal p {
+        font-size: 1.1rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+      }
+
+      #deleteConfirmModal .form-buttons {
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      #deleteConfirmModal .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      #deleteConfirmModal .delete-btn:hover {
+        background-color: #c82333;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       }
     </style>
   </head>
@@ -281,47 +475,77 @@
 
         <div class="dashboard-container">
           <div class="job-posts-container">
-            <h3>Manage Job Posts</h3>
-            <form id="jobPostForm">
-              <label for="jobTitle">Job Title:</label>
-              <input type="text" id="jobTitle" name="jobTitle" required />
+            <div class="header-actions">
+              <h3>Current Job Posts</h3>
+              <button id="createJobPostBtn" class="primary-button">
+                <i class="fas fa-plus"></i> Create New Job Post
+              </button>
+            </div>
+            <div class="job-posts-list" id="jobPostsList">
+              <!-- Job posts will be dynamically added here -->
+            </div>
+          </div>
+        </div>
 
-              <label for="jobDescription">Job Description:</label>
-              <textarea id="jobDescription" name="jobDescription" rows="4" required></textarea>
+        <!-- Create Job Post Modal -->
+        <div id="createJobPostModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Create New Job Post</h3>
+              <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form id="jobPostForm">
+                <div class="form-group">
+                  <label for="jobTitle">Job Title:</label>
+                  <input type="text" id="jobTitle" required>
+                </div>
+                <div class="form-group">
+                  <label for="jobDescription">Job Description:</label>
+                  <textarea id="jobDescription" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="duration">Duration (months):</label>
+                  <input type="number" id="duration" min="1" max="12" required>
+                </div>
+                <div class="form-group">
+                  <label for="compensationType">Compensation Type:</label>
+                  <select id="compensationType" required>
+                    <option value="paid">Paid</option>
+                    <option value="unpaid">Unpaid</option>
+                  </select>
+                </div>
+                <div class="form-group" id="salaryGroup" style="display: none;">
+                  <label for="salary">Salary (per month):</label>
+                  <input type="number" id="salary" min="0">
+                </div>
+                <div class="form-group">
+                  <label for="requiredSkills">Required Skills:</label>
+                  <textarea id="requiredSkills" rows="3" required></textarea>
+                </div>
+                <div class="form-buttons">
+                  <button type="button" class="secondary-button" id="cancelBtn">Cancel</button>
+                  <button type="submit" class="primary-button">Create Job Post</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
-              <label for="requirements">Requirements:</label>
-              <textarea id="requirements" name="requirements" rows="3" required></textarea>
-
-              <label for="duration">Internship Duration (months):</label>
-              <input type="number" id="duration" name="duration" min="1" max="12" required />
-
-              <label for="startDate">Start Date:</label>
-              <input type="date" id="startDate" name="startDate" required />
-
-              <label for="location">Location:</label>
-              <input type="text" id="location" name="location" required />
-
-              <label for="stipend">Monthly Stipend:</label>
-              <input type="number" id="stipend" name="stipend" min="0" required />
-
-              <button type="submit">Post Job</button>
-            </form>
-
-            <h3>Current Job Posts</h3>
-            <table id="jobPostsTable">
-              <thead>
-                <tr>
-                  <th>Title</th>
-                  <th>Duration</th>
-                  <th>Start Date</th>
-                  <th>Location</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Job posts will be dynamically added here -->
-              </tbody>
-            </table>
+        <!-- Delete Confirmation Modal -->
+        <div id="deleteConfirmModal" class="modal">
+          <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+              <h3>Confirm Delete</h3>
+              <button class="close-modal" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete this job post?</p>
+              <div class="form-buttons">
+                <button class="secondary-button" onclick="closeDeleteModal()">Cancel</button>
+                <button class="delete-btn" id="confirmDeleteBtn">Delete</button>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -331,37 +555,330 @@
       </main>
     </div>
 
-    <script src="../js/job-posts.js"></script>
+    <script src="../js/job-posts.js" defer></script>
     <script>
-      function showNotification(message, type) {
-        const notificationDiv = document.createElement('div');
-        notificationDiv.textContent = message;
-        notificationDiv.className = `toast-notification ${type}`;
-        notificationDiv.setAttribute('role', 'alert');
-        document.body.appendChild(notificationDiv);
+      // Add console log to check if script is loaded
+      console.log('Job posts page loaded');
+      
+      // Check if table body exists
+      document.addEventListener('DOMContentLoaded', function() {
+        const tableBody = document.querySelector('#jobPostsTable tbody');
+        console.log('Table body element:', tableBody);
+      });
 
-        setTimeout(() => {
-          notificationDiv.classList.add('show');
-        }, 100);
+      // Mock data for job posts
+      const mockJobPosts = [
+        {
+          title: "Software Development Intern",
+          company: "TechCorp",
+          description: "Join our dynamic team to work on cutting-edge web applications using modern technologies.",
+          duration: 3,
+          compensationType: "paid",
+          salary: 1500,
+          requiredSkills: "JavaScript, React, Node.js, Git",
+          industry: "Technology",
+          location: "Cairo, Egypt",
+          startDate: "2024-06-01"
+        },
+        {
+          title: "Data Science Intern",
+          company: "DataFlow Analytics",
+          description: "Work with large datasets and develop machine learning models for business insights.",
+          duration: 4,
+          compensationType: "paid",
+          salary: 1800,
+          requiredSkills: "Python, SQL, Machine Learning, Data Analysis",
+          industry: "Data Science",
+          location: "Giza, Egypt",
+          startDate: "2024-07-01"
+        },
+        {
+          title: "Marketing Intern",
+          company: "BrandBoost",
+          description: "Help create and implement marketing strategies for various client campaigns.",
+          duration: 2,
+          compensationType: "unpaid",
+          requiredSkills: "Social Media Marketing, Content Creation, Analytics",
+          industry: "Marketing",
+          location: "Remote",
+          startDate: "2024-05-15"
+        },
+        {
+          title: "UI/UX Design Intern",
+          company: "DesignHub",
+          description: "Create beautiful and intuitive user interfaces for web and mobile applications.",
+          duration: 3,
+          compensationType: "paid",
+          salary: 1200,
+          requiredSkills: "Figma, Adobe XD, UI Design, User Research",
+          industry: "Design",
+          location: "Cairo, Egypt",
+          startDate: "2024-06-15"
+        }
+      ];
 
-        notificationDiv.addEventListener('click', () => {
-          notificationDiv.classList.remove('show');
-          setTimeout(() => notificationDiv.remove(), 300);
-        });
+      let jobPostToDelete = null;
 
-        setTimeout(() => {
-          notificationDiv.classList.remove('show');
-          setTimeout(() => notificationDiv.remove(), 300);
-        }, 5000);
+      // Function to show delete confirmation modal
+      function showDeleteModal(index) {
+        jobPostToDelete = index;
+        const modal = document.getElementById('deleteConfirmModal');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
       }
 
-      document.getElementById('jobPostForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        showNotification('Job posted successfully!', 'success');
-        setTimeout(() => {
-          window.location.href = 'company_dashboard.html';
-        }, 2000);
+      // Function to close delete confirmation modal
+      function closeDeleteModal() {
+        const modal = document.getElementById('deleteConfirmModal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        jobPostToDelete = null;
+      }
+
+      // Function to delete job post
+      function deleteJobPost(index) {
+        showDeleteModal(index);
+      }
+
+      // Function to confirm delete
+      function confirmDelete() {
+        if (jobPostToDelete !== null) {
+          mockJobPosts.splice(jobPostToDelete, 1);
+          renderJobPosts();
+          closeDeleteModal();
+          showNotification('Job post deleted successfully!', 'success');
+        }
+      }
+
+      // Function to render job posts
+      function renderJobPosts() {
+        const jobPostsList = document.getElementById('jobPostsList');
+        jobPostsList.innerHTML = ''; // Clear the list
+        
+        mockJobPosts.forEach((post, index) => {
+          const card = document.createElement('div');
+          card.className = 'job-post-card';
+          card.innerHTML = `
+            <div class="card-header">
+              <h4>${post.title}</h4>
+              <span class="company-name">${post.company}</span>
+            </div>
+            <p><strong>Description:</strong> ${post.description}</p>
+            <p><strong>Duration:</strong> ${post.duration} months</p>
+            <p><strong>Industry:</strong> ${post.industry}</p>
+            <p><strong>Location:</strong> ${post.location}</p>
+            <p><strong>Start Date:</strong> ${post.startDate}</p>
+            <p><strong>Type:</strong> ${post.compensationType === 'paid' ? 'Paid' : 'Unpaid'}</p>
+            ${post.compensationType === 'paid' ? `<p><strong>Salary:</strong> $${post.salary}/month</p>` : ''}
+            <p><strong>Required Skills:</strong> ${post.requiredSkills}</p>
+            <div class="actions">
+              <button class="edit-btn" onclick="editJobPost(${index})">
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button class="delete-btn" onclick="deleteJobPost(${index})">
+                <i class="fas fa-trash"></i> Delete
+              </button>
+            </div>
+          `;
+          jobPostsList.appendChild(card);
+        });
+      }
+
+      // Function to edit job post
+      function editJobPost(index) {
+        const post = mockJobPosts[index];
+        
+        // Fill the form with the job post data
+        document.getElementById('jobTitle').value = post.title;
+        document.getElementById('jobDescription').value = post.description;
+        document.getElementById('duration').value = post.duration;
+        document.getElementById('compensationType').value = post.compensationType;
+        document.getElementById('salary').value = post.salary || '';
+        document.getElementById('requiredSkills').value = post.requiredSkills;
+        
+        // Show/hide salary field based on compensation type
+        document.getElementById('salaryGroup').style.display = 
+          post.compensationType === 'paid' ? 'block' : 'none';
+        
+        // Show the modal
+        const modal = document.getElementById('createJobPostModal');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Update modal title and button text
+        document.querySelector('.modal-header h3').textContent = 'Edit Job Post';
+        const submitButton = document.querySelector('#jobPostForm button[type="submit"]');
+        submitButton.textContent = 'Update Job Post';
+        
+        // Update form submission to handle edit
+        const form = document.getElementById('jobPostForm');
+        const originalSubmitHandler = form.onsubmit;
+        
+        form.onsubmit = function(e) {
+          e.preventDefault();
+          
+          // Update the job post
+          mockJobPosts[index] = {
+            ...post,
+            title: document.getElementById('jobTitle').value,
+            description: document.getElementById('jobDescription').value,
+            duration: parseInt(document.getElementById('duration').value),
+            compensationType: document.getElementById('compensationType').value,
+            salary: document.getElementById('compensationType').value === 'paid' ? 
+                   parseInt(document.getElementById('salary').value) : null,
+            requiredSkills: document.getElementById('requiredSkills').value
+          };
+          
+          // Re-render the list
+          renderJobPosts();
+          
+          // Close modal and show success message
+          closeModal();
+          showNotification('Job post updated successfully!', 'success');
+          
+          // Restore original submit handler and button text
+          form.onsubmit = originalSubmitHandler;
+          submitButton.textContent = 'Create Job Post';
+          document.querySelector('.modal-header h3').textContent = 'Create New Job Post';
+        };
+      }
+
+      // Modal functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('createJobPostModal');
+        const createBtn = document.getElementById('createJobPostBtn');
+        const closeBtn = document.querySelector('.close-modal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const form = document.getElementById('jobPostForm');
+        const compensationType = document.getElementById('compensationType');
+        const salaryGroup = document.getElementById('salaryGroup');
+
+        // Open modal for new job post
+        createBtn.addEventListener('click', () => {
+          // Reset form and modal state
+          form.reset();
+          document.querySelector('.modal-header h3').textContent = 'Create New Job Post';
+          document.querySelector('#jobPostForm button[type="submit"]').textContent = 'Create Job Post';
+          salaryGroup.style.display = 'none';
+          
+          // Show modal
+          modal.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal functions
+        function closeModal() {
+          const modal = document.getElementById('createJobPostModal');
+          const form = document.getElementById('jobPostForm');
+          const submitButton = document.querySelector('#jobPostForm button[type="submit"]');
+          
+          modal.style.display = 'none';
+          document.body.style.overflow = 'auto';
+          form.reset();
+          document.getElementById('salaryGroup').style.display = 'none';
+          
+          // Reset button text and modal title
+          submitButton.textContent = 'Create Job Post';
+          document.querySelector('.modal-header h3').textContent = 'Create New Job Post';
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Toggle salary field visibility
+        compensationType.addEventListener('change', function() {
+          salaryGroup.style.display = this.value === 'paid' ? 'block' : 'none';
+        });
+
+        // Form submission for creating new job post
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          // Get form data
+          const formData = {
+            title: document.getElementById('jobTitle').value,
+            company: "Your Company", // This would come from the logged-in company
+            description: document.getElementById('jobDescription').value,
+            duration: parseInt(document.getElementById('duration').value),
+            compensationType: document.getElementById('compensationType').value,
+            salary: document.getElementById('compensationType').value === 'paid' ? 
+                   parseInt(document.getElementById('salary').value) : null,
+            requiredSkills: document.getElementById('requiredSkills').value,
+            industry: "Technology", // This could be added as a form field
+            location: "Cairo, Egypt", // This could be added as a form field
+            startDate: new Date().toISOString().split('T')[0] // Current date as default
+          };
+
+          // Add to mock data (in real app, this would be an API call)
+          mockJobPosts.unshift(formData);
+          
+          // Re-render the list
+          renderJobPosts();
+          
+          // Close modal and show success message
+          closeModal();
+          showNotification('Job post created successfully!', 'success');
+        });
+
+        // Add delete confirmation button handler
+        document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+
+        // Close delete modal when clicking outside
+        window.addEventListener('click', (e) => {
+          const deleteModal = document.getElementById('deleteConfirmModal');
+          if (e.target === deleteModal) {
+            closeDeleteModal();
+          }
+        });
+
+        // Initial render
+        renderJobPosts();
       });
+
+      // Function to show notification
+      function showNotification(message, type = 'success') {
+        // Remove any existing notifications
+        const existingNotification = document.querySelector('.toast-notification');
+        if (existingNotification) {
+          existingNotification.remove();
+        }
+
+        // Create new notification
+        const notification = document.createElement('div');
+        notification.className = `toast-notification ${type}`;
+        notification.textContent = message;
+
+        // Add to document
+        document.body.appendChild(notification);
+
+        // Trigger animation
+        setTimeout(() => {
+          notification.classList.add('show');
+        }, 100);
+
+        // Remove after 5 seconds
+        setTimeout(() => {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            notification.remove();
+          }, 400);
+        }, 5000);
+
+        // Allow clicking to dismiss
+        notification.addEventListener('click', () => {
+          notification.classList.remove('show');
+          setTimeout(() => {
+            notification.remove();
+          }, 400);
+        });
+      }
     </script>
   </body>
 </html>
