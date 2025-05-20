@@ -71,9 +71,9 @@
     </aside>
 
     <main class="main-content">
-      <header class="main-header">
-        <h1>Your Notifications</h1>
-        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+      <header class="main-header" style="background-color: #0d1b2a; color: #fff; padding: 3rem 3.5rem 2.5rem 2.5rem; position: relative; box-shadow: 0 2px 6px rgba(0,0,0,0.08);">
+        <h1 style="margin: 0; font-size: 2rem; font-weight: 600; color: #fff;">Your Notifications</h1>
+        <div style="position: absolute; top: 36px; right: 18px; display: flex; align-items: center; gap: 1.5rem;">
           <!-- Notification Icon -->
           <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
@@ -85,8 +85,8 @@
           
           <!-- Profile Icon with Dropdown -->
           <div style="position: relative; display: inline-block;">
-            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer;">
-              <i class="fas fa-user-circle" style="font-size: 1.4rem;"></i>
+            <a onclick="toggleDropdown()" style="color: white; text-decoration: none; cursor: pointer; display: flex; align-items: center;">
+              <i class="fas fa-user-circle" style="font-size: 1.4rem; vertical-align: middle;"></i>
             </a>
             <div id="profileDropdown" style="display: none; position: absolute; right: 0; top: 100%; 
                  background-color: white; min-width: 160px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
@@ -116,5 +116,29 @@
   </footer>
 
   <script src="js/notifications.js"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      if (!profileIcon && dropdown && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  </script>
 </body>
 </html>

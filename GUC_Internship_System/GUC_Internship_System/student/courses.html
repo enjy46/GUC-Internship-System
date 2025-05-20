@@ -235,8 +235,8 @@
 
     <main class="main-content">
       <header class="main-header">
-        <h1>Your Courses</h1>
-        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+        <h1>Courses</h1>
+        <div style="position: absolute; top: 36px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
           <!-- Notification Icon -->
           <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
@@ -288,5 +288,26 @@
   </footer>
 
   <script src="js/courses.js"></script>
+  <script>
+    function toggleDropdown() {
+      var dropdown = document.getElementById("profileDropdown");
+      if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+      } else {
+        dropdown.style.display = "none";
+      }
+    }
+    document.addEventListener('click', function(event) {
+      var dropdown = document.getElementById("profileDropdown");
+      var profileIcon = event.target.closest('.fa-user-circle');
+      if (!profileIcon && dropdown && dropdown.style.display === "block") {
+        dropdown.style.display = "none";
+      }
+    });
+    // Prevent dropdown from closing when clicking inside it
+    document.getElementById("profileDropdown").addEventListener('click', function(event) {
+      event.stopPropagation();
+    });
+  </script>
 </body>
 </html>

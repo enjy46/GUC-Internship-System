@@ -786,7 +786,7 @@
     <main class="main-content">
       <header class="main-header">
         <h1>Past & Present Internships</h1>
-        <div style="position: absolute; top: 6px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
+        <div style="position: absolute; top: 36px; right: 10px; display: flex; align-items: center; gap: 1.5rem;">
           <!-- Notification Icon -->
           <a href="notifications.html" style="color: white; text-decoration: none; position: relative;">
             <i class="fas fa-bell" style="font-size: 1.4rem;">
@@ -1221,6 +1221,18 @@
     // Prevent dropdown from closing when clicking inside it
     document.getElementById("profileDropdown").addEventListener('click', function(event) {
       event.stopPropagation();
+    });
+
+    // Highlight the current page in the sidebar navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      const path = window.location.pathname.split('/').pop();
+      document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => {
+        if (link.getAttribute('href') === path) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
     });
   </script>
 </body>
