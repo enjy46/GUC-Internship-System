@@ -695,11 +695,11 @@
                 ><i class="fas fa-home"></i>Dashboard</a
               >
             </li>
-            <li>
+            <!-- <li>
               <a href="register.html" class="nav-link"
                 ><i class="fas fa-user"></i>Register</a
               >
-            </li>
+            </li> -->
             <!-- <li>
               <a href="upload-documents.html" class="nav-link"
                 ><i class="fas fa-upload"></i>Upload Documents</a
@@ -716,7 +716,7 @@
               >
             </li> -->
             <li>
-              <a href="student_internship_portal.html" class="nav-link"
+              <a href="applications.html" class="nav-link"
                 ><i class="fas fa-paper-plane"></i>Applications</a
               >
             </li>
@@ -812,7 +812,7 @@
           <p><strong>Status:</strong> <span id="internStatus"></span></p>
         </div>
         <div class="modal-buttons">
-          <button class="action-btn evaluate-btn" id="evaluateIntern">
+          <button class="action-btn evaluate-btn" id="evaluateIntern" style="display: none;">
             <i class="fas fa-star"></i> Evaluate Intern
           </button>
           <button class="action-btn complete-btn" id="completeInternship">
@@ -1026,25 +1026,23 @@
         const intern = mockInterns.find(i => i.id === internId);
         if (!intern) return;
 
+        // Update modal content
         document.getElementById('internName').textContent = intern.name;
         document.getElementById('internPosition').textContent = intern.position;
         document.getElementById('internStartDate').textContent = intern.startDate;
         document.getElementById('internEndDate').textContent = intern.endDate || 'Ongoing';
         document.getElementById('internStatus').textContent = intern.status === 'current' ? 'Current Intern' : 'Internship Complete';
 
-        // Update action buttons based on status
+        // Show/hide evaluate button based on status
         const evaluateBtn = document.getElementById('evaluateIntern');
-        const completeBtn = document.getElementById('completeInternship');
+        evaluateBtn.style.display = intern.status === 'completed' ? 'flex' : 'none';
 
-        evaluateBtn.style.display = 'flex';
+        // Show/hide complete button based on status
+        const completeBtn = document.getElementById('completeInternship');
         completeBtn.style.display = intern.status === 'current' ? 'flex' : 'none';
 
-        // Store the intern ID in the buttons' dataset
-        evaluateBtn.dataset.internId = internId;
-        completeBtn.dataset.internId = internId;
-
-        const modal = document.getElementById('internModal');
-        modal.style.display = 'block';
+        // Show modal
+        document.getElementById('internModal').style.display = 'block';
       }
 
       // Function to close modal
